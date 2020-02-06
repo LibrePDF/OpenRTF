@@ -1,6 +1,6 @@
 # OpenRTF is an open source Java library for RFT files #
 
-OpenRTF is a Java library for creating and editing RTF files with a LGPL and MPL open source license.  We welcome contributions from other developers. Please feel free to submit pull-requests and bugreports to this GitHub repository.
+OpenRTF is a Java library for creating and editing RTF (Rich Text Format) files with a LGPL and MPL open source license.  We welcome contributions from other developers. Please feel free to submit pull-requests and bugreports to this GitHub repository.
 
 OpenRTF is branched out of OpenPDF - https://github.com/LibrePDF/OpenPDF
 
