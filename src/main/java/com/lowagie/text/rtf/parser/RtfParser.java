@@ -44,7 +44,7 @@
  *
  * If you didn't download this code from the following link, you should check if
  * you aren't using an obsolete version:
- * http://www.lowagie.com/iText/
+ * https://github.com/LibrePDF/openrtf
  */
 package com.lowagie.text.rtf.parser;
 
@@ -890,7 +890,7 @@ public class RtfParser {
 			RtfParser.outputDebug(this.rtfDoc, groupLevel, "DEBUG: handleOpenGroup()");
 			if(this.lastCtrlWordParam != null)
 				RtfParser.outputDebug(this.rtfDoc, groupLevel, "DEBUG: LastCtrlWord=" + this.lastCtrlWordParam.ctrlWord);
-			RtfParser.outputDebug(this.rtfDoc, groupLevel, "DEBUG: grouplevel=" + Integer.toString(groupLevel));
+			RtfParser.outputDebug(this.rtfDoc, groupLevel, "DEBUG: grouplevel=" + groupLevel);
 			RtfParser.outputDebug(this.rtfDoc, groupLevel, "DEBUG: destination=" + dest.toString());
 		}
 
@@ -899,7 +899,7 @@ public class RtfParser {
 		}
 		
 		if(debugParser) {
-			RtfParser.outputDebug(this.rtfDoc, groupLevel, "DEBUG: after dest.handleOpenGroup(); handled=" + Boolean.toString(handled));
+			RtfParser.outputDebug(this.rtfDoc, groupLevel, "DEBUG: after dest.handleOpenGroup(); handled=" + handled);
 		}
 		
 		return result;
@@ -938,7 +938,7 @@ public class RtfParser {
 				RtfParser.outputDebug(this.rtfDoc, groupLevel, "DEBUG: handleCloseGroup()");
 				if(this.lastCtrlWordParam != null)
 					RtfParser.outputDebug(this.rtfDoc, groupLevel, "DEBUG: LastCtrlWord=" + this.lastCtrlWordParam.ctrlWord);
-				RtfParser.outputDebug(this.rtfDoc, groupLevel, "DEBUG: grouplevel=" + Integer.toString(groupLevel));
+				RtfParser.outputDebug(this.rtfDoc, groupLevel, "DEBUG: grouplevel=" + groupLevel);
 				RtfParser.outputDebug(this.rtfDoc, groupLevel, "DEBUG: destination=" + this.getCurrentDestination().toString());
 				RtfParser.outputDebug(this.rtfDoc, groupLevel, "");
 			}
@@ -949,7 +949,7 @@ public class RtfParser {
 				handled = dest.handleCloseGroup();
 			}
 			if(debugParser) {
-				RtfParser.outputDebug(this.rtfDoc, groupLevel, "DEBUG: After dest.handleCloseGroup(); handled = " + Boolean.toString(handled));
+				RtfParser.outputDebug(this.rtfDoc, groupLevel, "DEBUG: After dest.handleCloseGroup(); handled = " + handled);
 				RtfParser.outputDebug(this.rtfDoc, groupLevel, "");
 			}
 		}

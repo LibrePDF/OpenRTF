@@ -44,7 +44,7 @@
  *
  * If you didn't download this code from the following link, you should check if
  * you aren't using an obsolete version:
- * http://www.lowagie.com/iText/
+ * https://github.com/LibrePDF/openrtf
  */
  
 package com.lowagie.text.rtf.document;
@@ -138,7 +138,7 @@ public final class RtfProtection {
 	 * <code>initialCodeArray</code> Table from ECMA-376 Specification
      * @since 2.1.1
 	 */
-	static final private int initialCodeArray[] = { 
+	static final private int[] initialCodeArray = {
 			0xE1F0, 
 			0x1D0F, 
 			0xCC9C, 
@@ -161,7 +161,7 @@ public final class RtfProtection {
 	 * <code>encryptionMatrix</code> Table from ECMA-376 Specification
      * @since 2.1.1
 	 */
-	static final private int encryptionMatrix [][] = {
+	static final private int[][] encryptionMatrix = {
 		/*              bit1    bit2    bit3    bit4    bit5    bit6    bit7   **bit8 is ignored** */
 		/* char 1  */ {0x1021, 0x2042, 0x4084, 0x8108, 0x1231, 0x2462, 0x48C4},
 		/* char 2  */ {0x3331, 0x6662, 0xCCC4, 0x89A9, 0x0373, 0x06E6, 0x0DCC},

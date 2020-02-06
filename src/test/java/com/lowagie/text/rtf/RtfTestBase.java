@@ -46,7 +46,7 @@
  *
  * If you didn't download this code from the following link, you should check if
  * you aren't using an obsolete version:
- * http://www.lowagie.com/iText/
+ * https://github.com/LibrePDF/openrtf
  */
 
 package com.lowagie.text.rtf;
@@ -128,7 +128,7 @@ public class RtfTestBase {
     public void testRandomText() throws IOException {
         StringBuffer text = new StringBuffer();
         for(int i = 0; i < 100; i++) {
-            text.append(Character.toString((char) (Math.random() * 52)));
+            text.append((char) (Math.random() * 52));
         }
         ByteArrayOutputStream out = new ByteArrayOutputStream();
         out.write(DocWriter.getISOBytes(text.toString()));
