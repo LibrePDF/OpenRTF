@@ -8,7 +8,6 @@
     <version>1.4-SNAPSHOT</version>
     <artifactId>openrtf</artifactId>
 
-
     <licenses>
         <license>
             <name>GNU General Lesser Public License (LGPL) version 3.0</name>
@@ -29,15 +28,7 @@
     </properties>
 
     <dependencies>
-
-        <dependency>
-            <groupId>com.github.librepdf</groupId>
-            <artifactId>openpdf</artifactId>
-            <version>1.3.13</version>
-        </dependency>
-
         <!-- Test Dependencies -->
-
         <dependency>
             <groupId>junit</groupId>
             <artifactId>junit</artifactId>
