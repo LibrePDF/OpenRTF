@@ -20,6 +20,10 @@ Add this to your pom.xml file to use the latest version of OpenRTF:
 Release the hounds!  Please send all pull requests.
 Make sure that your contributions can be released with a dual LGPL and MPL license. In particular, pull requests to the OpenRTF project must only contain code that you have written yourself. GPL or AGPL licensed code will not be acceptable.
 
+## Documentation ##
+[Hello world](https://github.com/LibrePDF/OpenRTF/blob/master/src/test/java/com/lowagie/text/rtf/document/CreateSimpleRTFDocumentTest.java)
+
+
 ### Coding Style ###
 - Code indentation style is 4 spaces.
 - Generally try to preserve the coding style in the file you are modifying.
