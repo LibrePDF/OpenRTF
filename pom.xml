@@ -9,6 +9,13 @@
     <artifactId>openrtf</artifactId>
 
     <name>OpenRTF</name>
+    <url>https://github.com/LibrePDF/OpenRTF</url>
+    <description>Open and Free RTF library.</description>
+    <scm>
+        <url>scm:git:https://github.com/LibrePDF/OpenRTF</url>
+        <connection>scm:git:https://github.com/LibrePDF/OpenRTF</connection>
+        <developerConnection>scm:git:https://github.com/LibrePDF/OpenRTF</developerConnection>
+    </scm>         
 
     <licenses>
         <license>
