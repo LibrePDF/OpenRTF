@@ -12,7 +12,7 @@ Add this to your pom.xml file to use the latest version of OpenRTF:
 
     <dependency>
         <groupId>com.github.librepdf</groupId>
-        <artifactId>pdf-rtf</artifactId>
+        <artifactId>openrtf</artifactId>
         <version>1.2.0</version>
     </dependency>
 
