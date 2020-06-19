@@ -18,7 +18,7 @@ Add this to your pom.xml file to use the latest version of OpenRTF:
 
 ## Contributing ##
 Release the hounds!  Please send all pull requests.
-Make sure that your contributions can be released with a dual LGPL and MPL license. In particular, pull requests to the OpenRTF project must only contain code that you have written yourself. GPL or AGPL licensed code will not be acceptable.
+Make sure that your contributions can be released with a dual LGPL and MPL license. In particular, pull requests to the OpenRTF project must only contain code that you have written yourself, or copied from a project with the exact same license. GPL or AGPL licensed code will not be acceptable.
 
 ## Documentation ##
 [Hello world](https://github.com/LibrePDF/OpenRTF/blob/master/src/test/java/com/lowagie/text/rtf/document/CreateSimpleRTFDocumentTest.java)
