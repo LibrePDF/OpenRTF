@@ -122,11 +122,11 @@ public class RtfChunk extends RtfElement {
             return;
         }
         
-        if(chunk.getAttributes() != null && chunk.getAttributes().get(Chunk.SUBSUPSCRIPT) != null) {
-            this.superSubScript = ((Float)chunk.getAttributes().get(Chunk.SUBSUPSCRIPT)).floatValue();
+        if(chunk.getChunkAttributes() != null && chunk.getChunkAttributes().get(Chunk.SUBSUPSCRIPT) != null) {
+            this.superSubScript = ((Float)chunk.getChunkAttributes().get(Chunk.SUBSUPSCRIPT)).floatValue();
         }
-        if(chunk.getAttributes() != null && chunk.getAttributes().get(Chunk.BACKGROUND) != null) {
-            this.background = new RtfColor(this.document, (Color) ((Object[]) chunk.getAttributes().get(Chunk.BACKGROUND))[0]);
+        if(chunk.getChunkAttributes() != null && chunk.getChunkAttributes().get(Chunk.BACKGROUND) != null) {
+            this.background = new RtfColor(this.document, (Color) ((Object[]) chunk.getChunkAttributes().get(Chunk.BACKGROUND))[0]);
         }
         font = new RtfFont(doc, chunk.getFont());
         content = chunk.getContent();
