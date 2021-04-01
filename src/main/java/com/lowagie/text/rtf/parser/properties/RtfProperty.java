@@ -254,7 +254,7 @@ public class RtfProperty {
 		
 		Object propertyValue = getProperty(propertyName);
 		if(propertyValue == null) {
-			propertyValue = new Integer(RtfProperty.ON);
+			propertyValue = RtfProperty.ON;
 		} else {
 			if(propertyValue instanceof Integer) {
 				int value = ((Integer)propertyValue).intValue();
@@ -333,7 +333,7 @@ public class RtfProperty {
 			if (valueOld==propertyValueNew) return true;
 		} 
 		beforeChange(propertyName);
-		properties.put(propertyName, new Integer(propertyValueNew));
+		properties.put(propertyName, propertyValueNew);
 		afterChange(propertyName);
 		setModified(propertyName, true);
 		return true;
@@ -351,7 +351,7 @@ public class RtfProperty {
 		if((value | propertyValue) == value) return true;
 		value |= propertyValue;
 		beforeChange(propertyName);
-		properties.put(propertyName, new Integer(value));
+		properties.put(propertyName, value);
 		afterChange(propertyName);
 		setModified(propertyName, true);
 		return true;
@@ -371,7 +371,7 @@ public class RtfProperty {
 			if (valueOld==propertyValueNew) return true;
 		} 
 		beforeChange(propertyName);
-		properties.put(propertyName, new Long(propertyValueNew));
+		properties.put(propertyName, propertyValueNew);
 		afterChange(propertyName);
 		setModified(propertyName, true);
 		return true;
@@ -389,7 +389,7 @@ public class RtfProperty {
 		if((value | propertyValue) == value) return true;
 		value |= propertyValue;
 		beforeChange(propertyName);
-		properties.put(propertyName, new Long(value));
+		properties.put(propertyName, value);
 		afterChange(propertyName);
 		setModified(propertyName, true);
 		return true;

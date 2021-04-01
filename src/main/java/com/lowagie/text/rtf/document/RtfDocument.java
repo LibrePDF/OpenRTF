@@ -222,7 +222,7 @@ public class RtfDocument extends RtfElement {
         Integer newInt = null;
         do {
 //        	do {
-        		newInt = new Integer((int) (Math.random() * Integer.MAX_VALUE));
+        		newInt = (int) (Math.random() * Integer.MAX_VALUE);
 //        	} while(newInt.intValue() <= -1 && newInt.intValue() >= -5);
         } while(this.previousRandomInts.contains(newInt));
         this.previousRandomInts.add(newInt);

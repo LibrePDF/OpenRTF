@@ -113,10 +113,10 @@ public class RtfDestinationShppict extends RtfDestination {
 
 	/* bitapinfo */
 	// wbmbitspixelN - number of bits per pixel - 1 monochrome, 4 16 color, 8 256 color, 24 RGB - Default 1
-	private Integer bitsPerPixel = new Integer(1);
+	private Integer bitsPerPixel = 1;
 
 	// wbmplanesN - number of color planes - must be 1
-	private Integer planes = new Integer(1);
+	private Integer planes = 1;
 
 	// wbmwidthbytesN - number of bytes in each raster line
 	private Integer widthBytes = null;
@@ -136,10 +136,10 @@ public class RtfDestinationShppict extends RtfDestination {
 	private Long desiredHeight = null;
 
 	// picscalexN
-	private Integer scaleX = new Integer(100);
+	private Integer scaleX = 100;
 
 	// picscaleyN
-	private Integer scaleY = new Integer(100);
+	private Integer scaleY = 100;
 
 	// picscaled - macpict setting
 	private Boolean scaled = null;
@@ -151,16 +151,16 @@ public class RtfDestinationShppict extends RtfDestination {
 	private Boolean wordArt = Boolean.FALSE;
 
 	// piccroptN
-	private Integer cropTop = new Integer(0);
+	private Integer cropTop = 0;
 
 	// piccropbN
-	private Integer cropBottom = new Integer(0);
+	private Integer cropBottom = 0;
 
 	// piccroplN
-	private Integer cropLeft = new Integer(0);
+	private Integer cropLeft = 0;
 
 	// piccroprN
-	private Integer cropRight = new Integer(0);
+	private Integer cropRight = 0;
 
 	/* metafileinfo */
 	// picbmp
@@ -665,15 +665,15 @@ public class RtfDestinationShppict extends RtfDestination {
 		this.height = null;
 		this.desiredWidth = null;
 		this.desiredHeight = null;
-		this.scaleX = new Integer(100);
-		this.scaleY = new Integer(100);
+		this.scaleX = 100;
+		this.scaleY = 100;
 		this.scaled = null;
 		this.inlinePicture = Boolean.FALSE;
 		this.wordArt = Boolean.FALSE;
-		this.cropTop = new Integer(0);
-		this.cropBottom = new Integer(0);
-		this.cropLeft = new Integer(0);
-		this.cropRight = new Integer(0);
+		this.cropTop = 0;
+		this.cropBottom = 0;
+		this.cropLeft = 0;
+		this.cropRight = 0;
 		this.bitmap = false;
 		this.bbp = 1;
 		this.dataFormat = FORMAT_HEXADECIMAL;

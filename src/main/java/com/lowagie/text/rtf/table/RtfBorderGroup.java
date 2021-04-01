@@ -148,7 +148,7 @@ public class RtfBorderGroup extends RtfElement {
      */
     private void setBorder(int borderPosition, int borderStyle, float borderWidth, Color borderColor) {
         RtfBorder border = new RtfBorder(this.document, this.borderType, borderPosition, borderStyle, borderWidth, borderColor);
-        this.borders.put(new Integer(borderPosition), border);
+        this.borders.put(borderPosition, border);
     }
     
     /**
@@ -185,20 +185,20 @@ public class RtfBorderGroup extends RtfElement {
      */
     public void removeBorder(int bordersToRemove) {
         if((bordersToRemove & Rectangle.LEFT) == Rectangle.LEFT) {
-            this.borders.remove(new Integer(RtfBorder.LEFT_BORDER));
+            this.borders.remove(RtfBorder.LEFT_BORDER);
         }
         if((bordersToRemove & Rectangle.TOP) == Rectangle.TOP) {
-            this.borders.remove(new Integer(RtfBorder.TOP_BORDER));
+            this.borders.remove(RtfBorder.TOP_BORDER);
         }
         if((bordersToRemove & Rectangle.RIGHT) == Rectangle.RIGHT) {
-            this.borders.remove(new Integer(RtfBorder.RIGHT_BORDER));
+            this.borders.remove(RtfBorder.RIGHT_BORDER);
         }
         if((bordersToRemove & Rectangle.BOTTOM) == Rectangle.BOTTOM) {
-            this.borders.remove(new Integer(RtfBorder.BOTTOM_BORDER));
+            this.borders.remove(RtfBorder.BOTTOM_BORDER);
         }
         if((bordersToRemove & Rectangle.BOX) == Rectangle.BOX && this.borderType == RtfBorder.ROW_BORDER) {
-            this.borders.remove(new Integer(RtfBorder.VERTICAL_BORDER));
-            this.borders.remove(new Integer(RtfBorder.HORIZONTAL_BORDER));
+            this.borders.remove(RtfBorder.VERTICAL_BORDER);
+            this.borders.remove(RtfBorder.HORIZONTAL_BORDER);
         }
     }
     
