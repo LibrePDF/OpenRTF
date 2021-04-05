@@ -48,6 +48,7 @@
  */
 package com.lowagie.text.rtf.parser.destinations;
 
+import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 
 import com.lowagie.text.rtf.parser.RtfParser;
@@ -169,12 +170,8 @@ public final class RtfDestinationMgr {
 			c = (RtfDestination)destinationObjects.get(value.getName());		
 		} else {
 			try {
-				c = (RtfDestination)value.newInstance();
-			} catch (InstantiationException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				return false;
-			} catch (IllegalAccessException e) {
+				c = (RtfDestination)value.getConstructor().newInstance();
+			} catch (InvocationTargetException | NoSuchMethodException | InstantiationException | IllegalAccessException e) {
 				// TODO Auto-generated catch block
 				e.printStackTrace();
 				return false;

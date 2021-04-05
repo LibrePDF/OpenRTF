@@ -130,12 +130,12 @@ public class RtfMapper {
     		case Element.CHUNK:
     		    Chunk chunk = (Chunk) element;
     		    if(chunk.hasAttributes()) {
-    		        if(chunk.getAttributes().containsKey(Chunk.IMAGE)) {
+    		        if(chunk.getChunkAttributes().containsKey(Chunk.IMAGE)) {
     		            rtfElements.add(new RtfImage(rtfDoc, chunk.getImage()));
-    		        } else if(chunk.getAttributes().containsKey(Chunk.NEWPAGE)) {
+    		        } else if(chunk.getChunkAttributes().containsKey(Chunk.NEWPAGE)) {
     		            rtfElements.add(new RtfNewPage(rtfDoc));
-    		        } else if(chunk.getAttributes().containsKey(Chunk.TAB)) {
-                        Float tabPos = (Float) ((Object[]) chunk.getAttributes().get(Chunk.TAB))[1];
+    		        } else if(chunk.getChunkAttributes().containsKey(Chunk.TAB)) {
+                        Float tabPos = (Float) ((Object[]) chunk.getChunkAttributes().get(Chunk.TAB))[1];
                         RtfTab tab = new RtfTab(tabPos.floatValue(), RtfTab.TAB_LEFT_ALIGN);
                         tab.setRtfDocument(rtfDoc);
                         rtfElements.add(tab);
