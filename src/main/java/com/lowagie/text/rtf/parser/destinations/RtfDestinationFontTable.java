@@ -426,7 +426,7 @@ public final class RtfDestinationFontTable extends RtfDestination {
 	 * @since 2.0.8
 	 */
 	public void setCharset(String charset) {
-		if(charset.length() == 0) {
+		if(charset.isEmpty()) {
 			charset = CHARSET_DEFAULT;
 		}
 		this.charset = charset;
@@ -464,8 +464,8 @@ public final class RtfDestinationFontTable extends RtfDestination {
 	 */
 	private void processFont() {
 		this.fontName = this.fontName.trim();
-		if(fontName.length() == 0) return;
-		if(fontNr.length() == 0) return;
+		if(fontName.isEmpty()) return;
+		if(fontNr.isEmpty()) return;
 		
 		if(fontName.length()>0 && fontName.indexOf(';') >= 0) {
 			fontName = fontName.substring(0,fontName.indexOf(';'));

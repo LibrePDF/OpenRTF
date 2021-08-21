@@ -539,7 +539,7 @@ public class RtfCell extends Cell implements RtfExtendedElement {
      */    
     public void writeContent(OutputStream result) throws IOException
     {
-        if(this.content.size() == 0) {
+        if(this.content.isEmpty()) {
             result.write(RtfParagraph.PARAGRAPH_DEFAULTS);
             if(this.parentRow.getParentTable().getTableFitToPage()) {
                 result.write(RtfParagraphStyle.KEEP_TOGETHER_WITH_NEXT);
