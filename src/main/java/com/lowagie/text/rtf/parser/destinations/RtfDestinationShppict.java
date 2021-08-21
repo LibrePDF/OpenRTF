@@ -364,9 +364,6 @@ public class RtfDestinationShppict extends RtfDestination {
 			}
 			break;
 		case FORMAT_BINARY:
-			if (dataOS == null) {
-				dataOS = new ByteArrayOutputStream();
-			}
 			// HGS - FIX ME IF PROBLEM!
 			dataOS.write((char) ch);
 			// PNG signature should be.

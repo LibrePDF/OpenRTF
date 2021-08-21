@@ -467,7 +467,7 @@ public final class RtfDestinationFontTable extends RtfDestination {
 		if(fontName.isEmpty()) return;
 		if(fontNr.isEmpty()) return;
 		
-		if(fontName.length()>0 && fontName.indexOf(';') >= 0) {
+		if(fontName.indexOf(';') >= 0) {
 			fontName = fontName.substring(0,fontName.indexOf(';'));
 		}
 
