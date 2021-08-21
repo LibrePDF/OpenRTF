@@ -124,7 +124,7 @@ public class RtfFootnote extends RtfPhrase {
    * Writes the content of the RtfFootnote
    */
   @Override
-  public void writeContent(final OutputStream result) throws IOException {
+  public void writeContent(OutputStream result) throws IOException {
     result.write(OPEN_GROUP);
     result.write(OPEN_GROUP);
     result.write(SUPER);

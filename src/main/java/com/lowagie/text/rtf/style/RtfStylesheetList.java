@@ -146,7 +146,7 @@ public class RtfStylesheetList extends RtfElement implements RtfExtendedElement 
     /**
      * Writes the definition of the stylesheet list.
      */
-    public void writeDefinition(final OutputStream result) throws IOException
+    public void writeDefinition(OutputStream result) throws IOException
     {
         result.write(DocWriter.getISOBytes("{"));
         result.write(DocWriter.getISOBytes("\\stylesheet"));

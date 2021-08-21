@@ -354,7 +354,7 @@ public class RtfCtrlWordHandler implements Cloneable {
 	 * @param txt The <code>String</code> to output.
 	 * @since 2.0.8
 	 */
-	private final void printDebug(final String txt) {
+	private void printDebug(String txt) {
 		 System.out.println(this.getClass().getName() + " : " + txt);
 	}
 }

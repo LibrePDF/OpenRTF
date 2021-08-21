@@ -127,7 +127,7 @@ public class RtfSection extends RtfElement {
     /**
      * Write this RtfSection and its contents
      */    
-    public void writeContent(final OutputStream result) throws IOException
+    public void writeContent(OutputStream result) throws IOException
     {
         result.write(RtfParagraph.PARAGRAPH);
         if(this.title != null) {

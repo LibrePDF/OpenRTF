@@ -132,7 +132,7 @@ public class RtfDocument extends RtfElement {
     /**
      * unused
      */
-    public void writeContent(final OutputStream out) throws IOException
+    public void writeContent(OutputStream out) throws IOException
     {    	
     }
     
@@ -246,23 +246,23 @@ public class RtfDocument extends RtfElement {
      * 
      * @throws IOException
      */
-    public void filterSpecialChar(final OutputStream out, final String str, final boolean useHex, final boolean softLineBreaks) throws IOException
+    public void filterSpecialChar(OutputStream out, String str, boolean useHex, boolean softLineBreaks) throws IOException
     {
         if(out == null) {
             throw new NullPointerException(MessageLocalization.getComposedMessage("null.outpustream"));
         }
 
-        final boolean alwaysUseUniCode = this.documentSettings.isAlwaysUseUnicode();
+        boolean alwaysUseUniCode = this.documentSettings.isAlwaysUseUnicode();
         if(str == null) {
             return;
         }
-        final int len = str.length();
+        int len = str.length();
         if(len == 0) {
             return;
         }
 
         for(int k = 0; k < len; k++) {
-            final char c = str.charAt(k);
+            char c = str.charAt(k);
             if(c < 0x20) {
                 //allow return and tab only
                 if(c == '\n') {
@@ -309,7 +309,7 @@ public class RtfDocument extends RtfElement {
      * @param m the array to match
      * @return <code>true</code> if there is match
      */
-    private static boolean subMatch(final String str, int soff, final byte[] m)
+    private static boolean subMatch(String str, int soff, byte[] m)
     {
         for (byte b : m) {
             if (str.charAt(soff++) != b) {
@@ -362,7 +362,7 @@ public class RtfDocument extends RtfElement {
      * @throws IOException
      * @since 2.1.3
      */
-    final public void outputDebugLinebreak(final OutputStream result) throws IOException {
+    final public void outputDebugLinebreak(OutputStream result) throws IOException {
     	if(this.getDocumentSettings().isOutputDebugLineBreaks())
         {
         	result.write('\n');

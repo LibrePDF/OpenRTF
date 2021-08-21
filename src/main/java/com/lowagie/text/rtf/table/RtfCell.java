@@ -481,7 +481,7 @@ public class RtfCell extends Cell implements RtfExtendedElement {
     /**
 	 * Write the cell definition part of this RtfCell
 	 */
-    public void writeDefinition(final OutputStream result) throws IOException 
+    public void writeDefinition(OutputStream result) throws IOException
     {
         if(this.mergeType == MERGE_VERT_PARENT) {
             result.write(DocWriter.getISOBytes("\\clvmgf"));
@@ -537,7 +537,7 @@ public class RtfCell extends Cell implements RtfExtendedElement {
     /**
      * Write the content of this RtfCell
      */    
-    public void writeContent(final OutputStream result) throws IOException
+    public void writeContent(OutputStream result) throws IOException
     {
         if(this.content.size() == 0) {
             result.write(RtfParagraph.PARAGRAPH_DEFAULTS);

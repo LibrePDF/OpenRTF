@@ -235,7 +235,7 @@ public class RtfShapeProperty extends RtfAddableElement {
      * Writes the property definition. How the property
      * is written depends on the property type.
      */
-    public void writeContent(final OutputStream result) throws IOException
+    public void writeContent(OutputStream result) throws IOException
     {    	
     	result.write(OPEN_GROUP);
     	result.write(DocWriter.getISOBytes("\\sp"));

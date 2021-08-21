@@ -164,7 +164,7 @@ public class RtfShapePosition extends RtfAddableElement {
     /**
      * Write this RtfShapePosition.
      */
-    public void writeContent(final OutputStream result) throws IOException
+    public void writeContent(OutputStream result) throws IOException
     {    	
     	result.write(DocWriter.getISOBytes("\\shpleft"));
     	result.write(intToByteArray(this.left));

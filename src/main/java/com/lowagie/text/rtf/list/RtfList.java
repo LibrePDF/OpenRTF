@@ -357,7 +357,7 @@ public class RtfList extends RtfElement implements RtfExtendedElement {
      * @throws IOException
      * @since 2.1.3
      */
-    public void writeDefinition(final OutputStream result) throws IOException
+    public void writeDefinition(OutputStream result) throws IOException
     {
         result.write(OPEN_GROUP);
         result.write(LIST);
@@ -423,7 +423,7 @@ public class RtfList extends RtfElement implements RtfExtendedElement {
      * Writes the content of the RtfList
      * @since 2.1.3
     */    
-    public void writeContent(final OutputStream result) throws IOException
+    public void writeContent(OutputStream result) throws IOException
     {
         if(!this.inTable) {
             result.write(OPEN_GROUP);
@@ -477,7 +477,7 @@ public class RtfList extends RtfElement implements RtfExtendedElement {
      * @throws IOException
      * @since 2.1.3
      */
-    protected void writeListTextBlock(final OutputStream result, int itemNr, RtfListLevel listLevel) 
+    protected void writeListTextBlock(OutputStream result, int itemNr, RtfListLevel listLevel)
     throws IOException {
     	result.write(OPEN_GROUP);
         result.write(RtfList.LIST_TEXT);
@@ -516,7 +516,7 @@ public class RtfList extends RtfElement implements RtfExtendedElement {
      * @throws IOException On i/o errors.
      * @since 2.1.3
      */
-    protected void writeListNumbers(final OutputStream result) throws IOException {
+    protected void writeListNumbers(OutputStream result) throws IOException {
         result.write(RtfList.LIST_NUMBER);
         result.write(intToByteArray(listNumber));
     }

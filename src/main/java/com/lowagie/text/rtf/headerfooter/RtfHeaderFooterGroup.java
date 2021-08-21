@@ -218,7 +218,7 @@ public class RtfHeaderFooterGroup extends HeaderFooter implements RtfBasicElemen
     /**
      * Write the content of this RtfHeaderFooterGroup.
      */    
-    public void writeContent(final OutputStream result) throws IOException
+    public void writeContent(OutputStream result) throws IOException
     {
         if(this.mode == MODE_SINGLE) {
         	headerAll.writeContent(result);

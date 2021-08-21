@@ -196,16 +196,16 @@ public class RtfImage extends RtfElement {
     private byte[][] getImageData(Image image) throws DocumentException 
     {
     	final int WMF_PLACEABLE_HEADER_SIZE = 22;
-        final RtfByteArrayBuffer bab = new RtfByteArrayBuffer();
+        RtfByteArrayBuffer bab = new RtfByteArrayBuffer();
         
         try {
             if(imageType == Image.ORIGINAL_BMP) {
             	bab.append(MetaDo.wrapBMP(image));
             } else {            	
-            	final byte[] iod = image.getOriginalData();
+            	byte[] iod = image.getOriginalData();
             	if(iod == null) {
             		
-                	final InputStream imageIn = image.getUrl().openStream();
+                	InputStream imageIn = image.getUrl().openStream();
                     if(imageType == Image.ORIGINAL_WMF) { //remove the placeable header first
                     	for(int k = 0; k < WMF_PLACEABLE_HEADER_SIZE; k++) {
 							if(imageIn.read() < 0) throw new EOFException(MessageLocalization.getComposedMessage("while.removing.wmf.placeable.header"));
@@ -255,7 +255,7 @@ public class RtfImage extends RtfElement {
      * @param bab
      * @throws IOException
      */
-    private void writeImageDataHexEncoded(final OutputStream bab) throws IOException
+    private void writeImageDataHexEncoded(OutputStream bab) throws IOException
     {
     	int cnt = 0;
         for (byte[] chunk : imageData) {
@@ -287,7 +287,7 @@ public class RtfImage extends RtfElement {
     /**
      * Writes the RtfImage content
      */ 
-    public void writeContent(final OutputStream result) throws IOException
+    public void writeContent(OutputStream result) throws IOException
     {
     	
         if(this.topLevelElement) {

@@ -123,7 +123,7 @@ public class RtfTab extends RtfAddableElement {
 	/**
 	 * Writes the tab settings.
 	 */
-    public void writeContent(final OutputStream result) throws IOException
+    public void writeContent(OutputStream result) throws IOException
     {
     	switch(this.type) {
     		case TAB_CENTER_ALIGN: result.write(DocWriter.getISOBytes("\\tqc")); break;

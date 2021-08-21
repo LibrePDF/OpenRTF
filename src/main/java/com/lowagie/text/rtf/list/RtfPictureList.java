@@ -85,7 +85,7 @@ public class RtfPictureList  extends RtfElement implements RtfExtendedElement {
 	/* (non-Javadoc)
 	 * @see com.lowagie.text.rtf.RtfExtendedElement#writeDefinition(java.io.OutputStream)
 	 */
-	public void writeDefinition(final OutputStream result) throws IOException {
+	public void writeDefinition(OutputStream result) throws IOException {
 		// TODO Auto-generated method stub
 		result.write(OPEN_GROUP);
 		result.write(LIST_LEVEL_PICTURE);

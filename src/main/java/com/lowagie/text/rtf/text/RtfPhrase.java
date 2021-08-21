@@ -146,7 +146,7 @@ public class RtfPhrase extends RtfElement {
      * then if the RtfPhrase is in a RtfCell a marker for this is written and finally
      * the RtfChunks of this RtfPhrase are written.
      */    
-    public void writeContent(final OutputStream result) throws IOException
+    public void writeContent(OutputStream result) throws IOException
     {
         result.write(PARAGRAPH_DEFAULTS);
         result.write(PLAIN);

@@ -292,7 +292,7 @@ public class RtfHeaderFooter extends HeaderFooter implements RtfBasicElement {
     /**
      * Writes the content of this RtfHeaderFooter
      */    
-    public void writeContent(final OutputStream result) throws IOException
+    public void writeContent(OutputStream result) throws IOException
     {
         result.write(OPEN_GROUP);
         if(this.type == TYPE_HEADER) {

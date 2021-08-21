@@ -389,7 +389,7 @@ public class RtfListLevel extends RtfElement implements RtfExtendedElement {
 		this.alignment = alignment;
 	}
 
-	public void writeDefinition(final OutputStream result) throws IOException {
+	public void writeDefinition(OutputStream result) throws IOException {
         result.write(OPEN_GROUP);
         result.write(LIST_LEVEL);
         result.write(LIST_LEVEL_TYPE);
@@ -515,7 +515,7 @@ public class RtfListLevel extends RtfElement implements RtfExtendedElement {
     /**
      * unused
      */    
-    public void writeContent(final OutputStream result) throws IOException
+    public void writeContent(OutputStream result) throws IOException
     {
     }     
     
@@ -525,7 +525,7 @@ public class RtfListLevel extends RtfElement implements RtfExtendedElement {
      * @param result The <code>OutputStream</code> to write to
      * @throws IOException On i/o errors.
      */
-    protected void writeListNumbers(final OutputStream result) throws IOException {
+    protected void writeListNumbers(OutputStream result) throws IOException {
 
         if(listLevel > 0) {
             result.write(RtfList.LIST_LEVEL_NUMBER);
@@ -540,7 +540,7 @@ public class RtfListLevel extends RtfElement implements RtfExtendedElement {
      * @param result The <code>OutputStream</code> to write to.
      * @throws IOException On i/o errors.
      */
-    public void writeIndentation(final OutputStream result) throws IOException {
+    public void writeIndentation(OutputStream result) throws IOException {
         result.write(LIST_LEVEL_FIRST_INDENT);
         result.write(intToByteArray(firstIndent));
         result.write(RtfParagraphStyle.INDENT_LEFT);
@@ -557,7 +557,7 @@ public class RtfListLevel extends RtfElement implements RtfExtendedElement {
      * @param result The <code>OutputStream</code> to write to
      * @throws IOException On i/o errors.
      */
-    public void writeListBeginning(final OutputStream result) throws IOException {
+    public void writeListBeginning(OutputStream result) throws IOException {
         result.write(RtfParagraph.PARAGRAPH_DEFAULTS);
         if(this.inTable) {
             result.write(RtfParagraph.IN_TABLE);

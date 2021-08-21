@@ -101,7 +101,7 @@ public abstract class RtfElement implements RtfBasicElement {
     /**
      * Writes the element content to the given output stream.
      */    
-    public abstract void writeContent(final OutputStream out) throws IOException;
+    public abstract void writeContent(OutputStream out) throws IOException;
     
     /**
      * Sets the RtfDocument this RtfElement belongs to

@@ -106,14 +106,14 @@ public class RtfFootnoteSetting extends RtfElement implements
    * unused
    */
   @Override
-  public void writeContent(final OutputStream out) throws IOException {
+  public void writeContent(OutputStream out) throws IOException {
   }
 
   /**
    * Writes the page size / page margin definition
    */
   @Override
-  public void writeDefinition(final OutputStream result) throws IOException {
+  public void writeDefinition(OutputStream result) throws IOException {
     result.write(FOOTNOTE_BOTTOM);
     result.write(FOOTNOTE_START);
     result.write(intToByteArray(footnoteStart));

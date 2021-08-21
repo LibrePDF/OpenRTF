@@ -81,7 +81,7 @@ public final class RtfByteArrayBuffer extends OutputStream
 	 * 
 	 * @param bufferSize desired initial size in bytes
 	 */
-	public RtfByteArrayBuffer(final int bufferSize)
+	public RtfByteArrayBuffer(int bufferSize)
 	{
 		if((bufferSize <= 0) || (bufferSize > 1<<30)) throw new IllegalArgumentException(MessageLocalization.getComposedMessage("buffersize.1", bufferSize));
 		
@@ -121,7 +121,7 @@ public final class RtfByteArrayBuffer extends OutputStream
 	{
 		flushBuffer(1);
 	}
-	private void flushBuffer(final int reqSize)
+	private void flushBuffer(int reqSize)
 	{
 		if(reqSize < 0) throw new IllegalArgumentException();
 		
@@ -132,7 +132,7 @@ public final class RtfByteArrayBuffer extends OutputStream
 			arrays.add(buffer);
 			int newSize = buffer.length;
 			buffer = null;
-			final int MAX = Math.max(1, size>>24) << 16;
+			int MAX = Math.max(1, size>>24) << 16;
 			while(newSize < MAX) {
 				newSize <<= 1;
 				if(newSize >= reqSize) break;
@@ -140,7 +140,7 @@ public final class RtfByteArrayBuffer extends OutputStream
 			buffer = new byte[newSize];
 		} else {
 			//copy buffer contents to newly allocated buffer
-			final byte[] c = new byte[pos];
+			byte[] c = new byte[pos];
 			System.arraycopy(buffer, 0, c, 0, pos);
 			arrays.add(c);    			
 		}
@@ -152,7 +152,7 @@ public final class RtfByteArrayBuffer extends OutputStream
 	 * 
 	 * @param b
 	 */
-	public void write(final int b)
+	public void write(int b)
 	{
 		buffer[pos] = (byte)b;
 		size++;
@@ -163,7 +163,7 @@ public final class RtfByteArrayBuffer extends OutputStream
 	 * 
 	 * @param src
 	 */
-	public void write(final byte[] src)
+	public void write(byte[] src)
 	{
 		if(src == null) throw new NullPointerException();
 
@@ -182,18 +182,18 @@ public final class RtfByteArrayBuffer extends OutputStream
 	 * @param off
 	 * @param len
 	 */
-	public void write(final byte[] src, int off, int len)
+	public void write(byte[] src, int off, int len)
 	{
 		if(src == null) throw new NullPointerException();
 		if((off < 0) || (off > src.length) || (len < 0) || ((off + len) > src.length) || ((off + len) < 0)) throw new IndexOutOfBoundsException();
 
 		writeLoop(src, off, len);		
 	}
-	private void writeLoop(final byte[] src, int off, int len)
+	private void writeLoop(byte[] src, int off, int len)
 	{
 		while(len > 0) {
-			final int room = buffer.length - pos;
-			final int n = len > room ? room : len;
+			int room = buffer.length - pos;
+			int n = len > room ? room : len;
 			System.arraycopy(src, off, buffer, pos, n);
 			len -= n;
 			off += n;
@@ -210,13 +210,13 @@ public final class RtfByteArrayBuffer extends OutputStream
      * @return number of bytes written
 	 * @throws IOException
 	 */
-	public long write(final InputStream in) throws IOException
+	public long write(InputStream in) throws IOException
 	{
 		if(in == null) throw new NullPointerException();
 		
-		final long sizeStart = size;
+		long sizeStart = size;
 		while(true) {
-			final int n = in.read(buffer, pos, buffer.length - pos);
+			int n = in.read(buffer, pos, buffer.length - pos);
 			if(n < 0) break;
 			pos += n;
 			size += n;
@@ -230,7 +230,7 @@ public final class RtfByteArrayBuffer extends OutputStream
 	 * 
 	 * @param a
 	 */
-	public void append(final byte[] a)
+	public void append(byte[] a)
 	{
 		if(a == null) throw new NullPointerException();
 		if(a.length == 0) return;
@@ -251,7 +251,7 @@ public final class RtfByteArrayBuffer extends OutputStream
 	 * 
 	 * @param a
 	 */
-	public void append(final byte[][] a)
+	public void append(byte[][] a)
 	{
 		if(a == null) throw new NullPointerException();
 
@@ -278,9 +278,9 @@ public final class RtfByteArrayBuffer extends OutputStream
 	 */
 	public byte[] toByteArray()
 	{
-		final byte[] r = new byte[size];
+		byte[] r = new byte[size];
 		int off = 0;
-		final int n = arrays.size();
+		int n = arrays.size();
 		for (byte[] src : arrays) {
 			System.arraycopy(src, 0, r, off, src.length);
 			off += src.length;
@@ -295,11 +295,11 @@ public final class RtfByteArrayBuffer extends OutputStream
 	 * @param out
 	 * @throws IOException
 	 */
-	public void writeTo(final OutputStream out) throws IOException
+	public void writeTo(OutputStream out) throws IOException
 	{
 		if(out == null) throw new NullPointerException();
 		
-		final int n = arrays.size();
+		int n = arrays.size();
 		for (byte[] src : arrays) {
 			out.write(src);
 		}

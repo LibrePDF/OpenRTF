@@ -136,7 +136,7 @@ public class RtfChunk extends RtfElement {
      * Writes the content of this RtfChunk. First the font information
      * is written, then the content, and then more font information
      */ 
-    public void writeContent(final OutputStream result) throws IOException
+    public void writeContent(OutputStream result) throws IOException
     {
         if(this.background != null) {
             result.write(OPEN_GROUP);

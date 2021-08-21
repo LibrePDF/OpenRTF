@@ -237,7 +237,7 @@ public abstract class RtfField extends Chunk implements RtfBasicElement {
      * 
      * @param result The <code>OutputStream</code> to write to.
      */
-    private void writeFieldResultBegin(final OutputStream result) throws IOException 
+    private void writeFieldResultBegin(OutputStream result) throws IOException
     {
         result.write(OPEN_GROUP);
         result.write(FIELD_RESULT);
@@ -259,7 +259,7 @@ public abstract class RtfField extends Chunk implements RtfBasicElement {
      * @param result The <code>OutputStream</code> to write to.
      * @throws IOException on i/o errors.
      */ 
-    private void writeFieldResultEnd(final OutputStream result) throws IOException 
+    private void writeFieldResultEnd(OutputStream result) throws IOException
     {
         result.write(DELIMITER);
         result.write(CLOSE_GROUP);
@@ -282,7 +282,7 @@ public abstract class RtfField extends Chunk implements RtfBasicElement {
      * @param result The <code>OutputStream</code> to write to.
      * @throws IOException on i/o errors.
      */    
-    public void writeContent(final OutputStream result) throws IOException
+    public void writeContent(OutputStream result) throws IOException
     {
         this.font.writeBegin(result);
         writeFieldBegin(result);

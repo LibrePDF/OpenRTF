@@ -188,7 +188,7 @@ public final class RtfProtection {
 	 * 
 	 * @since 2.1.1
 	 */
-	static final public String generateHash(String pwd) {
+	static public String generateHash(String pwd) {
 		String encryptedPwd="00000000";
 		String password = pwd;
 		

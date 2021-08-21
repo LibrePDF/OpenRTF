@@ -83,7 +83,7 @@ public class RtfGenerator extends RtfElement {
     /**
      * Writes the RTF generator group.
      */    
-    public void writeContent(final OutputStream result) throws IOException
+    public void writeContent(OutputStream result) throws IOException
     {
     	result.write(OPEN_GROUP);
 		result.write(GENERATOR);

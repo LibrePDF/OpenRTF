@@ -95,9 +95,9 @@ public class RtfDirectContent extends RtfAddableElement {
     /**
      * Writes the element content to the given output stream.
      */    
-    public void writeContent(final OutputStream out) throws IOException
+    public void writeContent(OutputStream out) throws IOException
     {
-    	final byte[] contentBytes = DocWriter.getISOBytes(this.directContent);
+    	byte[] contentBytes = DocWriter.getISOBytes(this.directContent);
    		out.write(contentBytes);
     }        
 }
