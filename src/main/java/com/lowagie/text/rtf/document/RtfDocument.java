@@ -115,7 +115,7 @@ public class RtfDocument extends RtfElement {
     private static final byte[] FSC_PAGE_PAR = DocWriter.getISOBytes("\\page\\par ");
     private static final byte[] FSC_NEWPAGE = DocWriter.getISOBytes("$newpage$");
     private static final byte[] FSC_BACKSLASH = DocWriter.getISOBytes("\\");
-    private static final byte[] FSC_HEX_PREFIX = DocWriter.getISOBytes("\\\'");
+    private static final byte[] FSC_HEX_PREFIX = DocWriter.getISOBytes("\\'");
     private static final byte[] FSC_UNI_PREFIX = DocWriter.getISOBytes("\\u");
     
     /**

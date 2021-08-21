@@ -108,7 +108,7 @@ public class RtfListLevel extends RtfElement implements RtfExtendedElement {
     /**
      * Constant for the beginning of the list level numbered style
      */
-    private static final byte[] LIST_LEVEL_STYLE_NUMBERED_BEGIN = DocWriter.getISOBytes("\\\'02\\\'");
+    private static final byte[] LIST_LEVEL_STYLE_NUMBERED_BEGIN = DocWriter.getISOBytes("\\'02\\'");
     /**
      * Constant for the end of the list level numbered style
      */
@@ -116,7 +116,7 @@ public class RtfListLevel extends RtfElement implements RtfExtendedElement {
     /**
      * Constant for the beginning of the list level bulleted style
      */
-    private static final byte[] LIST_LEVEL_STYLE_BULLETED_BEGIN = DocWriter.getISOBytes("\\\'01");
+    private static final byte[] LIST_LEVEL_STYLE_BULLETED_BEGIN = DocWriter.getISOBytes("\\'01");
     /**
      * Constant for the end of the list level bulleted style
      */
@@ -152,7 +152,7 @@ public class RtfListLevel extends RtfElement implements RtfExtendedElement {
     /**
      * Constant for the list level numbers
      */
-    private static final byte[] LIST_LEVEL_NUMBERS_NUMBERED = DocWriter.getISOBytes("\\\'01");
+    private static final byte[] LIST_LEVEL_NUMBERS_NUMBERED = DocWriter.getISOBytes("\\'01");
     /**
      * Constant for the end of the list level numbers
      */
