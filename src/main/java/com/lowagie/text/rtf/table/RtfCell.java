@@ -172,7 +172,6 @@ public class RtfCell extends Cell implements RtfExtendedElement {
      * Constructs an empty RtfCell
      */
     public RtfCell() {
-        super();
         this.borders = new RtfBorderGroup();
         verticalAlignment = ALIGN_MIDDLE;
     }
@@ -206,7 +205,6 @@ public class RtfCell extends Cell implements RtfExtendedElement {
      * @param deleted Whether this RtfCell is actually deleted.
      */
     protected RtfCell(boolean deleted) {
-        super();
         this.deleted = deleted;
         verticalAlignment = ALIGN_MIDDLE;
     }

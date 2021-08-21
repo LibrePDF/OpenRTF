@@ -79,7 +79,6 @@ public class RtfParserException extends Exception {
      * Constructs a <CODE>RtfParserException</CODE> whithout a message.
      */
     public RtfParserException() {
-        super();
     }
     
     /**

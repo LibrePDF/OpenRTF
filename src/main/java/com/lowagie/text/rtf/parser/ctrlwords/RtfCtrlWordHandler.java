@@ -157,8 +157,7 @@ public class RtfCtrlWordHandler implements Cloneable {
 	 */
 	public RtfCtrlWordHandler(RtfParser rtfParser, String ctrlWord, int defaultParameterValue, boolean passDefaultParameterValue, 
 			int ctrlWordType, String prefix, String suffix, String specialHandler) {
-		super();
-		this.rtfParser = rtfParser;
+        this.rtfParser = rtfParser;
 		this.ctrlWord = ctrlWord;
 		this.defaultParameterValue = defaultParameterValue;
 		this.passDefaultParameterValue = passDefaultParameterValue;

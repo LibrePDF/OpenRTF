@@ -73,8 +73,7 @@ public final class RtfDestinationNull extends RtfDestination {
 	 * This constructor is hidden for internal use only.
 	 */
 	private RtfDestinationNull() {
-		super();
-	}
+    }
 	/**
 	 * Constructs a new RtfDestinationNull.
 	 * 
