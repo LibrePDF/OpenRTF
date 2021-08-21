@@ -97,7 +97,7 @@ public class RtfSection extends RtfElement {
                 this.title = (RtfParagraph) doc.getMapper().mapElement(section.getTitle())[0];
             }
             if(document.getAutogenerateTOCEntries()) {
-                StringBuffer titleText = new StringBuffer();
+                StringBuilder titleText = new StringBuilder();
                 for (Element element : section.getTitle()) {
                     if(element.type() == Element.CHUNK) {
                         titleText.append(((Chunk) element).getContent());

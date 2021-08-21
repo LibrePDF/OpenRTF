@@ -48,7 +48,7 @@
  */
 package com.lowagie.text.rtf.parser;
 
-import java.util.Stack;
+import java.util.ArrayDeque;
 
 import com.lowagie.text.rtf.parser.destinations.RtfDestination;
 import com.lowagie.text.rtf.parser.destinations.RtfDestinationNull;
@@ -83,12 +83,12 @@ public class RtfParserState {
 	/**
 	 * The parsed value for the current group/control word.
 	 */
-	public StringBuffer text;
+	public final StringBuilder text = new StringBuilder();
 	/**
 	 * Stack containing control word handlers. There could be multiple
 	 * control words in a group.
 	 */
-	public Stack<Object> ctrlWordHandlers;
+	public final ArrayDeque<Object> ctrlWordHandlers = new ArrayDeque<>();
 	/**
 	 * The current control word handler.
 	 */
@@ -112,8 +112,6 @@ public class RtfParserState {
 	 *
 	 */
 	public RtfParserState() {
-		this.text = new StringBuffer();
-		this.ctrlWordHandlers = new Stack<>();
 		this.properties = new RtfProperty();
 		this.destination = RtfDestinationNull.getInstance();
 		this.newGroup = false;
@@ -128,8 +126,6 @@ public class RtfParserState {
 		this.tokeniserState = orig.tokeniserState;
 		this.groupHandler = null;
 		this.destination = orig.destination;
-		this.text = new StringBuffer();
-		this.ctrlWordHandlers = new Stack<>();
 		this.newGroup = false;
 	}
 	

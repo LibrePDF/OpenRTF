@@ -48,22 +48,15 @@
  */
 package com.lowagie.text.rtf.parser;
 
-import java.awt.Color;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PushbackInputStream;
-import java.util.ArrayList;
-import java.util.Arrays;
-import java.util.Date;
-import java.util.EventListener;
-import java.util.Iterator;
-import java.util.Stack;
+import java.util.*;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
-import com.lowagie.text.List;
 import com.lowagie.text.rtf.direct.RtfDirectContent;
 import com.lowagie.text.rtf.document.RtfDocument;
 import com.lowagie.text.rtf.parser.ctrlwords.RtfCtrlWordData;
@@ -120,7 +113,7 @@ public class RtfParser {
 	/**
 	 * Stack for saving states for groups
 	 */
-	private Stack<RtfParserState> stackState = null;
+	private ArrayDeque<RtfParserState> stackState = null;
 	/**
 	 * The current parser state.
 	 */	
@@ -630,7 +623,7 @@ public class RtfParser {
 		this.document = doc;
 		this.elem = elem;
 		this.currentState = new RtfParserState();
-		this.stackState = new Stack<>();
+		this.stackState = new ArrayDeque<>();
 		this.setParserState(PARSER_STARTSTOP);
 		this.importMgr = new RtfImportMgr(this.rtfDoc, this.document);
 
@@ -1227,7 +1220,7 @@ public class RtfParser {
 							break;
 						}
 						if(this.getTokeniserState() == TOKENISER_HEX) {
-							StringBuffer hexChars = new StringBuffer();
+							StringBuilder hexChars = new StringBuilder();
 							hexChars.append(nextChar);
 //							if(pbReader.read(nextChar) == -1) {
 							if((nextChar = pbReader.read()) == -1) {
@@ -1308,8 +1301,8 @@ public class RtfParser {
 		}
 		this.byteCount++;
 
-		StringBuffer parsedCtrlWord = new StringBuffer();
-		StringBuffer parsedParam= new StringBuffer();
+		StringBuilder parsedCtrlWord = new StringBuilder();
+		StringBuilder parsedParam= new StringBuilder();
 		RtfCtrlWordData ctrlWordParam = new RtfCtrlWordData();
 		
 		if(!Character.isLetterOrDigit((char)nextChar)) {

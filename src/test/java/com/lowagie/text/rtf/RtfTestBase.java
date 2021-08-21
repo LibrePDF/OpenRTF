@@ -126,7 +126,7 @@ public class RtfTestBase {
      */
     @Test
     public void testRandomText() throws IOException {
-        StringBuffer text = new StringBuffer();
+        StringBuilder text = new StringBuilder();
         for(int i = 0; i < 100; i++) {
             text.append((char) (Math.random() * 52));
         }

@@ -52,7 +52,7 @@ package com.lowagie.text.rtf.table;
 import java.awt.Color;
 import java.io.IOException;
 import java.io.OutputStream;
-import java.util.Hashtable;
+import java.util.HashMap;
 import java.util.Map;
 
 import com.lowagie.text.Rectangle;
@@ -77,7 +77,7 @@ public class RtfBorderGroup extends RtfElement {
     /**
      * The borders in this RtfBorderGroup
      */
-    private final Hashtable<Integer, RtfBorder> borders = new Hashtable<>();
+    private final HashMap<Integer, RtfBorder> borders = new HashMap<>();
 
     /**
      * Constructs an empty RtfBorderGroup.
@@ -210,7 +210,7 @@ public class RtfBorderGroup extends RtfElement {
      * 
      * @return The RtfBorders of this RtfBorderGroup
      */
-    protected Hashtable<Integer, RtfBorder> getBorders() {
+    protected HashMap<Integer, RtfBorder> getBorders() {
         return this.borders;
     }
 }

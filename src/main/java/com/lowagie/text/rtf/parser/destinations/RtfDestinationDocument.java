@@ -89,7 +89,7 @@ public final class RtfDestinationDocument extends RtfDestination implements RtfP
 	 */
 	private Document doc = null;
 	
-	private StringBuffer buffer = null;
+	private StringBuilder buffer = null;
 	/**
 	 * Indicates the parser action. Import or Conversion.
 	 * 
@@ -534,7 +534,7 @@ public final class RtfDestinationDocument extends RtfDestination implements RtfP
 	 * @see com.lowagie.text.rtf.direct.RtfDestination#setDefaults()
 	 */
 	public void setToDefaults() {
-		this.buffer = new StringBuffer(255);
+		this.buffer = new StringBuilder(255);
 	}
 	/* (non-Javadoc)
 	 * @see com.lowagie.text.rtf.parser.properties.RtfPropertyListener#afterChange(java.lang.String)
@@ -567,7 +567,7 @@ public final class RtfDestinationDocument extends RtfDestination implements RtfP
 			// add a new chunk to the current paragraph using current character settings.
 			Chunk chunk = new Chunk();
 			chunk.append(this.buffer.toString());
-			this.buffer = new StringBuffer(255);
+			this.buffer = new StringBuilder(255);
 			HashMap<String, Object> charProperties = this.rtfParser.getState().properties.getProperties(RtfProperty.CHARACTER);
 			String defFont = (String)charProperties.get(RtfProperty.CHARACTER_FONT);
 			if(defFont == null) defFont = "0";

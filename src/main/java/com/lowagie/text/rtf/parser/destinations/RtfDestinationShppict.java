@@ -68,9 +68,9 @@ import com.lowagie.text.rtf.parser.ctrlwords.RtfCtrlWordData;
  * @since 2.0.8
  */
 public class RtfDestinationShppict extends RtfDestination {
-	private StringBuffer hexChars = new StringBuffer(0);
+	private StringBuilder hexChars = new StringBuilder(0);
 
-	private StringBuffer buffer = new StringBuffer();
+	private StringBuilder buffer = new StringBuilder();
 
 	/* picttype */
 	private int pictureType = Image.ORIGINAL_NONE;
@@ -360,7 +360,7 @@ public class RtfDestinationShppict extends RtfDestination {
 				} catch (NumberFormatException e) {
 					e.printStackTrace();
 				}
-				hexChars = new StringBuffer();
+				hexChars = new StringBuilder();
 			}
 			break;
 		case FORMAT_BINARY:
@@ -659,7 +659,7 @@ public class RtfDestinationShppict extends RtfDestination {
 	 */
 	public void setToDefaults() {
 
-		this.buffer = new StringBuffer();
+		this.buffer = new StringBuilder();
 		//this.data = null;
 		this.width = null;
 		this.height = null;
