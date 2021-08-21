@@ -51,6 +51,7 @@ import java.io.ByteArrayOutputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.util.ArrayList;
 import java.util.List;
 
 import com.lowagie.text.error_messages.MessageLocalization;
@@ -64,7 +65,7 @@ import com.lowagie.text.error_messages.MessageLocalization;
  */
 public final class RtfByteArrayBuffer extends OutputStream
 {
-	private final List<byte[]> arrays = new java.util.ArrayList<>();
+	private final List<byte[]> arrays = new ArrayList<>();
 	private byte[] buffer;
 	private int pos = 0;
 	private int size = 0;
