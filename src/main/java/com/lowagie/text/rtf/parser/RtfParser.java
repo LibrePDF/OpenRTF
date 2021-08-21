@@ -571,7 +571,7 @@ public class RtfParser {
 		this.handleImportMappings(importMappings);
 		this.setCurrentDestination(RtfDestinationMgr.DESTINATION_DOCUMENT);
 		this.groupLevel = 1;
-		setParserState(RtfParser.PARSER_IN_DOCUMENT);
+		setParserState(PARSER_IN_DOCUMENT);
 		startDate = new Date();
 		startTime = System.currentTimeMillis();
 		this.tokenise();
@@ -861,12 +861,12 @@ public class RtfParser {
 		
 		if(dest != null) {
 			if(debugParser) {
-				RtfParser.outputDebug(this.rtfDoc, groupLevel, "DEBUG: before dest.handleOpeningSubGroup()");
-				RtfParser.outputDebug(this.rtfDoc, groupLevel, "DEBUG: destination=" + dest.toString());
+				outputDebug(this.rtfDoc, groupLevel, "DEBUG: before dest.handleOpeningSubGroup()");
+				outputDebug(this.rtfDoc, groupLevel, "DEBUG: destination=" + dest.toString());
 			}
 			handled = dest.handleOpeningSubGroup();
 			if(debugParser) {
-				RtfParser.outputDebug(this.rtfDoc, groupLevel, "DEBUG: after dest.handleOpeningSubGroup()");
+				outputDebug(this.rtfDoc, groupLevel, "DEBUG: after dest.handleOpeningSubGroup()");
 			}
 		}
 
@@ -878,11 +878,11 @@ public class RtfParser {
 		dest = this.getCurrentDestination();
 		
 		if(debugParser) {
-			RtfParser.outputDebug(this.rtfDoc, groupLevel, "DEBUG: handleOpenGroup()");
+			outputDebug(this.rtfDoc, groupLevel, "DEBUG: handleOpenGroup()");
 			if(this.lastCtrlWordParam != null)
-				RtfParser.outputDebug(this.rtfDoc, groupLevel, "DEBUG: LastCtrlWord=" + this.lastCtrlWordParam.ctrlWord);
-			RtfParser.outputDebug(this.rtfDoc, groupLevel, "DEBUG: grouplevel=" + groupLevel);
-			RtfParser.outputDebug(this.rtfDoc, groupLevel, "DEBUG: destination=" + dest.toString());
+				outputDebug(this.rtfDoc, groupLevel, "DEBUG: LastCtrlWord=" + this.lastCtrlWordParam.ctrlWord);
+			outputDebug(this.rtfDoc, groupLevel, "DEBUG: grouplevel=" + groupLevel);
+			outputDebug(this.rtfDoc, groupLevel, "DEBUG: destination=" + dest.toString());
 		}
 
 		if(dest != null) {
@@ -890,7 +890,7 @@ public class RtfParser {
 		}
 		
 		if(debugParser) {
-			RtfParser.outputDebug(this.rtfDoc, groupLevel, "DEBUG: after dest.handleOpenGroup(); handled=" + handled);
+			outputDebug(this.rtfDoc, groupLevel, "DEBUG: after dest.handleOpenGroup(); handled=" + handled);
 		}
 		
 		return result;
@@ -926,12 +926,12 @@ public class RtfParser {
 
 		if (this.getTokeniserState() != TOKENISER_SKIP_GROUP) {
 			if(debugParser) {
-				RtfParser.outputDebug(this.rtfDoc, groupLevel, "DEBUG: handleCloseGroup()");
+				outputDebug(this.rtfDoc, groupLevel, "DEBUG: handleCloseGroup()");
 				if(this.lastCtrlWordParam != null)
-					RtfParser.outputDebug(this.rtfDoc, groupLevel, "DEBUG: LastCtrlWord=" + this.lastCtrlWordParam.ctrlWord);
-				RtfParser.outputDebug(this.rtfDoc, groupLevel, "DEBUG: grouplevel=" + groupLevel);
-				RtfParser.outputDebug(this.rtfDoc, groupLevel, "DEBUG: destination=" + this.getCurrentDestination().toString());
-				RtfParser.outputDebug(this.rtfDoc, groupLevel, "");
+					outputDebug(this.rtfDoc, groupLevel, "DEBUG: LastCtrlWord=" + this.lastCtrlWordParam.ctrlWord);
+				outputDebug(this.rtfDoc, groupLevel, "DEBUG: grouplevel=" + groupLevel);
+				outputDebug(this.rtfDoc, groupLevel, "DEBUG: destination=" + this.getCurrentDestination().toString());
+				outputDebug(this.rtfDoc, groupLevel, "");
 			}
 			RtfDestination dest = this.getCurrentDestination();
 			boolean handled = false;
@@ -940,8 +940,8 @@ public class RtfParser {
 				handled = dest.handleCloseGroup();
 			}
 			if(debugParser) {
-				RtfParser.outputDebug(this.rtfDoc, groupLevel, "DEBUG: After dest.handleCloseGroup(); handled = " + handled);
-				RtfParser.outputDebug(this.rtfDoc, groupLevel, "");
+				outputDebug(this.rtfDoc, groupLevel, "DEBUG: After dest.handleCloseGroup(); handled = " + handled);
+				outputDebug(this.rtfDoc, groupLevel, "");
 			}
 		}
 		
@@ -977,13 +977,13 @@ public class RtfParser {
 		this.ctrlWordCount++; // stats
 
 		if(debugParser) {
-			RtfParser.outputDebug(this.rtfDoc, groupLevel, "DEBUG: handleCtrlWord=" + ctrlWordData.ctrlWord + " param=[" + ctrlWordData.param + "]");
+			outputDebug(this.rtfDoc, groupLevel, "DEBUG: handleCtrlWord=" + ctrlWordData.ctrlWord + " param=[" + ctrlWordData.param + "]");
 		}
 
 		if (this.getTokeniserState() == TOKENISER_SKIP_GROUP) { 
 			this.ctrlWordSkippedCount++;
 			if(debugParser) {
-				RtfParser.outputDebug(this.rtfDoc, groupLevel, "DEBUG: SKIPPED");
+				outputDebug(this.rtfDoc, groupLevel, "DEBUG: SKIPPED");
 			}
 			return result;
 		}
@@ -1456,7 +1456,7 @@ public class RtfParser {
 	 * @since 2.1.3
 	 */
 	public boolean isConvert() {
-		return (this.getConversionType() == RtfParser.TYPE_CONVERT);
+		return (this.getConversionType() == TYPE_CONVERT);
 	}
 	
 	/**
@@ -1476,7 +1476,7 @@ public class RtfParser {
 	 * @since 2.1.3
 	 */
 	public boolean isImportFull() {
-		return (this.getConversionType() == RtfParser.TYPE_IMPORT_FULL);
+		return (this.getConversionType() == TYPE_IMPORT_FULL);
 	}
 	/**
 	 * Helper method to determin if conversion is TYPE_IMPORT_FRAGMENT
@@ -1485,7 +1485,7 @@ public class RtfParser {
 	 * @since 2.1.3
 	 */
 	public boolean isImportFragment() {
-		return (this.getConversionType() == RtfParser.TYPE_IMPORT_FRAGMENT);
+		return (this.getConversionType() == TYPE_IMPORT_FRAGMENT);
 	}
 	/**
 	 * Helper method to indicate if this control word was a \* control word.

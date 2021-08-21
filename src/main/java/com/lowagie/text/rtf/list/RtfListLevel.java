@@ -412,8 +412,8 @@ public class RtfListLevel extends RtfElement implements RtfExtendedElement {
             case LIST_TYPE_ARABIC_LEADING_ZERO   	 : result.write(intToByteArray(22)); break;
             case LIST_TYPE_NO_NUMBER   	 : result.write(intToByteArray(255)); break;
             default:	// catch all for other unsupported types
-            	if(this.listType >= RtfListLevel.LIST_TYPE_BASE) {
-            		result.write(intToByteArray(this.listType - RtfListLevel.LIST_TYPE_BASE));
+            	if(this.listType >= LIST_TYPE_BASE) {
+            		result.write(intToByteArray(this.listType - LIST_TYPE_BASE));
             	}
             break;
         }
@@ -438,8 +438,8 @@ public class RtfListLevel extends RtfElement implements RtfExtendedElement {
             case LIST_TYPE_ARABIC_LEADING_ZERO   	 : result.write(intToByteArray(22)); break;
             case LIST_TYPE_NO_NUMBER   	 : result.write(intToByteArray(255)); break;
             default:	// catch all for other unsupported types
-            	if(this.listType >= RtfListLevel.LIST_TYPE_BASE) {
-            		result.write(intToByteArray(this.listType - RtfListLevel.LIST_TYPE_BASE));
+            	if(this.listType >= LIST_TYPE_BASE) {
+            		result.write(intToByteArray(this.listType - LIST_TYPE_BASE));
             	}
             break;
         }

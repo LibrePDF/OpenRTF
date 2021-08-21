@@ -108,20 +108,20 @@ public final class RtfDestinationMgr {
 			if(instance == null) {
 				instance = new RtfDestinationMgr();
 				// 2 required destinations for all documents
-				RtfDestinationMgr.addDestination(RtfDestinationMgr.DESTINATION_DOCUMENT, new Object[] { "RtfDestinationDocument", "" } );
-				RtfDestinationMgr.addDestination(RtfDestinationMgr.DESTINATION_NULL, new Object[] { "RtfDestinationNull", "" } );
+				addDestination(DESTINATION_DOCUMENT, new Object[] { "RtfDestinationDocument", "" } );
+				addDestination(DESTINATION_NULL, new Object[] { "RtfDestinationNull", "" } );
 			}
 			return instance;
 		}
 	}
 	public static RtfDestinationMgr getInstance(RtfParser parser) {
 		synchronized(lock) {
-			RtfDestinationMgr.setParser(parser);
+			setParser(parser);
 			if(instance == null) {
 				instance = new RtfDestinationMgr();
 				// 2 required destinations for all documents
-				RtfDestinationMgr.addDestination(RtfDestinationMgr.DESTINATION_DOCUMENT, new Object[] { "RtfDestinationDocument", "" } );
-				RtfDestinationMgr.addDestination(RtfDestinationMgr.DESTINATION_NULL, new Object[] { "RtfDestinationNull", "" } );
+				addDestination(DESTINATION_DOCUMENT, new Object[] { "RtfDestinationDocument", "" } );
+				addDestination(DESTINATION_NULL, new Object[] { "RtfDestinationNull", "" } );
 			}
 			return instance;
 		}
@@ -138,7 +138,7 @@ public final class RtfDestinationMgr {
 				dest = destinations.get(DESTINATION_DOCUMENT);
 			}
 		}
-		dest.setParser(RtfDestinationMgr.rtfParser);
+		dest.setParser(rtfParser);
 		return dest;
 	}
 	

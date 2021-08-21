@@ -144,7 +144,7 @@ public class RtfDocument extends RtfElement {
     public void writeDocument(OutputStream out) {
         try {
             out.write(OPEN_GROUP);
-            out.write(RtfDocument.RTF_DOCUMENT);
+            out.write(RTF_DOCUMENT);
             this.documentHeader.writeContent(out);
             this.data.writeTo(out);
             out.write(CLOSE_GROUP);

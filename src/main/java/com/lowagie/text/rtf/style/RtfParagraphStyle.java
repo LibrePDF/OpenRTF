@@ -603,38 +603,38 @@ public class RtfParagraphStyle extends RtfFont {
      */
     private void writeParagraphSettings(OutputStream result) throws IOException {
         if(this.keepTogether) {
-            result.write(RtfParagraphStyle.KEEP_TOGETHER);
+            result.write(KEEP_TOGETHER);
         }
         if(this.keepTogetherWithNext) {
-            result.write(RtfParagraphStyle.KEEP_TOGETHER_WITH_NEXT);
+            result.write(KEEP_TOGETHER_WITH_NEXT);
         }
         switch (alignment) {
             case Element.ALIGN_LEFT:
-                result.write(RtfParagraphStyle.ALIGN_LEFT);
+                result.write(ALIGN_LEFT);
                 break;
             case Element.ALIGN_RIGHT:
-                result.write(RtfParagraphStyle.ALIGN_RIGHT);
+                result.write(ALIGN_RIGHT);
                 break;
             case Element.ALIGN_CENTER:
-                result.write(RtfParagraphStyle.ALIGN_CENTER);
+                result.write(ALIGN_CENTER);
                 break;
             case Element.ALIGN_JUSTIFIED:
             case Element.ALIGN_JUSTIFIED_ALL:
-                result.write(RtfParagraphStyle.ALIGN_JUSTIFY);
+                result.write(ALIGN_JUSTIFY);
                 break;
         }
         result.write(FIRST_LINE_INDENT);
         result.write(intToByteArray(this.firstLineIndent));
-        result.write(RtfParagraphStyle.INDENT_LEFT);
+        result.write(INDENT_LEFT);
         result.write(intToByteArray(indentLeft));
-        result.write(RtfParagraphStyle.INDENT_RIGHT);
+        result.write(INDENT_RIGHT);
         result.write(intToByteArray(indentRight));
         if(this.spacingBefore > 0) {
-            result.write(RtfParagraphStyle.SPACING_BEFORE);
+            result.write(SPACING_BEFORE);
             result.write(intToByteArray(this.spacingBefore));
         }
         if(this.spacingAfter > 0) {
-            result.write(RtfParagraphStyle.SPACING_AFTER);
+            result.write(SPACING_AFTER);
             result.write(intToByteArray(this.spacingAfter));
         }
         if(this.lineLeading > 0) {

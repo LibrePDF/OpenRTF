@@ -254,7 +254,7 @@ public class RtfProperty {
 		
 		Object propertyValue = getProperty(propertyName);
 		if(propertyValue == null) {
-			propertyValue = RtfProperty.ON;
+			propertyValue = ON;
 		} else {
 			if(propertyValue instanceof Integer) {
 				int value = ((Integer)propertyValue).intValue();

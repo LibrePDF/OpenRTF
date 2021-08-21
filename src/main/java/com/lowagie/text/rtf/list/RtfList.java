@@ -480,7 +480,7 @@ public class RtfList extends RtfElement implements RtfExtendedElement {
     protected void writeListTextBlock(OutputStream result, int itemNr, RtfListLevel listLevel)
     throws IOException {
     	result.write(OPEN_GROUP);
-        result.write(RtfList.LIST_TEXT);
+        result.write(LIST_TEXT);
         result.write(RtfParagraph.PARAGRAPH_DEFAULTS);
         if(this.inTable) {
             result.write(RtfParagraph.IN_TABLE);
@@ -517,7 +517,7 @@ public class RtfList extends RtfElement implements RtfExtendedElement {
      * @since 2.1.3
      */
     protected void writeListNumbers(OutputStream result) throws IOException {
-        result.write(RtfList.LIST_NUMBER);
+        result.write(LIST_NUMBER);
         result.write(intToByteArray(listNumber));
     }
     /**
