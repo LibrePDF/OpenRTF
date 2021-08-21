@@ -149,7 +149,7 @@ public final class RtfDestinationMgr {
 		
 		String thisClass =  "com.lowagie.text.rtf.parser.destinations." + args[0];
 
-		if(thisClass.indexOf("RtfDestinationNull") >= 0) {
+		if(thisClass.contains("RtfDestinationNull")) {
 			destinations.put(destination, RtfDestinationNull.getInstance());
 			return true;
 		}

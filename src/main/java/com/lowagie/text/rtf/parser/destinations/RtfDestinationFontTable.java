@@ -500,15 +500,15 @@ public final class RtfDestinationFontTable extends RtfDestination {
 			
 			if(f1.getBaseFont() == null) {
 				// Did not find a font, let's try a substring of the first name.
-				if(FontFactory.COURIER.indexOf(fName) > -1 ) {
+				if(FontFactory.COURIER.contains(fName)) {
 					f1 = FontFactory.getFont(FontFactory.COURIER);
-				} else if(FontFactory.HELVETICA.indexOf(fName) > -1 ) {
+				} else if(FontFactory.HELVETICA.contains(fName)) {
 					f1 = FontFactory.getFont(FontFactory.HELVETICA);
-				} else if(FontFactory.TIMES.indexOf(fName) > -1 ) {
+				} else if(FontFactory.TIMES.contains(fName)) {
 					f1 = FontFactory.getFont(FontFactory.TIMES);
-				} else if(FontFactory.SYMBOL.indexOf(fName) > -1 ) {
+				} else if(FontFactory.SYMBOL.contains(fName)) {
 					f1 = FontFactory.getFont(FontFactory.SYMBOL);
-				} else if(FontFactory.ZAPFDINGBATS.indexOf(fName) > -1 ) {
+				} else if(FontFactory.ZAPFDINGBATS.contains(fName)) {
 					f1 = FontFactory.getFont(FontFactory.ZAPFDINGBATS);
 				} else {
 					// we did not find a matching font in any form.
