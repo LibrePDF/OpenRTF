@@ -98,7 +98,7 @@ public class RtfMapper {
     /**
      * The RtfDocument this RtfMapper belongs to
      */
-    RtfDocument rtfDoc;
+    private RtfDocument rtfDoc;
     
     /**
      * Constructs a RtfMapper for a RtfDocument
