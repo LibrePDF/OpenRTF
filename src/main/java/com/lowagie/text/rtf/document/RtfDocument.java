@@ -109,14 +109,14 @@ public class RtfDocument extends RtfElement {
      */
     private static final byte[] RTF_DOCUMENT = DocWriter.getISOBytes("\\rtf1");
 
-    private final static byte[] FSC_LINE = DocWriter.getISOBytes("\\line ");
-    private final static byte[] FSC_PAR = DocWriter.getISOBytes("\\par ");
-    private final static byte[] FSC_TAB = DocWriter.getISOBytes("\\tab ");
-    private final static byte[] FSC_PAGE_PAR = DocWriter.getISOBytes("\\page\\par ");
-    private final static byte[] FSC_NEWPAGE = DocWriter.getISOBytes("$newpage$");
-    private final static byte[] FSC_BACKSLASH = DocWriter.getISOBytes("\\");
-    private final static byte[] FSC_HEX_PREFIX = DocWriter.getISOBytes("\\\'");
-    private final static byte[] FSC_UNI_PREFIX = DocWriter.getISOBytes("\\u");
+    private static final byte[] FSC_LINE = DocWriter.getISOBytes("\\line ");
+    private static final byte[] FSC_PAR = DocWriter.getISOBytes("\\par ");
+    private static final byte[] FSC_TAB = DocWriter.getISOBytes("\\tab ");
+    private static final byte[] FSC_PAGE_PAR = DocWriter.getISOBytes("\\page\\par ");
+    private static final byte[] FSC_NEWPAGE = DocWriter.getISOBytes("$newpage$");
+    private static final byte[] FSC_BACKSLASH = DocWriter.getISOBytes("\\");
+    private static final byte[] FSC_HEX_PREFIX = DocWriter.getISOBytes("\\\'");
+    private static final byte[] FSC_UNI_PREFIX = DocWriter.getISOBytes("\\u");
     
     /**
      * The default constructor for a RtfDocument
@@ -362,7 +362,7 @@ public class RtfDocument extends RtfElement {
      * @throws IOException
      * @since 2.1.3
      */
-    final public void outputDebugLinebreak(OutputStream result) throws IOException {
+    public final void outputDebugLinebreak(OutputStream result) throws IOException {
     	if(this.getDocumentSettings().isOutputDebugLineBreaks())
         {
         	result.write('\n');

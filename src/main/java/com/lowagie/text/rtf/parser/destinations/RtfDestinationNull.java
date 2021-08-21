@@ -88,7 +88,7 @@ public final class RtfDestinationNull extends RtfDestination {
 	/**
 	 * Get the singleton instance of RtfDestinationNull object.
 	 */
-	static public RtfDestinationNull getInstance() {
+    public static RtfDestinationNull getInstance() {
 		synchronized(lock)
 		{
 			if(instance == null)

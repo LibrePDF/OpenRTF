@@ -75,7 +75,7 @@ public class RtfTableOfContents extends RtfField {
 	/**
 	 * field inst content
 	 */
-	private final static String FIELD_INST = "TOC \\\\f \\\\h \\\\u \\\\o \"1-5\" ";
+    private static final String FIELD_INST = "TOC \\\\f \\\\h \\\\u \\\\o \"1-5\" ";
     /**
      * The default text to display
      */

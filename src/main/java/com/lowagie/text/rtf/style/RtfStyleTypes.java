@@ -59,21 +59,21 @@ public final class RtfStyleTypes {
 	/**
 	 * Indicates paragraph style.
 	 */
-	public final static int PARAGRAPH = 0;
+    public static final int PARAGRAPH = 0;
 	/**
 	 * Indicates character style.
 	 */
-	public final static int CHARACTER = 0;
+    public static final int CHARACTER = 0;
 	/**
 	 * Indicates section style.
 	 */
-	public final static int SECTION = 2;
+    public static final int SECTION = 2;
 	/**
 	 * Indicates Table style.
 	 */
-	public final static int TABLE = 3;
+    public static final int TABLE = 3;
 	/**
 	 * Indicates table definition style.
 	 */
-	public final static int TABLE_STYLE_DEFINITION = 4;
+    public static final int TABLE_STYLE_DEFINITION = 4;
 }
