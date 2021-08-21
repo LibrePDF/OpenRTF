@@ -591,7 +591,7 @@ public class RtfListLevel extends RtfElement implements RtfExtendedElement {
     protected void correctIndentation() {
 
         if(this.listLevelParent != null) {
-            this.leftIndent = this.leftIndent + this.listLevelParent.getLeftIndent() + this.listLevelParent.getFirstIndent();
+            this.leftIndent += this.listLevelParent.getLeftIndent() + this.listLevelParent.getFirstIndent();
         }
     }
     /**

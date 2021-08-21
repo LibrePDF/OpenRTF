@@ -231,7 +231,7 @@ public class RtfRow extends RtfElement {
         int cellWidth;
         for(int i = 0; i < row.getColumns(); i++) {
             cellWidth = (int) (this.width * this.parentTable.getProportionalWidths()[i] / 100);
-            cellRight = cellRight + cellWidth;
+            cellRight += cellWidth;
             
             Cell cell = (Cell) row.getCell(i);
             RtfCell rtfCell = new RtfCell(this.document, this, cell);
@@ -256,7 +256,7 @@ public class RtfRow extends RtfElement {
         PdfPCell[] cells = row.getCells();
         for(int i = 0; i < cells.length; i++) {
             cellWidth = (int) (this.width * this.parentTable.getProportionalWidths()[i] / 100);
-            cellRight = cellRight + cellWidth;
+            cellRight += cellWidth;
             
             PdfPCell cell = cells[i];
             RtfCell rtfCell = new RtfCell(this.document, this, cell);

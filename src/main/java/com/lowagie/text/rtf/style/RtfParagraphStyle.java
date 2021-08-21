@@ -347,7 +347,7 @@ public class RtfParagraphStyle extends RtfFont {
      * @param alignment The alignment to use.
      */
     public void setAlignment(int alignment) {
-        this.modified = this.modified | MODIFIED_ALIGNMENT;
+        this.modified |= MODIFIED_ALIGNMENT;
         this.alignment = alignment;
     }
     
@@ -385,7 +385,7 @@ public class RtfParagraphStyle extends RtfFont {
      * @param indentLeft The left indentation to use.
      */
     public void setIndentLeft(int indentLeft) {
-        this.modified = this.modified | MODIFIED_INDENT_LEFT;
+        this.modified |= MODIFIED_INDENT_LEFT;
         this.indentLeft = indentLeft;
     }
     
@@ -404,7 +404,7 @@ public class RtfParagraphStyle extends RtfFont {
      * @param indentRight The right indentation to use.
      */
     public void setIndentRight(int indentRight) {
-        this.modified = this.modified | MODIFIED_INDENT_RIGHT;
+        this.modified |= MODIFIED_INDENT_RIGHT;
         this.indentRight = indentRight;
     }
     
@@ -423,7 +423,7 @@ public class RtfParagraphStyle extends RtfFont {
      * @param spacingBefore The space before to use.
      */
     public void setSpacingBefore(int spacingBefore) {
-        this.modified = this.modified | MODIFIED_SPACING_BEFORE;
+        this.modified |= MODIFIED_SPACING_BEFORE;
         this.spacingBefore = spacingBefore;
     }
     
@@ -442,7 +442,7 @@ public class RtfParagraphStyle extends RtfFont {
      * @param spacingAfter The space after to use.
      */
     public void setSpacingAfter(int spacingAfter) {
-        this.modified = this.modified | MODIFIED_SPACING_AFTER;
+        this.modified |= MODIFIED_SPACING_AFTER;
         this.spacingAfter = spacingAfter;
     }
     
@@ -452,7 +452,7 @@ public class RtfParagraphStyle extends RtfFont {
      * @param fontName The font name to use 
      */
     public void setFontName(String fontName) {
-        this.modified = this.modified | MODIFIED_FONT_NAME;
+        this.modified |= MODIFIED_FONT_NAME;
         super.setFontName(fontName);
     }
     
@@ -462,7 +462,7 @@ public class RtfParagraphStyle extends RtfFont {
      * @param fontSize The font size to use.
      */
     public void setSize(float fontSize) {
-        this.modified = this.modified | MODIFIED_FONT_SIZE;
+        this.modified |= MODIFIED_FONT_SIZE;
         super.setSize(fontSize);
     }
     
@@ -472,7 +472,7 @@ public class RtfParagraphStyle extends RtfFont {
      * @param fontStyle The font style to use.
      */
     public void setStyle(int fontStyle) {
-        this.modified = this.modified | MODIFIED_FONT_STYLE;
+        this.modified |= MODIFIED_FONT_STYLE;
         super.setStyle(fontStyle);
     }
     
@@ -482,7 +482,7 @@ public class RtfParagraphStyle extends RtfFont {
      * @param color The Color to use.
      */
     public void setColor(Color color) {
-        this.modified = this.modified | MODIFIED_FONT_COLOR;
+        this.modified |= MODIFIED_FONT_COLOR;
         super.setColor(color);
     }
     
@@ -502,7 +502,7 @@ public class RtfParagraphStyle extends RtfFont {
      */
     public void setLineLeading(int lineLeading) {
         this.lineLeading = lineLeading;
-        this.modified = this.modified | MODIFIED_LINE_LEADING;
+        this.modified |= MODIFIED_LINE_LEADING;
     }
     
     /**
@@ -523,7 +523,7 @@ public class RtfParagraphStyle extends RtfFont {
      */
     public void setKeepTogether(boolean keepTogether) {
         this.keepTogether = keepTogether;
-        this.modified = this.modified | MODIFIED_KEEP_TOGETHER;
+        this.modified |= MODIFIED_KEEP_TOGETHER;
     }
     
     /**
@@ -544,7 +544,7 @@ public class RtfParagraphStyle extends RtfFont {
      */
     public void setKeepTogetherWithNext(boolean keepTogetherWithNext) {
         this.keepTogetherWithNext = keepTogetherWithNext;
-        this.modified = this.modified | MODIFIED_KEEP_TOGETHER_WITH_NEXT;
+        this.modified |= MODIFIED_KEEP_TOGETHER_WITH_NEXT;
     }
     
     /**

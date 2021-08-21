@@ -462,7 +462,7 @@ public class RtfFont extends Font implements RtfExtendedElement {
         }
         RtfFont font = (RtfFont) obj;
         boolean result = true;
-        result = result & this.fontName.equals(font.getFontName());
+        result &= this.fontName.equals(font.getFontName());
 
         return result;
     }

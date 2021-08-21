@@ -215,25 +215,25 @@ public final class RtfProtection {
 			for(; idxF<password.length(); idxF++,idxR--) {
 				int ch = password.charAt(idxF);
 				if((ch & 0x0001)!= 0) {
-					hi = hi ^ encryptionMatrix[idxR][0];
+					hi ^= encryptionMatrix[idxR][0];
 				}
 				if((ch & 0x0002)!= 0) {
-					hi = hi ^ encryptionMatrix[idxR][1];
+					hi ^= encryptionMatrix[idxR][1];
 				}
 				if((ch & 0x0004)!= 0) {
-					hi = hi ^ encryptionMatrix[idxR][2];
+					hi ^= encryptionMatrix[idxR][2];
 				}
 				if((ch & 0x0008)!= 0) {
-					hi = hi ^ encryptionMatrix[idxR][3];
+					hi ^= encryptionMatrix[idxR][3];
 				}
 				if((ch & 0x0010)!= 0) {
-					hi = hi ^ encryptionMatrix[idxR][4];
+					hi ^= encryptionMatrix[idxR][4];
 				}
 				if((ch & 0x0020)!= 0) {
-					hi = hi ^ encryptionMatrix[idxR][5];
+					hi ^= encryptionMatrix[idxR][5];
 				}
 				if((ch & 0x0040)!= 0) {
-					hi = hi ^ encryptionMatrix[idxR][6];
+					hi ^= encryptionMatrix[idxR][6];
 				}
 			}
 			// Compute Key's low-order word
