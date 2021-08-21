@@ -262,9 +262,7 @@ public class RtfHeaderFooter extends HeaderFooter implements RtfBasicElement {
     public RtfHeaderFooter(Element[] elements) {
         super(new Phrase(""), false);
         this.content = new Object[elements.length];
-        for(int i = 0; i < elements.length; i++) {
-            this.content[i] = elements[i];
-        }
+        System.arraycopy(elements, 0, this.content, 0, elements.length);
     }
     
     /**
