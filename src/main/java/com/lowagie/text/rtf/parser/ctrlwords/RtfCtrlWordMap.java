@@ -107,7 +107,7 @@ final class RtfCtrlWordMap {
      * @param rtfParser The parser object.
      * @since 2.0.8
      */
-    public RtfCtrlWordMap(RtfParser rtfParser) {
+    RtfCtrlWordMap(RtfParser rtfParser) {
 /* 
  * Parameters:
  * RtfParser rtfParser

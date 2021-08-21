@@ -77,14 +77,14 @@ public abstract class RtfDestination {
 	/**
 	 * Constructor.
 	 */
-	public RtfDestination() {
+    protected RtfDestination() {
 		rtfParser = null;
 	}
 	/**
 	 * Constructor
 	 * @param parser <code>RtfParser</code> object.
 	 */
-	public RtfDestination(RtfParser parser) {
+	protected RtfDestination(RtfParser parser) {
 		this.rtfParser = parser;
 	}
 	/**
