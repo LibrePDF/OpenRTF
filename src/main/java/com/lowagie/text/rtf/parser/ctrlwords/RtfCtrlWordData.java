@@ -97,10 +97,8 @@ public class RtfCtrlWordData implements Cloneable {
 	 * 		Returns the parameter value as an int vlaue.
 	 */
 	public int intValue() {
-		int value;
-		value = Integer.parseInt(this.param);
-		if(this.isNeg) value = -value;
-		return value;
+		int value = Integer.parseInt(this.param);
+		return this.isNeg ? -value : value;
 	}
 	/**
 	 * Return the parameter value as an Integer object.
@@ -109,9 +107,7 @@ public class RtfCtrlWordData implements Cloneable {
 	 * 		Returns the parameter value as an Integer object.
 	 */
 	public Integer toInteger() {
-		Integer value;
-		value = this.isNeg ? Integer.parseInt(this.param)*-1 : Integer.parseInt(this.param);
-		return value;
+		return intValue();
 	}
 	
 
@@ -122,10 +118,8 @@ public class RtfCtrlWordData implements Cloneable {
 	 * 		Returns the parameter value as a long value
 	 */
 	public long longValue() {
-		long value;
-		value = Long.parseLong(this.param);
-		if(this.isNeg) value = -value;
-		return value;
+		long value = Long.parseLong(this.param);
+		return this.isNeg ? -value : value;
 	}
 	/**
 	 *  Return the parameter value as a Long object
@@ -134,9 +128,7 @@ public class RtfCtrlWordData implements Cloneable {
 	 * 		Returns the parameter value as a Long object.
 	 */
 	public Long toLong() {
-		Long value;
-		value = this.isNeg ? Long.parseLong(this.param)*-1 : Long.parseLong(this.param);
-		return value;
+		return longValue();
 	}
 	
 	public String toString() {
@@ -150,7 +142,6 @@ public class RtfCtrlWordData implements Cloneable {
 	}
 	
 	public Object clone() throws CloneNotSupportedException{
-		Object cl = super.clone();
-		return cl;
+		return super.clone();
 	}
 }
