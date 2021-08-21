@@ -106,7 +106,7 @@ public class RtfParserState {
 	 */
 	public boolean newGroup;
 	
-	public RtfProperty properties;
+	public final RtfProperty properties;
 	/**
 	 * Default constructor
 	 *

@@ -166,7 +166,7 @@ public class RtfProperty {
 	public static final String DOCUMENT_DEFAULT_FONT_NUMER = DOCUMENT + "defaultFontNumber";
 	
 	/** Properties for this RtfProperty object */
-	protected HashMap<String, Object> properties = new HashMap<>();
+	protected final HashMap<String, Object> properties = new HashMap<>();
 	
 	private boolean modifiedCharacter = false; 
 	private boolean modifiedParagraph = false; 

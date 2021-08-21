@@ -84,7 +84,7 @@ public class RtfFootnote extends RtfPhrase {
   /**
    * An optional RtfParagraphStyle to use for styling.
    */
-  protected RtfParagraphStyle paragraphStyle;
+  protected final RtfParagraphStyle paragraphStyle;
 
   /**
    * Constructs a RtfFootnote based on an Footnote.

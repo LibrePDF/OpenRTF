@@ -84,7 +84,7 @@ public class RtfParagraph extends RtfPhrase {
     /**
      * An optional RtfParagraphStyle to use for styling.
      */
-    protected RtfParagraphStyle paragraphStyle;
+    protected final RtfParagraphStyle paragraphStyle;
     
     /**
      * Constructs a RtfParagraph belonging to a RtfDocument based on a Paragraph.
