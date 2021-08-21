@@ -52,7 +52,6 @@ package com.lowagie.text.rtf.style;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.HashMap;
-import java.util.Iterator;
 
 import com.lowagie.text.DocWriter;
 import com.lowagie.text.rtf.RtfBasicElement;
@@ -154,9 +153,7 @@ public class RtfStylesheetList extends RtfElement implements RtfExtendedElement 
         result.write(DocWriter.getISOBytes("\\stylesheet"));
         result.write(RtfBasicElement.DELIMITER);
         this.document.outputDebugLinebreak(result);
-        Iterator<RtfParagraphStyle> it = this.styleMap.values().iterator();
-        while(it.hasNext()) {
-        	RtfParagraphStyle rps = it.next();
+        for (RtfParagraphStyle rps : this.styleMap.values()) {
         	rps.writeDefinition(result);
         }
         result.write(DocWriter.getISOBytes("}"));

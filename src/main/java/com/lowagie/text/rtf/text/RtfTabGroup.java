@@ -95,9 +95,9 @@ public class RtfTabGroup extends RtfAddableElement {
 	 */
 	public RtfTabGroup(ArrayList<? extends RtfBasicElement> tabs) {
 		this.tabs = new ArrayList<>();
-		for(int i = 0; i < tabs.size(); i++) {
-			if(tabs.get(i) instanceof RtfTab) {
-				this.tabs.add((RtfTab) tabs.get(i));
+		for (RtfBasicElement tab : tabs) {
+			if (tab instanceof RtfTab) {
+				this.tabs.add((RtfTab) tab);
 			}
 		}
 	}
@@ -116,8 +116,7 @@ public class RtfTabGroup extends RtfAddableElement {
      */    
     public void writeContent(final OutputStream result) throws IOException
     {
-    	for(int i = 0; i < this.tabs.size(); i++) {
-    		RtfTab rt = this.tabs.get(i);
+		for (RtfTab rt : this.tabs) {
     		rt.writeContent(result);
     	}
     }        

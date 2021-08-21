@@ -53,7 +53,6 @@ import java.awt.Color;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Hashtable;
-import java.util.Iterator;
 import java.util.Map;
 
 import com.lowagie.text.Rectangle;
@@ -114,9 +113,7 @@ public class RtfBorderGroup extends RtfElement {
         this.borders = new Hashtable<>();
         this.borderType = borderType;
         if(borderGroup != null) {
-            Iterator<Map.Entry<Integer, RtfBorder>> it = borderGroup.getBorders().entrySet().iterator();
-            while(it.hasNext()) {
-                Map.Entry<Integer, RtfBorder> entry = it.next();
+            for (Map.Entry<Integer, RtfBorder> entry : borderGroup.getBorders().entrySet()) {
                 this.borders.put(entry.getKey(), new RtfBorder(this.document, this.borderType, entry.getValue()));
             }
         }
@@ -207,12 +204,11 @@ public class RtfBorderGroup extends RtfElement {
      */    
     public void writeContent(final OutputStream result) throws IOException
     {
-        Iterator<RtfBorder> it = this.borders.values().iterator();
-        while(it.hasNext()) {
-            it.next().writeContent(result);
+        for (RtfBorder rtfBorder : this.borders.values()) {
+            rtfBorder.writeContent(result);
         }
     }        
-    
+
     /**
      * Gets the RtfBorders of this RtfBorderGroup
      * 

@@ -255,8 +255,8 @@ public final class RtfByteArrayBuffer extends OutputStream
 	{
 		if(a == null) throw new NullPointerException();
 
-		for(int k = 0; k < a.length; k++) {
-			append(a[k]);
+		for (byte[] chunk : a) {
+			append(chunk);
 		}
 	}
 	
@@ -281,8 +281,7 @@ public final class RtfByteArrayBuffer extends OutputStream
 		final byte[] r = new byte[size];
 		int off = 0;
 		final int n = arrays.size();
-		for(int k = 0; k < n; k++) {
-			byte[] src = arrays.get(k);
+		for (byte[] src : arrays) {
 			System.arraycopy(src, 0, r, off, src.length);
 			off += src.length;
 		}
@@ -301,8 +300,7 @@ public final class RtfByteArrayBuffer extends OutputStream
 		if(out == null) throw new NullPointerException();
 		
 		final int n = arrays.size();
-		for(int k = 0; k < n; k++) {
-			byte[] src = arrays.get(k);
+		for (byte[] src : arrays) {
 			out.write(src);
 		}
 		if(pos > 0) out.write(buffer, 0, pos);

@@ -319,10 +319,10 @@ public class RtfHeaderFooter extends HeaderFooter implements RtfBasicElement {
             }
         }
         result.write(DELIMITER);
-        for(int i = 0; i < this.content.length; i++) {
-            if(this.content[i] instanceof RtfBasicElement) {
-            	RtfBasicElement rbe = (RtfBasicElement)this.content[i];
-            	rbe.writeContent(result);
+        for (Object o : this.content) {
+            if (o instanceof RtfBasicElement) {
+                RtfBasicElement rbe = (RtfBasicElement) o;
+                rbe.writeContent(result);
             }
         }
         result.write(CLOSE_GROUP);
@@ -376,14 +376,14 @@ public class RtfHeaderFooter extends HeaderFooter implements RtfBasicElement {
      */
     public void setAlignment(int alignment) {
         super.setAlignment(alignment);
-        for(int i = 0; i < this.content.length; i++) {
-            if(this.content[i] instanceof Paragraph) {
-                ((Paragraph) this.content[i]).setAlignment(alignment);
-            } else if(this.content[i] instanceof Table) {
-                ((Table) this.content[i]).setAlignment(alignment);
-            } else if(this.content[i] instanceof Image) {
-                ((Image) this.content[i]).setAlignment(alignment);
-            }     
+        for (Object o : this.content) {
+            if (o instanceof Paragraph) {
+                ((Paragraph) o).setAlignment(alignment);
+            } else if (o instanceof Table) {
+                ((Table) o).setAlignment(alignment);
+            } else if (o instanceof Image) {
+                ((Image) o).setAlignment(alignment);
+            }
         }
     }
 }

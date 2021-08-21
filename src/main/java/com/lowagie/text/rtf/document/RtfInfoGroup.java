@@ -109,11 +109,10 @@ public class RtfInfoGroup extends RtfElement {
     {
     	result.write(OPEN_GROUP);
 		result.write(INFO_GROUP);
-		for(int i = 0; i < infoElements.size(); i++) {
-			RtfInfoElement infoElement = infoElements.get(i);
+        for (RtfInfoElement infoElement : infoElements) {
 			infoElement.writeContent(result);
 		}
-		
+
 		// handle document protection
     	if(document.getDocumentSettings().isDocumentProtected()) {
 	    	result.write(OPEN_GROUP);

@@ -127,8 +127,7 @@ public class RtfColorList extends RtfElement implements RtfExtendedElement {
     {
         result.write(OPEN_GROUP);
         result.write(COLOR_TABLE);
-        for(int i = 0; i < colorList.size(); i++) {
-            RtfColor color = colorList.get(i);
+        for (RtfColor color : colorList) {
             color.writeDefinition(result);
         }
         result.write(CLOSE_GROUP);

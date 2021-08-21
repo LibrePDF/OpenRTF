@@ -653,12 +653,10 @@ public class RtfParser {
 //		System.out.println("1:");
 		
 		this.rtfKeywordMgr = new RtfCtrlWordMgr(this, this.pbReader);/////////DO NOT COMMENT OUT THIS LINE ///////////
-		
-		Object listener;
-		for (Iterator<EventListener> iterator = listeners.iterator(); iterator.hasNext();) {
-            listener = iterator.next();
+
+		for (EventListener listener : listeners) {
             if(listener instanceof RtfCtrlWordListener) {
-                this.rtfKeywordMgr.addRtfCtrlWordListener((RtfCtrlWordListener)listener);    
+                this.rtfKeywordMgr.addRtfCtrlWordListener((RtfCtrlWordListener)listener);
             }
         }
 //		endFree = Runtime.getRuntime().freeMemory();

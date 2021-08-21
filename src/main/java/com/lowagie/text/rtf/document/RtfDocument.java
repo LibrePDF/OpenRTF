@@ -313,8 +313,8 @@ public class RtfDocument extends RtfElement {
      */
     private static boolean subMatch(final String str, int soff, final byte[] m)
     {
-        for(int k = 0; k < m.length; k++) {
-            if(str.charAt(soff++) != m[k]) {
+        for (byte b : m) {
+            if (str.charAt(soff++) != b) {
                 return false;
             }
         }

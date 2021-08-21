@@ -202,10 +202,9 @@ public class RtfTable extends RtfElement {
 //        this.alignment = table.getAlignment();
         
         int i = 0;
-        Iterator<PdfPRow> rowIterator = table.getRows().iterator();
 //        Iterator rowIterator = table.iterator();
-        while(rowIterator.hasNext()) {
-            this.rows.add(new RtfRow(this.document, this, rowIterator.next(), i));
+        for (PdfPRow pdfPRow : table.getRows()) {
+            this.rows.add(new RtfRow(this.document, this, pdfPRow, i));
             i++;
         }
         for(i = 0; i < this.rows.size(); i++) {
@@ -239,9 +238,8 @@ public class RtfTable extends RtfElement {
             }
             result.write(RtfParagraph.PARAGRAPH);
         }
-        
-        for(int i = 0; i < this.rows.size(); i++) {
-        	RtfElement re = this.rows.get(i);
+
+        for (RtfElement re : this.rows) {
             //.result.write(re.write());
         	re.writeContent(result);
         }

@@ -51,6 +51,7 @@ package com.lowagie.text.rtf.text;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Collections;
 
 import com.lowagie.text.Chunk;
 import com.lowagie.text.DocWriter;
@@ -120,9 +121,7 @@ public class RtfParagraph extends RtfPhrase {
             }
             try {
                 RtfBasicElement[] rtfElements = doc.getMapper().mapElement(chunk);
-                for(int j = 0; j < rtfElements.length; j++) {
-                    chunks.add(rtfElements[j]);
-                }
+                Collections.addAll(chunks, rtfElements);
             } catch(DocumentException de) {
             }
         }
@@ -154,9 +153,8 @@ public class RtfParagraph extends RtfPhrase {
             this.paragraphStyle.writeBegin(result);
         }
         result.write(DocWriter.getISOBytes("\\plain"));
-        
-        for(int i = 0; i < chunks.size(); i++) {
-        	RtfBasicElement rbe = chunks.get(i);
+
+        for (RtfBasicElement rbe : chunks) {
         	rbe.writeContent(result);
         }
         

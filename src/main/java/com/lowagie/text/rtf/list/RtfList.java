@@ -315,10 +315,8 @@ public class RtfList extends RtfElement implements RtfExtendedElement {
 		}
         
         // now setup the actual list contents.
-        for(int i = 0; i < list.getItems().size(); i++) {
+        for (Element element : list.getItems()) {
             try {
-                Element element = list.getItems().get(i);
-                
                 if(element.type() == Element.CHUNK) {
                     element = new ListItem((Chunk) element);
                 }
@@ -326,8 +324,7 @@ public class RtfList extends RtfElement implements RtfExtendedElement {
                     ll.setAlignment(((ListItem) element).getAlignment());
                 }
                 RtfBasicElement[] rtfElements = doc.getMapper().mapElement(element);
-                for(int j = 0; j < rtfElements.length; j++) {
-                    RtfBasicElement rtfElement = rtfElements[j];
+                for (RtfBasicElement rtfElement : rtfElements) {
                     if(rtfElement instanceof RtfList) {
                         ((RtfList) rtfElement).setParentList(this);
                     } else if(rtfElement instanceof RtfListItem) {
@@ -341,10 +338,10 @@ public class RtfList extends RtfElement implements RtfExtendedElement {
                     } else
                 	 if (list.getSymbol() != null && list.getSymbol().getFont() != null) {
                      	ll.setBulletFont(list.getSymbol().getFont());
-                	 
+
                 	 } else {
                     	ll.setBulletFont(new Font(Font.SYMBOL, 10, Font.NORMAL, new Color(0, 0, 0)));
-                    } 
+                    }
                     items.add(rtfElement);
                 }
 
@@ -409,8 +406,7 @@ public class RtfList extends RtfElement implements RtfExtendedElement {
         result.write(CLOSE_GROUP);
         this.document.outputDebugLinebreak(result);
         if(items != null) {
-        for(int i = 0; i < items.size(); i++) {
-            RtfElement rtfElement = (RtfElement) items.get(i);
+        for (RtfBasicElement rtfElement : items) {
             if(rtfElement instanceof RtfList) {
             	RtfList rl = (RtfList)rtfElement;
             	rl.writeDefinition(result);
@@ -419,7 +415,7 @@ public class RtfList extends RtfElement implements RtfExtendedElement {
             	RtfListItem rli = (RtfListItem) rtfElement;
             	if(rli.writeDefinition(result)) break;
             }
-        }    
+        }
         }
     }
     
@@ -436,8 +432,8 @@ public class RtfList extends RtfElement implements RtfExtendedElement {
         int itemNr = 0;
         if(items != null) {
         for(int i = 0; i < items.size(); i++) {
-        	
-            RtfElement thisRtfElement = (RtfElement) items.get(i);
+
+            RtfBasicElement thisRtfElement = items.get(i);
            //thisRtfElement.writeContent(result);
             if(thisRtfElement instanceof RtfListItem) {
                 itemNr++;
@@ -572,11 +568,11 @@ public class RtfList extends RtfElement implements RtfExtendedElement {
      */
     public void setInTable(boolean inTable) {
         super.setInTable(inTable);
-        for(int i = 0; i < this.items.size(); i++) {
-        	this.items.get(i).setInTable(inTable);
+        for (RtfBasicElement item : this.items) {
+            item.setInTable(inTable);
         }
-        for(int i = 0; i < this.listLevels.size(); i++) {
-        	this.listLevels.get(i).setInTable(inTable);
+        for (RtfListLevel listLevel : this.listLevels) {
+            listLevel.setInTable(inTable);
         }
     }
     
@@ -589,8 +585,8 @@ public class RtfList extends RtfElement implements RtfExtendedElement {
      */
     public void setInHeader(boolean inHeader) {
         super.setInHeader(inHeader);
-        for(int i = 0; i < this.items.size(); i++) {
-            this.items.get(i).setInHeader(inHeader);
+        for (RtfBasicElement item : this.items) {
+            item.setInHeader(inHeader);
         }
     }
 
@@ -604,11 +600,11 @@ public class RtfList extends RtfElement implements RtfExtendedElement {
 //        if(this.parentList != null) {
 //            this.leftIndent = this.leftIndent + this.parentList.getLeftIndent() + this.parentList.getFirstIndent();
 //        }
-        for(int i = 0; i < this.items.size(); i++) {
-            if(this.items.get(i) instanceof RtfList) {
-                ((RtfList) this.items.get(i)).correctIndentation();
-            } else if(this.items.get(i) instanceof RtfListItem) {
-                ((RtfListItem) this.items.get(i)).correctIndentation();
+        for (RtfBasicElement item : this.items) {
+            if (item instanceof RtfList) {
+                ((RtfList) item).correctIndentation();
+            } else if (item instanceof RtfListItem) {
+                ((RtfListItem) item).correctIndentation();
             }
         }
     }

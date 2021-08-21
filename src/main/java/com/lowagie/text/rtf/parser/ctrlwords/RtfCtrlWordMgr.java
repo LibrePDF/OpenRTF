@@ -51,7 +51,6 @@ package com.lowagie.text.rtf.parser.ctrlwords;
 
 import java.io.PushbackInputStream;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import com.lowagie.text.rtf.parser.RtfParser;
 
@@ -183,29 +182,23 @@ public final class RtfCtrlWordMgr {
 	}
 	
 	private boolean beforeCtrlWord(RtfCtrlWordData ctrlWordData) {
-		RtfCtrlWordListener listener;
-		for (Iterator<RtfCtrlWordListener> iterator = listeners.iterator(); iterator.hasNext();) {
-            listener = iterator.next();
-            listener.beforeCtrlWord(ctrlWordData);
-        }
+		for (RtfCtrlWordListener listener : listeners) {
+			listener.beforeCtrlWord(ctrlWordData);
+		}
 		return true;
 	}
 	
 	private boolean onCtrlWord(RtfCtrlWordData ctrlWordData) {
-		RtfCtrlWordListener listener;
-		for (Iterator<RtfCtrlWordListener> iterator = listeners.iterator(); iterator.hasNext();) {
-            listener = iterator.next();
-            listener.onCtrlWord(ctrlWordData);
-        }
+		for (RtfCtrlWordListener listener : listeners) {
+			listener.onCtrlWord(ctrlWordData);
+		}
 		return true;
 	}
 	
 	private boolean afterCtrlWord(RtfCtrlWordData ctrlWordData) {
-		RtfCtrlWordListener listener;
-		for (Iterator<RtfCtrlWordListener> iterator = listeners.iterator(); iterator.hasNext();) {
-            listener = iterator.next();
-            listener.afterCtrlWord(ctrlWordData);
-        }
+		for (RtfCtrlWordListener listener : listeners) {
+			listener.afterCtrlWord(ctrlWordData);
+		}
 		return true;
 	}
 }

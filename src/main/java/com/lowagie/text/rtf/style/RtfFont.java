@@ -299,12 +299,12 @@ public class RtfFont extends Font implements RtfExtendedElement {
             }
             if(font.getBaseFont() != null) {
                 String[][] fontNames = font.getBaseFont().getFullFontName();
-                for(int i = 0; i < fontNames.length; i++) {
-                    if(fontNames[i][2].equals("0")) {
-                        this.fontName = fontNames[i][3];
+                for (String[] fontName : fontNames) {
+                    if (fontName[2].equals("0")) {
+                        this.fontName = fontName[3];
                         break;
-                    } else if(fontNames[i][2].equals("1033") || fontNames[i][2].equals("")) {
-                        this.fontName = fontNames[i][3];
+                    } else if (fontName[2].equals("1033") || fontName[2].equals("")) {
+                        this.fontName = fontName[3];
                     }
                 }
             }

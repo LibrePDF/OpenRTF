@@ -50,7 +50,7 @@ package com.lowagie.text.rtf.parser.properties;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
+import java.util.Map;
 
 import com.lowagie.text.rtf.parser.ctrlwords.RtfCtrlWordData;
 
@@ -423,11 +423,10 @@ public class RtfProperty {
 		HashMap<String, Object> props = new HashMap<>();
 		if(!properties.isEmpty()) {
 			//properties.get
-			Iterator<String> it = properties.keySet().iterator();
-			while(it.hasNext()) {
-				String key = it.next();
+			for (Map.Entry<String, Object> entry : properties.entrySet()) {
+				String key = entry.getKey();
 				if(key.startsWith(propertyGroup)) {
-					props.put(key, this.properties.get(key));
+					props.put(key, entry.getValue());
 				}
 			}
 		}
@@ -531,11 +530,9 @@ public class RtfProperty {
 	
 	public void beforeChange(String propertyName) {
 		// call listener for all
-		RtfPropertyListener listener;
-		for (Iterator<RtfPropertyListener> iterator = listeners.iterator(); iterator.hasNext();) {
-            listener = iterator.next();
-            listener.beforePropertyChange(propertyName);
-        }
+		for (RtfPropertyListener listener : listeners) {
+			listener.beforePropertyChange(propertyName);
+		}
 		
 		if(propertyName.startsWith(CHARACTER)) {
 			// call listener for character chane
@@ -556,11 +553,9 @@ public class RtfProperty {
 	
 	public void afterChange(String propertyName) {
 		// call listener for all
-		RtfPropertyListener listener;
-		for (Iterator<RtfPropertyListener> iterator = listeners.iterator(); iterator.hasNext();) {
-            listener = iterator.next();
-            listener.afterPropertyChange(propertyName);
-        }
+		for (RtfPropertyListener listener : listeners) {
+			listener.afterPropertyChange(propertyName);
+		}
 
 		if(propertyName.startsWith(CHARACTER)) {
 			// call listener for character chane

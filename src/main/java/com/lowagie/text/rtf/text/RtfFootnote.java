@@ -50,6 +50,7 @@ package com.lowagie.text.rtf.text;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Collections;
 
 import com.lowagie.text.Chunk;
 import com.lowagie.text.DocWriter;
@@ -107,16 +108,13 @@ public class RtfFootnote extends RtfPhrase {
       this.paragraphStyle = new RtfParagraphStyle(this.document, this.document
           .getDocumentHeader().getRtfParagraphStyle("Normal"));
     }
-    for (int i = 0; i < footnote.size(); i++) {
-      Element chunk = footnote.get(i);
+    for (Element chunk : footnote) {
       if (chunk instanceof Chunk) {
         ((Chunk) chunk).setFont(baseFont.difference(((Chunk) chunk).getFont()));
       }
       try {
         RtfBasicElement[] rtfElements = doc.getMapper().mapElement(chunk);
-        for (int j = 0; j < rtfElements.length; j++) {
-          chunks.add(rtfElements[j]);
-        }
+        Collections.addAll(chunks, rtfElements);
       } catch (DocumentException de) {
       }
     }
@@ -142,8 +140,7 @@ public class RtfFootnote extends RtfPhrase {
       this.paragraphStyle.writeBegin(result);
     }
 
-    for (int i = 0; i < chunks.size(); i++) {
-      RtfBasicElement rbe = chunks.get(i);
+    for (RtfBasicElement rbe : chunks) {
       rbe.writeContent(result);
     }
 
