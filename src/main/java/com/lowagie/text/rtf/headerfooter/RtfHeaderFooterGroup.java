@@ -334,7 +334,7 @@ public class RtfHeaderFooterGroup extends HeaderFooter implements RtfBasicElemen
      * @return Whether this RtfHeaderFooterGroup has a titlepage
      */
     public boolean hasTitlePage() {
-        return (headerFirst != null);
+        return headerFirst != null;
     }
     
     /**
@@ -343,7 +343,7 @@ public class RtfHeaderFooterGroup extends HeaderFooter implements RtfBasicElemen
      * @return Whether this RtfHeaderFooterGroup has facing pages
      */
     public boolean hasFacingPages() {
-        return (headerLeft != null || headerRight != null);
+        return headerLeft != null || headerRight != null;
     }
 
     /**

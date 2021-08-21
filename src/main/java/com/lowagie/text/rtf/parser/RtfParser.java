@@ -1456,7 +1456,7 @@ public class RtfParser {
 	 * @since 2.1.3
 	 */
 	public boolean isConvert() {
-		return (this.getConversionType() == TYPE_CONVERT);
+		return this.getConversionType() == TYPE_CONVERT;
 	}
 	
 	/**
@@ -1467,7 +1467,7 @@ public class RtfParser {
 	 * @since 2.1.3
 	 */
 	public boolean isImport() {
-		return (isImportFull() || this.isImportFragment());
+		return isImportFull() || this.isImportFragment();
 	}
 	/**
 	 * Helper method to determin if conversion is TYPE_IMPORT_FULL
@@ -1476,7 +1476,7 @@ public class RtfParser {
 	 * @since 2.1.3
 	 */
 	public boolean isImportFull() {
-		return (this.getConversionType() == TYPE_IMPORT_FULL);
+		return this.getConversionType() == TYPE_IMPORT_FULL;
 	}
 	/**
 	 * Helper method to determin if conversion is TYPE_IMPORT_FRAGMENT
@@ -1485,7 +1485,7 @@ public class RtfParser {
 	 * @since 2.1.3
 	 */
 	public boolean isImportFragment() {
-		return (this.getConversionType() == TYPE_IMPORT_FRAGMENT);
+		return this.getConversionType() == TYPE_IMPORT_FRAGMENT;
 	}
 	/**
 	 * Helper method to indicate if this control word was a \* control word.

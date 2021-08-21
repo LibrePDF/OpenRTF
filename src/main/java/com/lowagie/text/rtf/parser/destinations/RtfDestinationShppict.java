@@ -368,7 +368,7 @@ public class RtfDestinationShppict extends RtfDestination {
 				dataOS = new ByteArrayOutputStream();
 			}
 			// HGS - FIX ME IF PROBLEM!
-			dataOS.write((char) (ch));
+			dataOS.write((char) ch);
 			// PNG signature should be.
 			//			   (decimal)              137  80  78  71  13  10  26  10
 			//			   (hexadecimal)           89  50  4e  47  0d  0a  1a  0a
