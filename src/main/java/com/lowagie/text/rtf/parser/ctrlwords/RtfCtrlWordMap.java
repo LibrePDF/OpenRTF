@@ -181,7 +181,6 @@ final class RtfCtrlWordMap {
 		ctrlWords.put("aftnngbnumd", new RtfCtrlWordHandler(rtfParser, "aftnngbnumd", 0, false, RtfCtrlWordType.FLAG, "\\", " ", null));
 		ctrlWords.put("aftnngbnumk", new RtfCtrlWordHandler(rtfParser, "aftnngbnumk", 0, false, RtfCtrlWordType.FLAG, "\\", " ", null));
 		ctrlWords.put("aftnngbnuml", new RtfCtrlWordHandler(rtfParser, "aftnngbnuml", 0, false, RtfCtrlWordType.FLAG, "\\", " ", null));
-		ctrlWords.put("aftnnrlc", new RtfCtrlWordHandler(rtfParser, "aftnnrlc", 0, false, RtfCtrlWordType.FLAG, "\\", " ", null));
 		ctrlWords.put("aftnnruc", new RtfCtrlWordHandler(rtfParser, "aftnnruc", 0, false, RtfCtrlWordType.FLAG, "\\", " ", null));
 		ctrlWords.put("aftnnzodiac", new RtfCtrlWordHandler(rtfParser, "aftnnzodiac", 0, false, RtfCtrlWordType.FLAG, "\\", " ", null));
 		ctrlWords.put("aftnnzodiacd", new RtfCtrlWordHandler(rtfParser, "aftnnzodiacd", 0, false, RtfCtrlWordType.FLAG, "\\", " ", null));
