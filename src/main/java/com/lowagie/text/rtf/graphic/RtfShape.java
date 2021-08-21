@@ -182,7 +182,7 @@ public class RtfShape extends RtfAddableElement {
     /**
      * A HashMap with RtfShapePropertys that define further shape properties.
      */
-	private final HashMap<String, RtfShapeProperty> properties;
+	private final HashMap<String, RtfShapeProperty> properties = new HashMap<>();
     /**
      * The wrapping mode. Defaults to SHAPE_WRAP_NONE;
      */
@@ -201,7 +201,6 @@ public class RtfShape extends RtfAddableElement {
 	public RtfShape(int type, RtfShapePosition position) {
 		this.type = type;
 		this.position = position;
-		this.properties = new HashMap<>();
 	}
 
     /**

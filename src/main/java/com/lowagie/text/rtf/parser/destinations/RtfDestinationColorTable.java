@@ -72,7 +72,7 @@ public class RtfDestinationColorTable extends RtfDestination  {
 	/**
 	 * The number of the current color being parsed.
 	 */
-	private int colorNr;
+	private int colorNr = 0;
 	/**
 	 * The red component of the current color being parsed.
 	 */
@@ -127,15 +127,13 @@ public class RtfDestinationColorTable extends RtfDestination  {
 	/**
 	 * Color map object for conversions
 	 */
-	private HashMap<String, Color> colorMap;
+	private HashMap<String, Color> colorMap = new HashMap<>();
 	
 	/**
 	 * Constructor.
 	 */
 	public RtfDestinationColorTable() {
 		super(null);
-		colorMap = new HashMap<>();
-		this.colorNr = 0;
 	}
 	
 	/**
@@ -145,8 +143,6 @@ public class RtfDestinationColorTable extends RtfDestination  {
 	 */
 	public RtfDestinationColorTable(RtfParser parser) {
 		super(parser);
-		colorMap = new HashMap<>();
-		this.colorNr = 0;
 		this.importHeader = parser.getImportManager();
 		this.setToDefaults();
 	}

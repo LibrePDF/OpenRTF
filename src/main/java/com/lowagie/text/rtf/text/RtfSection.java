@@ -80,7 +80,7 @@ public class RtfSection extends RtfElement {
     /**
      * The sub-items of this RtfSection
      */
-    protected ArrayList<RtfBasicElement> items;
+    protected final ArrayList<RtfBasicElement> items = new ArrayList<>();
     
     /**
      * Constructs a RtfSection for a given Section. If the autogenerateTOCEntries
@@ -92,7 +92,6 @@ public class RtfSection extends RtfElement {
      */
     public RtfSection(RtfDocument doc, Section section) {
         super(doc);
-        items = new ArrayList<>();
         try {
             if(section.getTitle() != null) {
                 this.title = (RtfParagraph) doc.getMapper().mapElement(section.getTitle())[0];

@@ -209,7 +209,7 @@ public class RtfList extends RtfElement implements RtfExtendedElement {
     /**
      * The RtfList lists managed by this RtfListTable
      */
-    private ArrayList<RtfListLevel> listLevels = null;
+    private final ArrayList<RtfListLevel> listLevels = new ArrayList<>();
 
 
     /**
@@ -525,7 +525,6 @@ public class RtfList extends RtfElement implements RtfExtendedElement {
      * @since 2.1.3
      */
     protected void createDefaultLevels() {
-        this.listLevels = new ArrayList<>();	// listlevels
         for(int i=0; i<=8; i++) {
             // create a list level
             RtfListLevel ll = new RtfListLevel(this.document);

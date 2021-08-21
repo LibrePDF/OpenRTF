@@ -94,7 +94,7 @@ public class RtfPhrase extends RtfElement {
     /**
      * ArrayList containing the RtfChunks of this RtfPhrase
      */
-    protected ArrayList<RtfBasicElement> chunks = new ArrayList<>();
+    protected final ArrayList<RtfBasicElement> chunks = new ArrayList<>();
     /**
      * The height of each line.
      */

@@ -78,19 +78,19 @@ public class RtfImportMgr {
     /**
      * The HashMap storing the font number mappings.
      */
-    private final HashMap<String, String> importFontMapping;
+    private final HashMap<String, String> importFontMapping = new HashMap<>();
     /**
      * The HashMap storing the color number mappings.
      */
-    private final HashMap<String, String> importColorMapping;
+    private final HashMap<String, String> importColorMapping = new HashMap<>();
     /**
      * The HashMap storing the Stylesheet List number mappings.
      */
-    private final HashMap<String, String> importStylesheetListMapping;
+    private final HashMap<String, String> importStylesheetListMapping = new HashMap<>();
     /**
      * The HashMap storing the List number mappings.
      */
-    private final HashMap<String, String> importListMapping;
+    private final HashMap<String, String> importListMapping = new HashMap<>();
     /**
      * The RtfDocument to get font and color numbers from.
      */
@@ -110,10 +110,6 @@ public class RtfImportMgr {
     public RtfImportMgr(RtfDocument rtfDoc, Document doc) {
         this.rtfDoc = rtfDoc;
         this.doc = doc;
-        this.importFontMapping = new HashMap<>();
-        this.importColorMapping = new HashMap<>();
-        this.importStylesheetListMapping = new HashMap<>();
-        this.importListMapping = new HashMap<>();
     }
 
     /**

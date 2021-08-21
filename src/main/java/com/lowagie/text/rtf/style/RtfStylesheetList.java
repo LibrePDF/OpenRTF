@@ -71,7 +71,7 @@ public class RtfStylesheetList extends RtfElement implements RtfExtendedElement 
     /**
      * The HashMap containing the RtfParagraphStyles.
      */
-    private final HashMap<String, RtfParagraphStyle> styleMap;
+    private final HashMap<String, RtfParagraphStyle> styleMap = new HashMap<>();
     /**
      * Whether the default settings have been loaded.
      */
@@ -84,7 +84,6 @@ public class RtfStylesheetList extends RtfElement implements RtfExtendedElement 
      */
     public RtfStylesheetList(RtfDocument doc) {
         super(doc);
-        this.styleMap = new HashMap<>();
     }
 
     /**

@@ -89,11 +89,11 @@ public class RtfListTable extends RtfElement implements RtfExtendedElement {
     /**
      * The RtfList lists managed by this RtfListTable
      */
-    private final ArrayList<RtfList> lists;
+    private final ArrayList<RtfList> lists = new ArrayList<>();
     /**
      * The RtfPictureList lists managed by this RtfListTable
      */
-    private final ArrayList<RtfPictureList> picturelists;
+    private final ArrayList<RtfPictureList> picturelists = new ArrayList<>();
     
     /**
      * Constructs a RtfListTable for a RtfDocument
@@ -102,9 +102,6 @@ public class RtfListTable extends RtfElement implements RtfExtendedElement {
      */
     public RtfListTable(RtfDocument doc) {
         super(doc);
-        
-        this.lists = new ArrayList<>();
-        this.picturelists = new ArrayList<>();
     }
 
     /**

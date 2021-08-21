@@ -78,7 +78,7 @@ public class RtfDocument extends RtfElement {
     /**
      * Stores the actual document data
      */
-    private RtfDataCache data;
+    private RtfDataCache data = new RtfMemoryCache();
     /**
      * The RtfMapper to use in this RtfDocument
      */
@@ -90,7 +90,7 @@ public class RtfDocument extends RtfElement {
     /**
      * Stores integers that have been generated as unique random numbers
      */
-    private final ArrayList<Integer> previousRandomInts;
+    private final ArrayList<Integer> previousRandomInts = new ArrayList<>();
     /**
      * Whether to automatically generate TOC entries for Chapters and Sections. Defaults to false
      */
@@ -123,11 +123,9 @@ public class RtfDocument extends RtfElement {
      */
     public RtfDocument() {
         super(null);
-        this.data = new RtfMemoryCache();
         this.mapper = new RtfMapper(this);
         this.documentHeader = new RtfDocumentHeader(this);
         this.documentHeader.init();
-        this.previousRandomInts = new ArrayList<>();
         this.documentSettings = new RtfDocumentSettings(this);
     }
 
