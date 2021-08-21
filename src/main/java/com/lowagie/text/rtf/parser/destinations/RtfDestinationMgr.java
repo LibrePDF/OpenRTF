@@ -64,7 +64,7 @@ public final class RtfDestinationMgr {
 	 * Destinations
 	 */
 	private static RtfDestinationMgr instance = null;
-	private static Object lock = new Object();
+	private static final Object lock = new Object();
 	
 	/**
 	 * CtrlWord <-> Destination map object.
@@ -74,12 +74,12 @@ public final class RtfDestinationMgr {
 	 * discarding unwanted data. This is primarily used when
 	 * skipping groups, binary data or unwanted/unknown data.
 	 */
-	private static HashMap<String, RtfDestination> destinations = new HashMap<>(300, 0.95f);
+	private static final HashMap<String, RtfDestination> destinations = new HashMap<>(300, 0.95f);
 	/**
 	 * Destination objects.
 	 * There is only one of each destination.
 	 */
-	private static HashMap<String, RtfDestination> destinationObjects = new HashMap<>(10, 0.95f);
+	private static final HashMap<String, RtfDestination> destinationObjects = new HashMap<>(10, 0.95f);
 	
 	private static boolean ignoreUnknownDestinations = false;
 	

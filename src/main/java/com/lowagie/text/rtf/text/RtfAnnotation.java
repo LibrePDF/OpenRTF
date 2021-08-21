@@ -84,11 +84,11 @@ public class RtfAnnotation extends RtfElement {
     /**
      * The title of this RtfAnnotation
      */
-    private String title;
+    private final String title;
     /**
      * The content of this RtfAnnotation
      */
-    private String content;
+    private final String content;
     
     /**
      * Constructs a RtfAnnotation based on an Annotation.

@@ -459,7 +459,7 @@ public class RtfParser {
 	private RtfCtrlWordData lastCtrlWordParam = null;
 	
 	/** The <code>RtfCtrlWordListener</code>. */
-    private ArrayList<EventListener> listeners = new ArrayList<>();
+    private final ArrayList<EventListener> listeners = new ArrayList<>();
     
 	/**
 	 * Constructor 

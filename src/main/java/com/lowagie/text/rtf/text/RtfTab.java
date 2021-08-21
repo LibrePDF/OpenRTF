@@ -95,11 +95,11 @@ public class RtfTab extends RtfAddableElement {
 	/**
 	 * The tab position in twips.
 	 */
-	private int position;
+	private final int position;
 	/**
 	 * The tab alignment.
 	 */
-	private int type;
+	private final int type;
 	
 	/**
 	 * Constructs a new RtfTab with the given position and type. The position

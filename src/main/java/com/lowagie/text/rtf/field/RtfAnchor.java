@@ -76,11 +76,11 @@ public class RtfAnchor extends RtfField
     /**
      * The url of this RtfAnchor
      */
-    private String url;
+    private final String url;
     /**
      * The RtfPhrase to display for the url
      */
-    private RtfPhrase content;
+    private final RtfPhrase content;
 
     /**
      * Constructs a RtfAnchor based on a RtfField

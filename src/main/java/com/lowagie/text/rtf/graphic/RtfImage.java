@@ -144,19 +144,19 @@ public class RtfImage extends RtfElement {
     /**
      * The width of this picture
      */
-    private float width;
+    private final float width;
     /**
      * The height of this picture
      */
-    private float height;
+    private final float height;
     /**
      * The intended display width of this picture
      */
-    private float plainWidth;
+    private final float plainWidth;
     /**
      * The intended display height of this picture
      */
-    private float plainHeight;
+    private final float plainHeight;
     /**
      * Whether this RtfImage is a top level element and should
      * be an extra paragraph.

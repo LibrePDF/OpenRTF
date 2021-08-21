@@ -82,15 +82,15 @@ public class RtfDocument extends RtfElement {
     /**
      * The RtfMapper to use in this RtfDocument
      */
-    private RtfMapper mapper;
+    private final RtfMapper mapper;
     /**
      * The RtfDocumentHeader that handles all document header methods
      */
-    private RtfDocumentHeader documentHeader;
+    private final RtfDocumentHeader documentHeader;
     /**
      * Stores integers that have been generated as unique random numbers
      */
-    private ArrayList<Integer> previousRandomInts;
+    private final ArrayList<Integer> previousRandomInts;
     /**
      * Whether to automatically generate TOC entries for Chapters and Sections. Defaults to false
      */
@@ -98,7 +98,7 @@ public class RtfDocument extends RtfElement {
     /**
      * The RtfDocumentSettings for this RtfDocument.
      */
-    private RtfDocumentSettings documentSettings;
+    private final RtfDocumentSettings documentSettings;
     /**
      * The last RtfBasicElement that was added directly to the RtfDocument.
      */

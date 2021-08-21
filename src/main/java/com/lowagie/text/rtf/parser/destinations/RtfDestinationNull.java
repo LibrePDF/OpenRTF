@@ -66,7 +66,7 @@ import com.lowagie.text.rtf.parser.ctrlwords.RtfCtrlWordData;
  */
 public final class RtfDestinationNull extends RtfDestination {
 	private static RtfDestinationNull instance = null;
-	private static Object lock = new Object();
+	private static final Object lock = new Object();
 	/**
 	 * Constructs a new RtfDestinationNull.
 	 * 

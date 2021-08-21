@@ -71,7 +71,7 @@ final class RtfCtrlWordMap {
     /**
      * Control Word HashMap mapping object.
      */
-    private HashMap<String, RtfCtrlWordHandler> ctrlWords = new HashMap<>(2012, .9f);
+    private final HashMap<String, RtfCtrlWordHandler> ctrlWords = new HashMap<>(2012, .9f);
 
     /**
      * Get the HashMap object containing the control words.

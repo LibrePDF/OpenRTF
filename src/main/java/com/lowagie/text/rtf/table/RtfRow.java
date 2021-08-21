@@ -171,7 +171,7 @@ public class RtfRow extends RtfElement {
     /**
      * The RtfTable this RtfRow belongs to
      */
-    private RtfTable parentTable;
+    private final RtfTable parentTable;
     /**
      * The cells of this RtfRow
      */
@@ -183,7 +183,7 @@ public class RtfRow extends RtfElement {
     /**
      * The row number
      */
-    private int rowNumber;
+    private final int rowNumber;
     
     /**
      * Constructs a RtfRow for a Row.

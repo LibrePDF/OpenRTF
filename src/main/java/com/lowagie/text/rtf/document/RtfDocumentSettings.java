@@ -69,7 +69,7 @@ public class RtfDocumentSettings {
     /**
      * The RtfDocument this RtfDocumentSettings belongs to.
      */
-    private RtfDocument document;
+    private final RtfDocument document;
     /**
      * Whether to also output the table row definition after the cell content.
      */

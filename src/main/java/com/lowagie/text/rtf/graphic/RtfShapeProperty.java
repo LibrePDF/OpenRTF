@@ -127,11 +127,11 @@ public class RtfShapeProperty extends RtfAddableElement {
     /**
      * The RtfShapeProperty name.
      */
-	private String name;
+	private final String name;
     /**
      * The RtfShapeProperty value.
      */
-	private Object value;
+	private final Object value;
 	
     /**
      * Internally used to create the RtfShape.

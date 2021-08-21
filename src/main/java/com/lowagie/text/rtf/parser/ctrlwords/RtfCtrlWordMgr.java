@@ -65,12 +65,12 @@ public final class RtfCtrlWordMgr {
 	public static final boolean debug = false;
 	public static final boolean debugFound = false;
 	public static final boolean debugNotFound = true;
-	private PushbackInputStream reader;
-	private RtfParser rtfParser;
-	private RtfCtrlWordMap ctrlWordMap;
+	private final PushbackInputStream reader;
+	private final RtfParser rtfParser;
+	private final RtfCtrlWordMap ctrlWordMap;
 	
 	/** The <code>RtfCtrlWordListener</code>. */
-    private ArrayList<RtfCtrlWordListener> listeners = new ArrayList<>();
+    private final ArrayList<RtfCtrlWordListener> listeners = new ArrayList<>();
 
 //	// TIMING DEBUG INFO
 //	private long endTime = 0;

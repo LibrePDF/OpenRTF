@@ -175,7 +175,7 @@ public class RtfProperty {
 
 	
 	/** The <code>RtfPropertyListener</code>. */
-    private ArrayList<RtfPropertyListener> listeners = new ArrayList<>();
+    private final ArrayList<RtfPropertyListener> listeners = new ArrayList<>();
 	/**
 	 * Set all property objects to default values.
 	 * @since 2.0.8

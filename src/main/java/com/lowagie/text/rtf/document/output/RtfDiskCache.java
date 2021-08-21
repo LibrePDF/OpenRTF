@@ -71,11 +71,11 @@ public class RtfDiskCache implements RtfDataCache {
     /**
      * The BufferedOutputStream that stores the cache data.
      */
-    private BufferedOutputStream data;
+    private final BufferedOutputStream data;
     /**
      * The temporary file to store the data in.
      */
-    private File tempFile;
+    private final File tempFile;
     
     /**
      * Constructs a RtfFileCache. Creates the temp file.

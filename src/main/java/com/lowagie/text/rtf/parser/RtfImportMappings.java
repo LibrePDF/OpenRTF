@@ -71,19 +71,19 @@ public class RtfImportMappings {
 	/**
 	 * The fontNr to fontName mappings.
 	 */
-	private HashMap<String, String> fontMappings;
+	private final HashMap<String, String> fontMappings;
 	/**
 	 * The colorNr to Color mappings.
 	 */
-	private HashMap<String, Color> colorMappings;
+	private final HashMap<String, Color> colorMappings;
 	/**
 	 * The listNr to List mappings.
 	 */
-	private HashMap<String, String> listMappings;
+	private final HashMap<String, String> listMappings;
 	/**
 	 * The sytlesheetListNr to Stylesheet mappings.
 	 */
-	private HashMap<String, List> stylesheetListMappings;
+	private final HashMap<String, List> stylesheetListMappings;
 	
 	/**
 	 * Constructs a new RtfImportMappings initialising the mappings.

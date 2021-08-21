@@ -84,7 +84,7 @@ public class RtfFontList extends RtfElement implements RtfExtendedElement {
     /**
      * The list of fonts
      */
-    private ArrayList<RtfFont> fontList = new ArrayList<>();
+    private final ArrayList<RtfFont> fontList = new ArrayList<>();
 
     /**
      * Creates a RtfFontList

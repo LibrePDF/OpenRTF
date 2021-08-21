@@ -72,7 +72,7 @@ public abstract class RtfDestination {
 	protected RtfCtrlWordData lastCtrlWord = null;
 
      /** The <code>RtfDestinationListener</code>. */
-    private static ArrayList<RtfDestinationListener> listeners = new ArrayList<>();
+    private static final ArrayList<RtfDestinationListener> listeners = new ArrayList<>();
     
 	/**
 	 * Constructor.

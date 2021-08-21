@@ -43,19 +43,19 @@ public class RtfShapePosition extends RtfAddableElement {
     /**
      * The top coordinate of this RtfShapePosition.
      */
-	private int top;
+	private final int top;
     /**
      * The left coordinate of this RtfShapePosition.
      */
-	private int left;
+	private final int left;
     /**
      * The right coordinate of this RtfShapePosition.
      */
-	private int right;
+	private final int right;
     /**
      * The bottom coordinate of this RtfShapePosition.
      */
-	private int bottom;
+	private final int bottom;
     /**
      * The z order of this RtfShapePosition.
      */

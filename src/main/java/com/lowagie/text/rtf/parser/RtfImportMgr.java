@@ -78,28 +78,28 @@ public class RtfImportMgr {
     /**
      * The HashMap storing the font number mappings.
      */
-    private HashMap<String, String> importFontMapping;
+    private final HashMap<String, String> importFontMapping;
     /**
      * The HashMap storing the color number mappings.
      */
-    private HashMap<String, String> importColorMapping;
+    private final HashMap<String, String> importColorMapping;
     /**
      * The HashMap storing the Stylesheet List number mappings.
      */
-    private HashMap<String, String> importStylesheetListMapping;
+    private final HashMap<String, String> importStylesheetListMapping;
     /**
      * The HashMap storing the List number mappings.
      */
-    private HashMap<String, String> importListMapping;
+    private final HashMap<String, String> importListMapping;
     /**
      * The RtfDocument to get font and color numbers from.
      */
-    private RtfDocument rtfDoc;
+    private final RtfDocument rtfDoc;
     /**
      * The Document.
      * Used for conversions, but not imports.
      */
-    private Document doc;
+    private final Document doc;
 
 
     /**
