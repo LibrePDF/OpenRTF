@@ -565,6 +565,7 @@ public final class RtfDestinationFontTable extends RtfDestination {
 		try {
 			pr = System.getenv();
 		} catch (Throwable e) {
+			return;
 		}
 		String systemRoot = pr.get("SystemRoot");
 		String fileSeperator = System.getProperty("file.separator");
