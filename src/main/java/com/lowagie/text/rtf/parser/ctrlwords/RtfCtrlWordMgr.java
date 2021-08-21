@@ -65,9 +65,9 @@ public final class RtfCtrlWordMgr {
 	public static final boolean debug = false;
 	public static final boolean debugFound = false;
 	public static final boolean debugNotFound = true;
-	private PushbackInputStream reader = null;
-	private RtfParser rtfParser = null;
-	private RtfCtrlWordMap ctrlWordMap = null;
+	private PushbackInputStream reader;
+	private RtfParser rtfParser;
+	private RtfCtrlWordMap ctrlWordMap;
 	
 	/** The <code>RtfCtrlWordListener</code>. */
     private ArrayList<RtfCtrlWordListener> listeners = new ArrayList<>();
@@ -112,7 +112,7 @@ public final class RtfCtrlWordMgr {
 	 */
 	public int handleKeyword(RtfCtrlWordData ctrlWordData, int groupLevel) {
 		//TODO: May be used for event handling.
-		int result = RtfParser.errOK;
+		int result;
 		
 		// Call before handler event here
 		beforeCtrlWord(ctrlWordData);

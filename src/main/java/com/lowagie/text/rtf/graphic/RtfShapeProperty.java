@@ -127,11 +127,11 @@ public class RtfShapeProperty extends RtfAddableElement {
     /**
      * The RtfShapeProperty name.
      */
-	private String name = "";
+	private String name;
     /**
      * The RtfShapeProperty value.
      */
-	private Object value = null;
+	private Object value;
 	
     /**
      * Internally used to create the RtfShape.
@@ -294,7 +294,7 @@ public class RtfShapeProperty extends RtfAddableElement {
     		break;
         case PROPERTY_TYPE_IMAGE:
             Image image = (Image)this.value;
-            RtfImage img = null;
+            RtfImage img;
             try {
                 img = new RtfImage(this.doc, image);
             }

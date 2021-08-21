@@ -240,7 +240,7 @@ public class RtfParagraphStyle extends RtfFont {
     /**
      * The name of this RtfParagraphStyle.
      */
-    private String styleName = "";
+    private String styleName;
     /**
      * The name of the RtfParagraphStyle this RtfParagraphStyle is based on.
      */

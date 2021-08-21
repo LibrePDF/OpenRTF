@@ -63,7 +63,7 @@ import com.lowagie.text.rtf.parser.ctrlwords.RtfCtrlWordData;
   */
 public abstract class RtfDestination {
 	/** Parser object */
-	protected RtfParser rtfParser = null;
+	protected RtfParser rtfParser;
 	
 	/** Is data in destination modified? */
 	protected boolean modified = false;

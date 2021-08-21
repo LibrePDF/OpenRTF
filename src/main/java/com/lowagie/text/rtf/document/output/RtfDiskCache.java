@@ -71,11 +71,11 @@ public class RtfDiskCache implements RtfDataCache {
     /**
      * The BufferedOutputStream that stores the cache data.
      */
-    private BufferedOutputStream data = null;
+    private BufferedOutputStream data;
     /**
      * The temporary file to store the data in.
      */
-    private File tempFile = null;
+    private File tempFile;
     
     /**
      * Constructs a RtfFileCache. Creates the temp file.
@@ -101,7 +101,7 @@ public class RtfDiskCache implements RtfDataCache {
         this.data.close();
         BufferedInputStream tempIn = new BufferedInputStream(new FileInputStream(this.tempFile));
         byte[] buffer = new byte[8192];
-        int bytesRead = -1;
+        int bytesRead;
         while((bytesRead = tempIn.read(buffer)) >= 0) {
             target.write(buffer, 0, bytesRead);
         }

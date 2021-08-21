@@ -140,11 +140,11 @@ public abstract class RtfField extends Chunk implements RtfBasicElement {
     /**
      * The RtfDocument this RtfField belongs to 
      */
-    protected RtfDocument document = null;
+    protected RtfDocument document;
     /**
      * The RtfFont of this RtfField
      */
-    private RtfFont font = null;
+    private RtfFont font;
 
     /**
      * Constructs a RtfField for a RtfDocument. This is not very useful,

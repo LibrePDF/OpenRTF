@@ -195,8 +195,8 @@ public final class RtfProtection {
 		// if there is no password or the length is 0, then skip this and return "00000000" as default
 		// otherwise process the password
 		if(password != null && password.length() > 0) {
-			int hi=0;	// hi order word
-			int lo=0;	// lo order word
+			int hi;	// hi order word
+			int lo;	// lo order word
 
 			// Truncate the password to 15 characters.
 			if(password.length() > 15) {

@@ -80,7 +80,7 @@ public class RtfDirectContent extends RtfAddableElement {
 	/**
 	 * The direct content to add.
 	 */
-	private String directContent = "";
+	private String directContent;
 	
 	/**
 	 * Constructs a new RtfDirectContent with the content to add.

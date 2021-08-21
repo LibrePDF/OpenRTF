@@ -314,7 +314,7 @@ public class RtfListLevel extends RtfElement implements RtfExtendedElement {
      */
     private RtfFont fontBullet;
     
-    private int templateID = -1;
+    private int templateID;
     
     private RtfListLevel listLevelParent = null;
     

@@ -77,7 +77,7 @@ public class RtfBorderGroup extends RtfElement {
     /**
      * The borders in this RtfBorderGroup
      */
-    private Hashtable<Integer, RtfBorder> borders = null;
+    private Hashtable<Integer, RtfBorder> borders;
 
     /**
      * Constructs an empty RtfBorderGroup.

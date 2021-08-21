@@ -256,7 +256,7 @@ public final class RtfDestinationDocument extends RtfDestination implements RtfP
 
 	
 	public boolean handleControlWord(RtfCtrlWordData ctrlWordData) {
-		boolean result = false;
+		boolean result;
 		this.onCtrlWord(ctrlWordData);	// event handler
 		
 		if(this.rtfParser.isImport()) {

@@ -140,23 +140,23 @@ public class RtfImage extends RtfElement {
     /**
      * The alignment of this picture
      */
-    private int alignment = Element.ALIGN_LEFT;
+    private int alignment;
     /**
      * The width of this picture
      */
-    private float width = 0;
+    private float width;
     /**
      * The height of this picture
      */
-    private float height = 0;
+    private float height;
     /**
      * The intended display width of this picture
      */
-    private float plainWidth = 0;
+    private float plainWidth;
     /**
      * The intended display height of this picture
      */
-    private float plainHeight = 0;
+    private float plainHeight;
     /**
      * Whether this RtfImage is a top level element and should
      * be an extra paragraph.

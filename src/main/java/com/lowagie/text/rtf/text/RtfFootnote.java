@@ -84,7 +84,7 @@ public class RtfFootnote extends RtfPhrase {
   /**
    * An optional RtfParagraphStyle to use for styling.
    */
-  protected RtfParagraphStyle paragraphStyle = null;
+  protected RtfParagraphStyle paragraphStyle;
 
   /**
    * Constructs a RtfFootnote based on an Footnote.
@@ -97,7 +97,7 @@ public class RtfFootnote extends RtfPhrase {
    */
   public RtfFootnote(RtfDocument doc, Footnote footnote) {
     super(doc);
-    RtfFont baseFont = null;
+    RtfFont baseFont;
     if (footnote.getFont() instanceof RtfParagraphStyle) {
       this.paragraphStyle = this.document.getDocumentHeader()
           .getRtfParagraphStyle(

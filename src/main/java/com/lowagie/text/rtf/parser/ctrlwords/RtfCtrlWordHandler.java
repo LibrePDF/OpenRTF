@@ -201,7 +201,7 @@ public class RtfCtrlWordHandler implements Cloneable {
 	public final boolean handleControlword(RtfCtrlWordData ctrlWordDataIn){
 		boolean result = false;
 		this.ctrlWordData = ctrlWordDataIn;
-		RtfDestination dest = null;
+		RtfDestination dest;
 		boolean handled = false;
 		
 		this.ctrlWordData.prefix  = this.ctrlWordPrefix;

@@ -83,12 +83,12 @@ public class RtfParserState {
 	/**
 	 * The parsed value for the current group/control word.
 	 */
-	public StringBuffer text = null;
+	public StringBuffer text;
 	/**
 	 * Stack containing control word handlers. There could be multiple
 	 * control words in a group.
 	 */
-	public Stack<Object> ctrlWordHandlers = null;
+	public Stack<Object> ctrlWordHandlers;
 	/**
 	 * The current control word handler.
 	 */
@@ -96,7 +96,7 @@ public class RtfParserState {
 	/**
 	 * The current destination.
 	 */
-	public RtfDestination destination = null;
+	public RtfDestination destination;
 	/**
 	 * Flag indicating if this is an extended destination \* control word
 	 */
@@ -104,9 +104,9 @@ public class RtfParserState {
 	/**
 	 * Flag to indicate if last token was an open group token '{'
 	 */
-	public boolean newGroup = false;
+	public boolean newGroup;
 	
-	public RtfProperty properties = null;
+	public RtfProperty properties;
 	/**
 	 * Default constructor
 	 *
@@ -130,7 +130,6 @@ public class RtfParserState {
 		this.destination = orig.destination;
 		this.text = new StringBuffer();
 		this.ctrlWordHandlers = new Stack<>();
-		this.destination = orig.destination;
 		this.newGroup = false;
 	}
 	

@@ -100,7 +100,7 @@ public class RtfParser {
 	/**
 	 * The iText document to add the RTF document to.
 	 */
-	private Document document = null;
+	private Document document;
 	/**
 	 * The RtfDocument to add the RTF document or fragment to.
 	 */
@@ -1187,7 +1187,7 @@ public class RtfParser {
 	 */	
 	public void tokenise() throws IOException {
 		int errorCode = errOK;	// error code
-		int nextChar = 0;
+		int nextChar;
 //		char[] nextChar = new char[1]; // input variable
 //		nextChar[0]=0;	// set to 0
 		this.setTokeniserState(TOKENISER_NORMAL);	// set initial tokeniser state
@@ -1300,8 +1300,8 @@ public class RtfParser {
 	 * @since 2.1.3
 	 */
 	private int parseCtrlWord(PushbackInputStream reader) throws IOException {
-		int nextChar = 0;
-		int result = errOK;
+		int nextChar;
+		int result;
 		
 		if((nextChar = reader.read()) == -1) {
 			return errEndOfFile;

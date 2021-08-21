@@ -530,8 +530,8 @@ public final class RtfDestinationFontTable extends RtfDestination {
 	 * @since 2.0.8
 	 */
 	private Font createfont(String fontName) {
-		Font f1 = null;
-		int pos=-1;
+		Font f1;
+		int pos;
 		do {
 			f1 = FontFactory.getFont(fontName);
 			

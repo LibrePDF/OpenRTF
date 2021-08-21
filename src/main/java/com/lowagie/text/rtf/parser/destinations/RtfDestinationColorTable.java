@@ -72,7 +72,7 @@ public class RtfDestinationColorTable extends RtfDestination  {
 	/**
 	 * The number of the current color being parsed.
 	 */
-	private int colorNr = 0;
+	private int colorNr;
 	/**
 	 * The red component of the current color being parsed.
 	 */
@@ -127,7 +127,7 @@ public class RtfDestinationColorTable extends RtfDestination  {
 	/**
 	 * Color map object for conversions
 	 */
-	private HashMap<String, Color> colorMap = null;
+	private HashMap<String, Color> colorMap;
 	
 	/**
 	 * Constructor.

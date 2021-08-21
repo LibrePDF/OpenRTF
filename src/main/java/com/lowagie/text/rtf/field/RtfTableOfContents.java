@@ -79,7 +79,7 @@ public class RtfTableOfContents extends RtfField {
     /**
      * The default text to display
      */
-    private String defaultText = "Table of Contents - Click to update";
+    private String defaultText;
     
     /**
      * Constructs a RtfTableOfContents. The default text is the text that is displayed

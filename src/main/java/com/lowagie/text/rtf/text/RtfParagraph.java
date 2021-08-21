@@ -84,7 +84,7 @@ public class RtfParagraph extends RtfPhrase {
     /**
      * An optional RtfParagraphStyle to use for styling.
      */
-    protected RtfParagraphStyle paragraphStyle = null;
+    protected RtfParagraphStyle paragraphStyle;
     
     /**
      * Constructs a RtfParagraph belonging to a RtfDocument based on a Paragraph.
@@ -94,7 +94,7 @@ public class RtfParagraph extends RtfPhrase {
      */
     public RtfParagraph(RtfDocument doc, Paragraph paragraph) {
         super(doc);
-        RtfFont baseFont = null;
+        RtfFont baseFont;
         if(paragraph.getFont() instanceof RtfParagraphStyle) {
             this.paragraphStyle = this.document.getDocumentHeader().getRtfParagraphStyle(((RtfParagraphStyle) paragraph.getFont()).getStyleName());
             baseFont = this.paragraphStyle;

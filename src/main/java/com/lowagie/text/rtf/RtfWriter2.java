@@ -78,7 +78,7 @@ public class RtfWriter2 extends DocWriter {
     /**
      * The RtfDocument this RtfWriter is creating
      */
-    private RtfDocument rtfDoc = null;
+    private RtfDocument rtfDoc;
     
     /**
      * Constructs a new RtfWriter that listens to the specified Document and

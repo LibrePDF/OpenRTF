@@ -79,7 +79,7 @@ public class RtfTabGroup extends RtfAddableElement {
 	/**
 	 * The tabs to add.
 	 */
-	private ArrayList<RtfTab> tabs = null;
+	private ArrayList<RtfTab> tabs;
 
 	/**
 	 * Constructs an empty RtfTabGroup.

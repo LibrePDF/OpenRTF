@@ -360,23 +360,23 @@ public class RtfBorder extends RtfElement {
     /**
      * The type of this RtfBorder
      */
-    private int borderType = ROW_BORDER;
+    private int borderType;
     /**
      * The position of this RtfBorder
      */
-    private int borderPosition = NO_BORDER;
+    private int borderPosition;
     /**
      * The style of this RtfBorder
      */
-    private int borderStyle = BORDER_NONE;
+    private int borderStyle;
     /**
      * The width of this RtfBorder
      */
-    private int borderWidth = 20;
+    private int borderWidth;
     /**
      * The color of this RtfBorder
      */
-    private RtfColor borderColor = null;
+    private RtfColor borderColor;
     
     /**
      * Makes a copy of the given RtfBorder

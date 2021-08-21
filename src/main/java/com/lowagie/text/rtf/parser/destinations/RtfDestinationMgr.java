@@ -128,7 +128,7 @@ public final class RtfDestinationMgr {
 	}
 	
 	public static RtfDestination getDestination(String destination) {
-		RtfDestination dest = null;
+		RtfDestination dest;
 		if(destinations.containsKey(destination)) {
 			dest = destinations.get(destination);
 		} else {
@@ -154,7 +154,7 @@ public final class RtfDestinationMgr {
 			return true;
 		}
 		
-		Class<?> value = null;
+		Class<?> value;
 	
 		try {
 			value = Class.forName(thisClass);
@@ -164,7 +164,7 @@ public final class RtfDestinationMgr {
 			return false;
 		}
 		
-		RtfDestination c = null;
+		RtfDestination c;
 		
 		if(destinationObjects.containsKey(value.getName())) {
 			c = destinationObjects.get(value.getName());

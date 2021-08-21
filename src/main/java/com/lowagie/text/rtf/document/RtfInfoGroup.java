@@ -81,7 +81,7 @@ public class RtfInfoGroup extends RtfElement {
     /**
      * The RtfInfoElements that belong to this RtfInfoGroup
      */
-    ArrayList<RtfInfoElement> infoElements = null;
+    ArrayList<RtfInfoElement> infoElements;
     
     /**
      * Constructs a RtfInfoGroup belonging to a RtfDocument
