@@ -140,8 +140,7 @@ public class RtfCtrlWordData implements Cloneable {
 	}
 	
 	public String toString() {
-		String out;
-		out = this.prefix + this.ctrlWord;
+		String out = this.prefix + this.ctrlWord;
 		if(this.hasParam) {
 			if(this.isNeg) out += "-";
 			out += this.param; 

@@ -195,9 +195,6 @@ public final class RtfProtection {
 		// if there is no password or the length is 0, then skip this and return "00000000" as default
 		// otherwise process the password
 		if(password != null && password.length() > 0) {
-			int hi;	// hi order word
-			int lo;	// lo order word
-
 			// Truncate the password to 15 characters.
 			if(password.length() > 15) {
 				password = password.substring(0,15);
@@ -205,7 +202,7 @@ public final class RtfProtection {
 
 			// compute key's high-order word
 			// initialize to table value
-			hi = initialCodeArray[password.length()-1];
+			int hi = initialCodeArray[password.length()-1];
 			
 			int idxF = 0;	// forward index
 			int idxR = password.length()-1; // reverse index
@@ -238,7 +235,7 @@ public final class RtfProtection {
 			}
 			// Compute Key's low-order word
 			idxF = password.length()-1;
-			lo = 0;
+			int lo = 0;
 			// low order word is computed in reverse.
 			for(;idxF>= 0; idxF--) {
 				int ch = password.charAt(idxF);
