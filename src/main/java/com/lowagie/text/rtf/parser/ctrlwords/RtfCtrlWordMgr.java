@@ -71,7 +71,7 @@ public final class RtfCtrlWordMgr {
 	private RtfCtrlWordMap ctrlWordMap = null;
 	
 	/** The <code>RtfCtrlWordListener</code>. */
-    private ArrayList listeners = new ArrayList();
+    private ArrayList<RtfCtrlWordListener> listeners = new ArrayList<>();
 
 //	// TIMING DEBUG INFO
 //	private long endTime = 0;
@@ -184,8 +184,8 @@ public final class RtfCtrlWordMgr {
 	
 	private boolean beforeCtrlWord(RtfCtrlWordData ctrlWordData) {
 		RtfCtrlWordListener listener;
-		for (Iterator iterator = listeners.iterator(); iterator.hasNext();) {
-            listener = (RtfCtrlWordListener) iterator.next();
+		for (Iterator<RtfCtrlWordListener> iterator = listeners.iterator(); iterator.hasNext();) {
+            listener = iterator.next();
             listener.beforeCtrlWord(ctrlWordData);
         }
 		return true;
@@ -193,8 +193,8 @@ public final class RtfCtrlWordMgr {
 	
 	private boolean onCtrlWord(RtfCtrlWordData ctrlWordData) {
 		RtfCtrlWordListener listener;
-		for (Iterator iterator = listeners.iterator(); iterator.hasNext();) {
-            listener = (RtfCtrlWordListener) iterator.next();
+		for (Iterator<RtfCtrlWordListener> iterator = listeners.iterator(); iterator.hasNext();) {
+            listener = iterator.next();
             listener.onCtrlWord(ctrlWordData);
         }
 		return true;
@@ -202,8 +202,8 @@ public final class RtfCtrlWordMgr {
 	
 	private boolean afterCtrlWord(RtfCtrlWordData ctrlWordData) {
 		RtfCtrlWordListener listener;
-		for (Iterator iterator = listeners.iterator(); iterator.hasNext();) {
-            listener = (RtfCtrlWordListener) iterator.next();
+		for (Iterator<RtfCtrlWordListener> iterator = listeners.iterator(); iterator.hasNext();) {
+            listener = iterator.next();
             listener.afterCtrlWord(ctrlWordData);
         }
 		return true;

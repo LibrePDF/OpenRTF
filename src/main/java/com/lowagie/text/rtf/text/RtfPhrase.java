@@ -93,7 +93,7 @@ public class RtfPhrase extends RtfElement {
     /**
      * ArrayList containing the RtfChunks of this RtfPhrase
      */
-    protected ArrayList chunks = new ArrayList();
+    protected ArrayList<RtfBasicElement> chunks = new ArrayList<>();
     /**
      * The height of each line.
      */
@@ -129,7 +129,7 @@ public class RtfPhrase extends RtfElement {
         
         RtfFont phraseFont = new RtfFont(null, phrase.getFont());
         for(int i = 0; i < phrase.size(); i++) {
-            Element chunk = (Element) phrase.get(i);
+            Element chunk = phrase.get(i);
             if(chunk instanceof Chunk) {
                 ((Chunk) chunk).setFont(phraseFont.difference(((Chunk) chunk).getFont()));
             }
@@ -160,7 +160,7 @@ public class RtfPhrase extends RtfElement {
             result.write(intToByteArray(this.lineLeading));
         }
         for(int i = 0; i < chunks.size(); i++) {
-        	RtfBasicElement rbe = (RtfBasicElement) chunks.get(i);
+        	RtfBasicElement rbe = chunks.get(i);
         	rbe.writeContent(result);
         }
     }        
@@ -174,7 +174,7 @@ public class RtfPhrase extends RtfElement {
     public void setInTable(boolean inTable) {
         super.setInTable(inTable);
         for(int i = 0; i < this.chunks.size(); i++) {
-            ((RtfBasicElement) this.chunks.get(i)).setInTable(inTable);
+            this.chunks.get(i).setInTable(inTable);
         }
     }
     
@@ -187,7 +187,7 @@ public class RtfPhrase extends RtfElement {
     public void setInHeader(boolean inHeader) {
         super.setInHeader(inHeader);
         for(int i = 0; i < this.chunks.size(); i++) {
-            ((RtfBasicElement) this.chunks.get(i)).setInHeader(inHeader);
+            this.chunks.get(i).setInHeader(inHeader);
         }
     }
     
@@ -200,7 +200,7 @@ public class RtfPhrase extends RtfElement {
     public void setRtfDocument(RtfDocument doc) {
         super.setRtfDocument(doc);
         for(int i = 0; i < this.chunks.size(); i++) {
-            ((RtfBasicElement) this.chunks.get(i)).setRtfDocument(this.document);
+            this.chunks.get(i).setRtfDocument(this.document);
         }
     }
 }

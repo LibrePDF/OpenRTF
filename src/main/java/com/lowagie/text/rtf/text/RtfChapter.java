@@ -92,7 +92,7 @@ public class RtfChapter extends RtfSection {
             this.title.writeContent(result);
         }
         for(int i = 0; i < items.size(); i++) {
-        	RtfBasicElement rbe = (RtfBasicElement)items.get(i);
+        	RtfBasicElement rbe = items.get(i);
         	rbe.writeContent(result);
         }
         result.write(DocWriter.getISOBytes("\\sect"));

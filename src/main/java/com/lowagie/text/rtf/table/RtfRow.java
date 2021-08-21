@@ -175,7 +175,7 @@ public class RtfRow extends RtfElement {
     /**
      * The cells of this RtfRow
      */
-    private ArrayList cells = null;
+    private ArrayList<RtfCell> cells = null;
     /**
      * The width of this row
      */
@@ -223,7 +223,7 @@ public class RtfRow extends RtfElement {
      * @param row The Row to import
      */
     private void importRow(Row row) {
-        this.cells = new ArrayList();
+        this.cells = new ArrayList<>();
         this.width = this.document.getDocumentHeader().getPageSetting().getPageWidth() - this.document.getDocumentHeader().getPageSetting().getMarginLeft() - this.document.getDocumentHeader().getPageSetting().getMarginRight();
         this.width = (int) (this.width * this.parentTable.getTableWidthPercent() / 100);
         
@@ -247,7 +247,7 @@ public class RtfRow extends RtfElement {
      * @since 2.1.3
      */
     private void importRow(PdfPRow row) {
-        this.cells = new ArrayList();
+        this.cells = new ArrayList<>();
         this.width = this.document.getDocumentHeader().getPageSetting().getPageWidth() - this.document.getDocumentHeader().getPageSetting().getMarginLeft() - this.document.getDocumentHeader().getPageSetting().getMarginRight();
         this.width = (int) (this.width * this.parentTable.getTableWidthPercent() / 100);
         
@@ -271,12 +271,12 @@ public class RtfRow extends RtfElement {
     protected void handleCellSpanning() {
         RtfCell deletedCell = new RtfCell(true);
         for(int i = 0; i < this.cells.size(); i++) {
-            RtfCell rtfCell = (RtfCell) this.cells.get(i);
+            RtfCell rtfCell = this.cells.get(i);
             if(rtfCell.getColspan() > 1) {
                 int cSpan = rtfCell.getColspan();
                 for(int j = i + 1; j < i + cSpan; j++) {
                     if(j < this.cells.size()) {
-                        RtfCell rtfCellMerge = (RtfCell) this.cells.get(j);
+                        RtfCell rtfCellMerge = this.cells.get(j);
                         rtfCell.setCellRight(rtfCell.getCellRight() + rtfCellMerge.getCellWidth());
                         rtfCell.setCellWidth(rtfCell.getCellWidth() + rtfCellMerge.getCellWidth());
                         this.cells.set(j, deletedCell);
@@ -284,11 +284,11 @@ public class RtfRow extends RtfElement {
                 }
             }
             if(rtfCell.getRowspan() > 1) {
-                ArrayList rows = this.parentTable.getRows();
+                ArrayList<RtfRow> rows = this.parentTable.getRows();
                 for(int j = 1; j < rtfCell.getRowspan(); j++) {
-                    RtfRow mergeRow = (RtfRow) rows.get(this.rowNumber + j);
+                    RtfRow mergeRow = rows.get(this.rowNumber + j);
                     if(this.rowNumber + j < rows.size()) {
-                        RtfCell rtfCellMerge = (RtfCell) mergeRow.getCells().get(i);
+                        RtfCell rtfCellMerge = mergeRow.getCells().get(i);
                         rtfCellMerge.setCellMergeChild(rtfCell);
                     }
                     if(rtfCell.getColspan() > 1) {
@@ -310,7 +310,7 @@ public class RtfRow extends RtfElement {
     protected void cleanRow() {
         int i = 0;
         while(i < this.cells.size()) {
-            if(((RtfCell) this.cells.get(i)).isDeleted()) {
+            if(this.cells.get(i).isDeleted()) {
                 this.cells.remove(i);
             } else {
                 i++;
@@ -381,7 +381,7 @@ public class RtfRow extends RtfElement {
         this.document.outputDebugLinebreak(result);
         
         for(int i = 0; i < this.cells.size(); i++) {
-            RtfCell rtfCell = (RtfCell) this.cells.get(i);
+            RtfCell rtfCell = this.cells.get(i);
             rtfCell.writeDefinition(result);
         }    	
     }
@@ -394,7 +394,7 @@ public class RtfRow extends RtfElement {
     	writeRowDefinition(result);
         
         for(int i = 0; i < this.cells.size(); i++) {
-            RtfCell rtfCell = (RtfCell) this.cells.get(i);
+            RtfCell rtfCell = this.cells.get(i);
             rtfCell.writeContent(result);
         }
 
@@ -422,7 +422,7 @@ public class RtfRow extends RtfElement {
      * 
      * @return The cells of this RtfRow
      */
-    protected ArrayList getCells() {
+    protected ArrayList<RtfCell> getCells() {
         return this.cells;
     }
 }

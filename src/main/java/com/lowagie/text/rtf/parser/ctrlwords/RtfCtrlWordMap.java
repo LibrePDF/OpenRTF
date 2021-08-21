@@ -71,7 +71,7 @@ final class RtfCtrlWordMap {
     /**
      * Control Word HashMap mapping object.
      */
-    private HashMap ctrlWords = new HashMap(2012, .9f);
+    private HashMap<String, RtfCtrlWordHandler> ctrlWords = new HashMap<>(2012, .9f);
 
     /**
      * Get the HashMap object containing the control words.
@@ -87,10 +87,10 @@ final class RtfCtrlWordMap {
         	}
         	if(ctrlWords.containsKey(ctrlWord)) {
         		// add 1 to known control words
-        		return (RtfCtrlWordHandler)ctrlWords.get(ctrlWord);
+        		return ctrlWords.get(ctrlWord);
         	} else {
         		// add 1 to unknown control words
-        		return (RtfCtrlWordHandler)ctrlWords.get("unknown");
+        		return ctrlWords.get("unknown");
         	}
 		} catch (SecurityException e) {
 			// TODO Auto-generated catch block

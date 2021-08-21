@@ -157,7 +157,7 @@ public final class RtfDestinationFontTable extends RtfDestination {
 	/**
 	 * Convert font mapping to <code>FontFactory</code> font objects.
 	 */
-	private HashMap fontMap = null;
+	private HashMap<String, Font> fontMap = null;
 	
 	/**
 	 * Constructor
@@ -195,7 +195,7 @@ public final class RtfDestinationFontTable extends RtfDestination {
 	 * @since 2.0.8
 	 */
 	private void init(boolean importFonts) {
-		fontMap = new HashMap();
+		fontMap = new HashMap<>();
 		if(this.rtfParser != null) {
 			this.importHeader = this.rtfParser.getImportManager();
 		}
@@ -553,7 +553,7 @@ public final class RtfDestinationFontTable extends RtfDestination {
 	 * @since 2.0.8
 	 */
 	public Font getFont(String key) {
-		return (Font) fontMap.get(key);
+		return fontMap.get(key);
 	}
 	/**
 	 * Load system fonts into the static <code>FontFactory</code> object

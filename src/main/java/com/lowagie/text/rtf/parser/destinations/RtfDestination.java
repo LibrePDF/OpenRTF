@@ -73,7 +73,7 @@ public abstract class RtfDestination {
 	protected RtfCtrlWordData lastCtrlWord = null;
 
      /** The <code>RtfDestinationListener</code>. */
-    private static ArrayList listeners = new ArrayList();
+    private static ArrayList<RtfDestinationListener> listeners = new ArrayList<>();
     
 	/**
 	 * Constructor.
@@ -166,8 +166,8 @@ public abstract class RtfDestination {
 	
 	protected RtfCtrlWordData beforeCtrlWord(RtfCtrlWordData ctrlWordData) {
 		RtfDestinationListener listener;
-		for (Iterator iterator = listeners.iterator(); iterator.hasNext();) {
-            listener = (RtfDestinationListener) iterator.next();
+		for (Iterator<RtfDestinationListener> iterator = listeners.iterator(); iterator.hasNext();) {
+            listener = iterator.next();
             listener.beforeCtrlWord(ctrlWordData);
         }
 		return null;
@@ -177,8 +177,8 @@ public abstract class RtfDestination {
 	 */
 	protected  RtfCtrlWordData onCtrlWord(RtfCtrlWordData ctrlWordData){
 		RtfDestinationListener listener;
-		for (Iterator iterator = listeners.iterator(); iterator.hasNext();) {
-            listener = (RtfDestinationListener) iterator.next();
+		for (Iterator<RtfDestinationListener> iterator = listeners.iterator(); iterator.hasNext();) {
+            listener = iterator.next();
             listener.onCtrlWord(ctrlWordData);
         }
 		return null;
@@ -189,8 +189,8 @@ public abstract class RtfDestination {
 	 */
 	protected  RtfCtrlWordData afterCtrlWord(RtfCtrlWordData ctrlWordData){
 		RtfDestinationListener listener;
-		for (Iterator iterator = listeners.iterator(); iterator.hasNext();) {
-            listener = (RtfDestinationListener) iterator.next();
+		for (Iterator<RtfDestinationListener> iterator = listeners.iterator(); iterator.hasNext();) {
+            listener = iterator.next();
             listener.afterCtrlWord(ctrlWordData);
         }
 		return null;
@@ -201,8 +201,8 @@ public abstract class RtfDestination {
 	 */
 	protected  int beforeCharacter(int ch){
 		RtfDestinationListener listener;
-		for (Iterator iterator = listeners.iterator(); iterator.hasNext();) {
-            listener = (RtfDestinationListener) iterator.next();
+		for (Iterator<RtfDestinationListener> iterator = listeners.iterator(); iterator.hasNext();) {
+            listener = iterator.next();
             listener.beforeCharacter(ch);
         }
 		return 0;
@@ -213,8 +213,8 @@ public abstract class RtfDestination {
 	 */
 	protected  int onCharacter(int ch){
 		RtfDestinationListener listener;
-		for (Iterator iterator = listeners.iterator(); iterator.hasNext();) {
-            listener = (RtfDestinationListener) iterator.next();
+		for (Iterator<RtfDestinationListener> iterator = listeners.iterator(); iterator.hasNext();) {
+            listener = iterator.next();
             listener.onCharacter(ch);
         }
 		return 0;
@@ -225,8 +225,8 @@ public abstract class RtfDestination {
 	 */
 	protected  int afterCharacter(int ch){
 		RtfDestinationListener listener;
-		for (Iterator iterator = listeners.iterator(); iterator.hasNext();) {
-            listener = (RtfDestinationListener) iterator.next();
+		for (Iterator<RtfDestinationListener> iterator = listeners.iterator(); iterator.hasNext();) {
+            listener = iterator.next();
             listener.afterCharacter(ch);
         }
 		return 0;
@@ -238,8 +238,8 @@ public abstract class RtfDestination {
 	 */
 	protected  boolean onOpenGroup(){
 		RtfDestinationListener listener;
-		for (Iterator iterator = listeners.iterator(); iterator.hasNext();) {
-            listener = (RtfDestinationListener) iterator.next();
+		for (Iterator<RtfDestinationListener> iterator = listeners.iterator(); iterator.hasNext();) {
+            listener = iterator.next();
             listener.onOpenGroup();
         }
 		return true;
@@ -251,8 +251,8 @@ public abstract class RtfDestination {
 	 */
 	protected  boolean onCloseGroup(){
 		RtfDestinationListener listener;
-		for (Iterator iterator = listeners.iterator(); iterator.hasNext();) {
-            listener = (RtfDestinationListener) iterator.next();
+		for (Iterator<RtfDestinationListener> iterator = listeners.iterator(); iterator.hasNext();) {
+            listener = iterator.next();
             listener.onCloseGroup();
         }
 		return true;

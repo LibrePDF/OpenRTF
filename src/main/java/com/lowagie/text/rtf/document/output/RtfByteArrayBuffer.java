@@ -64,7 +64,7 @@ import com.lowagie.text.error_messages.MessageLocalization;
  */
 public final class RtfByteArrayBuffer extends OutputStream
 {
-	private final List arrays = new java.util.ArrayList();
+	private final List<byte[]> arrays = new java.util.ArrayList<>();
 	private byte[] buffer;
 	private int pos = 0;
 	private int size = 0;
@@ -268,7 +268,7 @@ public final class RtfByteArrayBuffer extends OutputStream
 	public byte[][] toByteArrayArray()
 	{
 		flushBuffer();
-		return(byte[][])arrays.toArray(new byte[arrays.size()][]);
+		return arrays.toArray(new byte[arrays.size()][]);
 	}
 	
 	/**
@@ -282,7 +282,7 @@ public final class RtfByteArrayBuffer extends OutputStream
 		int off = 0;
 		final int n = arrays.size();
 		for(int k = 0; k < n; k++) {
-			byte[] src = (byte[])arrays.get(k);
+			byte[] src = arrays.get(k);
 			System.arraycopy(src, 0, r, off, src.length);
 			off += src.length;
 		}
@@ -302,7 +302,7 @@ public final class RtfByteArrayBuffer extends OutputStream
 		
 		final int n = arrays.size();
 		for(int k = 0; k < n; k++) {
-			byte[] src = (byte[])arrays.get(k);
+			byte[] src = arrays.get(k);
 			out.write(src);
 		}
 		if(pos > 0) out.write(buffer, 0, pos);

@@ -127,14 +127,14 @@ public class RtfDestinationColorTable extends RtfDestination  {
 	/**
 	 * Color map object for conversions
 	 */
-	private HashMap colorMap = null;
+	private HashMap<String, Color> colorMap = null;
 	
 	/**
 	 * Constructor.
 	 */
 	public RtfDestinationColorTable() {
 		super(null);
-		colorMap = new HashMap();
+		colorMap = new HashMap<>();
 		this.colorNr = 0;
 	}
 	
@@ -145,7 +145,7 @@ public class RtfDestinationColorTable extends RtfDestination  {
 	 */
 	public RtfDestinationColorTable(RtfParser parser) {
 		super(parser);
-		colorMap = new HashMap();
+		colorMap = new HashMap<>();
 		this.colorNr = 0;
 		this.importHeader = parser.getImportManager();
 		this.setToDefaults();
@@ -153,7 +153,7 @@ public class RtfDestinationColorTable extends RtfDestination  {
 	
 	public void setParser(RtfParser parser) {
 		this.rtfParser = parser;
-		colorMap = new HashMap();
+		colorMap = new HashMap<>();
 		this.colorNr = 0;
 		this.importHeader = parser.getImportManager();
 		this.setToDefaults();
@@ -313,7 +313,7 @@ public class RtfDestinationColorTable extends RtfDestination  {
 	 * *@return <code>Color</code> object from the map. null if key does not exist.
 	 */
 	public Color getColor(String key) {
-		return (Color)colorMap.get(key);
+		return colorMap.get(key);
 	}
 	
 }

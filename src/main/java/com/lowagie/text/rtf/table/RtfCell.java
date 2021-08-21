@@ -107,7 +107,7 @@ public class RtfCell extends Cell implements RtfExtendedElement {
     /**
      * The content of this RtfCell
      */
-    private ArrayList content = null;
+    private ArrayList<RtfBasicElement> content = null;
     /**
      * The right margin of this RtfCell
      */
@@ -243,7 +243,7 @@ public class RtfCell extends Cell implements RtfExtendedElement {
      * @param cell The Cell to import
      */
     private void importCell(Cell cell) {
-        this.content = new ArrayList();
+        this.content = new ArrayList<>();
         
         if(cell == null) {
             this.borders = new RtfBorderGroup(this.document, RtfBorder.CELL_BORDER, this.parentRow.getParentTable().getBorders());
@@ -327,7 +327,7 @@ public class RtfCell extends Cell implements RtfExtendedElement {
      * @since 2.1.3
      */
     private void importCell(PdfPCell cell) {
-        this.content = new ArrayList();
+        this.content = new ArrayList<>();
         
         if(cell == null) {
             this.borders = new RtfBorderGroup(this.document, RtfBorder.CELL_BORDER, this.parentRow.getParentTable().getBorders());
@@ -547,7 +547,7 @@ public class RtfCell extends Cell implements RtfExtendedElement {
             result.write(RtfParagraph.IN_TABLE);
         } else {
             for(int i = 0; i < this.content.size(); i++) {
-                RtfBasicElement rtfElement = (RtfBasicElement) this.content.get(i);
+                RtfBasicElement rtfElement = this.content.get(i);
                 if(rtfElement instanceof RtfParagraph) {
                     ((RtfParagraph) rtfElement).setKeepTogetherWithNext(this.parentRow.getParentTable().getTableFitToPage());
                 }
@@ -671,7 +671,7 @@ public class RtfCell extends Cell implements RtfExtendedElement {
     public void setInHeader(boolean inHeader) {
         this.inHeader = inHeader;
         for(int i = 0; i < this.content.size(); i++) {
-            ((RtfBasicElement) this.content.get(i)).setInHeader(inHeader);
+            this.content.get(i).setInHeader(inHeader);
         }
     }
     

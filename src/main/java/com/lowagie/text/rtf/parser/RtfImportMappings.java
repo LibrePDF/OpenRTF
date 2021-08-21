@@ -48,6 +48,8 @@
  */
 package com.lowagie.text.rtf.parser;
 
+import com.lowagie.text.List;
+
 import java.awt.Color;
 import java.util.HashMap;
 
@@ -69,28 +71,28 @@ public class RtfImportMappings {
 	/**
 	 * The fontNr to fontName mappings.
 	 */
-	private HashMap fontMappings = null;
+	private HashMap<String, String> fontMappings = null;
 	/**
 	 * The colorNr to Color mappings.
 	 */
-	private HashMap colorMappings = null;
+	private HashMap<String, Color> colorMappings = null;
 	/**
 	 * The listNr to List mappings.
 	 */
-	private HashMap listMappings = null;
+	private HashMap<String, String> listMappings = null;
 	/**
 	 * The sytlesheetListNr to Stylesheet mappings.
 	 */
-	private HashMap stylesheetListMappings = null;
+	private HashMap<String, List> stylesheetListMappings = null;
 	
 	/**
 	 * Constructs a new RtfImportMappings initialising the mappings.
 	 */
 	public RtfImportMappings() {
-		this.fontMappings = new HashMap();
-		this.colorMappings = new HashMap();
-		this.listMappings = new HashMap();
-		this.stylesheetListMappings = new HashMap();
+		this.fontMappings = new HashMap<>();
+		this.colorMappings = new HashMap<>();
+		this.listMappings = new HashMap<>();
+		this.stylesheetListMappings = new HashMap<>();
 	}
 	
 	/**
@@ -126,7 +128,7 @@ public class RtfImportMappings {
 	 * @param stylesheetListNr The Stylesheet List number.
 	 * @param list The StylesheetList.
 	 */
-	public void addStylesheetList(String stylesheetListNr, String list) {
+	public void addStylesheetList(String stylesheetListNr, List list) {
 		this.stylesheetListMappings.put(stylesheetListNr, list);
 	}	
 	
@@ -135,7 +137,7 @@ public class RtfImportMappings {
 	 * 
 	 * @return The font mappings.
 	 */
-	public HashMap getFontMappings() {
+	public HashMap<String, String> getFontMappings() {
 		return this.fontMappings;
 	}
 	
@@ -144,7 +146,7 @@ public class RtfImportMappings {
 	 * 
 	 * @return The color mappings.
 	 */
-	public HashMap getColorMappings() {
+	public HashMap<String, Color> getColorMappings() {
 		return this.colorMappings;
 	}	
 	
@@ -153,7 +155,7 @@ public class RtfImportMappings {
 	 * 
 	 * @return The List mappings.
 	 */
-	public HashMap getListMappings() {
+	public HashMap<String, String> getListMappings() {
 		return this.listMappings;
 	}	
 	
@@ -162,7 +164,7 @@ public class RtfImportMappings {
 	 * 
 	 * @return The Stylesheet List mappings.
 	 */
-	public HashMap getStylesheetListMappings() {
+	public HashMap<String, List> getStylesheetListMappings() {
 		return this.stylesheetListMappings;
 	}
 }

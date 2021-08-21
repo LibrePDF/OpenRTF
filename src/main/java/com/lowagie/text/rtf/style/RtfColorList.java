@@ -77,7 +77,7 @@ public class RtfColorList extends RtfElement implements RtfExtendedElement {
     /**
      * ArrayList containing all colors of this RtfColorList
      */
-    ArrayList colorList = new ArrayList();
+    ArrayList<RtfColor> colorList = new ArrayList<>();
     
     /**
      * Constructs a new RtfColorList for the RtfDocument. Will add the default
@@ -128,7 +128,7 @@ public class RtfColorList extends RtfElement implements RtfExtendedElement {
         result.write(OPEN_GROUP);
         result.write(COLOR_TABLE);
         for(int i = 0; i < colorList.size(); i++) {
-            RtfColor color = (RtfColor) colorList.get(i);
+            RtfColor color = colorList.get(i);
             color.writeDefinition(result);
         }
         result.write(CLOSE_GROUP);

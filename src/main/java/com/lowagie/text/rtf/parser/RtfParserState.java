@@ -88,7 +88,7 @@ public class RtfParserState {
 	 * Stack containing control word handlers. There could be multiple
 	 * control words in a group.
 	 */
-	public Stack ctrlWordHandlers = null;
+	public Stack<Object> ctrlWordHandlers = null;
 	/**
 	 * The current control word handler.
 	 */
@@ -113,7 +113,7 @@ public class RtfParserState {
 	 */
 	public RtfParserState() {
 		this.text = new StringBuffer();
-		this.ctrlWordHandlers = new Stack();
+		this.ctrlWordHandlers = new Stack<>();
 		this.properties = new RtfProperty();
 		this.destination = RtfDestinationNull.getInstance();
 		this.newGroup = false;
@@ -129,7 +129,7 @@ public class RtfParserState {
 		this.groupHandler = null;
 		this.destination = orig.destination;
 		this.text = new StringBuffer();
-		this.ctrlWordHandlers = new Stack();
+		this.ctrlWordHandlers = new Stack<>();
 		this.destination = orig.destination;
 		this.newGroup = false;
 	}

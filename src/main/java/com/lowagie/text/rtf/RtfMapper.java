@@ -119,7 +119,7 @@ public class RtfMapper {
      * @throws DocumentException
      */
     public RtfBasicElement[] mapElement(Element element) throws DocumentException {
-        ArrayList rtfElements = new ArrayList();
+        ArrayList<RtfBasicElement> rtfElements = new ArrayList<>();
 
         if(element instanceof RtfBasicElement) {
             RtfBasicElement rtfElement = (RtfBasicElement) element;
@@ -205,6 +205,6 @@ public class RtfMapper {
     			break;
         }
         
-        return (RtfBasicElement[]) rtfElements.toArray(new RtfBasicElement[rtfElements.size()]);
+        return rtfElements.toArray(new RtfBasicElement[rtfElements.size()]);
     }
 }

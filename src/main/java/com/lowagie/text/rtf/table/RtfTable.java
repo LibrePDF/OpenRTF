@@ -80,7 +80,7 @@ public class RtfTable extends RtfElement {
     /**
      * The rows of this RtfTable
      */
-    private ArrayList rows = null;
+    private ArrayList<RtfRow> rows = null;
     /**
      * The percentage of the page width that this RtfTable covers
      */
@@ -153,7 +153,7 @@ public class RtfTable extends RtfElement {
      * @param table The source Table
      */
     private void importTable(Table table) {
-        this.rows = new ArrayList();
+        this.rows = new ArrayList<>();
         this.tableWidthPercent = table.getWidth();
         this.proportionalWidths = table.getProportionalWidths();
         this.cellPadding = (float) (table.getPadding() * TWIPS_FACTOR);
@@ -168,8 +168,8 @@ public class RtfTable extends RtfElement {
             i++;
         }
         for(i = 0; i < this.rows.size(); i++) {
-            ((RtfRow) this.rows.get(i)).handleCellSpanning();
-            ((RtfRow) this.rows.get(i)).cleanRow();
+            this.rows.get(i).handleCellSpanning();
+            this.rows.get(i).cleanRow();
         }
         this.headerRows = table.getLastHeaderRow();
         this.cellsFitToPage = table.isCellsFitPage();
@@ -187,7 +187,7 @@ public class RtfTable extends RtfElement {
      * @since 2.1.3
      */
     private void importTable(PdfPTable table) {
-        this.rows = new ArrayList();
+        this.rows = new ArrayList<>();
         this.tableWidthPercent = table.getWidthPercentage();
 //        this.tableWidthPercent = table.getWidth();
         this.proportionalWidths = table.getAbsoluteWidths();
@@ -202,15 +202,15 @@ public class RtfTable extends RtfElement {
 //        this.alignment = table.getAlignment();
         
         int i = 0;
-        Iterator rowIterator = table.getRows().iterator();
+        Iterator<PdfPRow> rowIterator = table.getRows().iterator();
 //        Iterator rowIterator = table.iterator();
         while(rowIterator.hasNext()) {
-            this.rows.add(new RtfRow(this.document, this, (PdfPRow) rowIterator.next(), i));
+            this.rows.add(new RtfRow(this.document, this, rowIterator.next(), i));
             i++;
         }
         for(i = 0; i < this.rows.size(); i++) {
-            ((RtfRow) this.rows.get(i)).handleCellSpanning();
-            ((RtfRow) this.rows.get(i)).cleanRow();
+            this.rows.get(i).handleCellSpanning();
+            this.rows.get(i).cleanRow();
         }
         
         this.headerRows = table.getHeaderRows();
@@ -241,7 +241,7 @@ public class RtfTable extends RtfElement {
         }
         
         for(int i = 0; i < this.rows.size(); i++) {
-        	RtfElement re = (RtfElement)this.rows.get(i);
+        	RtfElement re = this.rows.get(i);
             //.result.write(re.write());
         	re.writeContent(result);
         }
@@ -308,7 +308,7 @@ public class RtfTable extends RtfElement {
      * 
      * @return The rows of this RtfTable
      */
-    protected ArrayList getRows() {
+    protected ArrayList<RtfRow> getRows() {
         return this.rows;
     }
     

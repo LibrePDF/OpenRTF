@@ -120,7 +120,7 @@ public class RtfParser {
 	/**
 	 * Stack for saving states for groups
 	 */
-	private Stack stackState = null;
+	private Stack<RtfParserState> stackState = null;
 	/**
 	 * The current parser state.
 	 */	
@@ -459,7 +459,7 @@ public class RtfParser {
 	private RtfCtrlWordData lastCtrlWordParam = null;
 	
 	/** The <code>RtfCtrlWordListener</code>. */
-    private ArrayList listeners = new ArrayList();
+    private ArrayList<EventListener> listeners = new ArrayList<>();
     
 	/**
 	 * Constructor 
@@ -630,7 +630,7 @@ public class RtfParser {
 		this.document = doc;
 		this.elem = elem;
 		this.currentState = new RtfParserState();
-		this.stackState = new Stack();
+		this.stackState = new Stack<>();
 		this.setParserState(PARSER_STARTSTOP);
 		this.importMgr = new RtfImportMgr(this.rtfDoc, this.document);
 
@@ -655,7 +655,7 @@ public class RtfParser {
 		this.rtfKeywordMgr = new RtfCtrlWordMgr(this, this.pbReader);/////////DO NOT COMMENT OUT THIS LINE ///////////
 		
 		Object listener;
-		for (Iterator iterator = listeners.iterator(); iterator.hasNext();) {
+		for (Iterator<EventListener> iterator = listeners.iterator(); iterator.hasNext();) {
             listener = iterator.next();
             if(listener instanceof RtfCtrlWordListener) {
                 this.rtfKeywordMgr.addRtfCtrlWordListener((RtfCtrlWordListener)listener);    
@@ -815,25 +815,25 @@ public class RtfParser {
 	 * @since 2.1.3
 	 */
 	private void handleImportMappings(RtfImportMappings importMappings) {
-		Iterator it = importMappings.getFontMappings().keySet().iterator();
+		Iterator<String> it = importMappings.getFontMappings().keySet().iterator();
 		while(it.hasNext()) {
-			String fontNr = (String) it.next();
-			this.importMgr.importFont(fontNr, (String) importMappings.getFontMappings().get(fontNr));
+			String fontNr = it.next();
+			this.importMgr.importFont(fontNr, importMappings.getFontMappings().get(fontNr));
 		}
 		it = importMappings.getColorMappings().keySet().iterator();
 		while(it.hasNext()) {
-			String colorNr = (String) it.next();
-			this.importMgr.importColor(colorNr, (Color) importMappings.getColorMappings().get(colorNr));
+			String colorNr = it.next();
+			this.importMgr.importColor(colorNr, importMappings.getColorMappings().get(colorNr));
 		}
 		it = importMappings.getListMappings().keySet().iterator();
 		while(it.hasNext()) {
-			String listNr = (String) it.next();
-			this.importMgr.importList(listNr, (String)importMappings.getListMappings().get(listNr));
+			String listNr = it.next();
+			this.importMgr.importList(listNr, importMappings.getListMappings().get(listNr));
 		}
 		it = importMappings.getStylesheetListMappings().keySet().iterator();
 		while(it.hasNext()) {
-			String stylesheetListNr = (String) it.next();
-			this.importMgr.importStylesheetList(stylesheetListNr, (List) importMappings.getStylesheetListMappings().get(stylesheetListNr));
+			String stylesheetListNr = it.next();
+			this.importMgr.importStylesheetList(stylesheetListNr, importMappings.getStylesheetListMappings().get(stylesheetListNr));
 		}
 		
 	}
@@ -955,7 +955,7 @@ public class RtfParser {
 		}
 		
 		if(this.stackState.size() >0 ) {
-			this.currentState = (RtfParserState)this.stackState.pop();
+			this.currentState = this.stackState.pop();
 		} else {
 			result = errStackUnderflow;
 		}

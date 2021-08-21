@@ -108,7 +108,7 @@ public class RtfFootnote extends RtfPhrase {
           .getDocumentHeader().getRtfParagraphStyle("Normal"));
     }
     for (int i = 0; i < footnote.size(); i++) {
-      Element chunk = (Element) footnote.get(i);
+      Element chunk = footnote.get(i);
       if (chunk instanceof Chunk) {
         ((Chunk) chunk).setFont(baseFont.difference(((Chunk) chunk).getFont()));
       }
@@ -143,7 +143,7 @@ public class RtfFootnote extends RtfPhrase {
     }
 
     for (int i = 0; i < chunks.size(); i++) {
-      RtfBasicElement rbe = (RtfBasicElement) chunks.get(i);
+      RtfBasicElement rbe = chunks.get(i);
       rbe.writeContent(result);
     }
 

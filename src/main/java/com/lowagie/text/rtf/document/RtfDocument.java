@@ -90,7 +90,7 @@ public class RtfDocument extends RtfElement {
     /**
      * Stores integers that have been generated as unique random numbers
      */
-    private ArrayList previousRandomInts = null;
+    private ArrayList<Integer> previousRandomInts = null;
     /**
      * Whether to automatically generate TOC entries for Chapters and Sections. Defaults to false
      */
@@ -127,7 +127,7 @@ public class RtfDocument extends RtfElement {
         this.mapper = new RtfMapper(this);
         this.documentHeader = new RtfDocumentHeader(this);
         this.documentHeader.init();
-        this.previousRandomInts = new ArrayList();
+        this.previousRandomInts = new ArrayList<>();
         this.documentSettings = new RtfDocumentSettings(this);
     }
 
