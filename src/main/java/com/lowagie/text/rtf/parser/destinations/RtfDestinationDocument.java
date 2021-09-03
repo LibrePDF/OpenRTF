@@ -60,7 +60,7 @@ import com.lowagie.text.Font;
 import com.lowagie.text.FontFactory;
 import com.lowagie.text.Paragraph;
 import com.lowagie.text.rtf.direct.RtfDirectContent;
-import com.lowagie.text.rtf.document.*;
+import com.lowagie.text.rtf.document.RtfDocument;
 import com.lowagie.text.rtf.parser.RtfParser;
 import com.lowagie.text.rtf.parser.ctrlwords.RtfCtrlWordData;
 import com.lowagie.text.rtf.parser.ctrlwords.RtfCtrlWordType;
