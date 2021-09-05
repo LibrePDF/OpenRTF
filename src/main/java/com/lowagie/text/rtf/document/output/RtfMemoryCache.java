@@ -66,7 +66,7 @@ public class RtfMemoryCache implements RtfDataCache {
     /**
      * The buffer for the rtf document data.
      */
-    private ByteArrayOutputStream data = null;
+    private final ByteArrayOutputStream data;
     
     /**
      * Constructs a RtfMemoryCache.

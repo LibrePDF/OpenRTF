@@ -66,7 +66,7 @@ public final class RtfProtection {
      * Default for protection level. 
      * @since 2.1.1
      */
-	static final public int LEVEL_NONE = 0x0000;
+    public static final int LEVEL_NONE = 0x0000;
 	/**
 	 * REVPROT
 	 * Mutually exclusive
@@ -74,7 +74,7 @@ public final class RtfProtection {
 	 * but revision marking cannot be disabled.
      * @since 2.1.1
 	 */
-	static final public int LEVEL_REVPROT = 0x0001; // protlevel0
+    public static final int LEVEL_REVPROT = 0x0001; // protlevel0
 	/**
 	 * ANNNOTPROT
 	 * Mutually exclusive
@@ -82,7 +82,7 @@ public final class RtfProtection {
 	 * The user cannot edit the document but can insert comments (annotations).
      * @since 2.1.1
 	 */
-	static final public int LEVEL_ANNOTPROT = 0x0002; // protlevel1
+    public static final int LEVEL_ANNOTPROT = 0x0002; // protlevel1
 	/**
 	 * FORMPROT
 	 * Mutually exclusive
@@ -90,14 +90,14 @@ public final class RtfProtection {
 	 * see also \allprot (forms controlword)
      * @since 2.1.1
 	 */
-	static final public int LEVEL_FORMPROT = 0x0004; // protlevel2
+    public static final int LEVEL_FORMPROT = 0x0004; // protlevel2
 	/**
 	 * READPROT
 	 * Mutually exclusive but can be combined with ANNOTPROT for backward compatibility 
 	 * Document is protected for editing, except areas marked as exceptions by \protstart and\protend
      * @since 2.1.1
 	 */
-	static final public int LEVEL_READPROT = 0x0008; // protlevel3
+    public static final int LEVEL_READPROT = 0x0008; // protlevel3
 
 
 	/**
@@ -106,14 +106,14 @@ public final class RtfProtection {
 	 * The document contains styles and formatting restrictions.
      * @since 2.1.1
 	 */
-	static final public int STYLELOCK = 0x0001;
+    public static final int STYLELOCK = 0x0001;
 	/**
 	 * STYLELOCKENFORCED
 	 * 
 	 * The styles and formatting restrictions are being enforced.
      * @since 2.1.1
 	 */
-	static final public int STYLELOCKENFORCED = 0x0002;
+    public static final int STYLELOCKENFORCED = 0x0002;
 	/**
 	 * STYLELOCKBACKCOMP
 	 * 
@@ -122,7 +122,7 @@ public final class RtfProtection {
 	 * in a reasonable way when opened by older versions.
      * @since 2.1.1
 	 */
-	static final public int STYLELOCKBACKCOMP = 0x0004;
+    public static final int STYLELOCKBACKCOMP = 0x0004;
 	/**
 	 * STYLELOCKBACKCOMP
 	 * 
@@ -131,14 +131,14 @@ public final class RtfProtection {
 	 * AutoFormat actions to apply direct formatting when needed.
      * @since 2.1.1
 	 */
-	static final public int AUTOFMTOVERRIDE = 0x0008;
+    public static final int AUTOFMTOVERRIDE = 0x0008;
 	
 	
 	/**
 	 * <code>initialCodeArray</code> Table from ECMA-376 Specification
      * @since 2.1.1
 	 */
-	static final private int[] initialCodeArray = {
+    private static final int[] initialCodeArray = {
 			0xE1F0, 
 			0x1D0F, 
 			0xCC9C, 
@@ -161,7 +161,7 @@ public final class RtfProtection {
 	 * <code>encryptionMatrix</code> Table from ECMA-376 Specification
      * @since 2.1.1
 	 */
-	static final private int[][] encryptionMatrix = {
+    private static final int[][] encryptionMatrix = {
 		/*              bit1    bit2    bit3    bit4    bit5    bit6    bit7   **bit8 is ignored** */
 		/* char 1  */ {0x1021, 0x2042, 0x4084, 0x8108, 0x1231, 0x2462, 0x48C4},
 		/* char 2  */ {0x3331, 0x6662, 0xCCC4, 0x89A9, 0x0373, 0x06E6, 0x0DCC},
@@ -188,16 +188,13 @@ public final class RtfProtection {
 	 * 
 	 * @since 2.1.1
 	 */
-	static final public String generateHash(String pwd) {
+    public static String generateHash(String pwd) {
 		String encryptedPwd="00000000";
 		String password = pwd;
 		
 		// if there is no password or the length is 0, then skip this and return "00000000" as default
 		// otherwise process the password
 		if(password != null && password.length() > 0) {
-			int hi=0;	// hi order word
-			int lo=0;	// lo order word
-
 			// Truncate the password to 15 characters.
 			if(password.length() > 15) {
 				password = password.substring(0,15);
@@ -205,7 +202,7 @@ public final class RtfProtection {
 
 			// compute key's high-order word
 			// initialize to table value
-			hi = initialCodeArray[password.length()-1];
+			int hi = initialCodeArray[password.length()-1];
 			
 			int idxF = 0;	// forward index
 			int idxR = password.length()-1; // reverse index
@@ -215,30 +212,30 @@ public final class RtfProtection {
 			for(; idxF<password.length(); idxF++,idxR--) {
 				int ch = password.charAt(idxF);
 				if((ch & 0x0001)!= 0) {
-					hi = hi ^ encryptionMatrix[idxR][0];
+					hi ^= encryptionMatrix[idxR][0];
 				}
 				if((ch & 0x0002)!= 0) {
-					hi = hi ^ encryptionMatrix[idxR][1];
+					hi ^= encryptionMatrix[idxR][1];
 				}
 				if((ch & 0x0004)!= 0) {
-					hi = hi ^ encryptionMatrix[idxR][2];
+					hi ^= encryptionMatrix[idxR][2];
 				}
 				if((ch & 0x0008)!= 0) {
-					hi = hi ^ encryptionMatrix[idxR][3];
+					hi ^= encryptionMatrix[idxR][3];
 				}
 				if((ch & 0x0010)!= 0) {
-					hi = hi ^ encryptionMatrix[idxR][4];
+					hi ^= encryptionMatrix[idxR][4];
 				}
 				if((ch & 0x0020)!= 0) {
-					hi = hi ^ encryptionMatrix[idxR][5];
+					hi ^= encryptionMatrix[idxR][5];
 				}
 				if((ch & 0x0040)!= 0) {
-					hi = hi ^ encryptionMatrix[idxR][6];
+					hi ^= encryptionMatrix[idxR][6];
 				}
 			}
 			// Compute Key's low-order word
 			idxF = password.length()-1;
-			lo = 0;
+			int lo = 0;
 			// low order word is computed in reverse.
 			for(;idxF>= 0; idxF--) {
 				int ch = password.charAt(idxF);

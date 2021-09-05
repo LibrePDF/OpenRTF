@@ -98,7 +98,7 @@ public class RtfMapper {
     /**
      * The RtfDocument this RtfMapper belongs to
      */
-    RtfDocument rtfDoc;
+    private final RtfDocument rtfDoc;
     
     /**
      * Constructs a RtfMapper for a RtfDocument
@@ -119,14 +119,14 @@ public class RtfMapper {
      * @throws DocumentException
      */
     public RtfBasicElement[] mapElement(Element element) throws DocumentException {
-        ArrayList rtfElements = new ArrayList();
-
-        if(element instanceof RtfBasicElement) {
+		if(element instanceof RtfBasicElement) {
             RtfBasicElement rtfElement = (RtfBasicElement) element;
             rtfElement.setRtfDocument(this.rtfDoc);
             return new RtfBasicElement[]{rtfElement};
         }
-        switch(element.type()) {
+
+		ArrayList<RtfBasicElement> rtfElements = new ArrayList<>();
+		switch(element.type()) {
     		case Element.CHUNK:
     		    Chunk chunk = (Chunk) element;
     		    if(chunk.hasAttributes()) {
@@ -205,6 +205,6 @@ public class RtfMapper {
     			break;
         }
         
-        return (RtfBasicElement[]) rtfElements.toArray(new RtfBasicElement[rtfElements.size()]);
+        return rtfElements.toArray(new RtfBasicElement[0]);
     }
 }

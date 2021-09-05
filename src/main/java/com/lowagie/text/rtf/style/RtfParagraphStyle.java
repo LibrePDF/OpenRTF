@@ -240,7 +240,7 @@ public class RtfParagraphStyle extends RtfFont {
     /**
      * The name of this RtfParagraphStyle.
      */
-    private String styleName = "";
+    private final String styleName;
     /**
      * The name of the RtfParagraphStyle this RtfParagraphStyle is based on.
      */
@@ -347,7 +347,7 @@ public class RtfParagraphStyle extends RtfFont {
      * @param alignment The alignment to use.
      */
     public void setAlignment(int alignment) {
-        this.modified = this.modified | MODIFIED_ALIGNMENT;
+        this.modified |= MODIFIED_ALIGNMENT;
         this.alignment = alignment;
     }
     
@@ -385,7 +385,7 @@ public class RtfParagraphStyle extends RtfFont {
      * @param indentLeft The left indentation to use.
      */
     public void setIndentLeft(int indentLeft) {
-        this.modified = this.modified | MODIFIED_INDENT_LEFT;
+        this.modified |= MODIFIED_INDENT_LEFT;
         this.indentLeft = indentLeft;
     }
     
@@ -404,7 +404,7 @@ public class RtfParagraphStyle extends RtfFont {
      * @param indentRight The right indentation to use.
      */
     public void setIndentRight(int indentRight) {
-        this.modified = this.modified | MODIFIED_INDENT_RIGHT;
+        this.modified |= MODIFIED_INDENT_RIGHT;
         this.indentRight = indentRight;
     }
     
@@ -423,7 +423,7 @@ public class RtfParagraphStyle extends RtfFont {
      * @param spacingBefore The space before to use.
      */
     public void setSpacingBefore(int spacingBefore) {
-        this.modified = this.modified | MODIFIED_SPACING_BEFORE;
+        this.modified |= MODIFIED_SPACING_BEFORE;
         this.spacingBefore = spacingBefore;
     }
     
@@ -442,7 +442,7 @@ public class RtfParagraphStyle extends RtfFont {
      * @param spacingAfter The space after to use.
      */
     public void setSpacingAfter(int spacingAfter) {
-        this.modified = this.modified | MODIFIED_SPACING_AFTER;
+        this.modified |= MODIFIED_SPACING_AFTER;
         this.spacingAfter = spacingAfter;
     }
     
@@ -452,7 +452,7 @@ public class RtfParagraphStyle extends RtfFont {
      * @param fontName The font name to use 
      */
     public void setFontName(String fontName) {
-        this.modified = this.modified | MODIFIED_FONT_NAME;
+        this.modified |= MODIFIED_FONT_NAME;
         super.setFontName(fontName);
     }
     
@@ -462,7 +462,7 @@ public class RtfParagraphStyle extends RtfFont {
      * @param fontSize The font size to use.
      */
     public void setSize(float fontSize) {
-        this.modified = this.modified | MODIFIED_FONT_SIZE;
+        this.modified |= MODIFIED_FONT_SIZE;
         super.setSize(fontSize);
     }
     
@@ -472,7 +472,7 @@ public class RtfParagraphStyle extends RtfFont {
      * @param fontStyle The font style to use.
      */
     public void setStyle(int fontStyle) {
-        this.modified = this.modified | MODIFIED_FONT_STYLE;
+        this.modified |= MODIFIED_FONT_STYLE;
         super.setStyle(fontStyle);
     }
     
@@ -482,7 +482,7 @@ public class RtfParagraphStyle extends RtfFont {
      * @param color The Color to use.
      */
     public void setColor(Color color) {
-        this.modified = this.modified | MODIFIED_FONT_COLOR;
+        this.modified |= MODIFIED_FONT_COLOR;
         super.setColor(color);
     }
     
@@ -502,7 +502,7 @@ public class RtfParagraphStyle extends RtfFont {
      */
     public void setLineLeading(int lineLeading) {
         this.lineLeading = lineLeading;
-        this.modified = this.modified | MODIFIED_LINE_LEADING;
+        this.modified |= MODIFIED_LINE_LEADING;
     }
     
     /**
@@ -523,7 +523,7 @@ public class RtfParagraphStyle extends RtfFont {
      */
     public void setKeepTogether(boolean keepTogether) {
         this.keepTogether = keepTogether;
-        this.modified = this.modified | MODIFIED_KEEP_TOGETHER;
+        this.modified |= MODIFIED_KEEP_TOGETHER;
     }
     
     /**
@@ -544,7 +544,7 @@ public class RtfParagraphStyle extends RtfFont {
      */
     public void setKeepTogetherWithNext(boolean keepTogetherWithNext) {
         this.keepTogetherWithNext = keepTogetherWithNext;
-        this.modified = this.modified | MODIFIED_KEEP_TOGETHER_WITH_NEXT;
+        this.modified |= MODIFIED_KEEP_TOGETHER_WITH_NEXT;
     }
     
     /**
@@ -601,40 +601,40 @@ public class RtfParagraphStyle extends RtfFont {
      * @param result The <code>OutputStream</code> to write to.
      * @throws IOException On i/o errors.
      */
-    private void writeParagraphSettings(final OutputStream result) throws IOException {
+    private void writeParagraphSettings(OutputStream result) throws IOException {
         if(this.keepTogether) {
-            result.write(RtfParagraphStyle.KEEP_TOGETHER);
+            result.write(KEEP_TOGETHER);
         }
         if(this.keepTogetherWithNext) {
-            result.write(RtfParagraphStyle.KEEP_TOGETHER_WITH_NEXT);
+            result.write(KEEP_TOGETHER_WITH_NEXT);
         }
         switch (alignment) {
             case Element.ALIGN_LEFT:
-                result.write(RtfParagraphStyle.ALIGN_LEFT);
+                result.write(ALIGN_LEFT);
                 break;
             case Element.ALIGN_RIGHT:
-                result.write(RtfParagraphStyle.ALIGN_RIGHT);
+                result.write(ALIGN_RIGHT);
                 break;
             case Element.ALIGN_CENTER:
-                result.write(RtfParagraphStyle.ALIGN_CENTER);
+                result.write(ALIGN_CENTER);
                 break;
             case Element.ALIGN_JUSTIFIED:
             case Element.ALIGN_JUSTIFIED_ALL:
-                result.write(RtfParagraphStyle.ALIGN_JUSTIFY);
+                result.write(ALIGN_JUSTIFY);
                 break;
         }
         result.write(FIRST_LINE_INDENT);
         result.write(intToByteArray(this.firstLineIndent));
-        result.write(RtfParagraphStyle.INDENT_LEFT);
+        result.write(INDENT_LEFT);
         result.write(intToByteArray(indentLeft));
-        result.write(RtfParagraphStyle.INDENT_RIGHT);
+        result.write(INDENT_RIGHT);
         result.write(intToByteArray(indentRight));
         if(this.spacingBefore > 0) {
-            result.write(RtfParagraphStyle.SPACING_BEFORE);
+            result.write(SPACING_BEFORE);
             result.write(intToByteArray(this.spacingBefore));
         }
         if(this.spacingAfter > 0) {
-            result.write(RtfParagraphStyle.SPACING_AFTER);
+            result.write(SPACING_AFTER);
             result.write(intToByteArray(this.spacingAfter));
         }
         if(this.lineLeading > 0) {
@@ -646,7 +646,7 @@ public class RtfParagraphStyle extends RtfFont {
     /**
      * Writes the definition of this RtfParagraphStyle for the stylesheet list.
      */
-    public void writeDefinition(final OutputStream result) throws IOException 
+    public void writeDefinition(OutputStream result) throws IOException
     {
         result.write(DocWriter.getISOBytes("{"));
         result.write(DocWriter.getISOBytes("\\style"));
@@ -668,7 +668,7 @@ public class RtfParagraphStyle extends RtfFont {
      * @param result The <code>OutputStream</code> to write to.
      * @throws IOException On i/o errors.
      */
-    public void writeBegin(final OutputStream result) throws IOException {
+    public void writeBegin(OutputStream result) throws IOException {
         result.write(DocWriter.getISOBytes("\\s"));
         result.write(intToByteArray(this.styleNumber));
         writeParagraphSettings(result);
@@ -680,13 +680,13 @@ public class RtfParagraphStyle extends RtfFont {
      * @param result The <code>OutputStream</code> that nothing is written to
      * @throws IOException On i/o errors.
      */
-    public void writeEnd(final OutputStream result) throws IOException {
+    public void writeEnd(OutputStream result) throws IOException {
     }
     
     /**
      * unused
      */
-    public void writeContent(final OutputStream out) throws IOException
+    public void writeContent(OutputStream out) throws IOException
     {    	
     }
     
@@ -699,8 +699,7 @@ public class RtfParagraphStyle extends RtfFont {
             return false;
         }
         RtfParagraphStyle paragraphStyle = (RtfParagraphStyle) o;
-        boolean result = this.getStyleName().equals(paragraphStyle.getStyleName());
-        return result;
+        return this.getStyleName().equals(paragraphStyle.getStyleName());
     }
     
     /**

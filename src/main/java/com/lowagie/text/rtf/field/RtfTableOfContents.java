@@ -75,11 +75,11 @@ public class RtfTableOfContents extends RtfField {
 	/**
 	 * field inst content
 	 */
-	private final static String FIELD_INST = "TOC \\\\f \\\\h \\\\u \\\\o \"1-5\" ";
+    private static final String FIELD_INST = "TOC \\\\f \\\\h \\\\u \\\\o \"1-5\" ";
     /**
      * The default text to display
      */
-    private String defaultText = "Table of Contents - Click to update";
+    private final String defaultText;
     
     /**
      * Constructs a RtfTableOfContents. The default text is the text that is displayed
@@ -98,7 +98,7 @@ public class RtfTableOfContents extends RtfField {
      * @param result The <code>OutputStream</code> to write to.
      * @throws IOException on i/o errors.
      */ 
-    protected void writeFieldInstContent(final OutputStream result) throws IOException 
+    protected void writeFieldInstContent(OutputStream result) throws IOException
     {
     	result.write(DocWriter.getISOBytes(FIELD_INST));
     }
@@ -109,7 +109,7 @@ public class RtfTableOfContents extends RtfField {
      * @param out The <code>OutputStream</code> to write to.
      * @throws IOException on i/o errors.
      */
-    protected void writeFieldResultContent(final OutputStream out) throws IOException 
+    protected void writeFieldResultContent(OutputStream out) throws IOException
     {
     	document.filterSpecialChar(out, defaultText, true, true);
     }    

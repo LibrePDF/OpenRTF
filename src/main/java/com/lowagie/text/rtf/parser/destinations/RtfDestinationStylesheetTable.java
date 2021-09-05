@@ -190,7 +190,7 @@ public class RtfDestinationStylesheetTable extends RtfDestination {
 	}
 
 	public boolean handleControlWord(RtfCtrlWordData ctrlWordData) {
-		boolean result = true;
+		boolean result;
 		this.onCtrlWord(ctrlWordData);	// event handler
 		
 		if(this.rtfParser.isImport()) {

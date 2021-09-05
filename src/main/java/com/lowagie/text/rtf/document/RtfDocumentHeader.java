@@ -170,7 +170,7 @@ public class RtfDocumentHeader extends RtfElement {
     /**
      * Writes the contents of the document header area.
      */    
-    public void writeContent(final OutputStream result) throws IOException
+    public void writeContent(OutputStream result) throws IOException
     {
         try {
             // This is so that all color, font and similar information is processed once, before
@@ -198,7 +198,7 @@ public class RtfDocumentHeader extends RtfElement {
      * Writes the section definition data
      * @param result
      */
-    public void writeSectionDefinition(final OutputStream result) 
+    public void writeSectionDefinition(OutputStream result)
     {
         try {
             RtfHeaderFooterGroup header = convertHeaderFooter(this.header, RtfHeaderFooter.TYPE_HEADER);

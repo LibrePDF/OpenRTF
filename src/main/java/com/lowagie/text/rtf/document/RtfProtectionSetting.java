@@ -135,7 +135,7 @@ public class RtfProtectionSetting extends RtfElement {
      * Writes the RTF protection control words
 	 * @since 2.1.1
      */    
-    public void writeContent(final OutputStream result) throws IOException
+    public void writeContent(OutputStream result) throws IOException
     {
     }
     
@@ -143,7 +143,7 @@ public class RtfProtectionSetting extends RtfElement {
      * Writes the RTF protection control words
 	 * @since 2.1.1
     */    
-    public void writeDefinition(final OutputStream result) throws IOException
+    public void writeDefinition(OutputStream result) throws IOException
     {
     	if(document.getDocumentSettings().isDocumentProtected()) {
 	    	switch(document.getDocumentSettings().getProtectionLevelRaw()) {

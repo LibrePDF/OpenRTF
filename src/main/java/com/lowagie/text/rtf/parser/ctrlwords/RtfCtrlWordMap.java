@@ -71,7 +71,7 @@ final class RtfCtrlWordMap {
     /**
      * Control Word HashMap mapping object.
      */
-    private HashMap ctrlWords = new HashMap(2012, .9f);
+    private final HashMap<String, RtfCtrlWordHandler> ctrlWords = new HashMap<>(2012, .9f);
 
     /**
      * Get the HashMap object containing the control words.
@@ -87,10 +87,10 @@ final class RtfCtrlWordMap {
         	}
         	if(ctrlWords.containsKey(ctrlWord)) {
         		// add 1 to known control words
-        		return (RtfCtrlWordHandler)ctrlWords.get(ctrlWord);
+        		return ctrlWords.get(ctrlWord);
         	} else {
         		// add 1 to unknown control words
-        		return (RtfCtrlWordHandler)ctrlWords.get("unknown");
+        		return ctrlWords.get("unknown");
         	}
 		} catch (SecurityException e) {
 			// TODO Auto-generated catch block
@@ -107,7 +107,7 @@ final class RtfCtrlWordMap {
      * @param rtfParser The parser object.
      * @since 2.0.8
      */
-    public RtfCtrlWordMap(RtfParser rtfParser) {
+    RtfCtrlWordMap(RtfParser rtfParser) {
 /* 
  * Parameters:
  * RtfParser rtfParser
@@ -181,7 +181,6 @@ final class RtfCtrlWordMap {
 		ctrlWords.put("aftnngbnumd", new RtfCtrlWordHandler(rtfParser, "aftnngbnumd", 0, false, RtfCtrlWordType.FLAG, "\\", " ", null));
 		ctrlWords.put("aftnngbnumk", new RtfCtrlWordHandler(rtfParser, "aftnngbnumk", 0, false, RtfCtrlWordType.FLAG, "\\", " ", null));
 		ctrlWords.put("aftnngbnuml", new RtfCtrlWordHandler(rtfParser, "aftnngbnuml", 0, false, RtfCtrlWordType.FLAG, "\\", " ", null));
-		ctrlWords.put("aftnnrlc", new RtfCtrlWordHandler(rtfParser, "aftnnrlc", 0, false, RtfCtrlWordType.FLAG, "\\", " ", null));
 		ctrlWords.put("aftnnruc", new RtfCtrlWordHandler(rtfParser, "aftnnruc", 0, false, RtfCtrlWordType.FLAG, "\\", " ", null));
 		ctrlWords.put("aftnnzodiac", new RtfCtrlWordHandler(rtfParser, "aftnnzodiac", 0, false, RtfCtrlWordType.FLAG, "\\", " ", null));
 		ctrlWords.put("aftnnzodiacd", new RtfCtrlWordHandler(rtfParser, "aftnnzodiacd", 0, false, RtfCtrlWordType.FLAG, "\\", " ", null));

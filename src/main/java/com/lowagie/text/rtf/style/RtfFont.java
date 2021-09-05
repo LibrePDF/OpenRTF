@@ -299,12 +299,12 @@ public class RtfFont extends Font implements RtfExtendedElement {
             }
             if(font.getBaseFont() != null) {
                 String[][] fontNames = font.getBaseFont().getFullFontName();
-                for(int i = 0; i < fontNames.length; i++) {
-                    if(fontNames[i][2].equals("0")) {
-                        this.fontName = fontNames[i][3];
+                for (String[] fontName : fontNames) {
+                    if (fontName[2].equals("0")) {
+                        this.fontName = fontName[3];
                         break;
-                    } else if(fontNames[i][2].equals("1033") || fontNames[i][2].equals("")) {
-                        this.fontName = fontNames[i][3];
+                    } else if (fontName[2].equals("1033") || fontName[2].equals("")) {
+                        this.fontName = fontName[3];
                     }
                 }
             }
@@ -329,7 +329,7 @@ public class RtfFont extends Font implements RtfExtendedElement {
     /**
      * Writes the font definition
      */
-    public void writeDefinition(final OutputStream result) throws IOException
+    public void writeDefinition(OutputStream result) throws IOException
     {
         result.write(FONT_FAMILY);
         result.write(FONT_CHARSET);
@@ -344,7 +344,7 @@ public class RtfFont extends Font implements RtfExtendedElement {
      * @param result The <code>OutputStream</code> to write to.
      * @throws IOException On i/o errors.
      */
-    public void writeBegin(final OutputStream result) throws IOException {
+    public void writeBegin(OutputStream result) throws IOException {
         if(this.fontNumber != Font.UNDEFINED) {
             result.write(RtfFontList.FONT_NUMBER);
             result.write(intToByteArray(fontNumber));
@@ -397,7 +397,7 @@ public class RtfFont extends Font implements RtfExtendedElement {
      * @param result The <code>OutputStream</code> to write to.
      * @throws IOException On i/o errors.
      */
-    public void writeEnd(final OutputStream result) throws IOException{
+    public void writeEnd(OutputStream result) throws IOException{
         if(this.fontStyle != UNDEFINED) {
             if((fontStyle & STYLE_BOLD) == STYLE_BOLD) {
                 result.write(FONT_BOLD);
@@ -461,10 +461,7 @@ public class RtfFont extends Font implements RtfExtendedElement {
             return false;
         }
         RtfFont font = (RtfFont) obj;
-        boolean result = true;
-        result = result & this.fontName.equals(font.getFontName());
-
-        return result;
+        return this.getFontName().equals(font.getFontName());
     }
 
     /**

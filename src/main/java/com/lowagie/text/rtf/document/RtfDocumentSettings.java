@@ -69,7 +69,7 @@ public class RtfDocumentSettings {
     /**
      * The RtfDocument this RtfDocumentSettings belongs to.
      */
-    private RtfDocument document = null;
+    private final RtfDocument document;
     /**
      * Whether to also output the table row definition after the cell content.
      */
@@ -248,8 +248,8 @@ public class RtfDocumentSettings {
             case RtfDataCache.CACHE_DISK: 				
             	this.dataCacheStyle = RtfDataCache.CACHE_DISK;
             	break;
+            case RtfDataCache.CACHE_MEMORY:
             default:
-            case RtfDataCache.CACHE_MEMORY: 			
             	this.dataCacheStyle = RtfDataCache.CACHE_MEMORY;
             	break;
         }

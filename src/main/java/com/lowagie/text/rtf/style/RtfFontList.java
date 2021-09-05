@@ -84,7 +84,7 @@ public class RtfFontList extends RtfElement implements RtfExtendedElement {
     /**
      * The list of fonts
      */
-    private ArrayList fontList = new ArrayList();
+    private final ArrayList<RtfFont> fontList = new ArrayList<>();
 
     /**
      * Creates a RtfFontList
@@ -130,7 +130,7 @@ public class RtfFontList extends RtfElement implements RtfExtendedElement {
     /**
      * Writes the definition of the font list
      */
-    public void writeDefinition(final OutputStream result) throws IOException 
+    public void writeDefinition(OutputStream result) throws IOException
     {
         result.write(DEFAULT_FONT);
         result.write(intToByteArray(0));
@@ -140,7 +140,7 @@ public class RtfFontList extends RtfElement implements RtfExtendedElement {
             result.write(OPEN_GROUP);
             result.write(FONT_NUMBER);
             result.write(intToByteArray(i));
-            RtfFont rf = (RtfFont) fontList.get(i);
+            RtfFont rf = fontList.get(i);
             rf.writeDefinition(result);
             result.write(COMMA_DELIMITER);
             result.write(CLOSE_GROUP);

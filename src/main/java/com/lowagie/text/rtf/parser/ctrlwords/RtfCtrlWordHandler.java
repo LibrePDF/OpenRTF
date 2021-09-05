@@ -157,8 +157,7 @@ public class RtfCtrlWordHandler implements Cloneable {
 	 */
 	public RtfCtrlWordHandler(RtfParser rtfParser, String ctrlWord, int defaultParameterValue, boolean passDefaultParameterValue, 
 			int ctrlWordType, String prefix, String suffix, String specialHandler) {
-		super();
-		this.rtfParser = rtfParser;
+        this.rtfParser = rtfParser;
 		this.ctrlWord = ctrlWord;
 		this.defaultParameterValue = defaultParameterValue;
 		this.passDefaultParameterValue = passDefaultParameterValue;
@@ -201,7 +200,7 @@ public class RtfCtrlWordHandler implements Cloneable {
 	public final boolean handleControlword(RtfCtrlWordData ctrlWordDataIn){
 		boolean result = false;
 		this.ctrlWordData = ctrlWordDataIn;
-		RtfDestination dest = null;
+		RtfDestination dest;
 		boolean handled = false;
 		
 		this.ctrlWordData.prefix  = this.ctrlWordPrefix;
@@ -354,7 +353,7 @@ public class RtfCtrlWordHandler implements Cloneable {
 	 * @param txt The <code>String</code> to output.
 	 * @since 2.0.8
 	 */
-	private final void printDebug(final String txt) {
+	private void printDebug(String txt) {
 		 System.out.println(this.getClass().getName() + " : " + txt);
 	}
 }

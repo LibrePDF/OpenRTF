@@ -78,28 +78,28 @@ public class RtfImportMgr {
     /**
      * The HashMap storing the font number mappings.
      */
-    private HashMap importFontMapping = null;
+    private final HashMap<String, String> importFontMapping = new HashMap<>();
     /**
      * The HashMap storing the color number mappings.
      */
-    private HashMap importColorMapping = null;
+    private final HashMap<String, String> importColorMapping = new HashMap<>();
     /**
      * The HashMap storing the Stylesheet List number mappings.
      */
-    private HashMap importStylesheetListMapping = null;
+    private final HashMap<String, String> importStylesheetListMapping = new HashMap<>();
     /**
      * The HashMap storing the List number mappings.
      */
-    private HashMap importListMapping = null;
+    private final HashMap<String, String> importListMapping = new HashMap<>();
     /**
      * The RtfDocument to get font and color numbers from.
      */
-    private RtfDocument rtfDoc = null;
+    private final RtfDocument rtfDoc;
     /**
      * The Document.
      * Used for conversions, but not imports.
      */
-    private Document doc = null;
+    private final Document doc;
 
 
     /**
@@ -110,10 +110,6 @@ public class RtfImportMgr {
     public RtfImportMgr(RtfDocument rtfDoc, Document doc) {
         this.rtfDoc = rtfDoc;
         this.doc = doc;
-        this.importFontMapping = new HashMap();
-        this.importColorMapping = new HashMap();
-        this.importStylesheetListMapping = new HashMap();
-        this.importListMapping = new HashMap();
     }
 
     /**
@@ -175,7 +171,7 @@ public class RtfImportMgr {
      */
     public String mapFontNr(String fontNr) {
         if(this.importFontMapping.containsKey(fontNr)) {
-            return (String) this.importFontMapping.get(fontNr);
+            return this.importFontMapping.get(fontNr);
         } else {
             return "0";
         }
@@ -205,7 +201,7 @@ public class RtfImportMgr {
      */
     public String mapColorNr(String colorNr) {
         if(this.importColorMapping.containsKey(colorNr)) {
-            return (String) this.importColorMapping.get(colorNr);
+            return this.importColorMapping.get(colorNr);
         } else {
             return "0";
         }
@@ -227,7 +223,7 @@ public class RtfImportMgr {
      */
     public String mapListNr(String listNr) {
         if(this.importListMapping.containsKey(listNr)) {
-            return (String) this.importListMapping.get(listNr);
+            return this.importListMapping.get(listNr);
         } else {
             return null;
         }
@@ -252,7 +248,7 @@ public class RtfImportMgr {
      */
     public String mapStylesheetListNr(String listNr) {
         if(this.importStylesheetListMapping.containsKey(listNr)) {
-            return (String) this.importStylesheetListMapping.get(listNr);
+            return this.importStylesheetListMapping.get(listNr);
         } else {
             return "0";
         }

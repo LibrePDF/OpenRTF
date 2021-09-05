@@ -108,7 +108,7 @@ public class RtfListLevel extends RtfElement implements RtfExtendedElement {
     /**
      * Constant for the beginning of the list level numbered style
      */
-    private static final byte[] LIST_LEVEL_STYLE_NUMBERED_BEGIN = DocWriter.getISOBytes("\\\'02\\\'");
+    private static final byte[] LIST_LEVEL_STYLE_NUMBERED_BEGIN = DocWriter.getISOBytes("\\'02\\'");
     /**
      * Constant for the end of the list level numbered style
      */
@@ -116,7 +116,7 @@ public class RtfListLevel extends RtfElement implements RtfExtendedElement {
     /**
      * Constant for the beginning of the list level bulleted style
      */
-    private static final byte[] LIST_LEVEL_STYLE_BULLETED_BEGIN = DocWriter.getISOBytes("\\\'01");
+    private static final byte[] LIST_LEVEL_STYLE_BULLETED_BEGIN = DocWriter.getISOBytes("\\'01");
     /**
      * Constant for the end of the list level bulleted style
      */
@@ -152,7 +152,7 @@ public class RtfListLevel extends RtfElement implements RtfExtendedElement {
     /**
      * Constant for the list level numbers
      */
-    private static final byte[] LIST_LEVEL_NUMBERS_NUMBERED = DocWriter.getISOBytes("\\\'01");
+    private static final byte[] LIST_LEVEL_NUMBERS_NUMBERED = DocWriter.getISOBytes("\\'01");
     /**
      * Constant for the end of the list level numbers
      */
@@ -314,7 +314,7 @@ public class RtfListLevel extends RtfElement implements RtfExtendedElement {
      */
     private RtfFont fontBullet;
     
-    private int templateID = -1;
+    private final int templateID;
     
     private RtfListLevel listLevelParent = null;
     
@@ -389,7 +389,7 @@ public class RtfListLevel extends RtfElement implements RtfExtendedElement {
 		this.alignment = alignment;
 	}
 
-	public void writeDefinition(final OutputStream result) throws IOException {
+	public void writeDefinition(OutputStream result) throws IOException {
         result.write(OPEN_GROUP);
         result.write(LIST_LEVEL);
         result.write(LIST_LEVEL_TYPE);
@@ -412,8 +412,8 @@ public class RtfListLevel extends RtfElement implements RtfExtendedElement {
             case LIST_TYPE_ARABIC_LEADING_ZERO   	 : result.write(intToByteArray(22)); break;
             case LIST_TYPE_NO_NUMBER   	 : result.write(intToByteArray(255)); break;
             default:	// catch all for other unsupported types
-            	if(this.listType >= RtfListLevel.LIST_TYPE_BASE) {
-            		result.write(intToByteArray(this.listType - RtfListLevel.LIST_TYPE_BASE));
+            	if(this.listType >= LIST_TYPE_BASE) {
+            		result.write(intToByteArray(this.listType - LIST_TYPE_BASE));
             	}
             break;
         }
@@ -438,8 +438,8 @@ public class RtfListLevel extends RtfElement implements RtfExtendedElement {
             case LIST_TYPE_ARABIC_LEADING_ZERO   	 : result.write(intToByteArray(22)); break;
             case LIST_TYPE_NO_NUMBER   	 : result.write(intToByteArray(255)); break;
             default:	// catch all for other unsupported types
-            	if(this.listType >= RtfListLevel.LIST_TYPE_BASE) {
-            		result.write(intToByteArray(this.listType - RtfListLevel.LIST_TYPE_BASE));
+            	if(this.listType >= LIST_TYPE_BASE) {
+            		result.write(intToByteArray(this.listType - LIST_TYPE_BASE));
             	}
             break;
         }
@@ -515,7 +515,7 @@ public class RtfListLevel extends RtfElement implements RtfExtendedElement {
     /**
      * unused
      */    
-    public void writeContent(final OutputStream result) throws IOException
+    public void writeContent(OutputStream result) throws IOException
     {
     }     
     
@@ -525,7 +525,7 @@ public class RtfListLevel extends RtfElement implements RtfExtendedElement {
      * @param result The <code>OutputStream</code> to write to
      * @throws IOException On i/o errors.
      */
-    protected void writeListNumbers(final OutputStream result) throws IOException {
+    protected void writeListNumbers(OutputStream result) throws IOException {
 
         if(listLevel > 0) {
             result.write(RtfList.LIST_LEVEL_NUMBER);
@@ -540,7 +540,7 @@ public class RtfListLevel extends RtfElement implements RtfExtendedElement {
      * @param result The <code>OutputStream</code> to write to.
      * @throws IOException On i/o errors.
      */
-    public void writeIndentation(final OutputStream result) throws IOException {
+    public void writeIndentation(OutputStream result) throws IOException {
         result.write(LIST_LEVEL_FIRST_INDENT);
         result.write(intToByteArray(firstIndent));
         result.write(RtfParagraphStyle.INDENT_LEFT);
@@ -557,7 +557,7 @@ public class RtfListLevel extends RtfElement implements RtfExtendedElement {
      * @param result The <code>OutputStream</code> to write to
      * @throws IOException On i/o errors.
      */
-    public void writeListBeginning(final OutputStream result) throws IOException {
+    public void writeListBeginning(OutputStream result) throws IOException {
         result.write(RtfParagraph.PARAGRAPH_DEFAULTS);
         if(this.inTable) {
             result.write(RtfParagraph.IN_TABLE);
@@ -591,7 +591,7 @@ public class RtfListLevel extends RtfElement implements RtfExtendedElement {
     protected void correctIndentation() {
 
         if(this.listLevelParent != null) {
-            this.leftIndent = this.leftIndent + this.listLevelParent.getLeftIndent() + this.listLevelParent.getFirstIndent();
+            this.leftIndent += this.listLevelParent.getLeftIndent() + this.listLevelParent.getFirstIndent();
         }
     }
     /**

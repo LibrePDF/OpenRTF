@@ -95,11 +95,11 @@ public class RtfTab extends RtfAddableElement {
 	/**
 	 * The tab position in twips.
 	 */
-	private int position = 0;
+	private final int position;
 	/**
 	 * The tab alignment.
 	 */
-	private int type = TAB_LEFT_ALIGN;
+	private final int type;
 	
 	/**
 	 * Constructs a new RtfTab with the given position and type. The position
@@ -123,7 +123,7 @@ public class RtfTab extends RtfAddableElement {
 	/**
 	 * Writes the tab settings.
 	 */
-    public void writeContent(final OutputStream result) throws IOException
+    public void writeContent(OutputStream result) throws IOException
     {
     	switch(this.type) {
     		case TAB_CENTER_ALIGN: result.write(DocWriter.getISOBytes("\\tqc")); break;

@@ -83,7 +83,7 @@ public class RtfNewPage extends RtfElement {
     /**
      * Writes a new page
      */ 
-    public void writeContent(final OutputStream result) throws IOException
+    public void writeContent(OutputStream result) throws IOException
     {
         result.write(NEW_PAGE);
         result.write(RtfParagraph.PARAGRAPH_DEFAULTS);    	

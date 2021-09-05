@@ -52,7 +52,6 @@ package com.lowagie.text.rtf.style;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.HashMap;
-import java.util.Iterator;
 
 import com.lowagie.text.DocWriter;
 import com.lowagie.text.rtf.RtfBasicElement;
@@ -72,7 +71,7 @@ public class RtfStylesheetList extends RtfElement implements RtfExtendedElement 
     /**
      * The HashMap containing the RtfParagraphStyles.
      */
-    private HashMap styleMap = null;
+    private final HashMap<String, RtfParagraphStyle> styleMap = new HashMap<>();
     /**
      * Whether the default settings have been loaded.
      */
@@ -85,7 +84,6 @@ public class RtfStylesheetList extends RtfElement implements RtfExtendedElement 
      */
     public RtfStylesheetList(RtfDocument doc) {
         super(doc);
-        this.styleMap = new HashMap();
     }
 
     /**
@@ -139,7 +137,7 @@ public class RtfStylesheetList extends RtfElement implements RtfExtendedElement 
             registerDefaultStyles();
         }
         if(this.styleMap.containsKey(styleName)) {
-            return (RtfParagraphStyle) this.styleMap.get(styleName);
+            return this.styleMap.get(styleName);
         } else {
             return null;
         }
@@ -148,15 +146,13 @@ public class RtfStylesheetList extends RtfElement implements RtfExtendedElement 
     /**
      * Writes the definition of the stylesheet list.
      */
-    public void writeDefinition(final OutputStream result) throws IOException
+    public void writeDefinition(OutputStream result) throws IOException
     {
         result.write(DocWriter.getISOBytes("{"));
         result.write(DocWriter.getISOBytes("\\stylesheet"));
         result.write(RtfBasicElement.DELIMITER);
         this.document.outputDebugLinebreak(result);
-        Iterator it = this.styleMap.values().iterator();
-        while(it.hasNext()) {
-        	RtfParagraphStyle rps = (RtfParagraphStyle)it.next();
+        for (RtfParagraphStyle rps : this.styleMap.values()) {
         	rps.writeDefinition(result);
         }
         result.write(DocWriter.getISOBytes("}"));

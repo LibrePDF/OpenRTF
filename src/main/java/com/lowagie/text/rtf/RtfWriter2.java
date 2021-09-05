@@ -78,7 +78,7 @@ public class RtfWriter2 extends DocWriter {
     /**
      * The RtfDocument this RtfWriter is creating
      */
-    private RtfDocument rtfDoc = null;
+    private RtfDocument rtfDoc;
     
     /**
      * Constructs a new RtfWriter that listens to the specified Document and
@@ -185,9 +185,9 @@ public class RtfWriter2 extends DocWriter {
         }
         RtfBasicElement[] rtfElements = rtfDoc.getMapper().mapElement(element);
         if(rtfElements.length != 0) {
-            for(int i = 0; i < rtfElements.length; i++) {
-                if(rtfElements[i] != null) {
-                    rtfDoc.add(rtfElements[i]);
+            for (RtfBasicElement rtfElement : rtfElements) {
+                if (rtfElement != null) {
+                    rtfDoc.add(rtfElement);
                 }
             }
             return true;
@@ -290,9 +290,9 @@ public class RtfWriter2 extends DocWriter {
         }
     	RtfParser rtfImport = new RtfParser(this.document);
     	if(events != null) {
-    		for(int idx=0;idx<events.length;idx++) {
-        		rtfImport.addListener(events[idx]);
-    		}
+            for (EventListener event : events) {
+                rtfImport.addListener(event);
+            }
     	}
     	rtfImport.importRtfDocument(documentSource, this.rtfDoc);
     }
@@ -339,9 +339,9 @@ public class RtfWriter2 extends DocWriter {
         }
     	RtfParser rtfImport = new RtfParser(this.document);
     	if(events != null) {
-    		for(int idx=0;idx<events.length;idx++) {
-        		rtfImport.addListener(events[idx]);
-    		}
+            for (EventListener event : events) {
+                rtfImport.addListener(event);
+            }
     	}
     	rtfImport.importRtfFragment(documentSource, this.rtfDoc, mappings);
     }
@@ -378,9 +378,9 @@ public class RtfWriter2 extends DocWriter {
 
     	RtfParser rtfImport = new RtfParser(this.document);
     	if(events != null) {
-    		for(int idx=0;idx<events.length;idx++) {
-        		rtfImport.addListener(events[idx]);
-    		}
+            for (EventListener event : events) {
+                rtfImport.addListener(event);
+            }
     	}
     	rtfImport.importRtfDocumentIntoElement(elem, documentSource, rtfDoc);
     }

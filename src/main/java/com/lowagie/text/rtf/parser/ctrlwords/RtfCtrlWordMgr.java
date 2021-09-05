@@ -51,7 +51,6 @@ package com.lowagie.text.rtf.parser.ctrlwords;
 
 import java.io.PushbackInputStream;
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import com.lowagie.text.rtf.parser.RtfParser;
 
@@ -66,12 +65,12 @@ public final class RtfCtrlWordMgr {
 	public static final boolean debug = false;
 	public static final boolean debugFound = false;
 	public static final boolean debugNotFound = true;
-	private PushbackInputStream reader = null;
-	private RtfParser rtfParser = null;
-	private RtfCtrlWordMap ctrlWordMap = null;
+	private final PushbackInputStream reader;
+	private final RtfParser rtfParser;
+	private final RtfCtrlWordMap ctrlWordMap;
 	
 	/** The <code>RtfCtrlWordListener</code>. */
-    private ArrayList listeners = new ArrayList();
+    private final ArrayList<RtfCtrlWordListener> listeners = new ArrayList<>();
 
 //	// TIMING DEBUG INFO
 //	private long endTime = 0;
@@ -113,7 +112,7 @@ public final class RtfCtrlWordMgr {
 	 */
 	public int handleKeyword(RtfCtrlWordData ctrlWordData, int groupLevel) {
 		//TODO: May be used for event handling.
-		int result = RtfParser.errOK;
+		int result;
 		
 		// Call before handler event here
 		beforeCtrlWord(ctrlWordData);
@@ -183,29 +182,23 @@ public final class RtfCtrlWordMgr {
 	}
 	
 	private boolean beforeCtrlWord(RtfCtrlWordData ctrlWordData) {
-		RtfCtrlWordListener listener;
-		for (Iterator iterator = listeners.iterator(); iterator.hasNext();) {
-            listener = (RtfCtrlWordListener) iterator.next();
-            listener.beforeCtrlWord(ctrlWordData);
-        }
+		for (RtfCtrlWordListener listener : listeners) {
+			listener.beforeCtrlWord(ctrlWordData);
+		}
 		return true;
 	}
 	
 	private boolean onCtrlWord(RtfCtrlWordData ctrlWordData) {
-		RtfCtrlWordListener listener;
-		for (Iterator iterator = listeners.iterator(); iterator.hasNext();) {
-            listener = (RtfCtrlWordListener) iterator.next();
-            listener.onCtrlWord(ctrlWordData);
-        }
+		for (RtfCtrlWordListener listener : listeners) {
+			listener.onCtrlWord(ctrlWordData);
+		}
 		return true;
 	}
 	
 	private boolean afterCtrlWord(RtfCtrlWordData ctrlWordData) {
-		RtfCtrlWordListener listener;
-		for (Iterator iterator = listeners.iterator(); iterator.hasNext();) {
-            listener = (RtfCtrlWordListener) iterator.next();
-            listener.afterCtrlWord(ctrlWordData);
-        }
+		for (RtfCtrlWordListener listener : listeners) {
+			listener.afterCtrlWord(ctrlWordData);
+		}
 		return true;
 	}
 }

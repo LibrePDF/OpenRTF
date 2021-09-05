@@ -49,7 +49,6 @@
 package com.lowagie.text.rtf.parser.destinations;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 
 import com.lowagie.text.rtf.parser.RtfParser;
 import com.lowagie.text.rtf.parser.ctrlwords.RtfCtrlWordData;
@@ -64,7 +63,7 @@ import com.lowagie.text.rtf.parser.ctrlwords.RtfCtrlWordData;
   */
 public abstract class RtfDestination {
 	/** Parser object */
-	protected RtfParser rtfParser = null;
+	protected RtfParser rtfParser;
 	
 	/** Is data in destination modified? */
 	protected boolean modified = false;
@@ -73,19 +72,19 @@ public abstract class RtfDestination {
 	protected RtfCtrlWordData lastCtrlWord = null;
 
      /** The <code>RtfDestinationListener</code>. */
-    private static ArrayList listeners = new ArrayList();
+    private static final ArrayList<RtfDestinationListener> listeners = new ArrayList<>();
     
 	/**
 	 * Constructor.
 	 */
-	public RtfDestination() {
+    protected RtfDestination() {
 		rtfParser = null;
 	}
 	/**
 	 * Constructor
 	 * @param parser <code>RtfParser</code> object.
 	 */
-	public RtfDestination(RtfParser parser) {
+	protected RtfDestination(RtfParser parser) {
 		this.rtfParser = parser;
 	}
 	/**
@@ -165,22 +164,18 @@ public abstract class RtfDestination {
 	}
 	
 	protected RtfCtrlWordData beforeCtrlWord(RtfCtrlWordData ctrlWordData) {
-		RtfDestinationListener listener;
-		for (Iterator iterator = listeners.iterator(); iterator.hasNext();) {
-            listener = (RtfDestinationListener) iterator.next();
-            listener.beforeCtrlWord(ctrlWordData);
-        }
+		for (RtfDestinationListener listener : listeners) {
+			listener.beforeCtrlWord(ctrlWordData);
+		}
 		return null;
 	}
 	/**
 	 * 
 	 */
 	protected  RtfCtrlWordData onCtrlWord(RtfCtrlWordData ctrlWordData){
-		RtfDestinationListener listener;
-		for (Iterator iterator = listeners.iterator(); iterator.hasNext();) {
-            listener = (RtfDestinationListener) iterator.next();
-            listener.onCtrlWord(ctrlWordData);
-        }
+		for (RtfDestinationListener listener : listeners) {
+			listener.onCtrlWord(ctrlWordData);
+		}
 		return null;
 	}
 
@@ -188,11 +183,9 @@ public abstract class RtfDestination {
 	 * 
 	 */
 	protected  RtfCtrlWordData afterCtrlWord(RtfCtrlWordData ctrlWordData){
-		RtfDestinationListener listener;
-		for (Iterator iterator = listeners.iterator(); iterator.hasNext();) {
-            listener = (RtfDestinationListener) iterator.next();
-            listener.afterCtrlWord(ctrlWordData);
-        }
+		for (RtfDestinationListener listener : listeners) {
+			listener.afterCtrlWord(ctrlWordData);
+		}
 		return null;
 	}
 
@@ -200,11 +193,9 @@ public abstract class RtfDestination {
 	 * 
 	 */
 	protected  int beforeCharacter(int ch){
-		RtfDestinationListener listener;
-		for (Iterator iterator = listeners.iterator(); iterator.hasNext();) {
-            listener = (RtfDestinationListener) iterator.next();
-            listener.beforeCharacter(ch);
-        }
+		for (RtfDestinationListener listener : listeners) {
+			listener.beforeCharacter(ch);
+		}
 		return 0;
 	}
 
@@ -212,11 +203,9 @@ public abstract class RtfDestination {
 	 * 
 	 */
 	protected  int onCharacter(int ch){
-		RtfDestinationListener listener;
-		for (Iterator iterator = listeners.iterator(); iterator.hasNext();) {
-            listener = (RtfDestinationListener) iterator.next();
-            listener.onCharacter(ch);
-        }
+		for (RtfDestinationListener listener : listeners) {
+			listener.onCharacter(ch);
+		}
 		return 0;
 	}
 
@@ -224,11 +213,9 @@ public abstract class RtfDestination {
 	 * 
 	 */
 	protected  int afterCharacter(int ch){
-		RtfDestinationListener listener;
-		for (Iterator iterator = listeners.iterator(); iterator.hasNext();) {
-            listener = (RtfDestinationListener) iterator.next();
-            listener.afterCharacter(ch);
-        }
+		for (RtfDestinationListener listener : listeners) {
+			listener.afterCharacter(ch);
+		}
 		return 0;
 	}
 
@@ -237,11 +224,9 @@ public abstract class RtfDestination {
 	 * @return true if all goes well
 	 */
 	protected  boolean onOpenGroup(){
-		RtfDestinationListener listener;
-		for (Iterator iterator = listeners.iterator(); iterator.hasNext();) {
-            listener = (RtfDestinationListener) iterator.next();
-            listener.onOpenGroup();
-        }
+		for (RtfDestinationListener listener : listeners) {
+			listener.onOpenGroup();
+		}
 		return true;
 	}
 
@@ -250,11 +235,9 @@ public abstract class RtfDestination {
 	 * @return true if all goes well
 	 */
 	protected  boolean onCloseGroup(){
-		RtfDestinationListener listener;
-		for (Iterator iterator = listeners.iterator(); iterator.hasNext();) {
-            listener = (RtfDestinationListener) iterator.next();
-            listener.onCloseGroup();
-        }
+		for (RtfDestinationListener listener : listeners) {
+			listener.onCloseGroup();
+		}
 		return true;
 	}
 	

@@ -50,6 +50,7 @@ package com.lowagie.text.rtf.text;
 
 import java.io.IOException;
 import java.io.OutputStream;
+import java.util.Collections;
 
 import com.lowagie.text.Chunk;
 import com.lowagie.text.DocWriter;
@@ -83,7 +84,7 @@ public class RtfFootnote extends RtfPhrase {
   /**
    * An optional RtfParagraphStyle to use for styling.
    */
-  protected RtfParagraphStyle paragraphStyle = null;
+  protected final RtfParagraphStyle paragraphStyle;
 
   /**
    * Constructs a RtfFootnote based on an Footnote.
@@ -96,7 +97,7 @@ public class RtfFootnote extends RtfPhrase {
    */
   public RtfFootnote(RtfDocument doc, Footnote footnote) {
     super(doc);
-    RtfFont baseFont = null;
+    RtfFont baseFont;
     if (footnote.getFont() instanceof RtfParagraphStyle) {
       this.paragraphStyle = this.document.getDocumentHeader()
           .getRtfParagraphStyle(
@@ -107,16 +108,13 @@ public class RtfFootnote extends RtfPhrase {
       this.paragraphStyle = new RtfParagraphStyle(this.document, this.document
           .getDocumentHeader().getRtfParagraphStyle("Normal"));
     }
-    for (int i = 0; i < footnote.size(); i++) {
-      Element chunk = (Element) footnote.get(i);
+    for (Element chunk : footnote) {
       if (chunk instanceof Chunk) {
         ((Chunk) chunk).setFont(baseFont.difference(((Chunk) chunk).getFont()));
       }
       try {
         RtfBasicElement[] rtfElements = doc.getMapper().mapElement(chunk);
-        for (int j = 0; j < rtfElements.length; j++) {
-          chunks.add(rtfElements[j]);
-        }
+        Collections.addAll(chunks, rtfElements);
       } catch (DocumentException de) {
       }
     }
@@ -126,7 +124,7 @@ public class RtfFootnote extends RtfPhrase {
    * Writes the content of the RtfFootnote
    */
   @Override
-  public void writeContent(final OutputStream result) throws IOException {
+  public void writeContent(OutputStream result) throws IOException {
     result.write(OPEN_GROUP);
     result.write(OPEN_GROUP);
     result.write(SUPER);
@@ -142,8 +140,7 @@ public class RtfFootnote extends RtfPhrase {
       this.paragraphStyle.writeBegin(result);
     }
 
-    for (int i = 0; i < chunks.size(); i++) {
-      RtfBasicElement rbe = (RtfBasicElement) chunks.get(i);
+    for (RtfBasicElement rbe : chunks) {
       rbe.writeContent(result);
     }
 

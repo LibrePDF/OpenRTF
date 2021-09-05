@@ -127,11 +127,11 @@ public class RtfShapeProperty extends RtfAddableElement {
     /**
      * The RtfShapeProperty name.
      */
-	private String name = "";
+	private final String name;
     /**
      * The RtfShapeProperty value.
      */
-	private Object value = null;
+	private final Object value;
 	
     /**
      * Internally used to create the RtfShape.
@@ -235,7 +235,7 @@ public class RtfShapeProperty extends RtfAddableElement {
      * Writes the property definition. How the property
      * is written depends on the property type.
      */
-    public void writeContent(final OutputStream result) throws IOException
+    public void writeContent(OutputStream result) throws IOException
     {    	
     	result.write(OPEN_GROUP);
     	result.write(DocWriter.getISOBytes("\\sp"));
@@ -294,7 +294,7 @@ public class RtfShapeProperty extends RtfAddableElement {
     		break;
         case PROPERTY_TYPE_IMAGE:
             Image image = (Image)this.value;
-            RtfImage img = null;
+            RtfImage img;
             try {
                 img = new RtfImage(this.doc, image);
             }

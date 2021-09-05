@@ -50,7 +50,7 @@ package com.lowagie.text.rtf.parser.properties;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.Iterator;
+import java.util.Map;
 
 import com.lowagie.text.rtf.parser.ctrlwords.RtfCtrlWordData;
 
@@ -166,7 +166,7 @@ public class RtfProperty {
 	public static final String DOCUMENT_DEFAULT_FONT_NUMER = DOCUMENT + "defaultFontNumber";
 	
 	/** Properties for this RtfProperty object */
-	protected HashMap properties = new HashMap();
+	protected final HashMap<String, Object> properties = new HashMap<>();
 	
 	private boolean modifiedCharacter = false; 
 	private boolean modifiedParagraph = false; 
@@ -175,7 +175,7 @@ public class RtfProperty {
 
 	
 	/** The <code>RtfPropertyListener</code>. */
-    private ArrayList listeners = new ArrayList();
+    private final ArrayList<RtfPropertyListener> listeners = new ArrayList<>();
 	/**
 	 * Set all property objects to default values.
 	 * @since 2.0.8
@@ -250,11 +250,11 @@ public class RtfProperty {
 		
 		String propertyName = ctrlWordData.specialHandler;
 		
-		if(propertyName == null || propertyName.length() == 0) return false;
+		if(propertyName == null || propertyName.isEmpty()) return false;
 		
 		Object propertyValue = getProperty(propertyName);
 		if(propertyValue == null) {
-			propertyValue = RtfProperty.ON;
+			propertyValue = ON;
 		} else {
 			if(propertyValue instanceof Integer) {
 				int value = ((Integer)propertyValue).intValue();
@@ -419,15 +419,14 @@ public class RtfProperty {
 	 * @param propertyGroup The group name to obtain.
 	 * @return Properties object with requested values.
 	 */
-	public HashMap getProperties(String propertyGroup) {
-		HashMap props = new HashMap();
+	public HashMap<String, Object> getProperties(String propertyGroup) {
+		HashMap<String, Object> props = new HashMap<>();
 		if(!properties.isEmpty()) {
 			//properties.get
-			Iterator it = properties.keySet().iterator();
-			while(it.hasNext()) {
-				String key = (String)it.next();
+			for (Map.Entry<String, Object> entry : properties.entrySet()) {
+				String key = entry.getKey();
 				if(key.startsWith(propertyGroup)) {
-					props.put(key, this.properties.get(key));
+					props.put(key, entry.getValue());
 				}
 			}
 		}
@@ -531,11 +530,9 @@ public class RtfProperty {
 	
 	public void beforeChange(String propertyName) {
 		// call listener for all
-		RtfPropertyListener listener;
-		for (Iterator iterator = listeners.iterator(); iterator.hasNext();) {
-            listener = (RtfPropertyListener) iterator.next();
-            listener.beforePropertyChange(propertyName);
-        }
+		for (RtfPropertyListener listener : listeners) {
+			listener.beforePropertyChange(propertyName);
+		}
 		
 		if(propertyName.startsWith(CHARACTER)) {
 			// call listener for character chane
@@ -556,11 +553,9 @@ public class RtfProperty {
 	
 	public void afterChange(String propertyName) {
 		// call listener for all
-		RtfPropertyListener listener;
-		for (Iterator iterator = listeners.iterator(); iterator.hasNext();) {
-            listener = (RtfPropertyListener) iterator.next();
-            listener.afterPropertyChange(propertyName);
-        }
+		for (RtfPropertyListener listener : listeners) {
+			listener.afterPropertyChange(propertyName);
+		}
 
 		if(propertyName.startsWith(CHARACTER)) {
 			// call listener for character chane

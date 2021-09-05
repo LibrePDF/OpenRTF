@@ -3,7 +3,6 @@ package com.lowagie.text.rtf.graphic;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.HashMap;
-import java.util.Iterator;
 
 import com.lowagie.text.DocWriter;
 import com.lowagie.text.rtf.RtfAddableElement;
@@ -175,15 +174,15 @@ public class RtfShape extends RtfAddableElement {
     /**
      * The shape type.
      */
-	private int type = 0;
+	private final int type;
     /**
      * The RtfShapePosition that defines position settings for this RtfShape.
      */
-	private RtfShapePosition position = null;
+	private final RtfShapePosition position;
     /**
      * A HashMap with RtfShapePropertys that define further shape properties.
      */
-	private HashMap properties = null;
+	private final HashMap<String, RtfShapeProperty> properties = new HashMap<>();
     /**
      * The wrapping mode. Defaults to SHAPE_WRAP_NONE;
      */
@@ -202,7 +201,6 @@ public class RtfShape extends RtfAddableElement {
 	public RtfShape(int type, RtfShapePosition position) {
 		this.type = type;
 		this.position = position;
-		this.properties = new HashMap();
 	}
 
     /**
@@ -237,7 +235,7 @@ public class RtfShape extends RtfAddableElement {
      * Writes the RtfShape. Some settings are automatically translated into
      * or require other properties and these are set first.
      */    
-    public void writeContent(final OutputStream result) throws IOException
+    public void writeContent(OutputStream result) throws IOException
     {
 		this.shapeNr = this.doc.getRandomInt();
 		
@@ -311,13 +309,11 @@ public class RtfShape extends RtfAddableElement {
     	this.doc.outputDebugLinebreak(result);
     	result.write(OPEN_GROUP);
     	result.write(DocWriter.getISOBytes("\\*\\shpinst"));
-    	Iterator it = this.properties.values().iterator();
-    	while(it.hasNext()) {
-    		RtfShapeProperty rsp = (RtfShapeProperty) it.next();
+		for (RtfShapeProperty rsp : this.properties.values()) {
     		rsp.setRtfDocument(this.doc);
     		rsp.writeContent(result);
     	}
-    	if(!this.shapeText.equals("")) {
+    	if(!this.shapeText.isEmpty()) {
     		result.write(OPEN_GROUP);
     		result.write(DocWriter.getISOBytes("\\shptxt"));
     		result.write(DELIMITER);

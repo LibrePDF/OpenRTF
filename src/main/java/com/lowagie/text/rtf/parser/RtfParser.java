@@ -48,22 +48,20 @@
  */
 package com.lowagie.text.rtf.parser;
 
-import java.awt.Color;
 import java.io.BufferedInputStream;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.PushbackInputStream;
+import java.util.ArrayDeque;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Date;
 import java.util.EventListener;
 import java.util.Iterator;
-import java.util.Stack;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
-import com.lowagie.text.List;
 import com.lowagie.text.rtf.direct.RtfDirectContent;
 import com.lowagie.text.rtf.document.RtfDocument;
 import com.lowagie.text.rtf.parser.ctrlwords.RtfCtrlWordData;
@@ -100,7 +98,7 @@ public class RtfParser {
 	/**
 	 * The iText document to add the RTF document to.
 	 */
-	private Document document = null;
+	private Document document;
 	/**
 	 * The RtfDocument to add the RTF document or fragment to.
 	 */
@@ -120,7 +118,7 @@ public class RtfParser {
 	/**
 	 * Stack for saving states for groups
 	 */
-	private Stack stackState = null;
+	private ArrayDeque<RtfParserState> stackState = null;
 	/**
 	 * The current parser state.
 	 */	
@@ -459,7 +457,7 @@ public class RtfParser {
 	private RtfCtrlWordData lastCtrlWordParam = null;
 	
 	/** The <code>RtfCtrlWordListener</code>. */
-    private ArrayList listeners = new ArrayList();
+    private final ArrayList<EventListener> listeners = new ArrayList<>();
     
 	/**
 	 * Constructor 
@@ -578,7 +576,7 @@ public class RtfParser {
 		this.handleImportMappings(importMappings);
 		this.setCurrentDestination(RtfDestinationMgr.DESTINATION_DOCUMENT);
 		this.groupLevel = 1;
-		setParserState(RtfParser.PARSER_IN_DOCUMENT);
+		setParserState(PARSER_IN_DOCUMENT);
 		startDate = new Date();
 		startTime = System.currentTimeMillis();
 		this.tokenise();
@@ -630,7 +628,7 @@ public class RtfParser {
 		this.document = doc;
 		this.elem = elem;
 		this.currentState = new RtfParserState();
-		this.stackState = new Stack();
+		this.stackState = new ArrayDeque<>();
 		this.setParserState(PARSER_STARTSTOP);
 		this.importMgr = new RtfImportMgr(this.rtfDoc, this.document);
 
@@ -653,12 +651,10 @@ public class RtfParser {
 //		System.out.println("1:");
 		
 		this.rtfKeywordMgr = new RtfCtrlWordMgr(this, this.pbReader);/////////DO NOT COMMENT OUT THIS LINE ///////////
-		
-		Object listener;
-		for (Iterator iterator = listeners.iterator(); iterator.hasNext();) {
-            listener = iterator.next();
+
+		for (EventListener listener : listeners) {
             if(listener instanceof RtfCtrlWordListener) {
-                this.rtfKeywordMgr.addRtfCtrlWordListener((RtfCtrlWordListener)listener);    
+                this.rtfKeywordMgr.addRtfCtrlWordListener((RtfCtrlWordListener)listener);
             }
         }
 //		endFree = Runtime.getRuntime().freeMemory();
@@ -815,25 +811,25 @@ public class RtfParser {
 	 * @since 2.1.3
 	 */
 	private void handleImportMappings(RtfImportMappings importMappings) {
-		Iterator it = importMappings.getFontMappings().keySet().iterator();
+		Iterator<String> it = importMappings.getFontMappings().keySet().iterator();
 		while(it.hasNext()) {
-			String fontNr = (String) it.next();
-			this.importMgr.importFont(fontNr, (String) importMappings.getFontMappings().get(fontNr));
+			String fontNr = it.next();
+			this.importMgr.importFont(fontNr, importMappings.getFontMappings().get(fontNr));
 		}
 		it = importMappings.getColorMappings().keySet().iterator();
 		while(it.hasNext()) {
-			String colorNr = (String) it.next();
-			this.importMgr.importColor(colorNr, (Color) importMappings.getColorMappings().get(colorNr));
+			String colorNr = it.next();
+			this.importMgr.importColor(colorNr, importMappings.getColorMappings().get(colorNr));
 		}
 		it = importMappings.getListMappings().keySet().iterator();
 		while(it.hasNext()) {
-			String listNr = (String) it.next();
-			this.importMgr.importList(listNr, (String)importMappings.getListMappings().get(listNr));
+			String listNr = it.next();
+			this.importMgr.importList(listNr, importMappings.getListMappings().get(listNr));
 		}
 		it = importMappings.getStylesheetListMappings().keySet().iterator();
 		while(it.hasNext()) {
-			String stylesheetListNr = (String) it.next();
-			this.importMgr.importStylesheetList(stylesheetListNr, (List) importMappings.getStylesheetListMappings().get(stylesheetListNr));
+			String stylesheetListNr = it.next();
+			this.importMgr.importStylesheetList(stylesheetListNr, importMappings.getStylesheetListMappings().get(stylesheetListNr));
 		}
 		
 	}
@@ -870,12 +866,12 @@ public class RtfParser {
 		
 		if(dest != null) {
 			if(debugParser) {
-				RtfParser.outputDebug(this.rtfDoc, groupLevel, "DEBUG: before dest.handleOpeningSubGroup()");
-				RtfParser.outputDebug(this.rtfDoc, groupLevel, "DEBUG: destination=" + dest.toString());
+				outputDebug(this.rtfDoc, groupLevel, "DEBUG: before dest.handleOpeningSubGroup()");
+				outputDebug(this.rtfDoc, groupLevel, "DEBUG: destination=" + dest.toString());
 			}
 			handled = dest.handleOpeningSubGroup();
 			if(debugParser) {
-				RtfParser.outputDebug(this.rtfDoc, groupLevel, "DEBUG: after dest.handleOpeningSubGroup()");
+				outputDebug(this.rtfDoc, groupLevel, "DEBUG: after dest.handleOpeningSubGroup()");
 			}
 		}
 
@@ -887,11 +883,11 @@ public class RtfParser {
 		dest = this.getCurrentDestination();
 		
 		if(debugParser) {
-			RtfParser.outputDebug(this.rtfDoc, groupLevel, "DEBUG: handleOpenGroup()");
+			outputDebug(this.rtfDoc, groupLevel, "DEBUG: handleOpenGroup()");
 			if(this.lastCtrlWordParam != null)
-				RtfParser.outputDebug(this.rtfDoc, groupLevel, "DEBUG: LastCtrlWord=" + this.lastCtrlWordParam.ctrlWord);
-			RtfParser.outputDebug(this.rtfDoc, groupLevel, "DEBUG: grouplevel=" + groupLevel);
-			RtfParser.outputDebug(this.rtfDoc, groupLevel, "DEBUG: destination=" + dest.toString());
+				outputDebug(this.rtfDoc, groupLevel, "DEBUG: LastCtrlWord=" + this.lastCtrlWordParam.ctrlWord);
+			outputDebug(this.rtfDoc, groupLevel, "DEBUG: grouplevel=" + groupLevel);
+			outputDebug(this.rtfDoc, groupLevel, "DEBUG: destination=" + dest.toString());
 		}
 
 		if(dest != null) {
@@ -899,7 +895,7 @@ public class RtfParser {
 		}
 		
 		if(debugParser) {
-			RtfParser.outputDebug(this.rtfDoc, groupLevel, "DEBUG: after dest.handleOpenGroup(); handled=" + handled);
+			outputDebug(this.rtfDoc, groupLevel, "DEBUG: after dest.handleOpenGroup(); handled=" + handled);
 		}
 		
 		return result;
@@ -935,12 +931,12 @@ public class RtfParser {
 
 		if (this.getTokeniserState() != TOKENISER_SKIP_GROUP) {
 			if(debugParser) {
-				RtfParser.outputDebug(this.rtfDoc, groupLevel, "DEBUG: handleCloseGroup()");
+				outputDebug(this.rtfDoc, groupLevel, "DEBUG: handleCloseGroup()");
 				if(this.lastCtrlWordParam != null)
-					RtfParser.outputDebug(this.rtfDoc, groupLevel, "DEBUG: LastCtrlWord=" + this.lastCtrlWordParam.ctrlWord);
-				RtfParser.outputDebug(this.rtfDoc, groupLevel, "DEBUG: grouplevel=" + groupLevel);
-				RtfParser.outputDebug(this.rtfDoc, groupLevel, "DEBUG: destination=" + this.getCurrentDestination().toString());
-				RtfParser.outputDebug(this.rtfDoc, groupLevel, "");
+					outputDebug(this.rtfDoc, groupLevel, "DEBUG: LastCtrlWord=" + this.lastCtrlWordParam.ctrlWord);
+				outputDebug(this.rtfDoc, groupLevel, "DEBUG: grouplevel=" + groupLevel);
+				outputDebug(this.rtfDoc, groupLevel, "DEBUG: destination=" + this.getCurrentDestination().toString());
+				outputDebug(this.rtfDoc, groupLevel, "");
 			}
 			RtfDestination dest = this.getCurrentDestination();
 			boolean handled = false;
@@ -949,13 +945,13 @@ public class RtfParser {
 				handled = dest.handleCloseGroup();
 			}
 			if(debugParser) {
-				RtfParser.outputDebug(this.rtfDoc, groupLevel, "DEBUG: After dest.handleCloseGroup(); handled = " + handled);
-				RtfParser.outputDebug(this.rtfDoc, groupLevel, "");
+				outputDebug(this.rtfDoc, groupLevel, "DEBUG: After dest.handleCloseGroup(); handled = " + handled);
+				outputDebug(this.rtfDoc, groupLevel, "");
 			}
 		}
 		
 		if(this.stackState.size() >0 ) {
-			this.currentState = (RtfParserState)this.stackState.pop();
+			this.currentState = this.stackState.pop();
 		} else {
 			result = errStackUnderflow;
 		}
@@ -986,13 +982,13 @@ public class RtfParser {
 		this.ctrlWordCount++; // stats
 
 		if(debugParser) {
-			RtfParser.outputDebug(this.rtfDoc, groupLevel, "DEBUG: handleCtrlWord=" + ctrlWordData.ctrlWord + " param=[" + ctrlWordData.param + "]");
+			outputDebug(this.rtfDoc, groupLevel, "DEBUG: handleCtrlWord=" + ctrlWordData.ctrlWord + " param=[" + ctrlWordData.param + "]");
 		}
 
 		if (this.getTokeniserState() == TOKENISER_SKIP_GROUP) { 
 			this.ctrlWordSkippedCount++;
 			if(debugParser) {
-				RtfParser.outputDebug(this.rtfDoc, groupLevel, "DEBUG: SKIPPED");
+				outputDebug(this.rtfDoc, groupLevel, "DEBUG: SKIPPED");
 			}
 			return result;
 		}
@@ -1189,7 +1185,7 @@ public class RtfParser {
 	 */	
 	public void tokenise() throws IOException {
 		int errorCode = errOK;	// error code
-		int nextChar = 0;
+		int nextChar;
 //		char[] nextChar = new char[1]; // input variable
 //		nextChar[0]=0;	// set to 0
 		this.setTokeniserState(TOKENISER_NORMAL);	// set initial tokeniser state
@@ -1229,7 +1225,7 @@ public class RtfParser {
 							break;
 						}
 						if(this.getTokeniserState() == TOKENISER_HEX) {
-							StringBuffer hexChars = new StringBuffer();
+							StringBuilder hexChars = new StringBuilder();
 							hexChars.append(nextChar);
 //							if(pbReader.read(nextChar) == -1) {
 							if((nextChar = pbReader.read()) == -1) {
@@ -1302,16 +1298,16 @@ public class RtfParser {
 	 * @since 2.1.3
 	 */
 	private int parseCtrlWord(PushbackInputStream reader) throws IOException {
-		int nextChar = 0;
-		int result = errOK;
+		int nextChar;
+		int result;
 		
 		if((nextChar = reader.read()) == -1) {
 			return errEndOfFile;
 		}
 		this.byteCount++;
 
-		StringBuffer parsedCtrlWord = new StringBuffer();
-		StringBuffer parsedParam= new StringBuffer();
+		StringBuilder parsedCtrlWord = new StringBuilder();
+		StringBuilder parsedParam= new StringBuilder();
 		RtfCtrlWordData ctrlWordParam = new RtfCtrlWordData();
 		
 		if(!Character.isLetterOrDigit((char)nextChar)) {
@@ -1465,7 +1461,7 @@ public class RtfParser {
 	 * @since 2.1.3
 	 */
 	public boolean isConvert() {
-		return (this.getConversionType() == RtfParser.TYPE_CONVERT);
+		return this.getConversionType() == TYPE_CONVERT;
 	}
 	
 	/**
@@ -1476,7 +1472,7 @@ public class RtfParser {
 	 * @since 2.1.3
 	 */
 	public boolean isImport() {
-		return (isImportFull() || this.isImportFragment());
+		return isImportFull() || this.isImportFragment();
 	}
 	/**
 	 * Helper method to determin if conversion is TYPE_IMPORT_FULL
@@ -1485,7 +1481,7 @@ public class RtfParser {
 	 * @since 2.1.3
 	 */
 	public boolean isImportFull() {
-		return (this.getConversionType() == RtfParser.TYPE_IMPORT_FULL);
+		return this.getConversionType() == TYPE_IMPORT_FULL;
 	}
 	/**
 	 * Helper method to determin if conversion is TYPE_IMPORT_FRAGMENT
@@ -1494,7 +1490,7 @@ public class RtfParser {
 	 * @since 2.1.3
 	 */
 	public boolean isImportFragment() {
-		return (this.getConversionType() == RtfParser.TYPE_IMPORT_FRAGMENT);
+		return this.getConversionType() == TYPE_IMPORT_FRAGMENT;
 	}
 	/**
 	 * Helper method to indicate if this control word was a \* control word.

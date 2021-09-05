@@ -66,7 +66,7 @@ public abstract class RtfElement implements RtfBasicElement {
     /**
      * The RtfDocument this RtfElement belongs to
      */
-    protected RtfDocument document = null;
+    protected RtfDocument document;
     /**
      * Whether this RtfElement is in a table
      */
@@ -81,8 +81,7 @@ public abstract class RtfElement implements RtfBasicElement {
      * 
      * @param doc The RtfDocument this RtfElement belongs to
      */
-    public RtfElement(RtfDocument doc) {
-        super();
+    protected RtfElement(RtfDocument doc) {
         this.document = doc;
     }
 
@@ -101,7 +100,7 @@ public abstract class RtfElement implements RtfBasicElement {
     /**
      * Writes the element content to the given output stream.
      */    
-    public abstract void writeContent(final OutputStream out) throws IOException;
+    public abstract void writeContent(OutputStream out) throws IOException;
     
     /**
      * Sets the RtfDocument this RtfElement belongs to

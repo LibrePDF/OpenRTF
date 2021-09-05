@@ -64,7 +64,7 @@ public final class RtfDestinationMgr {
 	 * Destinations
 	 */
 	private static RtfDestinationMgr instance = null;
-	private static Object lock = new Object();
+	private static final Object lock = new Object();
 	
 	/**
 	 * CtrlWord <-> Destination map object.
@@ -74,12 +74,12 @@ public final class RtfDestinationMgr {
 	 * discarding unwanted data. This is primarily used when
 	 * skipping groups, binary data or unwanted/unknown data.
 	 */
-	private static HashMap destinations = new HashMap(300, 0.95f);
+	private static final HashMap<String, RtfDestination> destinations = new HashMap<>(300, 0.95f);
 	/**
 	 * Destination objects.
 	 * There is only one of each destination.
 	 */
-	private static HashMap destinationObjects = new HashMap(10, 0.95f);
+	private static final HashMap<String, RtfDestination> destinationObjects = new HashMap<>(10, 0.95f);
 	
 	private static boolean ignoreUnknownDestinations = false;
 	
@@ -108,37 +108,37 @@ public final class RtfDestinationMgr {
 			if(instance == null) {
 				instance = new RtfDestinationMgr();
 				// 2 required destinations for all documents
-				RtfDestinationMgr.addDestination(RtfDestinationMgr.DESTINATION_DOCUMENT, new Object[] { "RtfDestinationDocument", "" } );
-				RtfDestinationMgr.addDestination(RtfDestinationMgr.DESTINATION_NULL, new Object[] { "RtfDestinationNull", "" } );
+				addDestination(DESTINATION_DOCUMENT, new Object[] { "RtfDestinationDocument", "" } );
+				addDestination(DESTINATION_NULL, new Object[] { "RtfDestinationNull", "" } );
 			}
 			return instance;
 		}
 	}
 	public static RtfDestinationMgr getInstance(RtfParser parser) {
 		synchronized(lock) {
-			RtfDestinationMgr.setParser(parser);
+			setParser(parser);
 			if(instance == null) {
 				instance = new RtfDestinationMgr();
 				// 2 required destinations for all documents
-				RtfDestinationMgr.addDestination(RtfDestinationMgr.DESTINATION_DOCUMENT, new Object[] { "RtfDestinationDocument", "" } );
-				RtfDestinationMgr.addDestination(RtfDestinationMgr.DESTINATION_NULL, new Object[] { "RtfDestinationNull", "" } );
+				addDestination(DESTINATION_DOCUMENT, new Object[] { "RtfDestinationDocument", "" } );
+				addDestination(DESTINATION_NULL, new Object[] { "RtfDestinationNull", "" } );
 			}
 			return instance;
 		}
 	}
 	
 	public static RtfDestination getDestination(String destination) {
-		RtfDestination dest = null;
+		RtfDestination dest;
 		if(destinations.containsKey(destination)) {
-			dest = (RtfDestination)destinations.get(destination);
+			dest = destinations.get(destination);
 		} else {
 			if(ignoreUnknownDestinations) {
-				dest = (RtfDestination)destinations.get(DESTINATION_NULL);
+				dest = destinations.get(DESTINATION_NULL);
 			} else {
-				dest = (RtfDestination)destinations.get(DESTINATION_DOCUMENT);
+				dest = destinations.get(DESTINATION_DOCUMENT);
 			}
 		}
-		dest.setParser(RtfDestinationMgr.rtfParser);
+		dest.setParser(rtfParser);
 		return dest;
 	}
 	
@@ -149,12 +149,12 @@ public final class RtfDestinationMgr {
 		
 		String thisClass =  "com.lowagie.text.rtf.parser.destinations." + args[0];
 
-		if(thisClass.indexOf("RtfDestinationNull") >= 0) {
+		if(thisClass.contains("RtfDestinationNull")) {
 			destinations.put(destination, RtfDestinationNull.getInstance());
 			return true;
 		}
 		
-		Class value = null;
+		Class<?> value;
 	
 		try {
 			value = Class.forName(thisClass);
@@ -164,10 +164,10 @@ public final class RtfDestinationMgr {
 			return false;
 		}
 		
-		RtfDestination c = null;
+		RtfDestination c;
 		
 		if(destinationObjects.containsKey(value.getName())) {
-			c = (RtfDestination)destinationObjects.get(value.getName());		
+			c = destinationObjects.get(value.getName());
 		} else {
 			try {
 				c = (RtfDestination)value.getConstructor().newInstance();

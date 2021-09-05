@@ -360,23 +360,23 @@ public class RtfBorder extends RtfElement {
     /**
      * The type of this RtfBorder
      */
-    private int borderType = ROW_BORDER;
+    private final int borderType;
     /**
      * The position of this RtfBorder
      */
-    private int borderPosition = NO_BORDER;
+    private final int borderPosition;
     /**
      * The style of this RtfBorder
      */
-    private int borderStyle = BORDER_NONE;
+    private int borderStyle;
     /**
      * The width of this RtfBorder
      */
-    private int borderWidth = 20;
+    private final int borderWidth;
     /**
      * The color of this RtfBorder
      */
-    private RtfColor borderColor = null;
+    private final RtfColor borderColor;
     
     /**
      * Makes a copy of the given RtfBorder
@@ -409,7 +409,7 @@ public class RtfBorder extends RtfElement {
         this.borderType = borderType;
         this.borderPosition = borderPosition;
         this.borderStyle = borderStyle;
-        this.borderWidth = (int) Math.min((borderWidth * TWIPS_FACTOR), 75);
+        this.borderWidth = (int) Math.min(borderWidth * TWIPS_FACTOR, 75);
         if(this.borderWidth == 0) {
             this.borderStyle = BORDER_NONE;
         }
@@ -423,7 +423,7 @@ public class RtfBorder extends RtfElement {
     /**
      * Writes the RtfBorder settings
      */
-    public void writeContent(final OutputStream result) throws IOException
+    public void writeContent(OutputStream result) throws IOException
     {
         if(this.borderStyle == BORDER_NONE || this.borderPosition == NO_BORDER || this.borderWidth == 0) {
             return;

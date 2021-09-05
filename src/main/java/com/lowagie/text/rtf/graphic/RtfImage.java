@@ -140,23 +140,23 @@ public class RtfImage extends RtfElement {
     /**
      * The alignment of this picture
      */
-    private int alignment = Element.ALIGN_LEFT;
+    private int alignment;
     /**
      * The width of this picture
      */
-    private float width = 0;
+    private final float width;
     /**
      * The height of this picture
      */
-    private float height = 0;
+    private final float height;
     /**
      * The intended display width of this picture
      */
-    private float plainWidth = 0;
+    private final float plainWidth;
     /**
      * The intended display height of this picture
      */
-    private float plainHeight = 0;
+    private final float plainHeight;
     /**
      * Whether this RtfImage is a top level element and should
      * be an extra paragraph.
@@ -196,16 +196,16 @@ public class RtfImage extends RtfElement {
     private byte[][] getImageData(Image image) throws DocumentException 
     {
     	final int WMF_PLACEABLE_HEADER_SIZE = 22;
-        final RtfByteArrayBuffer bab = new RtfByteArrayBuffer();
+        RtfByteArrayBuffer bab = new RtfByteArrayBuffer();
         
         try {
             if(imageType == Image.ORIGINAL_BMP) {
             	bab.append(MetaDo.wrapBMP(image));
             } else {            	
-            	final byte[] iod = image.getOriginalData();
+            	byte[] iod = image.getOriginalData();
             	if(iod == null) {
             		
-                	final InputStream imageIn = image.getUrl().openStream();
+                	InputStream imageIn = image.getUrl().openStream();
                     if(imageType == Image.ORIGINAL_WMF) { //remove the placeable header first
                     	for(int k = 0; k < WMF_PLACEABLE_HEADER_SIZE; k++) {
 							if(imageIn.read() < 0) throw new EOFException(MessageLocalization.getComposedMessage("while.removing.wmf.placeable.header"));
@@ -238,7 +238,7 @@ public class RtfImage extends RtfElement {
      * lookup table used for converting bytes to hex chars.
      * TODO Should probably be refactored into a helper class
      */
-    public final static byte[] byte2charLUT = new byte[512]; //'0001020304050607 ... fafbfcfdfeff'
+    public static final byte[] byte2charLUT = new byte[512]; //'0001020304050607 ... fafbfcfdfeff'
     static {
     	char c = '0';
     	for(int k = 0; k < 16; k++) {
@@ -255,19 +255,18 @@ public class RtfImage extends RtfElement {
      * @param bab
      * @throws IOException
      */
-    private void writeImageDataHexEncoded(final OutputStream bab) throws IOException
+    private void writeImageDataHexEncoded(OutputStream bab) throws IOException
     {
     	int cnt = 0;
-    	for(int k = 0; k < imageData.length; k++) {
-    		final byte[] chunk = imageData[k];
-			for(int x = 0; x < chunk.length; x++) {
-				bab.write(byte2charLUT, (chunk[x]&0xff)*2, 2);
+        for (byte[] chunk : imageData) {
+            for (byte b : chunk) {
+				bab.write(byte2charLUT, (b&0xff)*2, 2);
 				if(++cnt == 64) {
 					bab.write('\n');
 					cnt = 0;
 				}
 			}
-		}    	
+		}
    		if(cnt > 0) bab.write('\n');
     }
     
@@ -279,16 +278,16 @@ public class RtfImage extends RtfElement {
     private int imageDataSize()
     {
 		int size = 0;
-    	for(int k = 0; k < imageData.length; k++) {
-    		size += imageData[k].length;
-    	}   
+        for (byte[] chunk : imageData) {
+            size += chunk.length;
+        }
     	return size;
     }
     
     /**
      * Writes the RtfImage content
      */ 
-    public void writeContent(final OutputStream result) throws IOException
+    public void writeContent(OutputStream result) throws IOException
     {
     	
         if(this.topLevelElement) {
@@ -360,9 +359,9 @@ public class RtfImage extends RtfElement {
             if(result instanceof RtfByteArrayBuffer) {
             	((RtfByteArrayBuffer)result).append(imageData);
             } else {
-            	for(int k = 0; k < imageData.length; k++) {
-					result.write(imageData[k]);
-				}
+                for (byte[] chunk : imageData) {
+                    result.write(chunk);
+                }
             }
         } else {
         	//hex encoded

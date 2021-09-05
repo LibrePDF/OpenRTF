@@ -43,19 +43,19 @@ public class RtfShapePosition extends RtfAddableElement {
     /**
      * The top coordinate of this RtfShapePosition.
      */
-	private int top = 0;
+	private final int top;
     /**
      * The left coordinate of this RtfShapePosition.
      */
-	private int left = 0;
+	private final int left;
     /**
      * The right coordinate of this RtfShapePosition.
      */
-	private int right = 0;
+	private final int right;
     /**
      * The bottom coordinate of this RtfShapePosition.
      */
-	private int bottom = 0;
+	private final int bottom;
     /**
      * The z order of this RtfShapePosition.
      */
@@ -164,7 +164,7 @@ public class RtfShapePosition extends RtfAddableElement {
     /**
      * Write this RtfShapePosition.
      */
-    public void writeContent(final OutputStream result) throws IOException
+    public void writeContent(OutputStream result) throws IOException
     {    	
     	result.write(DocWriter.getISOBytes("\\shpleft"));
     	result.write(intToByteArray(this.left));

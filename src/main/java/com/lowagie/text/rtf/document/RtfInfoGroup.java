@@ -81,7 +81,7 @@ public class RtfInfoGroup extends RtfElement {
     /**
      * The RtfInfoElements that belong to this RtfInfoGroup
      */
-    ArrayList infoElements = null;
+    private final ArrayList<RtfInfoElement> infoElements = new ArrayList<>();
     
     /**
      * Constructs a RtfInfoGroup belonging to a RtfDocument
@@ -90,7 +90,6 @@ public class RtfInfoGroup extends RtfElement {
      */
     public RtfInfoGroup(RtfDocument doc) {
         super(doc);
-        infoElements = new ArrayList();
     }
     
     /**
@@ -105,15 +104,14 @@ public class RtfInfoGroup extends RtfElement {
     /**
      * Writes the RTF information group and its elements.
      */    
-    public void writeContent(final OutputStream result) throws IOException
+    public void writeContent(OutputStream result) throws IOException
     {
     	result.write(OPEN_GROUP);
 		result.write(INFO_GROUP);
-		for(int i = 0; i < infoElements.size(); i++) {
-			RtfInfoElement infoElement = (RtfInfoElement) infoElements.get(i);
+        for (RtfInfoElement infoElement : infoElements) {
 			infoElement.writeContent(result);
 		}
-		
+
 		// handle document protection
     	if(document.getDocumentSettings().isDocumentProtected()) {
 	    	result.write(OPEN_GROUP);

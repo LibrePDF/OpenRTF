@@ -98,11 +98,11 @@ public class RtfInfoElement extends RtfElement {
     /**
      * The type of this RtfInfoElement. The values from Element.INFO_ELEMENT_NAME are used.
      */
-    private int infoType = -1;
+    private final int infoType;
     /**
      * The content of this RtfInfoElement
      */
-    private String content = "";
+    private final String content;
     
     /**
      * Constructs a RtfInfoElement based on the given Meta object
@@ -119,7 +119,7 @@ public class RtfInfoElement extends RtfElement {
     /**
      * Writes the content of one RTF information element.
      */    
-    public void writeContent(final OutputStream result) throws IOException
+    public void writeContent(OutputStream result) throws IOException
     {
         result.write(OPEN_GROUP);
         switch(infoType) {

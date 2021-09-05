@@ -89,11 +89,11 @@ public class RtfListTable extends RtfElement implements RtfExtendedElement {
     /**
      * The RtfList lists managed by this RtfListTable
      */
-    private ArrayList lists;
+    private final ArrayList<RtfList> lists = new ArrayList<>();
     /**
      * The RtfPictureList lists managed by this RtfListTable
      */
-    private ArrayList picturelists;
+    private final ArrayList<RtfPictureList> picturelists = new ArrayList<>();
     
     /**
      * Constructs a RtfListTable for a RtfDocument
@@ -102,36 +102,31 @@ public class RtfListTable extends RtfElement implements RtfExtendedElement {
      */
     public RtfListTable(RtfDocument doc) {
         super(doc);
-        
-        this.lists = new ArrayList();
-        this.picturelists = new ArrayList();
     }
 
     /**
      * unused
      */
-    public void writeContent(final OutputStream out) throws IOException
+    public void writeContent(OutputStream out) throws IOException
     {    	
     }
     
     /**
      * Writes the list and list override tables.
      */
-    public void writeDefinition(final OutputStream result) throws IOException
+    public void writeDefinition(OutputStream result) throws IOException
     {
         result.write(OPEN_GROUP);
         result.write(LIST_TABLE);
         this.document.outputDebugLinebreak(result);
-        
-        for(int i = 0; i < picturelists.size(); i++) {
-        	RtfPictureList l = (RtfPictureList)picturelists.get(i);
+
+        for (RtfPictureList l : picturelists) {
 //        	l.setID(document.getRandomInt());
         	l.writeDefinition(result);
         	this.document.outputDebugLinebreak(result);
         }
 
-        for(int i = 0; i < lists.size(); i++) {
-        	RtfList l = (RtfList)lists.get(i);
+        for (RtfList l : lists) {
         	l.setID(document.getRandomInt());
         	l.writeDefinition(result);
         	this.document.outputDebugLinebreak(result);
@@ -146,15 +141,15 @@ public class RtfListTable extends RtfElement implements RtfExtendedElement {
         // list override index values are 1-based, not 0.
         // valid list override index values \ls are 1 to 2000.
         // if there are more then 2000 lists, the result is undefined.
-        for(int i = 0; i < lists.size(); i++) {
+        for (RtfList list : lists) {
             result.write(OPEN_GROUP);
             result.write(LIST_OVERRIDE);
             result.write(RtfList.LIST_ID);
-            result.write(intToByteArray( ((RtfList) lists.get(i)).getID() ));
+            result.write(intToByteArray(list.getID()));
             result.write(LIST_OVERRIDE_COUNT);
             result.write(intToByteArray(0));	// is this correct? Spec says valid values are 1 or 9.
             result.write(RtfList.LIST_NUMBER);
-            result.write(intToByteArray( ((RtfList) lists.get(i)).getListNumber()) );
+            result.write(intToByteArray(list.getListNumber()));
             result.write(CLOSE_GROUP);
             this.document.outputDebugLinebreak(result);
         }

@@ -66,15 +66,14 @@ import com.lowagie.text.rtf.parser.ctrlwords.RtfCtrlWordData;
  */
 public final class RtfDestinationNull extends RtfDestination {
 	private static RtfDestinationNull instance = null;
-	private static Object lock = new Object();
+	private static final Object lock = new Object();
 	/**
 	 * Constructs a new RtfDestinationNull.
 	 * 
 	 * This constructor is hidden for internal use only.
 	 */
 	private RtfDestinationNull() {
-		super();
-	}
+    }
 	/**
 	 * Constructs a new RtfDestinationNull.
 	 * 
@@ -88,7 +87,7 @@ public final class RtfDestinationNull extends RtfDestination {
 	/**
 	 * Get the singleton instance of RtfDestinationNull object.
 	 */
-	static public RtfDestinationNull getInstance() {
+    public static RtfDestinationNull getInstance() {
 		synchronized(lock)
 		{
 			if(instance == null)

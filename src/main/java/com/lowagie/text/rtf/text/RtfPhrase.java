@@ -52,6 +52,7 @@ package com.lowagie.text.rtf.text;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.Collections;
 
 import com.lowagie.text.Chunk;
 import com.lowagie.text.DocWriter;
@@ -93,7 +94,7 @@ public class RtfPhrase extends RtfElement {
     /**
      * ArrayList containing the RtfChunks of this RtfPhrase
      */
-    protected ArrayList chunks = new ArrayList();
+    protected final ArrayList<RtfBasicElement> chunks = new ArrayList<>();
     /**
      * The height of each line.
      */
@@ -128,16 +129,13 @@ public class RtfPhrase extends RtfElement {
         }
         
         RtfFont phraseFont = new RtfFont(null, phrase.getFont());
-        for(int i = 0; i < phrase.size(); i++) {
-            Element chunk = (Element) phrase.get(i);
+        for (Element chunk : phrase) {
             if(chunk instanceof Chunk) {
                 ((Chunk) chunk).setFont(phraseFont.difference(((Chunk) chunk).getFont()));
             }
             try {
                 RtfBasicElement[] rtfElements = doc.getMapper().mapElement(chunk);
-                for(int j = 0; j < rtfElements.length; j++) {
-                    chunks.add(rtfElements[j]);
-                }
+                Collections.addAll(chunks, rtfElements);
             } catch(DocumentException de) {
             }
         }
@@ -148,7 +146,7 @@ public class RtfPhrase extends RtfElement {
      * then if the RtfPhrase is in a RtfCell a marker for this is written and finally
      * the RtfChunks of this RtfPhrase are written.
      */    
-    public void writeContent(final OutputStream result) throws IOException
+    public void writeContent(OutputStream result) throws IOException
     {
         result.write(PARAGRAPH_DEFAULTS);
         result.write(PLAIN);
@@ -159,8 +157,7 @@ public class RtfPhrase extends RtfElement {
             result.write(LINE_SPACING);
             result.write(intToByteArray(this.lineLeading));
         }
-        for(int i = 0; i < chunks.size(); i++) {
-        	RtfBasicElement rbe = (RtfBasicElement) chunks.get(i);
+        for (RtfBasicElement rbe : chunks) {
         	rbe.writeContent(result);
         }
     }        
@@ -173,8 +170,8 @@ public class RtfPhrase extends RtfElement {
      */
     public void setInTable(boolean inTable) {
         super.setInTable(inTable);
-        for(int i = 0; i < this.chunks.size(); i++) {
-            ((RtfBasicElement) this.chunks.get(i)).setInTable(inTable);
+        for (RtfBasicElement rbe : this.chunks) {
+            rbe.setInTable(inTable);
         }
     }
     
@@ -186,8 +183,8 @@ public class RtfPhrase extends RtfElement {
      */
     public void setInHeader(boolean inHeader) {
         super.setInHeader(inHeader);
-        for(int i = 0; i < this.chunks.size(); i++) {
-            ((RtfBasicElement) this.chunks.get(i)).setInHeader(inHeader);
+        for (RtfBasicElement rbe : this.chunks) {
+            rbe.setInHeader(inHeader);
         }
     }
     
@@ -199,8 +196,8 @@ public class RtfPhrase extends RtfElement {
      */
     public void setRtfDocument(RtfDocument doc) {
         super.setRtfDocument(doc);
-        for(int i = 0; i < this.chunks.size(); i++) {
-            ((RtfBasicElement) this.chunks.get(i)).setRtfDocument(this.document);
+        for (RtfBasicElement rbe : this.chunks) {
+            rbe.setRtfDocument(this.document);
         }
     }
 }

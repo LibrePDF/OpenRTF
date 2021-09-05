@@ -124,7 +124,7 @@ public class RtfTotalPageNumber extends RtfField {
      * @param out The <code>OutputStream</code> to write to.
      * @throws IOException on i/o errors.
      */
-    protected void writeFieldResultContent(final OutputStream out) throws IOException 
+    protected void writeFieldResultContent(OutputStream out) throws IOException
     {
     	out.write(DocWriter.getISOBytes("1"));
     }

@@ -157,7 +157,7 @@ public final class RtfDestinationFontTable extends RtfDestination {
 	/**
 	 * Convert font mapping to <code>FontFactory</code> font objects.
 	 */
-	private HashMap fontMap = null;
+	private HashMap<String, Font> fontMap = null;
 	
 	/**
 	 * Constructor
@@ -195,7 +195,7 @@ public final class RtfDestinationFontTable extends RtfDestination {
 	 * @since 2.0.8
 	 */
 	private void init(boolean importFonts) {
-		fontMap = new HashMap();
+		fontMap = new HashMap<>();
 		if(this.rtfParser != null) {
 			this.importHeader = this.rtfParser.getImportManager();
 		}
@@ -426,7 +426,7 @@ public final class RtfDestinationFontTable extends RtfDestination {
 	 * @since 2.0.8
 	 */
 	public void setCharset(String charset) {
-		if(charset.length() == 0) {
+		if(charset.isEmpty()) {
 			charset = CHARSET_DEFAULT;
 		}
 		this.charset = charset;
@@ -464,10 +464,10 @@ public final class RtfDestinationFontTable extends RtfDestination {
 	 */
 	private void processFont() {
 		this.fontName = this.fontName.trim();
-		if(fontName.length() == 0) return;
-		if(fontNr.length() == 0) return;
+		if(fontName.isEmpty()) return;
+		if(fontNr.isEmpty()) return;
 		
-		if(fontName.length()>0 && fontName.indexOf(';') >= 0) {
+		if(fontName.indexOf(';') >= 0) {
 			fontName = fontName.substring(0,fontName.indexOf(';'));
 		}
 
@@ -500,15 +500,15 @@ public final class RtfDestinationFontTable extends RtfDestination {
 			
 			if(f1.getBaseFont() == null) {
 				// Did not find a font, let's try a substring of the first name.
-				if(FontFactory.COURIER.indexOf(fName) > -1 ) {
+				if(FontFactory.COURIER.contains(fName)) {
 					f1 = FontFactory.getFont(FontFactory.COURIER);
-				} else if(FontFactory.HELVETICA.indexOf(fName) > -1 ) {
+				} else if(FontFactory.HELVETICA.contains(fName)) {
 					f1 = FontFactory.getFont(FontFactory.HELVETICA);
-				} else if(FontFactory.TIMES.indexOf(fName) > -1 ) {
+				} else if(FontFactory.TIMES.contains(fName)) {
 					f1 = FontFactory.getFont(FontFactory.TIMES);
-				} else if(FontFactory.SYMBOL.indexOf(fName) > -1 ) {
+				} else if(FontFactory.SYMBOL.contains(fName)) {
 					f1 = FontFactory.getFont(FontFactory.SYMBOL);
-				} else if(FontFactory.ZAPFDINGBATS.indexOf(fName) > -1 ) {
+				} else if(FontFactory.ZAPFDINGBATS.contains(fName)) {
 					f1 = FontFactory.getFont(FontFactory.ZAPFDINGBATS);
 				} else {
 					// we did not find a matching font in any form.
@@ -530,8 +530,8 @@ public final class RtfDestinationFontTable extends RtfDestination {
 	 * @since 2.0.8
 	 */
 	private Font createfont(String fontName) {
-		Font f1 = null;
-		int pos=-1;
+		Font f1;
+		int pos;
 		do {
 			f1 = FontFactory.getFont(fontName);
 			
@@ -553,7 +553,7 @@ public final class RtfDestinationFontTable extends RtfDestination {
 	 * @since 2.0.8
 	 */
 	public Font getFont(String key) {
-		return (Font) fontMap.get(key);
+		return fontMap.get(key);
 	}
 	/**
 	 * Load system fonts into the static <code>FontFactory</code> object
@@ -565,6 +565,7 @@ public final class RtfDestinationFontTable extends RtfDestination {
 		try {
 			pr = System.getenv();
 		} catch (Throwable e) {
+			return;
 		}
 		String systemRoot = pr.get("SystemRoot");
 		String fileSeperator = System.getProperty("file.separator");

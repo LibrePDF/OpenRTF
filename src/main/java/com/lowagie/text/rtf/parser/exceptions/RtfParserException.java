@@ -48,6 +48,9 @@
  */
 package com.lowagie.text.rtf.parser.exceptions;
 
+import java.io.PrintStream;
+import java.io.PrintWriter;
+
 /*
  * Signals that an error has occurred in a <CODE>RtfParser</CODE>.
  */
@@ -79,7 +82,6 @@ public class RtfParserException extends Exception {
      * Constructs a <CODE>RtfParserException</CODE> whithout a message.
      */
     public RtfParserException() {
-        super();
     }
     
     /**
@@ -134,7 +136,7 @@ public class RtfParserException extends Exception {
      * trace with "ExceptionConverter:" 
      * @param s a printstream object
      */
-    public void printStackTrace(java.io.PrintStream s) {
+    public void printStackTrace(PrintStream s) {
         if (ex == null)
             super.printStackTrace(s);
         else {
@@ -149,7 +151,7 @@ public class RtfParserException extends Exception {
      * Again, we prefix the stack trace with "ExceptionConverter:" 
      * @param s A PrintWriter object
      */
-    public void printStackTrace(java.io.PrintWriter s) {
+    public void printStackTrace(PrintWriter s) {
         if (ex == null)
             super.printStackTrace(s);
         else {
