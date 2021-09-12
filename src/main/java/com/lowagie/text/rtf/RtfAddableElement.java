@@ -88,7 +88,7 @@ public abstract class RtfAddableElement extends Chunk implements RtfBasicElement
 	 * Constructs a new RtfAddableElement. The Chunk content is
 	 * set to an empty string and the font to the default Font().
 	 */
-	protected RtfAddableElement() {
+	public RtfAddableElement() {
 		super("", new Font());
 	}
 

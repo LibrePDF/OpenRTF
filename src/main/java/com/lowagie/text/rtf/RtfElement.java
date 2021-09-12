@@ -81,7 +81,7 @@ public abstract class RtfElement implements RtfBasicElement {
      * 
      * @param doc The RtfDocument this RtfElement belongs to
      */
-    protected RtfElement(RtfDocument doc) {
+    public RtfElement(RtfDocument doc) {
         this.document = doc;
     }
 
