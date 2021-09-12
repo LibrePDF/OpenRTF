@@ -50,6 +50,7 @@ package com.lowagie.text.rtf.parser.properties;
 import java.awt.Color;
 import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.lowagie.text.rtf.parser.ctrlwords.RtfCtrlWordData;
@@ -166,7 +167,7 @@ public class RtfProperty {
 	public static final String DOCUMENT_DEFAULT_FONT_NUMER = DOCUMENT + "defaultFontNumber";
 	
 	/** Properties for this RtfProperty object */
-	protected final HashMap<String, Object> properties = new HashMap<>();
+	protected final Map<String, Object> properties = new HashMap<>();
 	
 	private boolean modifiedCharacter = false; 
 	private boolean modifiedParagraph = false; 
@@ -175,7 +176,7 @@ public class RtfProperty {
 
 	
 	/** The <code>RtfPropertyListener</code>. */
-    private final ArrayList<RtfPropertyListener> listeners = new ArrayList<>();
+    private final List<RtfPropertyListener> listeners = new ArrayList<>();
 	/**
 	 * Set all property objects to default values.
 	 * @since 2.0.8
@@ -432,7 +433,7 @@ public class RtfProperty {
 		}
 		return props;
 	}
-	
+
 	/**
 	 * @return the modified
 	 */

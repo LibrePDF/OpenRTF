@@ -49,6 +49,7 @@
 package com.lowagie.text.rtf.parser.destinations;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import com.lowagie.text.rtf.parser.RtfParser;
 import com.lowagie.text.rtf.parser.ctrlwords.RtfCtrlWordData;
@@ -72,7 +73,7 @@ public abstract class RtfDestination {
 	protected RtfCtrlWordData lastCtrlWord = null;
 
      /** The <code>RtfDestinationListener</code>. */
-    private static final ArrayList<RtfDestinationListener> listeners = new ArrayList<>();
+    private static final List<RtfDestinationListener> listeners = new ArrayList<>();
     
 	/**
 	 * Constructor.

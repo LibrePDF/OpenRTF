@@ -50,6 +50,7 @@ package com.lowagie.text.rtf.parser.destinations;
 
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
+import java.util.Map;
 
 import com.lowagie.text.rtf.parser.RtfParser;
 
@@ -74,12 +75,12 @@ public final class RtfDestinationMgr {
 	 * discarding unwanted data. This is primarily used when
 	 * skipping groups, binary data or unwanted/unknown data.
 	 */
-	private static final HashMap<String, RtfDestination> destinations = new HashMap<>(300, 0.95f);
+	private static final Map<String, RtfDestination> destinations = new HashMap<>(300, 0.95f);
 	/**
 	 * Destination objects.
 	 * There is only one of each destination.
 	 */
-	private static final HashMap<String, RtfDestination> destinationObjects = new HashMap<>(10, 0.95f);
+	private static final Map<String, RtfDestination> destinationObjects = new HashMap<>(10, 0.95f);
 	
 	private static boolean ignoreUnknownDestinations = false;
 	

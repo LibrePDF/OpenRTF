@@ -58,6 +58,7 @@ import java.util.Arrays;
 import java.util.Date;
 import java.util.EventListener;
 import java.util.Iterator;
+import java.util.List;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.DocumentException;
@@ -457,7 +458,7 @@ public class RtfParser {
 	private RtfCtrlWordData lastCtrlWordParam = null;
 	
 	/** The <code>RtfCtrlWordListener</code>. */
-    private final ArrayList<EventListener> listeners = new ArrayList<>();
+    private final List<EventListener> listeners = new ArrayList<>();
     
 	/**
 	 * Constructor 

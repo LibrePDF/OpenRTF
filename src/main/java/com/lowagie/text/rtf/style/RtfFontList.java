@@ -52,6 +52,7 @@ package com.lowagie.text.rtf.style;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.lowagie.text.DocWriter;
 import com.lowagie.text.rtf.RtfElement;
@@ -84,7 +85,7 @@ public class RtfFontList extends RtfElement implements RtfExtendedElement {
     /**
      * The list of fonts
      */
-    private final ArrayList<RtfFont> fontList = new ArrayList<>();
+    private final List<RtfFont> fontList = new ArrayList<>();
 
     /**
      * Creates a RtfFontList
