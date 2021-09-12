@@ -50,8 +50,8 @@ package com.lowagie.text.rtf.parser.destinations;
 
 import java.awt.Color;
 import java.util.Arrays;
-import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.lowagie.text.Chunk;
 import com.lowagie.text.Document;
@@ -568,7 +568,7 @@ public final class RtfDestinationDocument extends RtfDestination implements RtfP
 			Chunk chunk = new Chunk();
 			chunk.append(this.buffer.toString());
 			this.buffer = new StringBuilder(255);
-			HashMap<String, Object> charProperties = this.rtfParser.getState().properties.getProperties(RtfProperty.CHARACTER);
+			Map<String, Object> charProperties = this.rtfParser.getState().properties.getProperties(RtfProperty.CHARACTER);
 			String defFont = (String)charProperties.get(RtfProperty.CHARACTER_FONT);
 			if(defFont == null) defFont = "0";
 			RtfDestinationFontTable fontTable = (RtfDestinationFontTable)this.rtfParser.getDestination("fonttbl");

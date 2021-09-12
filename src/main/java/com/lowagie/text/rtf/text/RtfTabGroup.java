@@ -54,6 +54,7 @@ package com.lowagie.text.rtf.text;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.lowagie.text.rtf.RtfAddableElement;
 import com.lowagie.text.rtf.RtfBasicElement;
@@ -79,7 +80,7 @@ public class RtfTabGroup extends RtfAddableElement {
 	/**
 	 * The tabs to add.
 	 */
-	private final ArrayList<RtfTab> tabs = new ArrayList<>();
+	private final List<RtfTab> tabs = new ArrayList<>();
 
 	/**
 	 * Constructs an empty RtfTabGroup.
@@ -99,7 +100,7 @@ public class RtfTabGroup extends RtfAddableElement {
 			}
 		}
 	}
-	
+
 	/**
 	 * Adds a RtfTab to the list of grouped tabs.
 	 * 

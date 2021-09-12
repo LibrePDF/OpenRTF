@@ -52,6 +52,7 @@ package com.lowagie.text.rtf.list;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.lowagie.text.DocWriter;
 import com.lowagie.text.rtf.RtfElement;
@@ -89,11 +90,11 @@ public class RtfListTable extends RtfElement implements RtfExtendedElement {
     /**
      * The RtfList lists managed by this RtfListTable
      */
-    private final ArrayList<RtfList> lists = new ArrayList<>();
+    private final List<RtfList> lists = new ArrayList<>();
     /**
      * The RtfPictureList lists managed by this RtfListTable
      */
-    private final ArrayList<RtfPictureList> picturelists = new ArrayList<>();
+    private final List<RtfPictureList> picturelists = new ArrayList<>();
     
     /**
      * Constructs a RtfListTable for a RtfDocument

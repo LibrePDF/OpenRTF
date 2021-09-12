@@ -125,7 +125,7 @@ public class RtfMapper {
             return new RtfBasicElement[]{rtfElement};
         }
 
-		ArrayList<RtfBasicElement> rtfElements = new ArrayList<>();
+		java.util.List<RtfBasicElement> rtfElements = new ArrayList<>();
 		switch(element.type()) {
     		case Element.CHUNK:
     		    Chunk chunk = (Chunk) element;

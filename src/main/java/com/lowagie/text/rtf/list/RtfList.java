@@ -161,7 +161,7 @@ public class RtfList extends RtfElement implements RtfExtendedElement {
     /**
      * The subitems of this RtfList
      */
-    private ArrayList<RtfBasicElement> items;
+    private java.util.List<RtfBasicElement> items;
     
     /**
      * The parent list if there is one.
@@ -209,7 +209,7 @@ public class RtfList extends RtfElement implements RtfExtendedElement {
     /**
      * The RtfList lists managed by this RtfListTable
      */
-    private final ArrayList<RtfListLevel> listLevels = new ArrayList<>();
+    private final java.util.List<RtfListLevel> listLevels = new ArrayList<>();
 
 
     /**

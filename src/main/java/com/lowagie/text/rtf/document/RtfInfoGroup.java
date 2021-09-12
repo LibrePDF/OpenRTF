@@ -52,6 +52,7 @@ package com.lowagie.text.rtf.document;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.lowagie.text.DocWriter;
 import com.lowagie.text.rtf.RtfElement;
@@ -81,7 +82,7 @@ public class RtfInfoGroup extends RtfElement {
     /**
      * The RtfInfoElements that belong to this RtfInfoGroup
      */
-    private final ArrayList<RtfInfoElement> infoElements = new ArrayList<>();
+    private final List<RtfInfoElement> infoElements = new ArrayList<>();
     
     /**
      * Constructs a RtfInfoGroup belonging to a RtfDocument

@@ -51,6 +51,7 @@ package com.lowagie.text.rtf.parser.ctrlwords;
 
 import java.io.PushbackInputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.lowagie.text.rtf.parser.RtfParser;
 
@@ -70,7 +71,7 @@ public final class RtfCtrlWordMgr {
 	private final RtfCtrlWordMap ctrlWordMap;
 	
 	/** The <code>RtfCtrlWordListener</code>. */
-    private final ArrayList<RtfCtrlWordListener> listeners = new ArrayList<>();
+    private final List<RtfCtrlWordListener> listeners = new ArrayList<>();
 
 //	// TIMING DEBUG INFO
 //	private long endTime = 0;

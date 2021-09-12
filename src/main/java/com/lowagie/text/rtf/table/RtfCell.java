@@ -107,7 +107,7 @@ public class RtfCell extends Cell implements RtfExtendedElement {
     /**
      * The content of this RtfCell
      */
-    private ArrayList<RtfBasicElement> content = null;
+    private java.util.List<RtfBasicElement> content = null;
     /**
      * The right margin of this RtfCell
      */

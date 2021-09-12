@@ -3,6 +3,7 @@ package com.lowagie.text.rtf.graphic;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.HashMap;
+import java.util.Map;
 
 import com.lowagie.text.DocWriter;
 import com.lowagie.text.rtf.RtfAddableElement;
@@ -182,7 +183,7 @@ public class RtfShape extends RtfAddableElement {
     /**
      * A HashMap with RtfShapePropertys that define further shape properties.
      */
-	private final HashMap<String, RtfShapeProperty> properties = new HashMap<>();
+	private final Map<String, RtfShapeProperty> properties = new HashMap<>();
     /**
      * The wrapping mode. Defaults to SHAPE_WRAP_NONE;
      */

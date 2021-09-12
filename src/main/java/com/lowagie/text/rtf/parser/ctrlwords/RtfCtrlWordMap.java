@@ -49,6 +49,7 @@
 package com.lowagie.text.rtf.parser.ctrlwords;
 
 import java.util.HashMap;
+import java.util.Map;
 
 import com.lowagie.text.rtf.parser.RtfParser;
 import com.lowagie.text.rtf.parser.properties.RtfProperty;
@@ -71,7 +72,7 @@ final class RtfCtrlWordMap {
     /**
      * Control Word HashMap mapping object.
      */
-    private final HashMap<String, RtfCtrlWordHandler> ctrlWords = new HashMap<>(2012, .9f);
+    private final Map<String, RtfCtrlWordHandler> ctrlWords = new HashMap<>(2012, .9f);
 
     /**
      * Get the HashMap object containing the control words.

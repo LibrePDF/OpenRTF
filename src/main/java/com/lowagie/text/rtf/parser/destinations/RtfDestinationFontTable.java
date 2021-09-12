@@ -157,7 +157,7 @@ public final class RtfDestinationFontTable extends RtfDestination {
 	/**
 	 * Convert font mapping to <code>FontFactory</code> font objects.
 	 */
-	private HashMap<String, Font> fontMap = null;
+	private Map<String, Font> fontMap = null;
 	
 	/**
 	 * Constructor

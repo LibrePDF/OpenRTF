@@ -52,6 +52,8 @@ package com.lowagie.text.rtf.document;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.List;
+
 import com.lowagie.text.error_messages.MessageLocalization;
 
 import com.lowagie.text.DocWriter;
@@ -90,7 +92,7 @@ public class RtfDocument extends RtfElement {
     /**
      * Stores integers that have been generated as unique random numbers
      */
-    private final ArrayList<Integer> previousRandomInts = new ArrayList<>();
+    private final List<Integer> previousRandomInts = new ArrayList<>();
     /**
      * Whether to automatically generate TOC entries for Chapters and Sections. Defaults to false
      */

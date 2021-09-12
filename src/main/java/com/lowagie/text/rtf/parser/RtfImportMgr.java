@@ -51,6 +51,7 @@ package com.lowagie.text.rtf.parser;
 
 import java.awt.Color;
 import java.util.HashMap;
+import java.util.Map;
 
 import com.lowagie.text.Document;
 import com.lowagie.text.List;
@@ -78,19 +79,19 @@ public class RtfImportMgr {
     /**
      * The HashMap storing the font number mappings.
      */
-    private final HashMap<String, String> importFontMapping = new HashMap<>();
+    private final Map<String, String> importFontMapping = new HashMap<>();
     /**
      * The HashMap storing the color number mappings.
      */
-    private final HashMap<String, String> importColorMapping = new HashMap<>();
+    private final Map<String, String> importColorMapping = new HashMap<>();
     /**
      * The HashMap storing the Stylesheet List number mappings.
      */
-    private final HashMap<String, String> importStylesheetListMapping = new HashMap<>();
+    private final Map<String, String> importStylesheetListMapping = new HashMap<>();
     /**
      * The HashMap storing the List number mappings.
      */
-    private final HashMap<String, String> importListMapping = new HashMap<>();
+    private final Map<String, String> importListMapping = new HashMap<>();
     /**
      * The RtfDocument to get font and color numbers from.
      */

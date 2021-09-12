@@ -52,6 +52,7 @@ package com.lowagie.text.rtf.style;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.HashMap;
+import java.util.Map;
 
 import com.lowagie.text.DocWriter;
 import com.lowagie.text.rtf.RtfBasicElement;
@@ -71,7 +72,7 @@ public class RtfStylesheetList extends RtfElement implements RtfExtendedElement 
     /**
      * The HashMap containing the RtfParagraphStyles.
      */
-    private final HashMap<String, RtfParagraphStyle> styleMap = new HashMap<>();
+    private final Map<String, RtfParagraphStyle> styleMap = new HashMap<>();
     /**
      * Whether the default settings have been loaded.
      */

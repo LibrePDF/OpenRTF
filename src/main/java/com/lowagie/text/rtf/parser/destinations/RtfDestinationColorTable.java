@@ -50,6 +50,7 @@ package com.lowagie.text.rtf.parser.destinations;
 
 import java.awt.Color;
 import java.util.HashMap;
+import java.util.Map;
 
 import com.lowagie.text.rtf.parser.RtfImportMgr;
 import com.lowagie.text.rtf.parser.RtfParser;
@@ -127,7 +128,7 @@ public class RtfDestinationColorTable extends RtfDestination  {
 	/**
 	 * Color map object for conversions
 	 */
-	private HashMap<String, Color> colorMap = new HashMap<>();
+	private Map<String, Color> colorMap = new HashMap<>();
 	
 	/**
 	 * Constructor.

@@ -52,6 +52,7 @@ package com.lowagie.text.rtf.table;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
+import java.util.List;
 
 import com.lowagie.text.Cell;
 import com.lowagie.text.DocWriter;
@@ -282,7 +283,7 @@ public class RtfRow extends RtfElement {
                 }
             }
             if(rtfCell.getRowspan() > 1) {
-                ArrayList<RtfRow> rows = this.parentTable.getRows();
+                List<RtfRow> rows = this.parentTable.getRows();
                 for(int j = 1; j < rtfCell.getRowspan(); j++) {
                     RtfRow mergeRow = rows.get(this.rowNumber + j);
                     if(this.rowNumber + j < rows.size()) {
