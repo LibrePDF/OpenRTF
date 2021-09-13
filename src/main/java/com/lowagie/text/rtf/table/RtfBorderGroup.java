@@ -77,7 +77,7 @@ public class RtfBorderGroup extends RtfElement {
     /**
      * The borders in this RtfBorderGroup
      */
-    private final HashMap<Integer, RtfBorder> borders = new HashMap<>();
+    private final Map<Integer, RtfBorder> borders = new HashMap<>();
 
     /**
      * Constructs an empty RtfBorderGroup.
@@ -210,7 +210,7 @@ public class RtfBorderGroup extends RtfElement {
      * 
      * @return The RtfBorders of this RtfBorderGroup
      */
-    protected HashMap<Integer, RtfBorder> getBorders() {
+    protected Map<Integer, RtfBorder> getBorders() {
         return this.borders;
     }
 }
