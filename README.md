@@ -5,8 +5,8 @@ OpenRTF is a Java library for creating and editing RTF (Rich Text Format) files 
 OpenRTF is branched out of OpenPDF - https://github.com/LibrePDF/OpenPDF
 
 [![Java CI](https://github.com/LibrePDF/OpenRTF/actions/workflows/maven.yml/badge.svg)](https://github.com/LibrePDF/OpenRTF/actions/workflows/maven.yml)
-[![License (LGPL version 3.0)](https://img.shields.io/badge/license-GNU%20LGPL%20version%203.0-blue.svg?style=flat-square)](http://opensource.org/licenses/LGPL-3.0)
-[![License (MPL)](https://img.shields.io/badge/license-Mozilla%20Public%20License-yellow.svg?style=flat-square)](http://opensource.org/licenses/MPL-2.0)
+[![License (LGPL version 2.1)](https://img.shields.io/badge/license-GNU%20LGPL%20version%202.1-blue.svg)](https://www.gnu.org/licenses/old-licenses/lgpl-2.1.html)
+[![License (MPL)](https://img.shields.io/badge/license-Mozilla%20Public%20License-yellow.svg)](https://www.mozilla.org/en-US/MPL/2.0/)
 
 
 ## Use OpenRTF as Maven dependency

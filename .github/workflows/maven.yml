@@ -1,6 +1,6 @@
 name: Java CI
 
-on: 
+on:
   push:
     branches: [ '*' ]
   pull_request:
@@ -12,7 +12,7 @@ jobs:
     runs-on: ubuntu-latest
     strategy:
       matrix:
-        java: [ 8, 11, 15 ]
+        java: [ 8, 11, 17 ]
     name: Java ${{matrix.java}}
     steps:
     - uses: actions/checkout@v2
