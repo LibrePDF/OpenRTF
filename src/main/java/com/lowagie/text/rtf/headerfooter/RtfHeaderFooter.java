@@ -52,6 +52,7 @@ package com.lowagie.text.rtf.headerfooter;
 import java.io.IOException;
 import java.io.OutputStream;
 
+import com.lowagie.text.alignment.HorizontalAlignment;
 import com.lowagie.text.DocWriter;
 import com.lowagie.text.DocumentException;
 import com.lowagie.text.Element;
@@ -378,7 +379,7 @@ public class RtfHeaderFooter extends HeaderFooter implements RtfBasicElement {
             if (o instanceof Paragraph) {
                 ((Paragraph) o).setAlignment(alignment);
             } else if (o instanceof Table) {
-                ((Table) o).setAlignment(alignment);
+                ((Table) o).setHorizontalAlignment(HorizontalAlignment.of(alignment).orElse(HorizontalAlignment.UNDEFINED));
             } else if (o instanceof Image) {
                 ((Image) o).setAlignment(alignment);
             }
