@@ -43,7 +43,6 @@
 
     <dependencies>
         <dependency>
-            <!-- OpenRTF depends on RtfElementInterface from OpenPDF. -->
             <groupId>${project.groupId}</groupId>
             <artifactId>openpdf</artifactId>
             <version>2.4.0</version>
