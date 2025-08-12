@@ -20,7 +20,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        java: ['21']
+        java: ['21', '24']
     name: Java ${{ matrix.java }}
     steps:
       - uses: actions/checkout@v4
