@@ -36,7 +36,7 @@
         <project.reporting.outputEncoding>UTF-8</project.reporting.outputEncoding>
         <maven.compiler.source>${java.version}</maven.compiler.source>
         <maven.compiler.target>${java.version}</maven.compiler.target>
-        <maven.plugin.repository.version>2.3.1</maven.plugin.repository.version>
+        <maven.plugin.repository.version>2.4</maven.plugin.repository.version>
         <maven.clean.plugin.version>3.1.0</maven.clean.plugin.version>
         <maven.javadoc.plugin.version>3.0.1</maven.javadoc.plugin.version>
         <maven.source.version>3.3.1</maven.source.version>
