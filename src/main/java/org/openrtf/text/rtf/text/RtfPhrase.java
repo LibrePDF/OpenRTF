@@ -53,7 +53,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Collections;
-
 import org.openpdf.text.Chunk;
 import org.openpdf.text.DocWriter;
 import org.openpdf.text.DocumentException;
@@ -64,7 +63,6 @@ import org.openrtf.text.rtf.RtfElement;
 import org.openrtf.text.rtf.document.RtfDocument;
 import org.openrtf.text.rtf.style.RtfFont;
 
-
 /**
  * The RtfPhrase contains multiple RtfChunks
  *
@@ -74,30 +72,22 @@ import org.openrtf.text.rtf.style.RtfFont;
  */
 public class RtfPhrase extends RtfElement {
 
-    /**
-     * Constant for the resetting of the paragraph defaults
-     */
+    /** Constant for the resetting of the paragraph defaults */
     public static final byte[] PARAGRAPH_DEFAULTS = DocWriter.getISOBytes("\\pard");
-    /**
-     * Constant for resetting of font settings to their defaults
-     */
+
+    /** Constant for resetting of font settings to their defaults */
     public static final byte[] PLAIN = DocWriter.getISOBytes("\\plain");
-    /**
-     * Constant for phrase in a table indication
-     */
+
+    /** Constant for phrase in a table indication */
     public static final byte[] IN_TABLE = DocWriter.getISOBytes("\\intbl");
-    /**
-     * Constant for the line spacing.
-     */
+
+    /** Constant for the line spacing. */
     public static final byte[] LINE_SPACING = DocWriter.getISOBytes("\\sl");
 
-    /**
-     * ArrayList containing the RtfChunks of this RtfPhrase
-     */
+    /** ArrayList containing the RtfChunks of this RtfPhrase */
     protected final ArrayList<RtfBasicElement> chunks = new ArrayList<>();
-    /**
-     * The height of each line.
-     */
+
+    /** The height of each line. */
     private int lineLeading = 0;
 
     /**
@@ -118,11 +108,11 @@ public class RtfPhrase extends RtfElement {
     public RtfPhrase(RtfDocument doc, Phrase phrase) {
         super(doc);
 
-        if(phrase == null) {
+        if (phrase == null) {
             return;
         }
 
-        if(phrase.hasLeading()) {
+        if (phrase.hasLeading()) {
             this.lineLeading = (int) (phrase.getLeading() * RtfElement.TWIPS_FACTOR);
         } else {
             this.lineLeading = 0;
@@ -130,43 +120,43 @@ public class RtfPhrase extends RtfElement {
 
         RtfFont phraseFont = new RtfFont(null, phrase.getFont());
         for (Element chunk : phrase) {
-            if(chunk instanceof Chunk) {
+            if (chunk instanceof Chunk) {
                 ((Chunk) chunk).setFont(phraseFont.difference(((Chunk) chunk).getFont()));
             }
             try {
                 RtfBasicElement[] rtfElements = doc.getMapper().mapElement(chunk);
                 Collections.addAll(chunks, rtfElements);
-            } catch(DocumentException de) {
+            } catch (DocumentException de) {
             }
         }
     }
 
     /**
-     * Write the content of this RtfPhrase. First resets to the paragraph defaults
-     * then if the RtfPhrase is in a RtfCell a marker for this is written and finally
-     * the RtfChunks of this RtfPhrase are written.
+     * Write the content of this RtfPhrase. First resets to the paragraph defaults then if the
+     * RtfPhrase is in a RtfCell a marker for this is written and finally the RtfChunks of this
+     * RtfPhrase are written.
      */
-    public void writeContent(OutputStream result) throws IOException
-    {
+    public void writeContent(OutputStream result) throws IOException {
         result.write(PARAGRAPH_DEFAULTS);
         result.write(PLAIN);
-        if(inTable) {
+        if (inTable) {
             result.write(IN_TABLE);
         }
-        if(this.lineLeading > 0) {
+        if (this.lineLeading > 0) {
             result.write(LINE_SPACING);
             result.write(intToByteArray(this.lineLeading));
         }
         for (RtfBasicElement rbe : chunks) {
-        	rbe.writeContent(result);
+            rbe.writeContent(result);
         }
     }
 
     /**
-     * Sets whether this RtfPhrase is in a table. Sets the correct inTable setting for all
-     * child elements.
+     * Sets whether this RtfPhrase is in a table. Sets the correct inTable setting for all child
+     * elements.
      *
-     * @param inTable <code>True</code> if this RtfPhrase is in a table, <code>false</code> otherwise
+     * @param inTable <code>True</code> if this RtfPhrase is in a table, <code>false</code>
+     *     otherwise
      */
     public void setInTable(boolean inTable) {
         super.setInTable(inTable);
@@ -176,10 +166,11 @@ public class RtfPhrase extends RtfElement {
     }
 
     /**
-     * Sets whether this RtfPhrase is in a header. Sets the correct inTable setting for all
-     * child elements.
+     * Sets whether this RtfPhrase is in a header. Sets the correct inTable setting for all child
+     * elements.
      *
-     * @param inHeader <code>True</code> if this RtfPhrase is in a header, <code>false</code> otherwise
+     * @param inHeader <code>True</code> if this RtfPhrase is in a header, <code>false</code>
+     *     otherwise
      */
     public void setInHeader(boolean inHeader) {
         super.setInHeader(inHeader);

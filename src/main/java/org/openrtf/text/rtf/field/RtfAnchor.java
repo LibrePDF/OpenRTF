@@ -51,12 +51,10 @@ package org.openrtf.text.rtf.field;
 
 import java.io.IOException;
 import java.io.OutputStream;
-
 import org.openpdf.text.Anchor;
 import org.openpdf.text.DocWriter;
 import org.openrtf.text.rtf.document.RtfDocument;
 import org.openrtf.text.rtf.text.RtfPhrase;
-
 
 /**
  * The RtfAnchor is the RTF representation of an Anchor object.
@@ -66,20 +64,14 @@ import org.openrtf.text.rtf.text.RtfPhrase;
  * @author Werner Daehn (Werner.Daehn@BusinessObjects.com)
  * @author Thomas Bickel (tmb99@inode.at)
  */
-public class RtfAnchor extends RtfField
-{
-    /**
-     * Constant for a hyperlink
-     */
+public class RtfAnchor extends RtfField {
+    /** Constant for a hyperlink */
     private static final byte[] HYPERLINK = DocWriter.getISOBytes("HYPERLINK");
 
-    /**
-     * The url of this RtfAnchor
-     */
+    /** The url of this RtfAnchor */
     private final String url;
-    /**
-     * The RtfPhrase to display for the url
-     */
+
+    /** The RtfPhrase to display for the url */
     private final RtfPhrase content;
 
     /**
@@ -95,29 +87,25 @@ public class RtfAnchor extends RtfField
     }
 
     /**
-     * Write the field instructions for this RtfAnchor. Sets the field
-     * type to HYPERLINK and then writes the url.
+     * Write the field instructions for this RtfAnchor. Sets the field type to HYPERLINK and then
+     * writes the url.
      *
      * @param result The <code>OutputStream</code> to write to.
      * @throws IOException on i/o errors.
      */
-    protected void writeFieldInstContent(OutputStream result) throws IOException
-    {
+    protected void writeFieldInstContent(OutputStream result) throws IOException {
         result.write(HYPERLINK);
         result.write(DELIMITER);
         this.document.filterSpecialChar(result, url, true, true);
     }
 
     /**
-     * Write the field result for this RtfAnchor. Writes the content
-     * of the RtfPhrase.
+     * Write the field result for this RtfAnchor. Writes the content of the RtfPhrase.
      *
      * @param result The <code>OutputStream</code> to write to.
      * @throws IOException on i/o errors.
      */
-    protected void writeFieldResultContent(OutputStream result) throws IOException
-    {
+    protected void writeFieldResultContent(OutputStream result) throws IOException {
         content.writeContent(result);
     }
-
 }

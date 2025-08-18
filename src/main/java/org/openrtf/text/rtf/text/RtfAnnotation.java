@@ -51,16 +51,14 @@ package org.openrtf.text.rtf.text;
 
 import java.io.IOException;
 import java.io.OutputStream;
-
 import org.openpdf.text.Annotation;
 import org.openpdf.text.DocWriter;
 import org.openrtf.text.rtf.RtfElement;
 import org.openrtf.text.rtf.document.RtfDocument;
 
-
 /**
- * The RtfAnnotation provides support for adding Annotations to the rtf document.
- * Only simple Annotations with Title / Content are supported.
+ * The RtfAnnotation provides support for adding Annotations to the rtf document. Only simple
+ * Annotations with Title / Content are supported.
  *
  * @version $Id: RtfAnnotation.java 3580 2008-08-06 15:52:00Z howard_s $
  * @author Mark Hall (Mark.Hall@mail.room3b.eu)
@@ -68,26 +66,19 @@ import org.openrtf.text.rtf.document.RtfDocument;
  */
 public class RtfAnnotation extends RtfElement {
 
-    /**
-     * Constant for the id of the annotation
-     */
+    /** Constant for the id of the annotation */
     private static final byte[] ANNOTATION_ID = DocWriter.getISOBytes("\\*\\atnid");
-    /**
-     * Constant for the author of the annotation
-     */
+
+    /** Constant for the author of the annotation */
     private static final byte[] ANNOTATION_AUTHOR = DocWriter.getISOBytes("\\*\\atnauthor");
-    /**
-     * Constant for the actual annotation
-     */
+
+    /** Constant for the actual annotation */
     private static final byte[] ANNOTATION = DocWriter.getISOBytes("\\*\\annotation");
 
-    /**
-     * The title of this RtfAnnotation
-     */
+    /** The title of this RtfAnnotation */
     private final String title;
-    /**
-     * The content of this RtfAnnotation
-     */
+
+    /** The content of this RtfAnnotation */
     private final String content;
 
     /**
@@ -102,11 +93,8 @@ public class RtfAnnotation extends RtfElement {
         content = annotation.content();
     }
 
-    /**
-     * Writes the content of the RtfAnnotation
-     */
-    public void writeContent(OutputStream result) throws IOException
-    {
+    /** Writes the content of the RtfAnnotation */
+    public void writeContent(OutputStream result) throws IOException {
         result.write(OPEN_GROUP);
         result.write(ANNOTATION_ID);
         result.write(DELIMITER);
@@ -122,6 +110,6 @@ public class RtfAnnotation extends RtfElement {
         result.write(RtfParagraph.PARAGRAPH_DEFAULTS);
         result.write(DELIMITER);
         result.write(DocWriter.getISOBytes(content));
-        result.write(CLOSE_GROUP);    	
+        result.write(CLOSE_GROUP);
     }
 }

@@ -54,16 +54,12 @@ import java.util.EventListener;
  * <code>RtfPropertyListener</code> interface for handling events.
  *
  * @author Howard Shank (hgshank@yahoo.com)
- *
- *  @since 2.0.8
+ * @since 2.0.8
  */
 public interface RtfPropertyListener extends EventListener {
-	/**
-	 *
-	 */
+    /** */
     void beforePropertyChange(String propertyName);
-	/**
-	 *
-	 */
+
+    /** */
     void afterPropertyChange(String propertyName);
 }

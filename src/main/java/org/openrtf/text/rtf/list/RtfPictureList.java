@@ -51,12 +51,10 @@ package org.openrtf.text.rtf.list;
 
 import java.io.IOException;
 import java.io.OutputStream;
-
 import org.openpdf.text.DocWriter;
 import org.openrtf.text.rtf.RtfElement;
 import org.openrtf.text.rtf.RtfExtendedElement;
 import org.openrtf.text.rtf.document.RtfDocument;
-
 
 /**
  * The RtfPictureList2 manages the pictures for lists.
@@ -65,32 +63,33 @@ import org.openrtf.text.rtf.document.RtfDocument;
  * @author Howard Shank (hgshank@yahoo.com)
  * @since 2.1.3
  */
-public class RtfPictureList  extends RtfElement implements RtfExtendedElement {
+public class RtfPictureList extends RtfElement implements RtfExtendedElement {
     /**
-     * Constant for determining which picture bullet from the \listpicture destination that should be applied.
+     * Constant for determining which picture bullet from the \listpicture destination that should
+     * be applied.
      */
     private static final byte[] LIST_LEVEL_PICTURE = DocWriter.getISOBytes("\\*\\listpicture");
 
-	public RtfPictureList(RtfDocument doc) {
-		super(doc);
-	}
-	/* (non-Javadoc)
-	 * @see org.openrtf.text.rtf.RtfElement#writeContent(java.io.OutputStream)
-	 */
-	public void writeContent(OutputStream out) throws IOException {
-		// TODO Auto-generated method stub
-		
-	}
+    public RtfPictureList(RtfDocument doc) {
+        super(doc);
+    }
 
-	/* (non-Javadoc)
-	 * @see org.openrtf.text.rtf.RtfExtendedElement#writeDefinition(java.io.OutputStream)
-	 */
-	public void writeDefinition(OutputStream result) throws IOException {
-		// TODO Auto-generated method stub
-		result.write(OPEN_GROUP);
-		result.write(LIST_LEVEL_PICTURE);
-		// if there are elements, write the \shppictlist here
-		result.write(CLOSE_GROUP);
-	}
+    /* (non-Javadoc)
+     * @see org.openrtf.text.rtf.RtfElement#writeContent(java.io.OutputStream)
+     */
+    public void writeContent(OutputStream out) throws IOException {
+        // TODO Auto-generated method stub
 
+    }
+
+    /* (non-Javadoc)
+     * @see org.openrtf.text.rtf.RtfExtendedElement#writeDefinition(java.io.OutputStream)
+     */
+    public void writeDefinition(OutputStream result) throws IOException {
+        // TODO Auto-generated method stub
+        result.write(OPEN_GROUP);
+        result.write(LIST_LEVEL_PICTURE);
+        // if there are elements, write the \shppictlist here
+        result.write(CLOSE_GROUP);
+    }
 }

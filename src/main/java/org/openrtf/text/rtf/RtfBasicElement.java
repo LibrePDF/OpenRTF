@@ -51,38 +51,31 @@ package org.openrtf.text.rtf;
 
 import java.io.IOException;
 import java.io.OutputStream;
-
 import org.openpdf.text.DocWriter;
 import org.openrtf.text.rtf.document.RtfDocument;
 
 /**
- * The RtfBasicElement interface defines the interface for elements that can
- * be added to the RtfWriter.
+ * The RtfBasicElement interface defines the interface for elements that can be added to the
+ * RtfWriter.
  *
  * @version $Id: RtfBasicElement.java 3580 2008-08-06 15:52:00Z howard_s $
  * @author Mark Hall (Mark.Hall@mail.room3b.eu)
  * @author Thomas Bickel (tmb99@inode.at)
  */
 public interface RtfBasicElement {
-    /**
-     * Constant for the beginning of a rtf group
-     */
+    /** Constant for the beginning of a rtf group */
     byte[] OPEN_GROUP = DocWriter.getISOBytes("{");
-    /**
-     * Constant for the end of an rtf group
-     */
+
+    /** Constant for the end of an rtf group */
     byte[] CLOSE_GROUP = DocWriter.getISOBytes("}");
-    /**
-     * Constant for a delimiter in rtf
-     */
+
+    /** Constant for a delimiter in rtf */
     byte[] DELIMITER = DocWriter.getISOBytes(" ");
-    /**
-     * Constant for a comma delimiter in rtf
-     */
+
+    /** Constant for a comma delimiter in rtf */
     byte[] COMMA_DELIMITER = DocWriter.getISOBytes(";");
-    /**
-     * The factor to use for translating from iText to rtf measurements
-     */
+
+    /** The factor to use for translating from iText to rtf measurements */
     double TWIPS_FACTOR = 20;
 
     /**
@@ -95,7 +88,8 @@ public interface RtfBasicElement {
     /**
      * Sets the RtfDocument this RtfElement belongs to
      *
-     * @param doc The @link{org.openrtf.text.rtf.document.RtfDocument} this <code>RtfElement</code> belongs to
+     * @param doc The @link{org.openrtf.text.rtf.document.RtfDocument} this <code>RtfElement</code>
+     *     belongs to
      */
     void setRtfDocument(RtfDocument doc);
 

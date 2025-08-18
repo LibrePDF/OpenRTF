@@ -51,16 +51,13 @@ package org.openrtf.text.rtf.headerfooter;
 
 import java.io.IOException;
 import java.io.OutputStream;
-
 import org.openpdf.text.HeaderFooter;
 import org.openpdf.text.Phrase;
 import org.openrtf.text.rtf.RtfBasicElement;
 import org.openrtf.text.rtf.document.RtfDocument;
 
-
 /**
- * The RtfHeaderFooterGroup holds 0 - 3 RtfHeaderFooters that create a group
- * of headers or footers.
+ * The RtfHeaderFooterGroup holds 0 - 3 RtfHeaderFooters that create a group of headers or footers.
  *
  * @version $Id: RtfHeaderFooterGroup.java 3373 2008-05-12 16:21:24Z xlv $
  * @author Mark Hall (Mark.Hall@mail.room3b.eu)
@@ -68,53 +65,39 @@ import org.openrtf.text.rtf.document.RtfDocument;
  */
 public class RtfHeaderFooterGroup extends HeaderFooter implements RtfBasicElement {
 
-    /**
-     * This RtfHeaderFooterGroup contains no RtfHeaderFooter objects
-     */
+    /** This RtfHeaderFooterGroup contains no RtfHeaderFooter objects */
     private static final int MODE_NONE = 0;
-    /**
-     * This RtfHeaderFooterGroup contains one RtfHeaderFooter object
-     */
+
+    /** This RtfHeaderFooterGroup contains one RtfHeaderFooter object */
     private static final int MODE_SINGLE = 1;
-    /**
-     * This RtfHeaderFooterGroup contains two or three RtfHeaderFooter objects
-     */
+
+    /** This RtfHeaderFooterGroup contains two or three RtfHeaderFooter objects */
     private static final int MODE_MULTIPLE = 2;
 
-    /**
-     * The current mode of this RtfHeaderFooterGroup. Defaults to MODE_NONE
-     */
+    /** The current mode of this RtfHeaderFooterGroup. Defaults to MODE_NONE */
     private int mode = MODE_NONE;
-    /**
-     * The current type of this RtfHeaderFooterGroup. Defaults to RtfHeaderFooter.TYPE_HEADER
-     */
+
+    /** The current type of this RtfHeaderFooterGroup. Defaults to RtfHeaderFooter.TYPE_HEADER */
     private int type = RtfHeaderFooter.TYPE_HEADER;
 
-    /**
-     * The RtfHeaderFooter for all pages
-     */
+    /** The RtfHeaderFooter for all pages */
     private RtfHeaderFooter headerAll = null;
-    /**
-     * The RtfHeaderFooter for the first page
-     */
+
+    /** The RtfHeaderFooter for the first page */
     private RtfHeaderFooter headerFirst = null;
-    /**
-     * The RtfHeaderFooter for the left hand pages
-     */
+
+    /** The RtfHeaderFooter for the left hand pages */
     private RtfHeaderFooter headerLeft = null;
-    /**
-     * The RtfHeaderFooter for the right hand pages
-     */
+
+    /** The RtfHeaderFooter for the right hand pages */
     private RtfHeaderFooter headerRight = null;
-    /**
-     * The RtfDocument this RtfHeaderFooterGroup belongs to
-     */
+
+    /** The RtfDocument this RtfHeaderFooterGroup belongs to */
     private RtfDocument document = null;
 
     /**
-     * Constructs a RtfHeaderGroup to which you add headers/footers using
-     * via the setHeaderFooter method.
-     *
+     * Constructs a RtfHeaderGroup to which you add headers/footers using via the setHeaderFooter
+     * method.
      */
     public RtfHeaderFooterGroup() {
         super(new Phrase(""), false);
@@ -122,8 +105,8 @@ public class RtfHeaderFooterGroup extends HeaderFooter implements RtfBasicElemen
     }
 
     /**
-     * Constructs a certain type of RtfHeaderFooterGroup. RtfHeaderFooter.TYPE_HEADER
-     * and RtfHeaderFooter.TYPE_FOOTER are valid values for type.
+     * Constructs a certain type of RtfHeaderFooterGroup. RtfHeaderFooter.TYPE_HEADER and
+     * RtfHeaderFooter.TYPE_FOOTER are valid values for type.
      *
      * @param doc The RtfDocument this RtfHeaderFooter belongs to
      * @param type The type of RtfHeaderFooterGroup to create
@@ -135,8 +118,7 @@ public class RtfHeaderFooterGroup extends HeaderFooter implements RtfBasicElemen
     }
 
     /**
-     * Constructs a RtfHeaderFooterGroup by copying the content of the original
-     * RtfHeaderFooterGroup
+     * Constructs a RtfHeaderFooterGroup by copying the content of the original RtfHeaderFooterGroup
      *
      * @param doc The RtfDocument this RtfHeaderFooter belongs to
      * @param headerFooter The RtfHeaderFooterGroup to copy
@@ -147,17 +129,21 @@ public class RtfHeaderFooterGroup extends HeaderFooter implements RtfBasicElemen
         this.document = doc;
         this.mode = headerFooter.getMode();
         this.type = type;
-        if(headerFooter.getHeaderAll() != null) {
-            this.headerAll = new RtfHeaderFooter(this.document, headerFooter.getHeaderAll(), RtfHeaderFooter.DISPLAY_ALL_PAGES);
+        if (headerFooter.getHeaderAll() != null) {
+            this.headerAll =
+                    new RtfHeaderFooter(this.document, headerFooter.getHeaderAll(), RtfHeaderFooter.DISPLAY_ALL_PAGES);
         }
-        if(headerFooter.getHeaderFirst() != null) {
-            this.headerFirst = new RtfHeaderFooter(this.document, headerFooter.getHeaderFirst(), RtfHeaderFooter.DISPLAY_FIRST_PAGE);
+        if (headerFooter.getHeaderFirst() != null) {
+            this.headerFirst = new RtfHeaderFooter(
+                    this.document, headerFooter.getHeaderFirst(), RtfHeaderFooter.DISPLAY_FIRST_PAGE);
         }
-        if(headerFooter.getHeaderLeft() != null) {
-            this.headerLeft = new RtfHeaderFooter(this.document, headerFooter.getHeaderLeft(), RtfHeaderFooter.DISPLAY_LEFT_PAGES);
+        if (headerFooter.getHeaderLeft() != null) {
+            this.headerLeft = new RtfHeaderFooter(
+                    this.document, headerFooter.getHeaderLeft(), RtfHeaderFooter.DISPLAY_LEFT_PAGES);
         }
-        if(headerFooter.getHeaderRight() != null) {
-            this.headerRight = new RtfHeaderFooter(this.document, headerFooter.getHeaderRight(), RtfHeaderFooter.DISPLAY_RIGHT_PAGES);
+        if (headerFooter.getHeaderRight() != null) {
+            this.headerRight = new RtfHeaderFooter(
+                    this.document, headerFooter.getHeaderRight(), RtfHeaderFooter.DISPLAY_RIGHT_PAGES);
         }
         setType(this.type);
     }
@@ -201,38 +187,35 @@ public class RtfHeaderFooterGroup extends HeaderFooter implements RtfBasicElemen
      */
     public void setRtfDocument(RtfDocument doc) {
         this.document = doc;
-        if(headerAll != null) {
+        if (headerAll != null) {
             headerAll.setRtfDocument(this.document);
         }
-        if(headerFirst != null) {
+        if (headerFirst != null) {
             headerFirst.setRtfDocument(this.document);
         }
-        if(headerLeft != null) {
+        if (headerLeft != null) {
             headerLeft.setRtfDocument(this.document);
         }
-        if(headerRight != null) {
+        if (headerRight != null) {
             headerRight.setRtfDocument(this.document);
         }
     }
 
-    /**
-     * Write the content of this RtfHeaderFooterGroup.
-     */
-    public void writeContent(OutputStream result) throws IOException
-    {
-        if(this.mode == MODE_SINGLE) {
-        	headerAll.writeContent(result);
-        } else if(this.mode == MODE_MULTIPLE) {
-            if(headerFirst != null) {
-            	headerFirst.writeContent(result);
+    /** Write the content of this RtfHeaderFooterGroup. */
+    public void writeContent(OutputStream result) throws IOException {
+        if (this.mode == MODE_SINGLE) {
+            headerAll.writeContent(result);
+        } else if (this.mode == MODE_MULTIPLE) {
+            if (headerFirst != null) {
+                headerFirst.writeContent(result);
             }
-            if(headerLeft != null) {
+            if (headerLeft != null) {
                 headerLeft.writeContent(result);
             }
-            if(headerRight != null) {
+            if (headerRight != null) {
                 headerRight.writeContent(result);
             }
-            if(headerAll != null) {
+            if (headerAll != null) {
                 headerAll.writeContent(result);
             }
         }
@@ -249,10 +232,10 @@ public class RtfHeaderFooterGroup extends HeaderFooter implements RtfBasicElemen
         headerFooter.setRtfDocument(this.document);
         headerFooter.setType(this.type);
         headerFooter.setDisplayAt(displayAt);
-        switch(displayAt) {
+        switch (displayAt) {
             case RtfHeaderFooter.DISPLAY_ALL_PAGES:
                 headerAll = headerFooter;
-            	break;
+                break;
             case RtfHeaderFooter.DISPLAY_FIRST_PAGE:
                 headerFirst = headerFooter;
                 break;
@@ -273,10 +256,10 @@ public class RtfHeaderFooterGroup extends HeaderFooter implements RtfBasicElemen
      */
     public void setHeaderFooter(HeaderFooter headerFooter, int displayAt) {
         this.mode = MODE_MULTIPLE;
-        switch(displayAt) {
+        switch (displayAt) {
             case RtfHeaderFooter.DISPLAY_ALL_PAGES:
                 headerAll = new RtfHeaderFooter(this.document, headerFooter, this.type, displayAt);
-            	break;
+                break;
             case RtfHeaderFooter.DISPLAY_FIRST_PAGE:
                 headerFirst = new RtfHeaderFooter(this.document, headerFooter, this.type, displayAt);
                 break;
@@ -290,12 +273,11 @@ public class RtfHeaderFooterGroup extends HeaderFooter implements RtfBasicElemen
     }
 
     /**
-     * Set that this RtfHeaderFooterGroup should have a title page. If only
-     * a header / footer for all pages exists, then it will be copied to the
-     * first page as well.
+     * Set that this RtfHeaderFooterGroup should have a title page. If only a header / footer for
+     * all pages exists, then it will be copied to the first page as well.
      */
     public void setHasTitlePage() {
-        if(this.mode == MODE_SINGLE) {
+        if (this.mode == MODE_SINGLE) {
             this.mode = MODE_MULTIPLE;
             headerFirst = new RtfHeaderFooter(this.document, headerAll, RtfHeaderFooter.DISPLAY_FIRST_PAGE);
             headerFirst.setType(this.type);
@@ -303,25 +285,26 @@ public class RtfHeaderFooterGroup extends HeaderFooter implements RtfBasicElemen
     }
 
     /**
-     * Set that this RtfHeaderFooterGroup should have facing pages. If only
-     * a header / footer for all pages exists, then it will be copied to the left
-     * and right pages as well.
+     * Set that this RtfHeaderFooterGroup should have facing pages. If only a header / footer for
+     * all pages exists, then it will be copied to the left and right pages as well.
      */
     public void setHasFacingPages() {
-        if(this.mode == MODE_SINGLE) {
+        if (this.mode == MODE_SINGLE) {
             this.mode = MODE_MULTIPLE;
             this.headerLeft = new RtfHeaderFooter(this.document, this.headerAll, RtfHeaderFooter.DISPLAY_LEFT_PAGES);
             this.headerLeft.setType(this.type);
             this.headerRight = new RtfHeaderFooter(this.document, this.headerAll, RtfHeaderFooter.DISPLAY_RIGHT_PAGES);
             this.headerRight.setType(this.type);
             this.headerAll = null;
-        } else if(this.mode == MODE_MULTIPLE) {
-            if(this.headerLeft == null && this.headerAll != null) {
-                this.headerLeft = new RtfHeaderFooter(this.document, this.headerAll, RtfHeaderFooter.DISPLAY_LEFT_PAGES);
+        } else if (this.mode == MODE_MULTIPLE) {
+            if (this.headerLeft == null && this.headerAll != null) {
+                this.headerLeft =
+                        new RtfHeaderFooter(this.document, this.headerAll, RtfHeaderFooter.DISPLAY_LEFT_PAGES);
                 this.headerLeft.setType(this.type);
             }
-            if(this.headerRight == null && this.headerAll != null) {
-                this.headerRight = new RtfHeaderFooter(this.document, this.headerAll, RtfHeaderFooter.DISPLAY_RIGHT_PAGES);
+            if (this.headerRight == null && this.headerAll != null) {
+                this.headerRight =
+                        new RtfHeaderFooter(this.document, this.headerAll, RtfHeaderFooter.DISPLAY_RIGHT_PAGES);
                 this.headerRight.setType(this.type);
             }
             this.headerAll = null;
@@ -348,37 +331,37 @@ public class RtfHeaderFooterGroup extends HeaderFooter implements RtfBasicElemen
 
     /**
      * Unused
+     *
      * @param inTable
      */
-    public void setInTable(boolean inTable) {
-    }
+    public void setInTable(boolean inTable) {}
 
     /**
      * Unused
+     *
      * @param inHeader
      */
-    public void setInHeader(boolean inHeader) {
-    }
+    public void setInHeader(boolean inHeader) {}
 
     /**
-     * Set the type of this RtfHeaderFooterGroup. RtfHeaderFooter.TYPE_HEADER
-     * or RtfHeaderFooter.TYPE_FOOTER. Also sets the type for all RtfHeaderFooters
-     * of this RtfHeaderFooterGroup.
+     * Set the type of this RtfHeaderFooterGroup. RtfHeaderFooter.TYPE_HEADER or
+     * RtfHeaderFooter.TYPE_FOOTER. Also sets the type for all RtfHeaderFooters of this
+     * RtfHeaderFooterGroup.
      *
      * @param type The type to use
      */
     public void setType(int type) {
         this.type = type;
-        if(headerAll != null) {
+        if (headerAll != null) {
             headerAll.setType(this.type);
         }
-        if(headerFirst != null) {
+        if (headerFirst != null) {
             headerFirst.setType(this.type);
         }
-        if(headerLeft != null) {
+        if (headerLeft != null) {
             headerLeft.setType(this.type);
         }
-        if(headerRight != null) {
+        if (headerRight != null) {
             headerRight.setType(this.type);
         }
     }

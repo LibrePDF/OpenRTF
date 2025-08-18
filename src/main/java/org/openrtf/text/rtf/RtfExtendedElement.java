@@ -53,15 +53,14 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * The RtfExtendedElement interface is to be used for elements that also
- * write data into the definition part of the rtf document
+ * The RtfExtendedElement interface is to be used for elements that also write data into the
+ * definition part of the rtf document
  *
  * @version $Id: RtfExtendedElement.java 3373 2008-05-12 16:21:24Z xlv $
  * @author Mark Hall (Mark.Hall@mail.room3b.eu)
  * @author Thomas Bickel (tmb99@inode.at)
  */
-public interface RtfExtendedElement extends RtfBasicElement
-{
+public interface RtfExtendedElement extends RtfBasicElement {
     /**
      * Write the definition part of the element
      *

@@ -46,48 +46,39 @@
  * https://github.com/LibrePDF/openrtf
  */
 package org.openrtf.text.rtf.parser.ctrlwords;
+
 /**
  * <code>RtfCtrlWordType</code> indicates the type of control word.
  *
- * RTF control words are divided up into:
- * 	Destination, Flag, Value, Toggle, Symbol.
+ * <p>RTF control words are divided up into: Destination, Flag, Value, Toggle, Symbol.
  *
- * Destination: The current destination for values and text to be sent.
- * Flag: 0/1 value types. Represents true/false, on/off value types.
- * Toggle: Flips a Flag value on/off.
- * Value: an Integer value data type. (Exception: Some control words this is a long data value type)
- * Symbol: Special RTF characters such as \{, \} and others.
+ * <p>Destination: The current destination for values and text to be sent. Flag: 0/1 value types.
+ * Represents true/false, on/off value types. Toggle: Flips a Flag value on/off. Value: an Integer
+ * value data type. (Exception: Some control words this is a long data value type) Symbol: Special
+ * RTF characters such as \{, \} and others.
  *
  * @author Howard Shank (hgshank@yahoo.com)
  * @since 2.0.8
  */
 public final class RtfCtrlWordType {
-	/**
-	 * Control word is unidentified.
-	 */
-	public static final int UNIDENTIFIED = -1;
-	/**
-	 * Control word is a destination.
-	 */
-	public static final int DESTINATION = 0;
-	/**
-	 * Control word is a newer destination.
-	 */
-	public static final int DESTINATION_EX = 1;
-	/**
-	 * Control word is a flag.
-	 */
-	public static final int FLAG = 2;
-	/**
-	 * Control word is a value.
-	 */
-	public static final int VALUE = 3;
-	/**
-	 * Control word is a flag toggle.
-	 */
-	public static final int TOGGLE = 4;
-	/**
-	 * Control word is a special symbol.
-	 */
-	public static final int SYMBOL = 5;
+    /** Control word is unidentified. */
+    public static final int UNIDENTIFIED = -1;
+
+    /** Control word is a destination. */
+    public static final int DESTINATION = 0;
+
+    /** Control word is a newer destination. */
+    public static final int DESTINATION_EX = 1;
+
+    /** Control word is a flag. */
+    public static final int FLAG = 2;
+
+    /** Control word is a value. */
+    public static final int VALUE = 3;
+
+    /** Control word is a flag toggle. */
+    public static final int TOGGLE = 4;
+
+    /** Control word is a special symbol. */
+    public static final int SYMBOL = 5;
 }

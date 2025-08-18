@@ -63,113 +63,116 @@ import org.openrtf.text.rtf.parser.ctrlwords.RtfCtrlWordData;
  * @since 2.0.8
  */
 public class RtfDestinationInfo extends RtfDestination {
-	private String elementName = "";
-	private String text = "";
+    private String elementName = "";
+    private String text = "";
 
-	
-	public RtfDestinationInfo() {
-		super(null);
-	}
-	/**
-	 * Constructs a new RtfDestinationInfo.
-	 *
-	 * @param parser The RtfParser object.
-	 */
-	public RtfDestinationInfo(RtfParser parser, String elementname) {
-		super(parser);
-		setToDefaults();
-		this.elementName = elementname;
-	}
-	public void setParser(RtfParser parser) {
-		this.rtfParser = parser;
-		this.setToDefaults();
-	}
-	public void setElementName(String value) {
-		this.elementName = value;
-	}
-	/* (non-Javadoc)
-	 * @see org.openrtf.text.rtf.parser.destinations.RtfDestination#handleOpenNewGroup()
-	 */
-	public boolean handleOpeningSubGroup() {
-		return true;
-	}
+    public RtfDestinationInfo() {
+        super(null);
+    }
 
-	/* (non-Javadoc)
-	 * @see org.openrtf.text.rtf.direct.RtfDestination#closeDestination()
-	 */
-	public boolean closeDestination() {
-		return true;
-	}
+    /**
+     * Constructs a new RtfDestinationInfo.
+     *
+     * @param parser The RtfParser object.
+     */
+    public RtfDestinationInfo(RtfParser parser, String elementname) {
+        super(parser);
+        setToDefaults();
+        this.elementName = elementname;
+    }
 
-	/* (non-Javadoc)
-	 * @see org.openrtf.text.rtf.direct.RtfDestination#handleGroupEnd()
-	 */
-	public boolean handleCloseGroup() {
-		if (this.text.length() > 0) {		
-			Document doc = this.rtfParser.getDocument();
-			if(doc != null) {
-				if(this.elementName.equals("author")){
-					doc.addAuthor(this.text);
-				}
-				if(this.elementName.equals("title")){
-					doc.addTitle(this.text);
-				}
-				if(this.elementName.equals("subject")){
-					doc.addSubject(this.text);
-				}
-			} else {
-				RtfDocument rtfDoc = this.rtfParser.getRtfDocument();
-				if(rtfDoc != null) {
-					if(this.elementName.equals("author")){
-						Meta meta = new Meta(this.elementName, this.text);
-						RtfInfoElement elem = new RtfInfoElement(rtfDoc, meta);
-						rtfDoc.getDocumentHeader().addInfoElement(elem);
-					}
-					if(this.elementName.equals("title")){
-						Meta meta = new Meta(this.elementName, this.text);
-						RtfInfoElement elem = new RtfInfoElement(rtfDoc, meta);
-						rtfDoc.getDocumentHeader().addInfoElement(elem);
-					}
-					if(this.elementName.equals("subject")){
-						Meta meta = new Meta(this.elementName, this.text);
-						RtfInfoElement elem = new RtfInfoElement(rtfDoc, meta);
-						rtfDoc.getDocumentHeader().addInfoElement(elem);
-					}
-				}
-			}
-			this.setToDefaults();
-		}
-		return true;
-	}
+    public void setParser(RtfParser parser) {
+        this.rtfParser = parser;
+        this.setToDefaults();
+    }
 
-	/* (non-Javadoc)
-	 * @see org.openrtf.text.rtf.direct.RtfDestination#handleGroupStart()
-	 */
-	public boolean handleOpenGroup() {
+    public void setElementName(String value) {
+        this.elementName = value;
+    }
 
-		return true;
-	}
-	/* (non-Javadoc)
-	 * @see org.openrtf.text.rtf.direct.RtfDestination#handleCharacter(char[])
-	 */
-	public boolean handleCharacter(int ch) {
-		this.text += (char)ch;
-		return true;
-	}
+    /* (non-Javadoc)
+     * @see org.openrtf.text.rtf.parser.destinations.RtfDestination#handleOpenNewGroup()
+     */
+    public boolean handleOpeningSubGroup() {
+        return true;
+    }
 
-	/* (non-Javadoc)
-	 * @see org.openrtf.text.rtf.parser.destinations.RtfDestination#handleControlWord(org.openrtf.text.rtf.parser.ctrlwords.RtfCtrlWordData)
-	 */
-	public boolean handleControlWord(RtfCtrlWordData ctrlWordData) {
-		elementName = ctrlWordData.ctrlWord;
-		return true;
-	}
+    /* (non-Javadoc)
+     * @see org.openrtf.text.rtf.direct.RtfDestination#closeDestination()
+     */
+    public boolean closeDestination() {
+        return true;
+    }
 
-	/* (non-Javadoc)
-	 * @see org.openrtf.text.rtf.parser.destinations.RtfDestination#setToDefaults()
-	 */
-	public void setToDefaults() {
-		this.text = "";
-	}
+    /* (non-Javadoc)
+     * @see org.openrtf.text.rtf.direct.RtfDestination#handleGroupEnd()
+     */
+    public boolean handleCloseGroup() {
+        if (this.text.length() > 0) {
+            Document doc = this.rtfParser.getDocument();
+            if (doc != null) {
+                if (this.elementName.equals("author")) {
+                    doc.addAuthor(this.text);
+                }
+                if (this.elementName.equals("title")) {
+                    doc.addTitle(this.text);
+                }
+                if (this.elementName.equals("subject")) {
+                    doc.addSubject(this.text);
+                }
+            } else {
+                RtfDocument rtfDoc = this.rtfParser.getRtfDocument();
+                if (rtfDoc != null) {
+                    if (this.elementName.equals("author")) {
+                        Meta meta = new Meta(this.elementName, this.text);
+                        RtfInfoElement elem = new RtfInfoElement(rtfDoc, meta);
+                        rtfDoc.getDocumentHeader().addInfoElement(elem);
+                    }
+                    if (this.elementName.equals("title")) {
+                        Meta meta = new Meta(this.elementName, this.text);
+                        RtfInfoElement elem = new RtfInfoElement(rtfDoc, meta);
+                        rtfDoc.getDocumentHeader().addInfoElement(elem);
+                    }
+                    if (this.elementName.equals("subject")) {
+                        Meta meta = new Meta(this.elementName, this.text);
+                        RtfInfoElement elem = new RtfInfoElement(rtfDoc, meta);
+                        rtfDoc.getDocumentHeader().addInfoElement(elem);
+                    }
+                }
+            }
+            this.setToDefaults();
+        }
+        return true;
+    }
 
+    /* (non-Javadoc)
+     * @see org.openrtf.text.rtf.direct.RtfDestination#handleGroupStart()
+     */
+    public boolean handleOpenGroup() {
+
+        return true;
+    }
+
+    /* (non-Javadoc)
+     * @see org.openrtf.text.rtf.direct.RtfDestination#handleCharacter(char[])
+     */
+    public boolean handleCharacter(int ch) {
+        this.text += (char) ch;
+        return true;
+    }
+
+    /* (non-Javadoc)
+     * @see org.openrtf.text.rtf.parser.destinations.RtfDestination#handleControlWord(org.openrtf.text.rtf.parser.ctrlwords.RtfCtrlWordData)
+     */
+    public boolean handleControlWord(RtfCtrlWordData ctrlWordData) {
+        elementName = ctrlWordData.ctrlWord;
+        return true;
+    }
+
+    /* (non-Javadoc)
+     * @see org.openrtf.text.rtf.parser.destinations.RtfDestination#setToDefaults()
+     */
+    public void setToDefaults() {
+        this.text = "";
+    }
 }

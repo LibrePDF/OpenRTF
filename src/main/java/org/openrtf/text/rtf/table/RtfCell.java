@@ -53,7 +53,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
-
 import org.openpdf.text.BadElementException;
 import org.openpdf.text.Cell;
 import org.openpdf.text.DocWriter;
@@ -72,11 +71,9 @@ import org.openrtf.text.rtf.style.RtfColor;
 import org.openrtf.text.rtf.style.RtfParagraphStyle;
 import org.openrtf.text.rtf.text.RtfParagraph;
 
-
 /**
- * The RtfCell wraps a Cell, but can also be added directly to a Table.
- * The RtfCell is an extension of Cell, that supports a multitude of different
- * borderstyles.
+ * The RtfCell wraps a Cell, but can also be added directly to a Table. The RtfCell is an extension
+ * of Cell, that supports a multitude of different borderstyles.
  *
  * @version $Id: RtfCell.java 3580 2008-08-06 15:52:00Z howard_s $
  * @author Mark Hall (Mark.Hall@mail.room3b.eu)
@@ -87,70 +84,54 @@ import org.openrtf.text.rtf.text.RtfParagraph;
  */
 public class RtfCell extends Cell implements RtfExtendedElement {
 
-    /**
-     * This cell is not merged
-     */
+    /** This cell is not merged */
     private static final int MERGE_NONE = 0;
-    /**
-     * This cell is the parent cell of a vertical merge operation
-     */
+
+    /** This cell is the parent cell of a vertical merge operation */
     private static final int MERGE_VERT_PARENT = 1;
-    /**
-     * This cell is a child cell of a vertical merge operation
-     */
+
+    /** This cell is a child cell of a vertical merge operation */
     private static final int MERGE_VERT_CHILD = 2;
 
-    /**
-     * The parent RtfRow of this RtfCell
-     */
+    /** The parent RtfRow of this RtfCell */
     private RtfRow parentRow = null;
-    /**
-     * The content of this RtfCell
-     */
+
+    /** The content of this RtfCell */
     private java.util.List<RtfBasicElement> content = null;
-    /**
-     * The right margin of this RtfCell
-     */
+
+    /** The right margin of this RtfCell */
     private int cellRight = 0;
-    /**
-     * The width of this RtfCell
-     */
+
+    /** The width of this RtfCell */
     private int cellWidth = 0;
-    /**
-     * The borders of this RtfCell
-     */
+
+    /** The borders of this RtfCell */
     private RtfBorderGroup borders = null;
 
-    /**
-     * The background color of this RtfCell
-     */
+    /** The background color of this RtfCell */
     private RtfColor backgroundColor = null;
-    /**
-     * The padding of this RtfCell
-     */
+
+    /** The padding of this RtfCell */
     private int cellPadding = 0;
-    /**
-     * The merge type of this RtfCell
-     */
+
+    /** The merge type of this RtfCell */
     private int mergeType = MERGE_NONE;
-    /**
-     * The RtfDocument this RtfCell belongs to
-     */
+
+    /** The RtfDocument this RtfCell belongs to */
     private RtfDocument document = null;
-    /**
-     * Whether this RtfCell is in a header
-     */
+
+    /** Whether this RtfCell is in a header */
     private boolean inHeader = false;
-    /**
-     * Whether this RtfCell is a placeholder for a removed table cell.
-     */
+
+    /** Whether this RtfCell is a placeholder for a removed table cell. */
     private boolean deleted = false;
 
     /**
-     * Whether to use generic padding or individual
-     * padding values (cellPaddingLeft, cellPaddingTop, cellPaddingBottom, cellPaddingRight)
+     * Whether to use generic padding or individual padding values (cellPaddingLeft, cellPaddingTop,
+     * cellPaddingBottom, cellPaddingRight)
      */
     private boolean usePadding = false;
+
     /*
      * Cell padding left
      */
@@ -168,9 +149,7 @@ public class RtfCell extends Cell implements RtfExtendedElement {
      */
     private float cellPaddingRight = 0;
 
-    /**
-     * Constructs an empty RtfCell
-     */
+    /** Constructs an empty RtfCell */
     public RtfCell() {
         this.borders = new RtfBorderGroup();
         verticalAlignment = ALIGN_MIDDLE;
@@ -235,6 +214,7 @@ public class RtfCell extends Cell implements RtfExtendedElement {
         this.parentRow = row;
         importCell(cell);
     }
+
     /**
      * Imports the Cell properties into the RtfCell
      *
@@ -243,23 +223,31 @@ public class RtfCell extends Cell implements RtfExtendedElement {
     private void importCell(Cell cell) {
         this.content = new ArrayList<>();
 
-        if(cell == null) {
-            this.borders = new RtfBorderGroup(this.document, RtfBorder.CELL_BORDER, this.parentRow.getParentTable().getBorders());
+        if (cell == null) {
+            this.borders = new RtfBorderGroup(
+                    this.document,
+                    RtfBorder.CELL_BORDER,
+                    this.parentRow.getParentTable().getBorders());
             return;
         }
 
         this.colspan = cell.getColspan();
         this.rowspan = cell.getRowspan();
-        if(cell.getRowspan() > 1) {
+        if (cell.getRowspan() > 1) {
             this.mergeType = MERGE_VERT_PARENT;
         }
-        if(cell instanceof RtfCell) {
+        if (cell instanceof RtfCell) {
             this.borders = new RtfBorderGroup(this.document, RtfBorder.CELL_BORDER, ((RtfCell) cell).getBorders());
         } else {
-            this.borders = new RtfBorderGroup(this.document, RtfBorder.CELL_BORDER, cell.getBorder(), cell.getBorderWidth(), cell.getBorderColor());
+            this.borders = new RtfBorderGroup(
+                    this.document,
+                    RtfBorder.CELL_BORDER,
+                    cell.getBorder(),
+                    cell.getBorderWidth(),
+                    cell.getBorderColor());
         }
         this.verticalAlignment = cell.getVerticalAlignment();
-        if(cell.getBackgroundColor() == null) {
+        if (cell.getBackgroundColor() == null) {
             this.backgroundColor = new RtfColor(this.document, 255, 255, 255);
         } else {
             this.backgroundColor = new RtfColor(this.document, cell.getBackgroundColor());
@@ -269,12 +257,12 @@ public class RtfCell extends Cell implements RtfExtendedElement {
 
         Iterator cellIterator = cell.getElements();
         Paragraph container = null;
-        while(cellIterator.hasNext()) {
+        while (cellIterator.hasNext()) {
             try {
                 Element element = (Element) cellIterator.next();
                 // should we wrap it in a paragraph
-                if(!(element instanceof Paragraph) && !(element instanceof List)) {
-                    if(container != null) {
+                if (!(element instanceof Paragraph) && !(element instanceof List)) {
+                    if (container != null) {
                         container.add(element);
                     } else {
                         container = new Paragraph();
@@ -282,8 +270,9 @@ public class RtfCell extends Cell implements RtfExtendedElement {
                         container.add(element);
                     }
                 } else {
-                    if(container != null) {
-                        RtfBasicElement[] rtfElements = this.document.getMapper().mapElement(container);
+                    if (container != null) {
+                        RtfBasicElement[] rtfElements =
+                                this.document.getMapper().mapElement(container);
                         for (RtfBasicElement rbe : rtfElements) {
                             rbe.setInTable(true);
                             this.content.add(rbe);
@@ -292,7 +281,8 @@ public class RtfCell extends Cell implements RtfExtendedElement {
                     }
                     // if horizontal alignment is undefined overwrite
                     // with that of enclosing cell
-                    if (element instanceof Paragraph && ((Paragraph) element).getAlignment() == Element.ALIGN_UNDEFINED) {
+                    if (element instanceof Paragraph
+                            && ((Paragraph) element).getAlignment() == Element.ALIGN_UNDEFINED) {
                         ((Paragraph) element).setAlignment(cell.getHorizontalAlignment());
                     }
 
@@ -302,22 +292,23 @@ public class RtfCell extends Cell implements RtfExtendedElement {
                         this.content.add(rbe);
                     }
                 }
-            } catch(DocumentException de) {
+            } catch (DocumentException de) {
                 de.printStackTrace();
             }
         }
-        if(container != null) {
+        if (container != null) {
             try {
                 RtfBasicElement[] rtfElements = this.document.getMapper().mapElement(container);
                 for (RtfBasicElement rbe : rtfElements) {
                     rbe.setInTable(true);
                     this.content.add(rbe);
                 }
-            } catch(DocumentException de) {
+            } catch (DocumentException de) {
                 de.printStackTrace();
             }
         }
     }
+
     /**
      * Imports the Cell properties into the RtfCell
      *
@@ -327,8 +318,11 @@ public class RtfCell extends Cell implements RtfExtendedElement {
     private void importCell(PdfPCell cell) {
         this.content = new ArrayList<>();
 
-        if(cell == null) {
-            this.borders = new RtfBorderGroup(this.document, RtfBorder.CELL_BORDER, this.parentRow.getParentTable().getBorders());
+        if (cell == null) {
+            this.borders = new RtfBorderGroup(
+                    this.document,
+                    RtfBorder.CELL_BORDER,
+                    this.parentRow.getParentTable().getBorders());
             return;
         }
 
@@ -340,7 +334,8 @@ public class RtfCell extends Cell implements RtfExtendedElement {
         this.cellPaddingLeft = cell.getPaddingLeft();
 
         // BORDERS
-        this.borders = new RtfBorderGroup(this.document, RtfBorder.CELL_BORDER, cell.getBorder(), cell.getBorderWidth(), cell.getBorderColor());
+        this.borders = new RtfBorderGroup(
+                this.document, RtfBorder.CELL_BORDER, cell.getBorder(), cell.getBorderWidth(), cell.getBorderColor());
 
         // border colors
         this.border = cell.getBorder();
@@ -357,133 +352,130 @@ public class RtfCell extends Cell implements RtfExtendedElement {
         this.borderWidthLeft = cell.getBorderWidthLeft();
         this.borderWidthRight = cell.getBorderWidthRight();
 
-
         this.colspan = cell.getColspan();
-        this.rowspan = 1; //cell.getRowspan();
-//        if(cell.getRowspan() > 1) {
-//            this.mergeType = MERGE_VERT_PARENT;
-//        }
-
+        this.rowspan = 1; // cell.getRowspan();
+        //        if(cell.getRowspan() > 1) {
+        //            this.mergeType = MERGE_VERT_PARENT;
+        //        }
 
         this.verticalAlignment = cell.getVerticalAlignment();
 
-        if(cell.getBackgroundColor() == null) {
+        if (cell.getBackgroundColor() == null) {
             this.backgroundColor = new RtfColor(this.document, 255, 255, 255);
         } else {
             this.backgroundColor = new RtfColor(this.document, cell.getBackgroundColor());
         }
 
-
         // does it have column composite info?
         java.util.List compositeElements = cell.getCompositeElements();
-        if(compositeElements != null) {
-	        Iterator cellIterator = compositeElements.iterator();
-	        // does it have column info?
-	        Paragraph container = null;
-	        while(cellIterator.hasNext()) {
-	            try {
-	                Element element = (Element) cellIterator.next();
-	                // should we wrap it in a paragraph
-	                if(!(element instanceof Paragraph) && !(element instanceof List)) {
-	                    if(container != null) {
-	                        container.add(element);
-	                    } else {
-	                        container = new Paragraph();
-	                        container.setAlignment(cell.getHorizontalAlignment());
-	                        container.add(element);
-	                    }
-	                } else {
-	                    if(container != null) {
-	                        RtfBasicElement[] rtfElements = this.document.getMapper().mapElement(container);
+        if (compositeElements != null) {
+            Iterator cellIterator = compositeElements.iterator();
+            // does it have column info?
+            Paragraph container = null;
+            while (cellIterator.hasNext()) {
+                try {
+                    Element element = (Element) cellIterator.next();
+                    // should we wrap it in a paragraph
+                    if (!(element instanceof Paragraph) && !(element instanceof List)) {
+                        if (container != null) {
+                            container.add(element);
+                        } else {
+                            container = new Paragraph();
+                            container.setAlignment(cell.getHorizontalAlignment());
+                            container.add(element);
+                        }
+                    } else {
+                        if (container != null) {
+                            RtfBasicElement[] rtfElements =
+                                    this.document.getMapper().mapElement(container);
                             for (RtfBasicElement rbe : rtfElements) {
                                 rbe.setInTable(true);
                                 this.content.add(rbe);
                             }
-	                        container = null;
-	                    }
-	                    // if horizontal alignment is undefined overwrite
-	                    // with that of enclosing cell
-	                    if (element instanceof Paragraph && ((Paragraph) element).getAlignment() == Element.ALIGN_UNDEFINED) {
-	                        ((Paragraph) element).setAlignment(cell.getHorizontalAlignment());
-	                    }
-	
-	                    RtfBasicElement[] rtfElements = this.document.getMapper().mapElement(element);
+                            container = null;
+                        }
+                        // if horizontal alignment is undefined overwrite
+                        // with that of enclosing cell
+                        if (element instanceof Paragraph
+                                && ((Paragraph) element).getAlignment() == Element.ALIGN_UNDEFINED) {
+                            ((Paragraph) element).setAlignment(cell.getHorizontalAlignment());
+                        }
+
+                        RtfBasicElement[] rtfElements =
+                                this.document.getMapper().mapElement(element);
                         for (RtfBasicElement rbe : rtfElements) {
                             rbe.setInTable(true);
                             this.content.add(rbe);
                         }
-	                }
-	            } catch(DocumentException de) {
-	                de.printStackTrace();
-	            }
-	        }
-	        if(container != null) {
-	            try {
-	                RtfBasicElement[] rtfElements = this.document.getMapper().mapElement(container);
+                    }
+                } catch (DocumentException de) {
+                    de.printStackTrace();
+                }
+            }
+            if (container != null) {
+                try {
+                    RtfBasicElement[] rtfElements = this.document.getMapper().mapElement(container);
                     for (RtfBasicElement rbe : rtfElements) {
                         rbe.setInTable(true);
                         this.content.add(rbe);
                     }
-	            } catch(DocumentException de) {
-	                de.printStackTrace();
-	            }
-	        }
+                } catch (DocumentException de) {
+                    de.printStackTrace();
+                }
+            }
         }
 
         // does it have image info?
 
         Image img = cell.getImage();
-        if(img != null) {
+        if (img != null) {
             try {
-				RtfBasicElement[] rtfElements = this.document.getMapper().mapElement(img);
+                RtfBasicElement[] rtfElements = this.document.getMapper().mapElement(img);
                 for (RtfBasicElement rbe : rtfElements) {
                     rbe.setInTable(true);
                     this.content.add(rbe);
                 }
-			} catch (DocumentException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+            } catch (DocumentException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
         // does it have phrase info?
         Phrase phrase = cell.getPhrase();
-        if(phrase != null) {
+        if (phrase != null) {
             try {
-				RtfBasicElement[] rtfElements = this.document.getMapper().mapElement(phrase);
+                RtfBasicElement[] rtfElements = this.document.getMapper().mapElement(phrase);
                 for (RtfBasicElement rbe : rtfElements) {
                     rbe.setInTable(true);
                     this.content.add(rbe);
                 }
-			} catch (DocumentException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-			}
+            } catch (DocumentException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+            }
         }
         // does it have table info?
         PdfPTable table = cell.getTable();
-        if(table != null) {
-        	this.add(table);
-//            try {
-//				RtfBasicElement[] rtfElements = this.document.getMapper().mapElement(table);
-//				for (int i = 0; i < rtfElements.length; i++) {
-//					rtfElements[i].setInTable(true);
-//					this.content.add(rtfElements[i]);
-//				}
-//			} catch (DocumentException e) {
-//				// TODO Auto-generated catch block
-//				e.printStackTrace();
-//			}
+        if (table != null) {
+            this.add(table);
+            //            try {
+            //				RtfBasicElement[] rtfElements = this.document.getMapper().mapElement(table);
+            //				for (int i = 0; i < rtfElements.length; i++) {
+            //					rtfElements[i].setInTable(true);
+            //					this.content.add(rtfElements[i]);
+            //				}
+            //			} catch (DocumentException e) {
+            //				// TODO Auto-generated catch block
+            //				e.printStackTrace();
+            //			}
         }
-
     }
-    /**
-	 * Write the cell definition part of this RtfCell
-	 */
-    public void writeDefinition(OutputStream result) throws IOException
-    {
-        if(this.mergeType == MERGE_VERT_PARENT) {
+
+    /** Write the cell definition part of this RtfCell */
+    public void writeDefinition(OutputStream result) throws IOException {
+        if (this.mergeType == MERGE_VERT_PARENT) {
             result.write(DocWriter.getISOBytes("\\clvmgf"));
-        } else if(this.mergeType == MERGE_VERT_CHILD) {
+        } else if (this.mergeType == MERGE_VERT_CHILD) {
             result.write(DocWriter.getISOBytes("\\clvmrg"));
         }
         switch (verticalAlignment) {
@@ -500,7 +492,7 @@ public class RtfCell extends Cell implements RtfExtendedElement {
         }
         this.borders.writeContent(result);
 
-        if(this.backgroundColor != null) {
+        if (this.backgroundColor != null) {
             result.write(DocWriter.getISOBytes("\\clcbpat"));
             result.write(intToByteArray(this.backgroundColor.getColorNumber()));
         }
@@ -513,7 +505,7 @@ public class RtfCell extends Cell implements RtfExtendedElement {
         result.write(intToByteArray(this.cellWidth));
         this.document.outputDebugLinebreak(result);
 
-        if(this.cellPadding > 0) {
+        if (this.cellPadding > 0) {
             result.write(DocWriter.getISOBytes("\\clpadl"));
             result.write(intToByteArray(this.cellPadding / 2));
             result.write(DocWriter.getISOBytes("\\clpadt"));
@@ -531,26 +523,24 @@ public class RtfCell extends Cell implements RtfExtendedElement {
         result.write(intToByteArray(this.cellRight));
     }
 
-
-    /**
-     * Write the content of this RtfCell
-     */
-    public void writeContent(OutputStream result) throws IOException
-    {
-        if(this.content.isEmpty()) {
+    /** Write the content of this RtfCell */
+    public void writeContent(OutputStream result) throws IOException {
+        if (this.content.isEmpty()) {
             result.write(RtfParagraph.PARAGRAPH_DEFAULTS);
-            if(this.parentRow.getParentTable().getTableFitToPage()) {
+            if (this.parentRow.getParentTable().getTableFitToPage()) {
                 result.write(RtfParagraphStyle.KEEP_TOGETHER_WITH_NEXT);
             }
             result.write(RtfParagraph.IN_TABLE);
         } else {
-            for(int i = 0; i < this.content.size(); i++) {
+            for (int i = 0; i < this.content.size(); i++) {
                 RtfBasicElement rtfElement = this.content.get(i);
-                if(rtfElement instanceof RtfParagraph) {
-                    ((RtfParagraph) rtfElement).setKeepTogetherWithNext(this.parentRow.getParentTable().getTableFitToPage());
+                if (rtfElement instanceof RtfParagraph) {
+                    ((RtfParagraph) rtfElement)
+                            .setKeepTogetherWithNext(
+                                    this.parentRow.getParentTable().getTableFitToPage());
                 }
                 rtfElement.writeContent(result);
-                if(rtfElement instanceof RtfParagraph && i < (this.content.size() - 1)) {
+                if (rtfElement instanceof RtfParagraph && i < (this.content.size() - 1)) {
                     result.write(RtfParagraph.PARAGRAPH);
                 }
             }
@@ -621,7 +611,7 @@ public class RtfCell extends Cell implements RtfExtendedElement {
         this.borders = new RtfBorderGroup(this.document, RtfBorder.CELL_BORDER, borderGroup);
     }
 
-	/**
+    /**
      * Get the background color of this RtfCell
      *
      * @return The background color of this RtfCell
@@ -656,15 +646,16 @@ public class RtfCell extends Cell implements RtfExtendedElement {
 
     /**
      * Unused
+     *
      * @param inTable
      */
-    public void setInTable(boolean inTable) {
-    }
+    public void setInTable(boolean inTable) {}
 
     /**
      * Sets whether this RtfCell is in a header
      *
-     * @param inHeader <code>True</code> if this RtfCell is in a header, <code>false</code> otherwise
+     * @param inHeader <code>True</code> if this RtfCell is in a header, <code>false</code>
+     *     otherwise
      */
     public void setInHeader(boolean inHeader) {
         this.inHeader = inHeader;
@@ -676,7 +667,8 @@ public class RtfCell extends Cell implements RtfExtendedElement {
     /**
      * Gets whether this <code>RtfCell</code> is in a header
      *
-     * @return <code>True</code> if this <code>RtfCell</code> is in a header, <code>false</code> otherwise
+     * @return <code>True</code> if this <code>RtfCell</code> is in a header, <code>false</code>
+     *     otherwise
      * @since 2.1.0
      */
     public boolean isInHeader() {
@@ -684,8 +676,8 @@ public class RtfCell extends Cell implements RtfExtendedElement {
     }
 
     /**
-     * Transforms an integer into its String representation and then returns the bytes
-     * of that string.
+     * Transforms an integer into its String representation and then returns the bytes of that
+     * string.
      *
      * @param i The integer to convert
      * @return A byte array representing the integer
@@ -695,8 +687,8 @@ public class RtfCell extends Cell implements RtfExtendedElement {
     }
 
     /**
-     * Checks whether this RtfCell is a placeholder for
-     * a table cell that has been removed due to col/row spanning.
+     * Checks whether this RtfCell is a placeholder for a table cell that has been removed due to
+     * col/row spanning.
      *
      * @return <code>True</code> if this RtfCell is deleted, <code>false</code> otherwise.
      */

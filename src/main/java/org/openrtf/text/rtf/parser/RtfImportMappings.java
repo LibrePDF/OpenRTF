@@ -48,119 +48,110 @@
  */
 package org.openrtf.text.rtf.parser;
 
-import org.openpdf.text.List;
-
 import java.awt.Color;
 import java.util.HashMap;
+import org.openpdf.text.List;
 
 /**
- * The RtfImportMappings make it possible to define font
- * and color mappings when using the RtfWriter2.importRtfFragment
- * method. This is necessary, because a RTF fragment does not
- * contain font or color information, just references to the
- * font and color tables.<br /><br />
- *
- * The font mappings are fontNr -&gt; fontName and the color
- * mappigns are colorNr -&gt; Color.
+ * The RtfImportMappings make it possible to define font and color mappings when using the
+ * RtfWriter2.importRtfFragment method. This is necessary, because a RTF fragment does not contain
+ * font or color information, just references to the font and color tables.<br>
+ * <br>
+ * The font mappings are fontNr -&gt; fontName and the color mappigns are colorNr -&gt; Color.
  *
  * @author Mark Hall (Mark.Hall@mail.room3b.eu)
  * @author Howard Shank (hgshank@yahoo.com)
  * @since 2.1.0
  */
 public class RtfImportMappings {
-	/**
-	 * The fontNr to fontName mappings.
-	 */
-	private final HashMap<String, String> fontMappings = new HashMap<>();
-	/**
-	 * The colorNr to Color mappings.
-	 */
-	private final HashMap<String, Color> colorMappings = new HashMap<>();
-	/**
-	 * The listNr to List mappings.
-	 */
-	private final HashMap<String, String> listMappings = new HashMap<>();
-	/**
-	 * The sytlesheetListNr to Stylesheet mappings.
-	 */
-	private final HashMap<String, List> stylesheetListMappings = new HashMap<>();
-	
-	/**
-	 * Constructs a new RtfImportMappings initialising the mappings.
-	 */
-	public RtfImportMappings() {
-	}
-	
-	/**
-	 * Add a font to the list of mappings.
-	 *
-	 * @param fontNr The font number.
-	 * @param fontName The font name.
-	 */
-	public void addFont(String fontNr, String fontName) {
-		this.fontMappings.put(fontNr, fontName);
-	}
-	/**
-	 * Add a color to the list of mappings.
-	 *
-	 * @param colorNr The color number.
-	 * @param color The Color.
-	 */
-	public void addColor(String colorNr, Color color) {
-		this.colorMappings.put(colorNr, color);
-	}
-	/**
-	 * Add a List to the list of mappings.
-	 *
-	 * @param listNr The List number.
-	 * @param list The List.
-	 */
-	public void addList(String listNr, String list) {
-		this.listMappings.put(listNr, list);
-	}
-	/**
-	 * Add a Stylesheet List to the list of mappings.
-	 *
-	 * @param stylesheetListNr The Stylesheet List number.
-	 * @param list The StylesheetList.
-	 */
-	public void addStylesheetList(String stylesheetListNr, List list) {
-		this.stylesheetListMappings.put(stylesheetListNr, list);
-	}	
-	
-	/**
-	 * Gets the list of font mappings. String to String.
-	 *
-	 * @return The font mappings.
-	 */
-	public HashMap<String, String> getFontMappings() {
-		return this.fontMappings;
-	}
-	
-	/**
-	 * Gets the list of color mappings. String to Color.
-	 *
-	 * @return The color mappings.
-	 */
-	public HashMap<String, Color> getColorMappings() {
-		return this.colorMappings;
-	}	
-	
-	/**
-	 * Gets the list of List mappings.
-	 *
-	 * @return The List mappings.
-	 */
-	public HashMap<String, String> getListMappings() {
-		return this.listMappings;
-	}	
-	
-	/**
-	 * Gets the list of Stylesheet mappings. .
-	 *
-	 * @return The Stylesheet List mappings.
-	 */
-	public HashMap<String, List> getStylesheetListMappings() {
-		return this.stylesheetListMappings;
-	}
+    /** The fontNr to fontName mappings. */
+    private final HashMap<String, String> fontMappings = new HashMap<>();
+
+    /** The colorNr to Color mappings. */
+    private final HashMap<String, Color> colorMappings = new HashMap<>();
+
+    /** The listNr to List mappings. */
+    private final HashMap<String, String> listMappings = new HashMap<>();
+
+    /** The sytlesheetListNr to Stylesheet mappings. */
+    private final HashMap<String, List> stylesheetListMappings = new HashMap<>();
+
+    /** Constructs a new RtfImportMappings initialising the mappings. */
+    public RtfImportMappings() {}
+
+    /**
+     * Add a font to the list of mappings.
+     *
+     * @param fontNr The font number.
+     * @param fontName The font name.
+     */
+    public void addFont(String fontNr, String fontName) {
+        this.fontMappings.put(fontNr, fontName);
+    }
+
+    /**
+     * Add a color to the list of mappings.
+     *
+     * @param colorNr The color number.
+     * @param color The Color.
+     */
+    public void addColor(String colorNr, Color color) {
+        this.colorMappings.put(colorNr, color);
+    }
+
+    /**
+     * Add a List to the list of mappings.
+     *
+     * @param listNr The List number.
+     * @param list The List.
+     */
+    public void addList(String listNr, String list) {
+        this.listMappings.put(listNr, list);
+    }
+
+    /**
+     * Add a Stylesheet List to the list of mappings.
+     *
+     * @param stylesheetListNr The Stylesheet List number.
+     * @param list The StylesheetList.
+     */
+    public void addStylesheetList(String stylesheetListNr, List list) {
+        this.stylesheetListMappings.put(stylesheetListNr, list);
+    }
+
+    /**
+     * Gets the list of font mappings. String to String.
+     *
+     * @return The font mappings.
+     */
+    public HashMap<String, String> getFontMappings() {
+        return this.fontMappings;
+    }
+
+    /**
+     * Gets the list of color mappings. String to Color.
+     *
+     * @return The color mappings.
+     */
+    public HashMap<String, Color> getColorMappings() {
+        return this.colorMappings;
+    }
+
+    /**
+     * Gets the list of List mappings.
+     *
+     * @return The List mappings.
+     */
+    public HashMap<String, String> getListMappings() {
+        return this.listMappings;
+    }
+
+    /**
+     * Gets the list of Stylesheet mappings. .
+     *
+     * @return The Stylesheet List mappings.
+     */
+    public HashMap<String, List> getStylesheetListMappings() {
+        return this.stylesheetListMappings;
+    }
 }

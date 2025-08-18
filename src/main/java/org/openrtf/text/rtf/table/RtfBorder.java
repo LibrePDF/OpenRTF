@@ -52,16 +52,13 @@ package org.openrtf.text.rtf.table;
 import java.awt.Color;
 import java.io.IOException;
 import java.io.OutputStream;
-
 import org.openpdf.text.DocWriter;
 import org.openrtf.text.rtf.RtfElement;
 import org.openrtf.text.rtf.document.RtfDocument;
 import org.openrtf.text.rtf.style.RtfColor;
 
-
 /**
- * The RtfBorder handle one row or cell border.
- * INTERNAL USE ONLY
+ * The RtfBorder handle one row or cell border. INTERNAL USE ONLY
  *
  * @version $Id: RtfBorder.java 3580 2008-08-06 15:52:00Z howard_s $
  * @author Mark Hall (Mark.Hall@mail.room3b.eu)
@@ -69,313 +66,232 @@ import org.openrtf.text.rtf.style.RtfColor;
  */
 public class RtfBorder extends RtfElement {
 
-    /**
-     * Constant for the left row border
-     */
+    /** Constant for the left row border */
     protected static final byte[] ROW_BORDER_LEFT = DocWriter.getISOBytes("\\trbrdrl");
-    /**
-     * Constant for the top row border
-     */
+
+    /** Constant for the top row border */
     protected static final byte[] ROW_BORDER_TOP = DocWriter.getISOBytes("\\trbrdrt");
-    /**
-     * Constant for the right row border
-     */
+
+    /** Constant for the right row border */
     protected static final byte[] ROW_BORDER_RIGHT = DocWriter.getISOBytes("\\trbrdrr");
-    /**
-     * Constant for the bottom row border
-     */
+
+    /** Constant for the bottom row border */
     protected static final byte[] ROW_BORDER_BOTTOM = DocWriter.getISOBytes("\\trbrdrb");
-    /**
-     * Constant for the horizontal line
-     */
+
+    /** Constant for the horizontal line */
     protected static final byte[] ROW_BORDER_HORIZONTAL = DocWriter.getISOBytes("\\trbrdrh");
-    /**
-     * Constant for the vertical line
-     */
+
+    /** Constant for the vertical line */
     protected static final byte[] ROW_BORDER_VERTICAL = DocWriter.getISOBytes("\\trbrdrv");
-    /**
-     * Constant for the left cell border
-     */
+
+    /** Constant for the left cell border */
     protected static final byte[] CELL_BORDER_LEFT = DocWriter.getISOBytes("\\clbrdrl");
-    /**
-     * Constant for the top cell border
-     */
+
+    /** Constant for the top cell border */
     protected static final byte[] CELL_BORDER_TOP = DocWriter.getISOBytes("\\clbrdrt");
-    /**
-     * Constant for the right cell border
-     */
+
+    /** Constant for the right cell border */
     protected static final byte[] CELL_BORDER_RIGHT = DocWriter.getISOBytes("\\clbrdrr");
-    /**
-     * Constant for the bottom cell border
-     */
+
+    /** Constant for the bottom cell border */
     protected static final byte[] CELL_BORDER_BOTTOM = DocWriter.getISOBytes("\\clbrdrb");
-    /**
-     * Constant for the border width
-     */
+
+    /** Constant for the border width */
     protected static final byte[] BORDER_WIDTH = DocWriter.getISOBytes("\\brdrw");
-    /**
-     * Constant for the border color number
-     */
+
+    /** Constant for the border color number */
     protected static final byte[] BORDER_COLOR_NUMBER = DocWriter.getISOBytes("\\brdrcf");
-    /**
-     * Constant for the single border style
-     */
+
+    /** Constant for the single border style */
     protected static final byte[] BORDER_STYLE_SINGLE = DocWriter.getISOBytes("\\brdrs");
-    /**
-     * Constant for the double thick border style
-     */
-    protected static final byte[] BORDER_STYLE_DOUBLE_THICK	= DocWriter.getISOBytes("\\brdrth");
-    /**
-     * Constant for the shadowed border style
-     */
+
+    /** Constant for the double thick border style */
+    protected static final byte[] BORDER_STYLE_DOUBLE_THICK = DocWriter.getISOBytes("\\brdrth");
+
+    /** Constant for the shadowed border style */
     protected static final byte[] BORDER_STYLE_SHADOWED = DocWriter.getISOBytes("\\brdrsh");
-    /**
-     * Constant for the dotted border style
-     */
+
+    /** Constant for the dotted border style */
     protected static final byte[] BORDER_STYLE_DOTTED = DocWriter.getISOBytes("\\brdrdot");
-    /**
-     * Constant for the dashed border style
-     */
+
+    /** Constant for the dashed border style */
     protected static final byte[] BORDER_STYLE_DASHED = DocWriter.getISOBytes("\\brdrdash");
-    /**
-     * Constant for the hairline border style
-     */
+
+    /** Constant for the hairline border style */
     protected static final byte[] BORDER_STYLE_HAIRLINE = DocWriter.getISOBytes("\\brdrhair");
-    /**
-     * Constant for the double border style
-     */
+
+    /** Constant for the double border style */
     protected static final byte[] BORDER_STYLE_DOUBLE = DocWriter.getISOBytes("\\brdrdb");
-    /**
-     * Constant for the dot dash border style
-     */
+
+    /** Constant for the dot dash border style */
     protected static final byte[] BORDER_STYLE_DOT_DASH = DocWriter.getISOBytes("\\brdrdashd");
-    /**
-     * Constant for the dot dot dash border style
-     */
-    protected static final byte[] BORDER_STYLE_DOT_DOT_DASH	= DocWriter.getISOBytes("\\brdrdashdd");
-    /**
-     * Constant for the triple border style
-     */
+
+    /** Constant for the dot dot dash border style */
+    protected static final byte[] BORDER_STYLE_DOT_DOT_DASH = DocWriter.getISOBytes("\\brdrdashdd");
+
+    /** Constant for the triple border style */
     protected static final byte[] BORDER_STYLE_TRIPLE = DocWriter.getISOBytes("\\brdrtriple");
-    /**
-     * Constant for the thick thin border style
-     */
+
+    /** Constant for the thick thin border style */
     protected static final byte[] BORDER_STYLE_THICK_THIN = DocWriter.getISOBytes("\\brdrtnthsg");
-    /**
-     * Constant for the thin thick border style
-     */
+
+    /** Constant for the thin thick border style */
     protected static final byte[] BORDER_STYLE_THIN_THICK = DocWriter.getISOBytes("\\brdrthtnsg");
-    /**
-     * Constant for the thin thick thin border style
-     */
+
+    /** Constant for the thin thick thin border style */
     protected static final byte[] BORDER_STYLE_THIN_THICK_THIN = DocWriter.getISOBytes("\\brdrtnthtnsg");
-    /**
-     * Constant for the thick thin medium border style
-     */
+
+    /** Constant for the thick thin medium border style */
     protected static final byte[] BORDER_STYLE_THICK_THIN_MED = DocWriter.getISOBytes("\\brdrtnthmg");
-    /**
-     * Constant for the thin thick medium border style
-     */
+
+    /** Constant for the thin thick medium border style */
     protected static final byte[] BORDER_STYLE_THIN_THICK_MED = DocWriter.getISOBytes("\\brdrthtnmg");
-    /**
-     * Constant for the thin thick thin medium border style
-     */
+
+    /** Constant for the thin thick thin medium border style */
     protected static final byte[] BORDER_STYLE_THIN_THICK_THIN_MED = DocWriter.getISOBytes("\\brdrtnthtnmg");
-    /**
-     * Constant for the thick thin large border style
-     */
+
+    /** Constant for the thick thin large border style */
     protected static final byte[] BORDER_STYLE_THICK_THIN_LARGE = DocWriter.getISOBytes("\\brdrtnthlg");
-    /**
-     * Constant for the thin thick large border style
-     */
-    protected static final byte[] BORDER_STYLE_THIN_THICK_LARGE	= DocWriter.getISOBytes("\\brdrthtnlg");
-    /**
-     * Constant for the thin thick thin large border style
-     */
+
+    /** Constant for the thin thick large border style */
+    protected static final byte[] BORDER_STYLE_THIN_THICK_LARGE = DocWriter.getISOBytes("\\brdrthtnlg");
+
+    /** Constant for the thin thick thin large border style */
     protected static final byte[] BORDER_STYLE_THIN_THICK_THIN_LARGE = DocWriter.getISOBytes("\\brdrtnthtnlg");
-    /**
-     * Constant for the wavy border style
-     */
+
+    /** Constant for the wavy border style */
     protected static final byte[] BORDER_STYLE_WAVY = DocWriter.getISOBytes("\\brdrwavy");
-    /**
-     * Constant for the double wavy border style
-     */
+
+    /** Constant for the double wavy border style */
     protected static final byte[] BORDER_STYLE_DOUBLE_WAVY = DocWriter.getISOBytes("\\brdrwavydb");
-    /**
-     * Constant for the striped border style
-     */
+
+    /** Constant for the striped border style */
     protected static final byte[] BORDER_STYLE_STRIPED = DocWriter.getISOBytes("\\brdrdashdotstr");
-    /**
-     * Constant for the embossed border style
-     */
+
+    /** Constant for the embossed border style */
     protected static final byte[] BORDER_STYLE_EMBOSS = DocWriter.getISOBytes("\\brdremboss");
-    /**
-     * Constant for the engraved border style
-     */
+
+    /** Constant for the engraved border style */
     protected static final byte[] BORDER_STYLE_ENGRAVE = DocWriter.getISOBytes("\\brdrengrave");
 
-    /**
-     * Constant for a row border
-     */
+    /** Constant for a row border */
     protected static final int ROW_BORDER = 1;
-    /**
-     * Constant for a cell border
-     */
+
+    /** Constant for a cell border */
     protected static final int CELL_BORDER = 2;
 
-    /**
-     * This border is no border :-)
-     */
+    /** This border is no border :-) */
     protected static final int NO_BORDER = 0;
-    /**
-     * Constant for a left border
-     */
+
+    /** Constant for a left border */
     protected static final int LEFT_BORDER = 1;
-    /**
-     * Constant for a top border
-     */
+
+    /** Constant for a top border */
     protected static final int TOP_BORDER = 2;
-    /**
-     * Constant for a right border
-     */
+
+    /** Constant for a right border */
     protected static final int RIGHT_BORDER = 4;
-    /**
-     * Constant for a bottom border
-     */
+
+    /** Constant for a bottom border */
     protected static final int BOTTOM_BORDER = 8;
-    /**
-     * Constant for a box (left, top, right, bottom) border
-     */
+
+    /** Constant for a box (left, top, right, bottom) border */
     protected static final int BOX_BORDER = 15;
-    /**
-     * Constant for a vertical line
-     */
+
+    /** Constant for a vertical line */
     protected static final int VERTICAL_BORDER = 16;
-    /**
-     * Constant for a horizontal line
-     */
+
+    /** Constant for a horizontal line */
     protected static final int HORIZONTAL_BORDER = 32;
 
-    /**
-     * Constant for a border with no border
-     */
+    /** Constant for a border with no border */
     public static final int BORDER_NONE = 0;
-    /**
-     * Constant for a single border
-     */
+
+    /** Constant for a single border */
     public static final int BORDER_SINGLE = 1;
-    /**
-     * Constant for a double thick border
-     */
+
+    /** Constant for a double thick border */
     public static final int BORDER_DOUBLE_THICK = 2;
-    /**
-     * Constant for a shadowed border
-     */
+
+    /** Constant for a shadowed border */
     public static final int BORDER_SHADOWED = 3;
-    /**
-     * Constant for a dotted border
-     */
+
+    /** Constant for a dotted border */
     public static final int BORDER_DOTTED = 4;
-    /**
-     * Constant for a dashed border
-     */
+
+    /** Constant for a dashed border */
     public static final int BORDER_DASHED = 5;
-    /**
-     * Constant for a hairline border
-     */
+
+    /** Constant for a hairline border */
     public static final int BORDER_HAIRLINE = 6;
-    /**
-     * Constant for a double border
-     */
+
+    /** Constant for a double border */
     public static final int BORDER_DOUBLE = 7;
-    /**
-     * Constant for a dot dash border
-     */
+
+    /** Constant for a dot dash border */
     public static final int BORDER_DOT_DASH = 8;
-    /**
-     * Constant for a dot dot dash border
-     */
+
+    /** Constant for a dot dot dash border */
     public static final int BORDER_DOT_DOT_DASH = 9;
-    /**
-     * Constant for a triple border
-     */
+
+    /** Constant for a triple border */
     public static final int BORDER_TRIPLE = 10;
-    /**
-     * Constant for a thick thin border
-     */
+
+    /** Constant for a thick thin border */
     public static final int BORDER_THICK_THIN = 11;
-    /**
-     * Constant for a thin thick border
-     */
+
+    /** Constant for a thin thick border */
     public static final int BORDER_THIN_THICK = 12;
-    /**
-     * Constant for a thin thick thin border
-     */
+
+    /** Constant for a thin thick thin border */
     public static final int BORDER_THIN_THICK_THIN = 13;
-    /**
-     * Constant for a thick thin medium border
-     */
+
+    /** Constant for a thick thin medium border */
     public static final int BORDER_THICK_THIN_MED = 14;
-    /**
-     * Constant for a thin thick medium border
-     */
+
+    /** Constant for a thin thick medium border */
     public static final int BORDER_THIN_THICK_MED = 15;
-    /**
-     * Constant for a thin thick thin medium border
-     */
+
+    /** Constant for a thin thick thin medium border */
     public static final int BORDER_THIN_THICK_THIN_MED = 16;
-    /**
-     * Constant for a thick thin large border
-     */
+
+    /** Constant for a thick thin large border */
     public static final int BORDER_THICK_THIN_LARGE = 17;
-    /**
-     * Constant for a thin thick large border
-     */
+
+    /** Constant for a thin thick large border */
     public static final int BORDER_THIN_THICK_LARGE = 18;
-    /**
-     * Constant for a thin thick thin large border
-     */
+
+    /** Constant for a thin thick thin large border */
     public static final int BORDER_THIN_THICK_THIN_LARGE = 19;
-    /**
-     * Constant for a wavy border
-     */
+
+    /** Constant for a wavy border */
     public static final int BORDER_WAVY = 20;
-    /**
-     * Constant for a double wavy border
-     */
+
+    /** Constant for a double wavy border */
     public static final int BORDER_DOUBLE_WAVY = 21;
-    /**
-     * Constant for a striped border
-     */
+
+    /** Constant for a striped border */
     public static final int BORDER_STRIPED = 22;
-    /**
-     * Constant for an embossed border
-     */
+
+    /** Constant for an embossed border */
     public static final int BORDER_EMBOSS = 23;
-    /**
-     * Constant for an engraved border
-     */
+
+    /** Constant for an engraved border */
     public static final int BORDER_ENGRAVE = 24;
 
-    /**
-     * The type of this RtfBorder
-     */
+    /** The type of this RtfBorder */
     private final int borderType;
-    /**
-     * The position of this RtfBorder
-     */
+
+    /** The position of this RtfBorder */
     private final int borderPosition;
-    /**
-     * The style of this RtfBorder
-     */
+
+    /** The style of this RtfBorder */
     private int borderStyle;
-    /**
-     * The width of this RtfBorder
-     */
+
+    /** The width of this RtfBorder */
     private final int borderWidth;
-    /**
-     * The color of this RtfBorder
-     */
+
+    /** The color of this RtfBorder */
     private final RtfColor borderColor;
 
     /**
@@ -404,36 +320,39 @@ public class RtfBorder extends RtfElement {
      * @param borderWidth The width of this RtfBorder
      * @param borderColor The color of this RtfBorder
      */
-    protected RtfBorder(RtfDocument doc, int borderType, int borderPosition, int borderStyle, float borderWidth, Color borderColor) {
+    protected RtfBorder(
+            RtfDocument doc,
+            int borderType,
+            int borderPosition,
+            int borderStyle,
+            float borderWidth,
+            Color borderColor) {
         super(doc);
         this.borderType = borderType;
         this.borderPosition = borderPosition;
         this.borderStyle = borderStyle;
         this.borderWidth = (int) Math.min(borderWidth * TWIPS_FACTOR, 75);
-        if(this.borderWidth == 0) {
+        if (this.borderWidth == 0) {
             this.borderStyle = BORDER_NONE;
         }
-        if(borderColor == null) {
+        if (borderColor == null) {
             this.borderColor = new RtfColor(this.document, new Color(0, 0, 0));
         } else {
             this.borderColor = new RtfColor(this.document, borderColor);
         }
     }
 
-    /**
-     * Writes the RtfBorder settings
-     */
-    public void writeContent(OutputStream result) throws IOException
-    {
-        if(this.borderStyle == BORDER_NONE || this.borderPosition == NO_BORDER || this.borderWidth == 0) {
+    /** Writes the RtfBorder settings */
+    public void writeContent(OutputStream result) throws IOException {
+        if (this.borderStyle == BORDER_NONE || this.borderPosition == NO_BORDER || this.borderWidth == 0) {
             return;
         }
 
-    	if(this.borderType == ROW_BORDER) {
-            switch(this.borderPosition) {
+        if (this.borderType == ROW_BORDER) {
+            switch (this.borderPosition) {
                 case LEFT_BORDER:
                     result.write(ROW_BORDER_LEFT);
-                	break;
+                    break;
                 case TOP_BORDER:
                     result.write(ROW_BORDER_TOP);
                     break;
@@ -458,11 +377,11 @@ public class RtfBorder extends RtfElement {
             result.write(BORDER_COLOR_NUMBER);
             result.write(intToByteArray(this.borderColor.getColorNumber()));
             this.document.outputDebugLinebreak(result);
-        } else if(this.borderType == CELL_BORDER) {
-            switch(this.borderPosition) {
+        } else if (this.borderType == CELL_BORDER) {
+            switch (this.borderPosition) {
                 case LEFT_BORDER:
                     result.write(CELL_BORDER_LEFT);
-                	break;
+                    break;
                 case TOP_BORDER:
                     result.write(CELL_BORDER_TOP);
                     break;
@@ -481,7 +400,7 @@ public class RtfBorder extends RtfElement {
             result.write(BORDER_COLOR_NUMBER);
             result.write(intToByteArray(this.borderColor.getColorNumber()));
             this.document.outputDebugLinebreak(result);
-        }    	
+        }
     }
 
     /**
@@ -490,33 +409,59 @@ public class RtfBorder extends RtfElement {
      * @return A byte array containing the style of this RtfBorder
      */
     private byte[] writeBorderStyle() {
-        switch(this.borderStyle) {
-            case BORDER_NONE                    : return new byte[0];
-            case BORDER_SINGLE 					: return BORDER_STYLE_SINGLE;
-            case BORDER_DOUBLE_THICK	 		: return BORDER_STYLE_DOUBLE_THICK;
-            case BORDER_SHADOWED 				: return BORDER_STYLE_SHADOWED;
-            case BORDER_DOTTED   				: return BORDER_STYLE_DOTTED;
-            case BORDER_DASHED   				: return BORDER_STYLE_DASHED;
-            case BORDER_HAIRLINE   				: return BORDER_STYLE_HAIRLINE;
-            case BORDER_DOUBLE 		  			: return BORDER_STYLE_DOUBLE;
-            case BORDER_DOT_DASH   				: return BORDER_STYLE_DOT_DASH;
-            case BORDER_DOT_DOT_DASH			: return BORDER_STYLE_DOT_DOT_DASH;
-            case BORDER_TRIPLE					: return BORDER_STYLE_TRIPLE;
-            case BORDER_THICK_THIN				: return BORDER_STYLE_THICK_THIN;
-            case BORDER_THIN_THICK				: return BORDER_STYLE_THIN_THICK;
-            case BORDER_THIN_THICK_THIN			: return BORDER_STYLE_THIN_THICK_THIN;
-            case BORDER_THICK_THIN_MED			: return BORDER_STYLE_THICK_THIN_MED;
-            case BORDER_THIN_THICK_MED			: return BORDER_STYLE_THIN_THICK_MED;
-            case BORDER_THIN_THICK_THIN_MED		: return BORDER_STYLE_THIN_THICK_THIN_MED;
-            case BORDER_THICK_THIN_LARGE		: return BORDER_STYLE_THICK_THIN_LARGE;
-            case BORDER_THIN_THICK_LARGE		: return BORDER_STYLE_THIN_THICK_LARGE;
-            case BORDER_THIN_THICK_THIN_LARGE	: return BORDER_STYLE_THIN_THICK_THIN_LARGE;
-            case BORDER_WAVY					: return BORDER_STYLE_WAVY;
-            case BORDER_DOUBLE_WAVY				: return BORDER_STYLE_DOUBLE_WAVY;
-            case BORDER_STRIPED					: return BORDER_STYLE_STRIPED;
-            case BORDER_EMBOSS					: return BORDER_STYLE_EMBOSS;
-            case BORDER_ENGRAVE					: return BORDER_STYLE_ENGRAVE;
-            default                             : return BORDER_STYLE_SINGLE;
+        switch (this.borderStyle) {
+            case BORDER_NONE:
+                return new byte[0];
+            case BORDER_SINGLE:
+                return BORDER_STYLE_SINGLE;
+            case BORDER_DOUBLE_THICK:
+                return BORDER_STYLE_DOUBLE_THICK;
+            case BORDER_SHADOWED:
+                return BORDER_STYLE_SHADOWED;
+            case BORDER_DOTTED:
+                return BORDER_STYLE_DOTTED;
+            case BORDER_DASHED:
+                return BORDER_STYLE_DASHED;
+            case BORDER_HAIRLINE:
+                return BORDER_STYLE_HAIRLINE;
+            case BORDER_DOUBLE:
+                return BORDER_STYLE_DOUBLE;
+            case BORDER_DOT_DASH:
+                return BORDER_STYLE_DOT_DASH;
+            case BORDER_DOT_DOT_DASH:
+                return BORDER_STYLE_DOT_DOT_DASH;
+            case BORDER_TRIPLE:
+                return BORDER_STYLE_TRIPLE;
+            case BORDER_THICK_THIN:
+                return BORDER_STYLE_THICK_THIN;
+            case BORDER_THIN_THICK:
+                return BORDER_STYLE_THIN_THICK;
+            case BORDER_THIN_THICK_THIN:
+                return BORDER_STYLE_THIN_THICK_THIN;
+            case BORDER_THICK_THIN_MED:
+                return BORDER_STYLE_THICK_THIN_MED;
+            case BORDER_THIN_THICK_MED:
+                return BORDER_STYLE_THIN_THICK_MED;
+            case BORDER_THIN_THICK_THIN_MED:
+                return BORDER_STYLE_THIN_THICK_THIN_MED;
+            case BORDER_THICK_THIN_LARGE:
+                return BORDER_STYLE_THICK_THIN_LARGE;
+            case BORDER_THIN_THICK_LARGE:
+                return BORDER_STYLE_THIN_THICK_LARGE;
+            case BORDER_THIN_THICK_THIN_LARGE:
+                return BORDER_STYLE_THIN_THICK_THIN_LARGE;
+            case BORDER_WAVY:
+                return BORDER_STYLE_WAVY;
+            case BORDER_DOUBLE_WAVY:
+                return BORDER_STYLE_DOUBLE_WAVY;
+            case BORDER_STRIPED:
+                return BORDER_STYLE_STRIPED;
+            case BORDER_EMBOSS:
+                return BORDER_STYLE_EMBOSS;
+            case BORDER_ENGRAVE:
+                return BORDER_STYLE_ENGRAVE;
+            default:
+                return BORDER_STYLE_SINGLE;
         }
     }
 
@@ -531,6 +476,7 @@ public class RtfBorder extends RtfElement {
 
     /**
      * Gets the position of this RtfBorder
+     *
      * @return Returns the position of this RtfBorder
      */
     protected int getBorderPosition() {

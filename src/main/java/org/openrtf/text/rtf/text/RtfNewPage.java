@@ -51,11 +51,9 @@ package org.openrtf.text.rtf.text;
 
 import java.io.IOException;
 import java.io.OutputStream;
-
 import org.openpdf.text.DocWriter;
 import org.openrtf.text.rtf.RtfElement;
 import org.openrtf.text.rtf.document.RtfDocument;
-
 
 /**
  * The RtfNewPage creates a new page. INTERNAL CLASS
@@ -66,9 +64,7 @@ import org.openrtf.text.rtf.document.RtfDocument;
  */
 public class RtfNewPage extends RtfElement {
 
-    /**
-     * Constant for a new page
-     */
+    /** Constant for a new page */
     public static final byte[] NEW_PAGE = DocWriter.getISOBytes("\\page");
 
     /**
@@ -80,13 +76,9 @@ public class RtfNewPage extends RtfElement {
         super(doc);
     }
 
-    /**
-     * Writes a new page
-     */
-    public void writeContent(OutputStream result) throws IOException
-    {
+    /** Writes a new page */
+    public void writeContent(OutputStream result) throws IOException {
         result.write(NEW_PAGE);
-        result.write(RtfParagraph.PARAGRAPH_DEFAULTS);    	
+        result.write(RtfParagraph.PARAGRAPH_DEFAULTS);
     }
-
 }

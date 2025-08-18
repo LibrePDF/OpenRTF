@@ -54,8 +54,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * The RtfMemoryCache is an RtfDataCache that keeps the whole rtf document
- * data in memory. Fast but memory intensive.
+ * The RtfMemoryCache is an RtfDataCache that keeps the whole rtf document data in memory. Fast but
+ * memory intensive.
  *
  * @version $Id: RtfMemoryCache.java 3373 2008-05-12 16:21:24Z xlv $
  * @author Mark Hall (Mark.Hall@mail.room3b.eu)
@@ -63,30 +63,21 @@ import java.io.OutputStream;
  */
 public class RtfMemoryCache implements RtfDataCache {
 
-    /**
-     * The buffer for the rtf document data.
-     */
+    /** The buffer for the rtf document data. */
     private final ByteArrayOutputStream data;
 
-    /**
-     * Constructs a RtfMemoryCache.
-     */
+    /** Constructs a RtfMemoryCache. */
     public RtfMemoryCache() {
         this.data = new ByteArrayOutputStream();
     }
 
-    /**
-     * Gets the ByteArrayOutputStream.
-     */
+    /** Gets the ByteArrayOutputStream. */
     public OutputStream getOutputStream() {
         return this.data;
     }
 
-    /**
-     * Writes the content of the ByteArrayOutputStream into the OutputStream.
-     */
+    /** Writes the content of the ByteArrayOutputStream into the OutputStream. */
     public void writeTo(OutputStream target) throws IOException {
         this.data.writeTo(target);
     }
-
 }

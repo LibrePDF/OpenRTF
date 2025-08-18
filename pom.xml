@@ -1,21 +1,16 @@
-<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-         xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
 
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>com.github.librepdf</groupId>
-    <packaging>jar</packaging>
-    <version>3.0.0-SNAPSHOT</version>
     <artifactId>openrtf</artifactId>
+    <version>3.0.0-SNAPSHOT</version>
+    <packaging>jar</packaging>
 
     <name>OpenRTF</name>
-    <url>https://github.com/LibrePDF/OpenRTF</url>
     <description>Open and Free RTF library.</description>
-    <scm>
-        <url>scm:git:https://github.com/LibrePDF/OpenRTF</url>
-        <connection>scm:git:https://github.com/LibrePDF/OpenRTF</connection>
-        <developerConnection>scm:git:https://github.com/LibrePDF/OpenRTF</developerConnection>
-    </scm>
+    <url>https://github.com/LibrePDF/OpenRTF</url>
 
     <licenses>
         <license>
@@ -30,6 +25,25 @@
         </license>
     </licenses>
 
+    <developers>
+        <developer>
+            <name>The OpenPDF Project</name>
+            <organizationUrl>https://github.com/librepdf</organizationUrl>
+        </developer>
+    </developers>
+    <scm>
+        <connection>scm:git:https://github.com/LibrePDF/OpenRTF</connection>
+        <developerConnection>scm:git:https://github.com/LibrePDF/OpenRTF</developerConnection>
+        <url>scm:git:https://github.com/LibrePDF/OpenRTF</url>
+    </scm>
+    <!-- Distribution config from http://central.sonatype.org/pages/apache-maven.html#distribution-management-and-authentication -->
+    <distributionManagement>
+        <snapshotRepository>
+            <id>ossrh</id>
+            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
+        </snapshotRepository>
+    </distributionManagement>
+
     <properties>
         <java.version>21</java.version>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
@@ -40,6 +54,8 @@
         <maven.clean.plugin.version>3.5.0</maven.clean.plugin.version>
         <maven.javadoc.plugin.version>3.11.3</maven.javadoc.plugin.version>
         <maven.source.plugin.version>3.3.1</maven.source.plugin.version>
+        <spotless.maven.plugin.version>2.46.1</spotless.maven.plugin.version>
+        <palantir.version>2.67.0</palantir.version>
     </properties>
 
     <dependencies>
@@ -61,16 +77,51 @@
     <build>
         <plugins>
             <plugin>
+                <groupId>com.diffplug.spotless</groupId>
+                <artifactId>spotless-maven-plugin</artifactId>
+                <version>${spotless.maven.plugin.version}</version>
+                <configuration>
+                    <java>
+                        <toggleOffOn/>
+                        <palantirJavaFormat>
+                            <version>${palantir.version}</version>
+                        </palantirJavaFormat>
+                        <removeUnusedImports/>
+                        <includes>
+                            <include>src/**/*.java</include>
+                        </includes>
+                    </java>
+                    <pom>
+                        <sortPom>
+                            <expandEmptyElements>false</expandEmptyElements>
+                            <nrOfIndentSpace>4</nrOfIndentSpace>
+                            <spaceBeforeCloseEmptyElement>false</spaceBeforeCloseEmptyElement>
+                        </sortPom>
+                        <includes>
+                            <include>pom.xml</include>
+                        </includes>
+                    </pom>
+                </configuration>
+                <executions>
+                    <execution>
+                        <goals>
+                            <goal>check</goal>
+                        </goals>
+                        <phase>verify</phase>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-source-plugin</artifactId>
                 <version>${maven.source.plugin.version}</version>
                 <executions>
                     <execution>
                         <id>attach-sources</id>
-                        <phase>verify</phase>
                         <goals>
                             <goal>jar-no-fork</goal>
                         </goals>
+                        <phase>verify</phase>
                     </execution>
                 </executions>
             </plugin>
@@ -87,10 +138,10 @@
                 <executions>
                     <execution>
                         <id>sign-artifacts</id>
-                        <phase>verify</phase>
                         <goals>
                             <goal>sign</goal>
                         </goals>
+                        <phase>verify</phase>
                     </execution>
                 </executions>
             </plugin>
@@ -157,18 +208,4 @@
 
         </plugins>
     </build>
-
-    <developers>
-        <developer>
-            <name>The OpenPDF Project</name>
-            <organizationUrl>https://github.com/librepdf</organizationUrl>
-        </developer>
-    </developers>
-    <!-- Distribution config from http://central.sonatype.org/pages/apache-maven.html#distribution-management-and-authentication -->
-    <distributionManagement>
-        <snapshotRepository>
-            <id>ossrh</id>
-            <url>https://oss.sonatype.org/content/repositories/snapshots</url>
-        </snapshotRepository>
-    </distributionManagement>
 </project>

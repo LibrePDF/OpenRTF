@@ -54,23 +54,21 @@ import java.util.EventListener;
  * <code>RtfCtrlWordListener</code> interface for handling events.
  *
  * @author Howard Shank (hgshank@yahoo.com)
- *
- *  @since 2.0.8
+ * @since 2.0.8
  */
 public interface RtfCtrlWordListener extends EventListener {
-	/**
-	 *
-	 * @return null or modified copy of the ctrlWordData object
-	 */
+    /**
+     * @return null or modified copy of the ctrlWordData object
+     */
     RtfCtrlWordData beforeCtrlWord(RtfCtrlWordData ctrlWordData);
-	/**
-	 *
-	 * @return null or modified copy of the ctrlWordData object
-	 */
+
+    /**
+     * @return null or modified copy of the ctrlWordData object
+     */
     RtfCtrlWordData onCtrlWord(RtfCtrlWordData ctrlWordData);
-	/**
-	 *
-	 * @return null or modified copy of the ctrlWordData object
-	 */
+
+    /**
+     * @return null or modified copy of the ctrlWordData object
+     */
     RtfCtrlWordData afterCtrlWord(RtfCtrlWordData ctrlWordData);
 }

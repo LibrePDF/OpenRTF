@@ -53,15 +53,12 @@ package org.openrtf.text.rtf.field;
 
 import java.io.IOException;
 import java.io.OutputStream;
-
 import org.openpdf.text.DocWriter;
 import org.openpdf.text.Font;
 
-
 /**
- * The RtfTOCEntry is used together with the RtfTableOfContents to generate a table of
- * contents. Add the RtfTOCEntry in those locations in the document where table of
- * contents entries should link to
+ * The RtfTOCEntry is used together with the RtfTableOfContents to generate a table of contents. Add
+ * the RtfTOCEntry in those locations in the document where table of contents entries should link to
  *
  * @version $Id: RtfTOCEntry.java 3580 2008-08-06 15:52:00Z howard_s $
  * @author Mark Hall (Mark.Hall@mail.room3b.eu)
@@ -70,30 +67,22 @@ import org.openpdf.text.Font;
  */
 public class RtfTOCEntry extends RtfField {
 
-    /**
-     * Constant for the beginning of hidden text
-     */
+    /** Constant for the beginning of hidden text */
     private static final byte[] TEXT_HIDDEN_ON = DocWriter.getISOBytes("\\v");
-    /**
-     * Constant for the end of hidden text
-     */
+
+    /** Constant for the end of hidden text */
     private static final byte[] TEXT_HIDDEN_OFF = DocWriter.getISOBytes("\\v0");
-    /**
-     * Constant for a TOC entry with page numbers
-     */
+
+    /** Constant for a TOC entry with page numbers */
     private static final byte[] TOC_ENTRY_PAGE_NUMBER = DocWriter.getISOBytes("\\tc");
-    /**
-     * Constant for a TOC entry without page numbers
-     */
+
+    /** Constant for a TOC entry without page numbers */
     private static final byte[] TOC_ENTRY_NO_PAGE_NUMBER = DocWriter.getISOBytes("\\tcn");
 
-    /**
-     * The entry text of this RtfTOCEntry
-     */
+    /** The entry text of this RtfTOCEntry */
     private String entry = "";
-    /**
-     * Whether to show page numbers in the table of contents
-     */
+
+    /** Whether to show page numbers in the table of contents */
     private boolean showPageNumber = true;
 
     /**
@@ -103,7 +92,7 @@ public class RtfTOCEntry extends RtfField {
      */
     public RtfTOCEntry(String entry) {
         super(null, new Font());
-        if(entry != null) {
+        if (entry != null) {
             this.entry = entry;
         }
     }
@@ -114,11 +103,10 @@ public class RtfTOCEntry extends RtfField {
      * @param result The <code>OutputStream</code> to write to.
      * @throws IOException on i/o errors.
      */
-    public void writeContent(OutputStream result) throws IOException
-    {    	
+    public void writeContent(OutputStream result) throws IOException {
         result.write(TEXT_HIDDEN_ON);
         result.write(OPEN_GROUP);
-        if(this.showPageNumber) {
+        if (this.showPageNumber) {
             result.write(TOC_ENTRY_PAGE_NUMBER);
         } else {
             result.write(TOC_ENTRY_NO_PAGE_NUMBER);
@@ -138,18 +126,9 @@ public class RtfTOCEntry extends RtfField {
         this.showPageNumber = showPageNumber;
     }
 
-    /**
-     * unused
-     */
-    protected void writeFieldInstContent(OutputStream out) throws IOException
-    {
-    }
+    /** unused */
+    protected void writeFieldInstContent(OutputStream out) throws IOException {}
 
-    /**
-     * unused
-     */
-    protected void writeFieldResultContent(OutputStream out) throws IOException
-    {
-    }
-
+    /** unused */
+    protected void writeFieldResultContent(OutputStream out) throws IOException {}
 }

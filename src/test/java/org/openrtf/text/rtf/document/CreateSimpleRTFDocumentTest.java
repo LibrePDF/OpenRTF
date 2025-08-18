@@ -3,6 +3,12 @@
  */
 package org.openrtf.text.rtf.document;
 
+import static org.junit.Assert.assertTrue;
+
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
+import org.junit.Test;
 import org.openpdf.text.Document;
 import org.openpdf.text.PageSize;
 import org.openpdf.text.Paragraph;
@@ -10,11 +16,6 @@ import org.openpdf.text.Phrase;
 import org.openpdf.text.Table;
 import org.openrtf.text.rtf.RtfWriter2;
 import org.openrtf.text.rtf.style.RtfFont;
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.io.FileOutputStream;
-import static org.junit.Assert.assertTrue;
-import org.junit.Test;
 
 /**
  * Test creation of a simple RTF document.
@@ -30,7 +31,7 @@ public class CreateSimpleRTFDocumentTest {
 
         // Delete output file if it already exists
         if (OUTPUT_FILE.exists()) {
-            assertTrue ("Could NOT delete existing output file!", OUTPUT_FILE.delete());
+            assertTrue("Could NOT delete existing output file!", OUTPUT_FILE.delete());
         }
 
         // Create a document using A4 paper format
@@ -45,7 +46,7 @@ public class CreateSimpleRTFDocumentTest {
         // Add a table with 2 columns.
         RtfFont headerFont = new RtfFont("SansSerif", 10, RtfFont.BOLD);
         RtfFont tableFont = new RtfFont("SansSerif", 9);
-        int[] aWidths = {10,10};
+        int[] aWidths = {10, 10};
         Table table = new Table(2);
         table.setWidth(80);
         table.setWidths(aWidths);
@@ -59,6 +60,6 @@ public class CreateSimpleRTFDocumentTest {
 
         // Write document to OUTPUT_FILE.
         rtf.close();
-        assertTrue ("RTF document was NOT created!", OUTPUT_FILE.exists());
+        assertTrue("RTF document was NOT created!", OUTPUT_FILE.exists());
     }
 }

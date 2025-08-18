@@ -53,103 +53,102 @@ import org.openrtf.text.rtf.parser.RtfParser;
 import org.openrtf.text.rtf.parser.ctrlwords.RtfCtrlWordData;
 
 /**
- * <code>RtfDestinationNull</code> is for discarded entries. They go nowhere.
- * If a control word destination is unknown or ignored, this is the destination
- * that should be set.
+ * <code>RtfDestinationNull</code> is for discarded entries. They go nowhere. If a control word
+ * destination is unknown or ignored, this is the destination that should be set.
  *
- * All methods return true indicating they were handled.
+ * <p>All methods return true indicating they were handled.
  *
- * This is a unique destination in that it is a singleton.
+ * <p>This is a unique destination in that it is a singleton.
  *
  * @author Howard Shank (hgshank@yahoo.com)
  * @since 2.0.8
  */
 public final class RtfDestinationNull extends RtfDestination {
-	private static RtfDestinationNull instance = null;
-	private static final Object lock = new Object();
-	/**
-	 * Constructs a new RtfDestinationNull.
-	 *
-	 * This constructor is hidden for internal use only.
-	 */
-	private RtfDestinationNull() {
+    private static RtfDestinationNull instance = null;
+    private static final Object lock = new Object();
+
+    /**
+     * Constructs a new RtfDestinationNull.
+     *
+     * <p>This constructor is hidden for internal use only.
+     */
+    private RtfDestinationNull() {}
+
+    /**
+     * Constructs a new RtfDestinationNull.
+     *
+     * <p>This constructor is hidden for internal use only.
+     *
+     * @param parser Unused value
+     */
+    private RtfDestinationNull(RtfParser parser) {
+        super(null);
     }
-	/**
-	 * Constructs a new RtfDestinationNull.
-	 *
-	 * This constructor is hidden for internal use only.
-	 *
-	 * @param parser Unused value
-	 */
-	private RtfDestinationNull(RtfParser parser) {
-		super(null);
-	}
-	/**
-	 * Get the singleton instance of RtfDestinationNull object.
-	 */
+
+    /** Get the singleton instance of RtfDestinationNull object. */
     public static RtfDestinationNull getInstance() {
-		synchronized(lock)
-		{
-			if(instance == null)
-				instance = new RtfDestinationNull();
-			return instance;
-		}
-	}
-	/* (non-Javadoc)
-	 * @see org.openrtf.text.rtf.parser.destinations.RtfDestination#handleOpenNewGroup()
-	 */
-	public boolean handleOpeningSubGroup() {
-		return true;
-	}
-	
-	/* (non-Javadoc)
-	 * @see org.openrtf.text.rtf.direct.RtfDestination#setDefaults()
-	 */
-	public void setToDefaults() {
-	}
+        synchronized (lock) {
+            if (instance == null) instance = new RtfDestinationNull();
+            return instance;
+        }
+    }
 
-	// Interface definitions
-	
-	/* (non-Javadoc)
-	 * @see org.openrtf.text.rtf.direct.RtfDestination#closeDestination()
-	 */
-	public boolean closeDestination() {
-		return true;
-	}
-	/* (non-Javadoc)
-	 * @see org.openrtf.text.rtf.direct.RtfDestination#handleGroupEnd()
-	 */
-	public boolean handleCloseGroup() {
-		//this.rtfParser.setTokeniserStateNormal();
-		return true;
-	}
+    /* (non-Javadoc)
+     * @see org.openrtf.text.rtf.parser.destinations.RtfDestination#handleOpenNewGroup()
+     */
+    public boolean handleOpeningSubGroup() {
+        return true;
+    }
 
-	/* (non-Javadoc)
-	 * @see org.openrtf.text.rtf.direct.RtfDestination#handleGroupStart()
-	 */
-	public boolean handleOpenGroup() {
-		//this.rtfParser.setTokeniserStateSkipGroup();
-		return true;
-	}
-	/* (non-Javadoc)
-	 * @see org.openrtf.text.rtf.direct.RtfDestination#handleCharacter(char[])
-	 */
-	public boolean handleCharacter(int ch) {
-		return true;
-	}
-	/* (non-Javadoc)
-	 * @see org.openrtf.text.rtf.parser.destinations.RtfDestination#handleControlWord(org.openrtf.text.rtf.parser.ctrlwords.RtfCtrlWordData)
-	 */
-	public boolean handleControlWord(RtfCtrlWordData ctrlWordData) {
-		return true;
-	}
-	
-	public static String getName() {
-		return RtfDestinationNull.class.getName();
-	}
-	
-	public int getNewTokeniserState() {
-		return RtfParser.TOKENISER_SKIP_GROUP;
-	}
+    /* (non-Javadoc)
+     * @see org.openrtf.text.rtf.direct.RtfDestination#setDefaults()
+     */
+    public void setToDefaults() {}
 
+    // Interface definitions
+
+    /* (non-Javadoc)
+     * @see org.openrtf.text.rtf.direct.RtfDestination#closeDestination()
+     */
+    public boolean closeDestination() {
+        return true;
+    }
+
+    /* (non-Javadoc)
+     * @see org.openrtf.text.rtf.direct.RtfDestination#handleGroupEnd()
+     */
+    public boolean handleCloseGroup() {
+        // this.rtfParser.setTokeniserStateNormal();
+        return true;
+    }
+
+    /* (non-Javadoc)
+     * @see org.openrtf.text.rtf.direct.RtfDestination#handleGroupStart()
+     */
+    public boolean handleOpenGroup() {
+        // this.rtfParser.setTokeniserStateSkipGroup();
+        return true;
+    }
+
+    /* (non-Javadoc)
+     * @see org.openrtf.text.rtf.direct.RtfDestination#handleCharacter(char[])
+     */
+    public boolean handleCharacter(int ch) {
+        return true;
+    }
+
+    /* (non-Javadoc)
+     * @see org.openrtf.text.rtf.parser.destinations.RtfDestination#handleControlWord(org.openrtf.text.rtf.parser.ctrlwords.RtfCtrlWordData)
+     */
+    public boolean handleControlWord(RtfCtrlWordData ctrlWordData) {
+        return true;
+    }
+
+    public static String getName() {
+        return RtfDestinationNull.class.getName();
+    }
+
+    public int getNewTokeniserState() {
+        return RtfParser.TOKENISER_SKIP_GROUP;
+    }
 }

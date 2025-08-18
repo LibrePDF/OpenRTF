@@ -55,14 +55,13 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.openrtf.text.rtf.RtfAddableElement;
 import org.openrtf.text.rtf.RtfBasicElement;
 
 /**
- * The RtfTabGroup is a convenience class if the same tabs are to be added
- * to multiple paragraphs.<br /><br />
- *
+ * The RtfTabGroup is a convenience class if the same tabs are to be added to multiple paragraphs.
+ * <br>
+ * <br>
  * <code>RtfTabGroup tabs = new RtfTabGroup();<br />
  * tabs.add(new RtfTab(70, RtfTab.TAB_LEFT_ALIGN));<br />
  * tabs.add(new RtfTab(160, RtfTab.TAB_CENTER_ALIGN));<br />
@@ -77,47 +76,38 @@ import org.openrtf.text.rtf.RtfBasicElement;
  * @author Thomas Bickel (tmb99@inode.at)
  */
 public class RtfTabGroup extends RtfAddableElement {
-	/**
-	 * The tabs to add.
-	 */
-	private final List<RtfTab> tabs = new ArrayList<>();
+    /** The tabs to add. */
+    private final List<RtfTab> tabs = new ArrayList<>();
 
-	/**
-	 * Constructs an empty RtfTabGroup.
-	 */
-	public RtfTabGroup() {
-	}
-	
-	/**
-	 * Constructs a RtfTabGroup with a set of tabs.
-	 *
-	 * @param tabs An ArrayList with the RtfTabs to group in this RtfTabGroup.
-	 */
-	public RtfTabGroup(ArrayList<? extends RtfBasicElement> tabs) {
-		for (RtfBasicElement tab : tabs) {
-			if (tab instanceof RtfTab) {
-				this.tabs.add((RtfTab) tab);
-			}
-		}
-	}
+    /** Constructs an empty RtfTabGroup. */
+    public RtfTabGroup() {}
 
-	/**
-	 * Adds a RtfTab to the list of grouped tabs.
-	 *
-	 * @param tab The RtfTab to add.
-	 */
-	public void add(RtfTab tab) {
-		this.tabs.add(tab);
-	}
-	
     /**
-     * Combines the tab output form all grouped tabs.
+     * Constructs a RtfTabGroup with a set of tabs.
+     *
+     * @param tabs An ArrayList with the RtfTabs to group in this RtfTabGroup.
      */
-    public void writeContent(OutputStream result) throws IOException
-    {
-		for (RtfTab rt : this.tabs) {
-    		rt.writeContent(result);
-    	}
+    public RtfTabGroup(ArrayList<? extends RtfBasicElement> tabs) {
+        for (RtfBasicElement tab : tabs) {
+            if (tab instanceof RtfTab) {
+                this.tabs.add((RtfTab) tab);
+            }
+        }
     }
-	
+
+    /**
+     * Adds a RtfTab to the list of grouped tabs.
+     *
+     * @param tab The RtfTab to add.
+     */
+    public void add(RtfTab tab) {
+        this.tabs.add(tab);
+    }
+
+    /** Combines the tab output form all grouped tabs. */
+    public void writeContent(OutputStream result) throws IOException {
+        for (RtfTab rt : this.tabs) {
+            rt.writeContent(result);
+        }
+    }
 }

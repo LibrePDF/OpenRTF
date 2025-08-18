@@ -54,7 +54,6 @@ package org.openrtf.text.rtf.field;
 
 import java.io.IOException;
 import java.io.OutputStream;
-
 import org.openpdf.text.Chunk;
 import org.openpdf.text.DocWriter;
 import org.openpdf.text.Font;
@@ -62,12 +61,10 @@ import org.openrtf.text.rtf.RtfBasicElement;
 import org.openrtf.text.rtf.document.RtfDocument;
 import org.openrtf.text.rtf.style.RtfFont;
 
-
 /**
- * The RtfField class is an abstract base class for all rtf field functionality.
- * Subclasses only need to implement the two abstract methods writeFieldInstContent
- * and writeFieldResultContent. All other field functionality is handled by the
- * RtfField class.
+ * The RtfField class is an abstract base class for all rtf field functionality. Subclasses only
+ * need to implement the two abstract methods writeFieldInstContent and writeFieldResultContent. All
+ * other field functionality is handled by the RtfField class.
  *
  * @version $Id: RtfField.java 3580 2008-08-06 15:52:00Z howard_s $
  * @author Mark Hall (Mark.Hall@mail.room3b.eu)
@@ -76,80 +73,60 @@ import org.openrtf.text.rtf.style.RtfFont;
  */
 public abstract class RtfField extends Chunk implements RtfBasicElement {
 
-    /**
-     * Constant for a rtf field
-     */
+    /** Constant for a rtf field */
     private static final byte[] FIELD = DocWriter.getISOBytes("\\field");
-    /**
-     * Constant for a dirty field
-     */
+
+    /** Constant for a dirty field */
     private static final byte[] FIELD_DIRTY = DocWriter.getISOBytes("\\flddirty");
-    /**
-     * Constant for a private field
-     */
+
+    /** Constant for a private field */
     private static final byte[] FIELD_PRIVATE = DocWriter.getISOBytes("\\fldpriv");
-    /**
-     * Constant for a locked field
-     */
+
+    /** Constant for a locked field */
     private static final byte[] FIELD_LOCKED = DocWriter.getISOBytes("\\fldlock");
-    /**
-     * Constant for a edited field
-     */
+
+    /** Constant for a edited field */
     private static final byte[] FIELD_EDIT = DocWriter.getISOBytes("\\fldedit");
-    /**
-     * Constant for an alt field
-     */
+
+    /** Constant for an alt field */
     private static final byte[] FIELD_ALT = DocWriter.getISOBytes("\\fldalt");
-    /**
-     * Constant for the field instructions
-     */
+
+    /** Constant for the field instructions */
     private static final byte[] FIELD_INSTRUCTIONS = DocWriter.getISOBytes("\\*\\fldinst");
-    /**
-     * Constant for the field result
-     */
+
+    /** Constant for the field result */
     private static final byte[] FIELD_RESULT = DocWriter.getISOBytes("\\fldrslt");
 
-    /**
-     * Is the field dirty
-     */
+    /** Is the field dirty */
     private boolean fieldDirty = false;
-    /**
-     * Is the field edited
-     */
+
+    /** Is the field edited */
     private boolean fieldEdit = false;
-    /**
-     * Is the field locked
-     */
+
+    /** Is the field locked */
     private boolean fieldLocked = false;
-    /**
-     * Is the field private
-     */
+
+    /** Is the field private */
     private boolean fieldPrivate = false;
-    /**
-     * Is it an alt field
-     */
+
+    /** Is it an alt field */
     private boolean fieldAlt = false;
-    /**
-     * Whether this RtfField is in a table
-     */
+
+    /** Whether this RtfField is in a table */
     private boolean inTable = false;
-    /**
-     * Whether this RtfElement is in a header
-     */
+
+    /** Whether this RtfElement is in a header */
     private boolean inHeader = false;
-    /**
-     * The RtfDocument this RtfField belongs to
-     */
+
+    /** The RtfDocument this RtfField belongs to */
     protected RtfDocument document;
-    /**
-     * The RtfFont of this RtfField
-     */
+
+    /** The RtfFont of this RtfField */
     private RtfFont font;
 
     /**
-     * Constructs a RtfField for a RtfDocument. This is not very useful,
-     * since the RtfField by itself does not do anything. Use one of the
-     * subclasses instead.
+     * Constructs a RtfField for a RtfDocument. This is not very useful, since the RtfField by
+     * itself does not do anything. Use one of the subclasses instead.
      *
      * @param doc The RtfDocument this RtfField belongs to.
      */
@@ -158,9 +135,8 @@ public abstract class RtfField extends Chunk implements RtfBasicElement {
     }
 
     /**
-     * Constructs a RtfField for a RtfDocument. This is not very useful,
-     * since the RtfField by itself does not do anything. Use one of the
-     * subclasses instead.
+     * Constructs a RtfField for a RtfDocument. This is not very useful, since the RtfField by
+     * itself does not do anything. Use one of the subclasses instead.
      *
      * @param doc The RtfDocument this RtfField belongs to.
      * @param font The Font this RtfField should use
@@ -187,14 +163,13 @@ public abstract class RtfField extends Chunk implements RtfBasicElement {
      * @param result The <code>OutputStream</code> to write to.
      * @throws IOException
      */
-    private void writeFieldBegin(OutputStream result) throws IOException
-    {
+    private void writeFieldBegin(OutputStream result) throws IOException {
         result.write(OPEN_GROUP);
         result.write(FIELD);
-        if(fieldDirty) result.write(FIELD_DIRTY);
-        if(fieldEdit) result.write(FIELD_EDIT);
-        if(fieldLocked) result.write(FIELD_LOCKED);
-        if(fieldPrivate) result.write(FIELD_PRIVATE);
+        if (fieldDirty) result.write(FIELD_DIRTY);
+        if (fieldEdit) result.write(FIELD_EDIT);
+        if (fieldLocked) result.write(FIELD_LOCKED);
+        if (fieldPrivate) result.write(FIELD_PRIVATE);
     }
 
     /**
@@ -203,16 +178,14 @@ public abstract class RtfField extends Chunk implements RtfBasicElement {
      * @param result The <code>OutputStream</code> to write to.
      * @throws IOException
      */
-    private void writeFieldInstBegin(OutputStream result) throws IOException
-    {
+    private void writeFieldInstBegin(OutputStream result) throws IOException {
         result.write(OPEN_GROUP);
         result.write(FIELD_INSTRUCTIONS);
         result.write(DELIMITER);
     }
 
     /**
-     * Writes the content of the field instruction area. Override this
-     * method in your subclasses.
+     * Writes the content of the field instruction area. Override this method in your subclasses.
      *
      * @param result The <code>OutputStream</code> to write to.
      */
@@ -223,9 +196,8 @@ public abstract class RtfField extends Chunk implements RtfBasicElement {
      *
      * @param result The <code>OutputStream</code> to write to.
      */
-    private void writeFieldInstEnd(OutputStream result) throws IOException
-    {
-        if(fieldAlt) {
+    private void writeFieldInstEnd(OutputStream result) throws IOException {
+        if (fieldAlt) {
             result.write(DELIMITER);
             result.write(FIELD_ALT);
         }
@@ -237,16 +209,15 @@ public abstract class RtfField extends Chunk implements RtfBasicElement {
      *
      * @param result The <code>OutputStream</code> to write to.
      */
-    private void writeFieldResultBegin(OutputStream result) throws IOException
-    {
+    private void writeFieldResultBegin(OutputStream result) throws IOException {
         result.write(OPEN_GROUP);
         result.write(FIELD_RESULT);
         result.write(DELIMITER);
     }
 
     /**
-     * Writes the content of the pre-calculated field result. Override this
-     * method in your subclasses.
+     * Writes the content of the pre-calculated field result. Override this method in your
+     * subclasses.
      *
      * @param result The <code>OutputStream</code> to write to.
      * @throws IOException on i/o errors.
@@ -259,8 +230,7 @@ public abstract class RtfField extends Chunk implements RtfBasicElement {
      * @param result The <code>OutputStream</code> to write to.
      * @throws IOException on i/o errors.
      */
-    private void writeFieldResultEnd(OutputStream result) throws IOException
-    {
+    private void writeFieldResultEnd(OutputStream result) throws IOException {
         result.write(DELIMITER);
         result.write(CLOSE_GROUP);
     }
@@ -271,8 +241,7 @@ public abstract class RtfField extends Chunk implements RtfBasicElement {
      * @param result The <code>OutputStream</code> to write to.
      * @throws IOException on i/o errors.
      */
-    private void writeFieldEnd(OutputStream result) throws IOException
-    {
+    private void writeFieldEnd(OutputStream result) throws IOException {
         result.write(CLOSE_GROUP);
     }
 
@@ -282,8 +251,7 @@ public abstract class RtfField extends Chunk implements RtfBasicElement {
      * @param result The <code>OutputStream</code> to write to.
      * @throws IOException on i/o errors.
      */
-    public void writeContent(OutputStream result) throws IOException
-    {
+    public void writeContent(OutputStream result) throws IOException {
         this.font.writeBegin(result);
         writeFieldBegin(result);
         writeFieldInstBegin(result);
@@ -361,6 +329,7 @@ public abstract class RtfField extends Chunk implements RtfBasicElement {
 
     /**
      * Set whether this field is locked
+     *
      * @param fieldLocked The value to use
      */
     public void setFieldLocked(boolean fieldLocked) {
@@ -397,7 +366,8 @@ public abstract class RtfField extends Chunk implements RtfBasicElement {
     /**
      * Gets whether this <code>RtfField</code> is in a table.
      *
-     * @return <code>True</code> if this <code>RtfField</code> is in a table, <code>false</code> otherwise
+     * @return <code>True</code> if this <code>RtfField</code> is in a table, <code>false</code>
+     *     otherwise
      * @since 2.1.0
      */
     public boolean isInTable() {
@@ -407,7 +377,8 @@ public abstract class RtfField extends Chunk implements RtfBasicElement {
     /**
      * Sets whether this RtfField is in a header
      *
-     * @param inHeader <code>True</code> if this RtfField is in a header, <code>false</code> otherwise
+     * @param inHeader <code>True</code> if this RtfField is in a header, <code>false</code>
+     *     otherwise
      */
     public void setInHeader(boolean inHeader) {
         this.inHeader = inHeader;
@@ -416,23 +387,20 @@ public abstract class RtfField extends Chunk implements RtfBasicElement {
     /**
      * Gets whether this <code>RtfField</code> is in a header.
      *
-     * @return <code>True</code> if this <code>RtfField</code> is in a header, <code>false</code> otherwise
+     * @return <code>True</code> if this <code>RtfField</code> is in a header, <code>false</code>
+     *     otherwise
      * @since 2.1.0
      */
     public boolean isInHeader() {
         return this.inHeader;
     }
 
-    /**
-     * An RtfField is never empty.
-     */
+    /** An RtfField is never empty. */
     public boolean isEmpty() {
         return false;
     }
 
-    /**
-     * Override setFont to perform the correct font handling.
-     */
+    /** Override setFont to perform the correct font handling. */
     public void setFont(Font font) {
         super.setFont(font);
         this.font = new RtfFont(this.document, font);

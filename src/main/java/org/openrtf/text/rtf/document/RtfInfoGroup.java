@@ -53,10 +53,8 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.openpdf.text.DocWriter;
 import org.openrtf.text.rtf.RtfElement;
-
 
 /**
  * The RtfInfoGroup stores information group elements.
@@ -67,21 +65,17 @@ import org.openrtf.text.rtf.RtfElement;
  * @author Howard Shank (hgshank@yahoo.com)
  */
 public class RtfInfoGroup extends RtfElement {
-    /**
-     * Information group starting tag
-     */
+    /** Information group starting tag */
     private static final byte[] INFO_GROUP = DocWriter.getISOBytes("\\info");
 
     /**
-     * Constant for the password element.
-     * Author: Howard Shank (hgshank@yahoo.com)
+     * Constant for the password element. Author: Howard Shank (hgshank@yahoo.com)
+     *
      * @since 2.1.1
      */
     private static final byte[] INFO_PASSWORD = DocWriter.getISOBytes("\\*\\password");
 
-    /**
-     * The RtfInfoElements that belong to this RtfInfoGroup
-     */
+    /** The RtfInfoElements that belong to this RtfInfoGroup */
     private final List<RtfInfoElement> infoElements = new ArrayList<>();
 
     /**
@@ -102,28 +96,24 @@ public class RtfInfoGroup extends RtfElement {
         this.infoElements.add(infoElement);
     }
 
-    /**
-     * Writes the RTF information group and its elements.
-     */
-    public void writeContent(OutputStream result) throws IOException
-    {
-    	result.write(OPEN_GROUP);
-		result.write(INFO_GROUP);
+    /** Writes the RTF information group and its elements. */
+    public void writeContent(OutputStream result) throws IOException {
+        result.write(OPEN_GROUP);
+        result.write(INFO_GROUP);
         for (RtfInfoElement infoElement : infoElements) {
-			infoElement.writeContent(result);
-		}
+            infoElement.writeContent(result);
+        }
 
-		// handle document protection
-    	if(document.getDocumentSettings().isDocumentProtected()) {
-	    	result.write(OPEN_GROUP);
-			result.write(INFO_PASSWORD);
-			result.write(DELIMITER);
-			result.write(document.getDocumentSettings().getProtectionHashBytes());
-			result.write(CLOSE_GROUP);
-    	}
+        // handle document protection
+        if (document.getDocumentSettings().isDocumentProtected()) {
+            result.write(OPEN_GROUP);
+            result.write(INFO_PASSWORD);
+            result.write(DELIMITER);
+            result.write(document.getDocumentSettings().getProtectionHashBytes());
+            result.write(CLOSE_GROUP);
+        }
 
-		result.write(CLOSE_GROUP);
-		this.document.outputDebugLinebreak(result);
+        result.write(CLOSE_GROUP);
+        this.document.outputDebugLinebreak(result);
     }
-
 }

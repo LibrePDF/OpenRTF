@@ -51,16 +51,13 @@ package org.openrtf.text.rtf.text;
 
 import java.io.IOException;
 import java.io.OutputStream;
-
 import org.openpdf.text.Chapter;
 import org.openpdf.text.DocWriter;
 import org.openrtf.text.rtf.RtfBasicElement;
 import org.openrtf.text.rtf.document.RtfDocument;
 
-
 /**
- * The RtfChapter wraps a Chapter element.
- * INTERNAL CLASS
+ * The RtfChapter wraps a Chapter element. INTERNAL CLASS
  *
  * @version $Id: RtfChapter.java 3580 2008-08-06 15:52:00Z howard_s $
  * @author Mark Hall (Mark.Hall@mail.room3b.eu)
@@ -78,23 +75,20 @@ public class RtfChapter extends RtfSection {
         super(doc, chapter);
     }
 
-    /**
-     * Writes the RtfChapter and its contents
-     */
-    public void writeContent(OutputStream result) throws IOException
-    {
-        if(this.document.getLastElementWritten() != null && !(this.document.getLastElementWritten() instanceof RtfChapter)) {
+    /** Writes the RtfChapter and its contents */
+    public void writeContent(OutputStream result) throws IOException {
+        if (this.document.getLastElementWritten() != null
+                && !(this.document.getLastElementWritten() instanceof RtfChapter)) {
             result.write(DocWriter.getISOBytes("\\page"));
         }
         result.write(DocWriter.getISOBytes("\\sectd"));
         document.getDocumentHeader().writeSectionDefinition(result);
-        if(this.title != null) {
+        if (this.title != null) {
             this.title.writeContent(result);
         }
         for (RtfBasicElement rbe : items) {
-        	rbe.writeContent(result);
+            rbe.writeContent(result);
         }
         result.write(DocWriter.getISOBytes("\\sect"));
     }
-
 }

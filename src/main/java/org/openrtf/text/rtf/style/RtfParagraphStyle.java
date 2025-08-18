@@ -51,7 +51,6 @@ package org.openrtf.text.rtf.style;
 import java.awt.Color;
 import java.io.IOException;
 import java.io.OutputStream;
-
 import org.openpdf.text.DocWriter;
 import org.openpdf.text.Element;
 import org.openpdf.text.Font;
@@ -60,11 +59,10 @@ import org.openrtf.text.rtf.document.RtfDocument;
 import org.openrtf.text.rtf.text.RtfParagraph;
 
 /**
- * The RtfParagraphStyle stores all style/formatting attributes of a RtfParagraph.
- * Additionally it also supports the style name system available in RTF. The RtfParagraphStyle
- * is a Font and can thus be used as such. To use the stylesheet functionality
- * it needs to be set as the font of a Paragraph. Otherwise it will work like a
- * RtfFont. It also supports inheritance of styles.
+ * The RtfParagraphStyle stores all style/formatting attributes of a RtfParagraph. Additionally it
+ * also supports the style name system available in RTF. The RtfParagraphStyle is a Font and can
+ * thus be used as such. To use the stylesheet functionality it needs to be set as the font of a
+ * Paragraph. Otherwise it will work like a RtfFont. It also supports inheritance of styles.
  *
  * @version $Id: RtfParagraphStyle.java 3580 2008-08-06 15:52:00Z howard_s $
  * @author Mark Hall (Mark.Hall@mail.room3b.eu)
@@ -72,71 +70,53 @@ import org.openrtf.text.rtf.text.RtfParagraph;
  */
 public class RtfParagraphStyle extends RtfFont {
 
-    /**
-     * Constant for left alignment
-     */
+    /** Constant for left alignment */
     public static final byte[] ALIGN_LEFT = DocWriter.getISOBytes("\\ql");
-    /**
-     * Constant for right alignment
-     */
+
+    /** Constant for right alignment */
     public static final byte[] ALIGN_RIGHT = DocWriter.getISOBytes("\\qr");
-    /**
-     * Constant for center alignment
-     */
+
+    /** Constant for center alignment */
     public static final byte[] ALIGN_CENTER = DocWriter.getISOBytes("\\qc");
-    /**
-     * Constant for justified alignment
-     */
+
+    /** Constant for justified alignment */
     public static final byte[] ALIGN_JUSTIFY = DocWriter.getISOBytes("\\qj");
-    /**
-     * Constant for the first line indentation
-     */
+
+    /** Constant for the first line indentation */
     public static final byte[] FIRST_LINE_INDENT = DocWriter.getISOBytes("\\fi");
-    /**
-     * Constant for left indentation
-     */
+
+    /** Constant for left indentation */
     public static final byte[] INDENT_LEFT = DocWriter.getISOBytes("\\li");
-    /**
-     * Constant for right indentation
-     */
+
+    /** Constant for right indentation */
     public static final byte[] INDENT_RIGHT = DocWriter.getISOBytes("\\ri");
-    /**
-     * Constant for keeping the paragraph together on one page
-     */
+
+    /** Constant for keeping the paragraph together on one page */
     public static final byte[] KEEP_TOGETHER = DocWriter.getISOBytes("\\keep");
-    /**
-     * Constant for keeping the paragraph together with the next one on one page
-     */
+
+    /** Constant for keeping the paragraph together with the next one on one page */
     public static final byte[] KEEP_TOGETHER_WITH_NEXT = DocWriter.getISOBytes("\\keepn");
-    /**
-     * Constant for the space after the paragraph.
-     */
+
+    /** Constant for the space after the paragraph. */
     public static final byte[] SPACING_AFTER = DocWriter.getISOBytes("\\sa");
-    /**
-     * Constant for the space before the paragraph.
-     */
+
+    /** Constant for the space before the paragraph. */
     public static final byte[] SPACING_BEFORE = DocWriter.getISOBytes("\\sb");
 
-    /**
-     * The NORMAL/STANDARD style.
-     */
-    public static final RtfParagraphStyle STYLE_NORMAL = new RtfParagraphStyle("Normal", "Arial", 12, Font.NORMAL, Color.black);
-    /**
-     * The style for level 1 headings.
-     */
+    /** The NORMAL/STANDARD style. */
+    public static final RtfParagraphStyle STYLE_NORMAL =
+            new RtfParagraphStyle("Normal", "Arial", 12, Font.NORMAL, Color.black);
+
+    /** The style for level 1 headings. */
     public static final RtfParagraphStyle STYLE_HEADING_1 = new RtfParagraphStyle("heading 1", "Normal");
-    /**
-     * The style for level 2 headings.
-     */
+
+    /** The style for level 2 headings. */
     public static final RtfParagraphStyle STYLE_HEADING_2 = new RtfParagraphStyle("heading 2", "Normal");
-    /**
-     * The style for level 3 headings.
-     */
+
+    /** The style for level 3 headings. */
     public static final RtfParagraphStyle STYLE_HEADING_3 = new RtfParagraphStyle("heading 3", "Normal");
 
-    /**
-     * Initializes the properties of the styles.
-     */
+    /** Initializes the properties of the styles. */
     static {
         STYLE_HEADING_1.setSize(16);
         STYLE_HEADING_1.setStyle(Font.BOLD);
@@ -148,114 +128,87 @@ public class RtfParagraphStyle extends RtfFont {
 
     /**
      * No modification has taken place when compared to the RtfParagraphStyle this RtfParagraphStyle
-     * is based on. These modification markers are used to determine what needs to be
-     * inherited and what not from the parent RtfParagraphStyle.
+     * is based on. These modification markers are used to determine what needs to be inherited and
+     * what not from the parent RtfParagraphStyle.
      */
     private static final int MODIFIED_NONE = 0;
-    /**
-     * The alignment has been modified.
-     */
+
+    /** The alignment has been modified. */
     private static final int MODIFIED_ALIGNMENT = 1;
-    /**
-     * The left indentation has been modified.
-     */
+
+    /** The left indentation has been modified. */
     private static final int MODIFIED_INDENT_LEFT = 2;
-    /**
-     * The right indentation has been modified.
-     */
+
+    /** The right indentation has been modified. */
     private static final int MODIFIED_INDENT_RIGHT = 4;
-    /**
-     * The spacing before a paragraph has been modified.
-     */
+
+    /** The spacing before a paragraph has been modified. */
     private static final int MODIFIED_SPACING_BEFORE = 8;
-    /**
-     * The spacing after a paragraph has been modified.
-     */
+
+    /** The spacing after a paragraph has been modified. */
     private static final int MODIFIED_SPACING_AFTER = 16;
-    /**
-     * The font name has been modified.
-     */
+
+    /** The font name has been modified. */
     private static final int MODIFIED_FONT_NAME = 32;
-    /**
-     * The font style has been modified.
-     */
+
+    /** The font style has been modified. */
     private static final int MODIFIED_FONT_SIZE = 64;
-    /**
-     * The font size has been modified.
-     */
+
+    /** The font size has been modified. */
     private static final int MODIFIED_FONT_STYLE = 128;
-    /**
-     * The font color has been modified.
-     */
+
+    /** The font color has been modified. */
     private static final int MODIFIED_FONT_COLOR = 256;
-    /**
-     * The line leading has been modified.
-     */
+
+    /** The line leading has been modified. */
     private static final int MODIFIED_LINE_LEADING = 512;
-    /**
-     * The paragraph keep together setting has been modified.
-     */
+
+    /** The paragraph keep together setting has been modified. */
     private static final int MODIFIED_KEEP_TOGETHER = 1024;
-    /**
-     * The paragraph keep together with next setting has been modified.
-     */
+
+    /** The paragraph keep together with next setting has been modified. */
     private static final int MODIFIED_KEEP_TOGETHER_WITH_NEXT = 2048;
 
-    /**
-     * The alignment of the paragraph.
-     */
+    /** The alignment of the paragraph. */
     private int alignment = Element.ALIGN_LEFT;
-    /**
-     * The indentation for the first line
-     */
+
+    /** The indentation for the first line */
     private int firstLineIndent = 0;
-    /**
-     * The left indentation of the paragraph.
-     */
+
+    /** The left indentation of the paragraph. */
     private int indentLeft = 0;
-    /**
-     * The right indentation of the paragraph.
-     */
+
+    /** The right indentation of the paragraph. */
     private int indentRight = 0;
-    /**
-     * The spacing before a paragraph.
-     */
+
+    /** The spacing before a paragraph. */
     private int spacingBefore = 0;
-    /**
-     * The spacing after a paragraph.
-     */
+
+    /** The spacing after a paragraph. */
     private int spacingAfter = 0;
-    /**
-     * The line leading of the paragraph.
-     */
+
+    /** The line leading of the paragraph. */
     private int lineLeading = 0;
-    /**
-     * Whether this RtfParagraph must stay on one page.
-     */
+
+    /** Whether this RtfParagraph must stay on one page. */
     private boolean keepTogether = false;
-    /**
-     * Whether this RtfParagraph must stay on the same page as the next paragraph.
-     */
+
+    /** Whether this RtfParagraph must stay on the same page as the next paragraph. */
     private boolean keepTogetherWithNext = false;
-    /**
-     * The name of this RtfParagraphStyle.
-     */
+
+    /** The name of this RtfParagraphStyle. */
     private final String styleName;
-    /**
-     * The name of the RtfParagraphStyle this RtfParagraphStyle is based on.
-     */
+
+    /** The name of the RtfParagraphStyle this RtfParagraphStyle is based on. */
     private String basedOnName = null;
-    /**
-     * The RtfParagraphStyle this RtfParagraphStyle is based on.
-     */
+
+    /** The RtfParagraphStyle this RtfParagraphStyle is based on. */
     private RtfParagraphStyle baseStyle = null;
-    /**
-     * Which properties have been modified when compared to the base style.
-     */
+
+    /** Which properties have been modified when compared to the base style. */
     private int modified = MODIFIED_NONE;
-    /**
-     * The number of this RtfParagraphStyle in the stylesheet list.
-     */
+
+    /** The number of this RtfParagraphStyle in the stylesheet list. */
     private int styleNumber = -1;
 
     /**
@@ -287,7 +240,7 @@ public class RtfParagraphStyle extends RtfFont {
     /**
      * Constructs a RtfParagraphStyle from another RtfParagraphStyle.
      *
-     * INTERNAL USE ONLY
+     * <p>INTERNAL USE ONLY
      *
      * @param doc The RtfDocument this RtfParagraphStyle belongs to.
      * @param style The RtfParagraphStyle to copy settings from.
@@ -297,7 +250,7 @@ public class RtfParagraphStyle extends RtfFont {
         this.document = doc;
         this.styleName = style.getStyleName();
         this.alignment = style.getAlignment();
-        this.firstLineIndent = (int)(style.getFirstLineIndent() * RtfBasicElement.TWIPS_FACTOR);
+        this.firstLineIndent = (int) (style.getFirstLineIndent() * RtfBasicElement.TWIPS_FACTOR);
         this.indentLeft = (int) (style.getIndentLeft() * RtfBasicElement.TWIPS_FACTOR);
         this.indentRight = (int) (style.getIndentRight() * RtfBasicElement.TWIPS_FACTOR);
         this.spacingBefore = (int) (style.getSpacingBefore() * RtfBasicElement.TWIPS_FACTOR);
@@ -309,7 +262,7 @@ public class RtfParagraphStyle extends RtfFont {
         this.modified = style.modified;
         this.styleNumber = style.getStyleNumber();
 
-        if(this.document != null) {
+        if (this.document != null) {
             setRtfDocument(this.document);
         }
     }
@@ -361,8 +314,8 @@ public class RtfParagraphStyle extends RtfFont {
     }
 
     /**
-     * Sets the first line indentation of this RtfParagraphStyle. It
-     * is relative to the left indentation.
+     * Sets the first line indentation of this RtfParagraphStyle. It is relative to the left
+     * indentation.
      *
      * @param firstLineIndent The first line indentation to use.
      */
@@ -506,8 +459,7 @@ public class RtfParagraphStyle extends RtfFont {
     }
 
     /**
-     * Gets whether the lines in the paragraph should be kept together in
-     * this RtfParagraphStyle.
+     * Gets whether the lines in the paragraph should be kept together in this RtfParagraphStyle.
      *
      * @return Whether the lines in the paragraph should be kept together.
      */
@@ -516,8 +468,7 @@ public class RtfParagraphStyle extends RtfFont {
     }
 
     /**
-     * Sets whether the lines in the paragraph should be kept together in
-     * this RtfParagraphStyle.
+     * Sets whether the lines in the paragraph should be kept together in this RtfParagraphStyle.
      *
      * @param keepTogether Whether the lines in the paragraph should be kept together.
      */
@@ -527,8 +478,7 @@ public class RtfParagraphStyle extends RtfFont {
     }
 
     /**
-     * Gets whether the paragraph should be kept together with the next in
-     * this RtfParagraphStyle.
+     * Gets whether the paragraph should be kept together with the next in this RtfParagraphStyle.
      *
      * @return Whether the paragraph should be kept together with the next.
      */
@@ -537,8 +487,7 @@ public class RtfParagraphStyle extends RtfFont {
     }
 
     /**
-     * Sets whether the paragraph should be kept together with the next in
-     * this RtfParagraphStyle.
+     * Sets whether the paragraph should be kept together with the next in this RtfParagraphStyle.
      *
      * @param keepTogetherWithNext Whether the paragraph should be kept together with the next.
      */
@@ -548,48 +497,49 @@ public class RtfParagraphStyle extends RtfFont {
     }
 
     /**
-     * Handles the inheritance of paragraph style settings. All settings that
-     * have not been modified will be inherited from the base RtfParagraphStyle.
-     * If this RtfParagraphStyle is not based on another one, then nothing happens.
+     * Handles the inheritance of paragraph style settings. All settings that have not been modified
+     * will be inherited from the base RtfParagraphStyle. If this RtfParagraphStyle is not based on
+     * another one, then nothing happens.
      */
     public void handleInheritance() {
-        if(this.basedOnName != null && this.document.getDocumentHeader().getRtfParagraphStyle(this.basedOnName) != null) {
+        if (this.basedOnName != null
+                && this.document.getDocumentHeader().getRtfParagraphStyle(this.basedOnName) != null) {
             this.baseStyle = this.document.getDocumentHeader().getRtfParagraphStyle(this.basedOnName);
             this.baseStyle.handleInheritance();
-            if(!((this.modified & MODIFIED_ALIGNMENT) == MODIFIED_ALIGNMENT)) {
+            if (!((this.modified & MODIFIED_ALIGNMENT) == MODIFIED_ALIGNMENT)) {
                 this.alignment = this.baseStyle.getAlignment();
             }
-            if(!((this.modified & MODIFIED_INDENT_LEFT) == MODIFIED_INDENT_LEFT)) {
+            if (!((this.modified & MODIFIED_INDENT_LEFT) == MODIFIED_INDENT_LEFT)) {
                 this.indentLeft = this.baseStyle.getIndentLeft();
             }
-            if(!((this.modified & MODIFIED_INDENT_RIGHT) == MODIFIED_INDENT_RIGHT)) {
+            if (!((this.modified & MODIFIED_INDENT_RIGHT) == MODIFIED_INDENT_RIGHT)) {
                 this.indentRight = this.baseStyle.getIndentRight();
             }
-            if(!((this.modified & MODIFIED_SPACING_BEFORE) == MODIFIED_SPACING_BEFORE)) {
+            if (!((this.modified & MODIFIED_SPACING_BEFORE) == MODIFIED_SPACING_BEFORE)) {
                 this.spacingBefore = this.baseStyle.getSpacingBefore();
             }
-            if(!((this.modified & MODIFIED_SPACING_AFTER) == MODIFIED_SPACING_AFTER)) {
+            if (!((this.modified & MODIFIED_SPACING_AFTER) == MODIFIED_SPACING_AFTER)) {
                 this.spacingAfter = this.baseStyle.getSpacingAfter();
             }
-            if(!((this.modified & MODIFIED_FONT_NAME) == MODIFIED_FONT_NAME)) {
+            if (!((this.modified & MODIFIED_FONT_NAME) == MODIFIED_FONT_NAME)) {
                 setFontName(this.baseStyle.getFontName());
             }
-            if(!((this.modified & MODIFIED_FONT_SIZE) == MODIFIED_FONT_SIZE)) {
+            if (!((this.modified & MODIFIED_FONT_SIZE) == MODIFIED_FONT_SIZE)) {
                 setSize(this.baseStyle.getFontSize());
             }
-            if(!((this.modified & MODIFIED_FONT_STYLE) == MODIFIED_FONT_STYLE)) {
+            if (!((this.modified & MODIFIED_FONT_STYLE) == MODIFIED_FONT_STYLE)) {
                 setStyle(this.baseStyle.getFontStyle());
             }
-            if(!((this.modified & MODIFIED_FONT_COLOR) == MODIFIED_FONT_COLOR)) {
+            if (!((this.modified & MODIFIED_FONT_COLOR) == MODIFIED_FONT_COLOR)) {
                 setColor(this.baseStyle.getColor());
             }
-            if(!((this.modified & MODIFIED_LINE_LEADING) == MODIFIED_LINE_LEADING)) {
+            if (!((this.modified & MODIFIED_LINE_LEADING) == MODIFIED_LINE_LEADING)) {
                 setLineLeading(this.baseStyle.getLineLeading());
             }
-            if(!((this.modified & MODIFIED_KEEP_TOGETHER) == MODIFIED_KEEP_TOGETHER)) {
+            if (!((this.modified & MODIFIED_KEEP_TOGETHER) == MODIFIED_KEEP_TOGETHER)) {
                 setKeepTogether(this.baseStyle.getKeepTogether());
             }
-            if(!((this.modified & MODIFIED_KEEP_TOGETHER_WITH_NEXT) == MODIFIED_KEEP_TOGETHER_WITH_NEXT)) {
+            if (!((this.modified & MODIFIED_KEEP_TOGETHER_WITH_NEXT) == MODIFIED_KEEP_TOGETHER_WITH_NEXT)) {
                 setKeepTogetherWithNext(this.baseStyle.getKeepTogetherWithNext());
             }
         }
@@ -602,10 +552,10 @@ public class RtfParagraphStyle extends RtfFont {
      * @throws IOException On i/o errors.
      */
     private void writeParagraphSettings(OutputStream result) throws IOException {
-        if(this.keepTogether) {
+        if (this.keepTogether) {
             result.write(KEEP_TOGETHER);
         }
-        if(this.keepTogetherWithNext) {
+        if (this.keepTogetherWithNext) {
             result.write(KEEP_TOGETHER_WITH_NEXT);
         }
         switch (alignment) {
@@ -629,25 +579,22 @@ public class RtfParagraphStyle extends RtfFont {
         result.write(intToByteArray(indentLeft));
         result.write(INDENT_RIGHT);
         result.write(intToByteArray(indentRight));
-        if(this.spacingBefore > 0) {
+        if (this.spacingBefore > 0) {
             result.write(SPACING_BEFORE);
             result.write(intToByteArray(this.spacingBefore));
         }
-        if(this.spacingAfter > 0) {
+        if (this.spacingAfter > 0) {
             result.write(SPACING_AFTER);
             result.write(intToByteArray(this.spacingAfter));
         }
-        if(this.lineLeading > 0) {
+        if (this.lineLeading > 0) {
             result.write(RtfParagraph.LINE_SPACING);
             result.write(intToByteArray(this.lineLeading));
         }
     }
 
-    /**
-     * Writes the definition of this RtfParagraphStyle for the stylesheet list.
-     */
-    public void writeDefinition(OutputStream result) throws IOException
-    {
+    /** Writes the definition of this RtfParagraphStyle for the stylesheet list. */
+    public void writeDefinition(OutputStream result) throws IOException {
         result.write(DocWriter.getISOBytes("{"));
         result.write(DocWriter.getISOBytes("\\style"));
         result.write(DocWriter.getISOBytes("\\s"));
@@ -659,7 +606,7 @@ public class RtfParagraphStyle extends RtfFont {
         result.write(DocWriter.getISOBytes(this.styleName));
         result.write(DocWriter.getISOBytes(";"));
         result.write(DocWriter.getISOBytes("}"));
-        this.document.outputDebugLinebreak(result);   	
+        this.document.outputDebugLinebreak(result);
     }
 
     /**
@@ -680,31 +627,21 @@ public class RtfParagraphStyle extends RtfFont {
      * @param result The <code>OutputStream</code> that nothing is written to
      * @throws IOException On i/o errors.
      */
-    public void writeEnd(OutputStream result) throws IOException {
-    }
+    public void writeEnd(OutputStream result) throws IOException {}
 
-    /**
-     * unused
-     */
-    public void writeContent(OutputStream out) throws IOException
-    {    	
-    }
+    /** unused */
+    public void writeContent(OutputStream out) throws IOException {}
 
-    /**
-     * Tests whether two RtfParagraphStyles are equal. Equality
-     * is determined via the name.
-     */
+    /** Tests whether two RtfParagraphStyles are equal. Equality is determined via the name. */
     public boolean equals(Object o) {
-        if(!(o instanceof RtfParagraphStyle)) {
+        if (!(o instanceof RtfParagraphStyle)) {
             return false;
         }
         RtfParagraphStyle paragraphStyle = (RtfParagraphStyle) o;
         return this.getStyleName().equals(paragraphStyle.getStyleName());
     }
 
-    /**
-     * Gets the hash code of this RtfParagraphStyle.
-     */
+    /** Gets the hash code of this RtfParagraphStyle. */
     public int hashCode() {
         return this.styleName.hashCode();
     }

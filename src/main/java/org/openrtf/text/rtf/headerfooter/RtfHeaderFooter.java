@@ -51,8 +51,6 @@ package org.openrtf.text.rtf.headerfooter;
 
 import java.io.IOException;
 import java.io.OutputStream;
-
-import org.openpdf.text.alignment.HorizontalAlignment;
 import org.openpdf.text.DocWriter;
 import org.openpdf.text.DocumentException;
 import org.openpdf.text.Element;
@@ -61,14 +59,13 @@ import org.openpdf.text.Image;
 import org.openpdf.text.Paragraph;
 import org.openpdf.text.Phrase;
 import org.openpdf.text.Table;
+import org.openpdf.text.alignment.HorizontalAlignment;
 import org.openrtf.text.rtf.RtfBasicElement;
 import org.openrtf.text.rtf.document.RtfDocument;
 import org.openrtf.text.rtf.field.RtfPageNumber;
 
-
 /**
- * The RtfHeaderFooter represents one header or footer. This class can be used
- * directly.
+ * The RtfHeaderFooter represents one header or footer. This class can be used directly.
  *
  * @version $Id: RtfHeaderFooter.java 3580 2008-08-06 15:52:00Z howard_s $
  * @author Mark Hall (Mark.Hall@mail.room3b.eu)
@@ -76,79 +73,60 @@ import org.openrtf.text.rtf.field.RtfPageNumber;
  */
 public class RtfHeaderFooter extends HeaderFooter implements RtfBasicElement {
 
-    /**
-     * Constant for the header type
-     */
+    /** Constant for the header type */
     public static final int TYPE_HEADER = 1;
-    /**
-     * Constant for the footer type
-     */
+
+    /** Constant for the footer type */
     public static final int TYPE_FOOTER = 2;
-    /**
-     * Constant for displaying the header/footer on the first page
-     */
+
+    /** Constant for displaying the header/footer on the first page */
     public static final int DISPLAY_FIRST_PAGE = 0;
-    /**
-     * Constant for displaying the header/footer on all pages
-     */
+
+    /** Constant for displaying the header/footer on all pages */
     public static final int DISPLAY_ALL_PAGES = 1;
-    /**
-     * Constant for displaying the header/footer on all left hand pages
-     */
+
+    /** Constant for displaying the header/footer on all left hand pages */
     public static final int DISPLAY_LEFT_PAGES = 2;
-    /**
-     * Constant for displaying the header/footer on all right hand pages
-     */
+
+    /** Constant for displaying the header/footer on all right hand pages */
     public static final int DISPLAY_RIGHT_PAGES = 4;
 
-    /**
-     * Constant for a header on all pages
-     */
+    /** Constant for a header on all pages */
     private static final byte[] HEADER_ALL = DocWriter.getISOBytes("\\header");
-    /**
-     * Constant for a header on the first page
-     */
+
+    /** Constant for a header on the first page */
     private static final byte[] HEADER_FIRST = DocWriter.getISOBytes("\\headerf");
-    /**
-     * Constant for a header on all left hand pages
-     */
+
+    /** Constant for a header on all left hand pages */
     private static final byte[] HEADER_LEFT = DocWriter.getISOBytes("\\headerl");
-    /**
-     * Constant for a header on all right hand pages
-     */
+
+    /** Constant for a header on all right hand pages */
     private static final byte[] HEADER_RIGHT = DocWriter.getISOBytes("\\headerr");
-    /**
-     * Constant for a footer on all pages
-     */
+
+    /** Constant for a footer on all pages */
     private static final byte[] FOOTER_ALL = DocWriter.getISOBytes("\\footer");
-    /**
-     * Constant for a footer on the first page
-     */
+
+    /** Constant for a footer on the first page */
     private static final byte[] FOOTER_FIRST = DocWriter.getISOBytes("\\footerf");
-    /**
-     * Constant for a footer on the left hand pages
-     */
+
+    /** Constant for a footer on the left hand pages */
     private static final byte[] FOOTER_LEFT = DocWriter.getISOBytes("\\footerl");
-    /**
-     * Constant for a footer on the right hand pages
-     */
+
+    /** Constant for a footer on the right hand pages */
     private static final byte[] FOOTER_RIGHT = DocWriter.getISOBytes("\\footerr");
 
-    /**
-     * The RtfDocument this RtfHeaderFooter belongs to
-     */
+    /** The RtfDocument this RtfHeaderFooter belongs to */
     private RtfDocument document = null;
-    /**
-     * The content of this RtfHeaderFooter
-     */
+
+    /** The content of this RtfHeaderFooter */
     private Object[] content = null;
-    /**
-     * The display type of this RtfHeaderFooter. TYPE_HEADER or TYPE_FOOTER
-     */
+
+    /** The display type of this RtfHeaderFooter. TYPE_HEADER or TYPE_FOOTER */
     private int type = TYPE_HEADER;
+
     /**
-     * The display location of this RtfHeaderFooter. DISPLAY_FIRST_PAGE,
-     * DISPLAY_LEFT_PAGES, DISPLAY_RIGHT_PAGES or DISPLAY_ALL_PAGES
+     * The display location of this RtfHeaderFooter. DISPLAY_FIRST_PAGE, DISPLAY_LEFT_PAGES,
+     * DISPLAY_RIGHT_PAGES or DISPLAY_ALL_PAGES
      */
     private int displayAt = DISPLAY_ALL_PAGES;
 
@@ -179,20 +157,19 @@ public class RtfHeaderFooter extends HeaderFooter implements RtfBasicElement {
         }
         try {
             this.content = new Object[1];
-            if(this.document != null) {
+            if (this.document != null) {
                 this.content[0] = this.document.getMapper().mapElement(par)[0];
                 ((RtfBasicElement) this.content[0]).setInHeader(true);
             } else {
                 this.content[0] = par;
             }
-        } catch(DocumentException de) {
+        } catch (DocumentException de) {
             de.printStackTrace();
         }
     }
 
     /**
-     * Constructs a RtfHeaderFooter as a copy of an existing RtfHeaderFooter.
-     * For internal use only.
+     * Constructs a RtfHeaderFooter as a copy of an existing RtfHeaderFooter. For internal use only.
      *
      * @param doc The RtfDocument this RtfHeaderFooter belongs to
      * @param headerFooter The RtfHeaderFooter to copy
@@ -203,15 +180,15 @@ public class RtfHeaderFooter extends HeaderFooter implements RtfBasicElement {
         this.document = doc;
         this.content = headerFooter.getContent();
         this.displayAt = displayAt;
-        for(int i = 0; i < this.content.length; i++) {
-            if(this.content[i] instanceof Element) {
+        for (int i = 0; i < this.content.length; i++) {
+            if (this.content[i] instanceof Element) {
                 try {
                     this.content[i] = this.document.getMapper().mapElement((Element) this.content[i])[0];
-                } catch(DocumentException de) {
+                } catch (DocumentException de) {
                     de.printStackTrace();
                 }
             }
-            if(this.content[i] instanceof RtfBasicElement) {
+            if (this.content[i] instanceof RtfBasicElement) {
                 ((RtfBasicElement) this.content[i]).setInHeader(true);
             }
         }
@@ -241,7 +218,7 @@ public class RtfHeaderFooter extends HeaderFooter implements RtfBasicElement {
             this.content = new Object[1];
             this.content[0] = doc.getMapper().mapElement(par)[0];
             ((RtfBasicElement) this.content[0]).setInHeader(true);
-        } catch(DocumentException de) {
+        } catch (DocumentException de) {
             de.printStackTrace();
         }
     }
@@ -252,7 +229,7 @@ public class RtfHeaderFooter extends HeaderFooter implements RtfBasicElement {
      * @param element The Element to display as content of this RtfHeaderFooter
      */
     public RtfHeaderFooter(Element element) {
-        this(new Element[]{element});
+        this(new Element[] {element});
     }
 
     /**
@@ -273,47 +250,44 @@ public class RtfHeaderFooter extends HeaderFooter implements RtfBasicElement {
      */
     public void setRtfDocument(RtfDocument doc) {
         this.document = doc;
-        if(this.document != null) {
-            for(int i = 0; i < this.content.length; i++) {
+        if (this.document != null) {
+            for (int i = 0; i < this.content.length; i++) {
                 try {
-                    if(this.content[i] instanceof Element) {
+                    if (this.content[i] instanceof Element) {
                         this.content[i] = this.document.getMapper().mapElement((Element) this.content[i])[0];
                         ((RtfBasicElement) this.content[i]).setInHeader(true);
-                    } else if(this.content[i] instanceof RtfBasicElement){
+                    } else if (this.content[i] instanceof RtfBasicElement) {
                         ((RtfBasicElement) this.content[i]).setRtfDocument(this.document);
                         ((RtfBasicElement) this.content[i]).setInHeader(true);
                     }
-                } catch(DocumentException de) {
+                } catch (DocumentException de) {
                     de.printStackTrace();
                 }
             }
         }
     }
 
-    /**
-     * Writes the content of this RtfHeaderFooter
-     */
-    public void writeContent(OutputStream result) throws IOException
-    {
+    /** Writes the content of this RtfHeaderFooter */
+    public void writeContent(OutputStream result) throws IOException {
         result.write(OPEN_GROUP);
-        if(this.type == TYPE_HEADER) {
-            if(this.displayAt == DISPLAY_ALL_PAGES) {
+        if (this.type == TYPE_HEADER) {
+            if (this.displayAt == DISPLAY_ALL_PAGES) {
                 result.write(HEADER_ALL);
-            } else if(this.displayAt == DISPLAY_FIRST_PAGE) {
+            } else if (this.displayAt == DISPLAY_FIRST_PAGE) {
                 result.write(HEADER_FIRST);
-            } else if(this.displayAt == DISPLAY_LEFT_PAGES) {
+            } else if (this.displayAt == DISPLAY_LEFT_PAGES) {
                 result.write(HEADER_LEFT);
-            } else if(this.displayAt == DISPLAY_RIGHT_PAGES) {
+            } else if (this.displayAt == DISPLAY_RIGHT_PAGES) {
                 result.write(HEADER_RIGHT);
             }
         } else {
-            if(this.displayAt == DISPLAY_ALL_PAGES) {
+            if (this.displayAt == DISPLAY_ALL_PAGES) {
                 result.write(FOOTER_ALL);
-            } else if(this.displayAt == DISPLAY_FIRST_PAGE) {
+            } else if (this.displayAt == DISPLAY_FIRST_PAGE) {
                 result.write(FOOTER_FIRST);
-            } else if(this.displayAt == DISPLAY_LEFT_PAGES) {
+            } else if (this.displayAt == DISPLAY_LEFT_PAGES) {
                 result.write(FOOTER_LEFT);
-            } else if(this.displayAt == DISPLAY_RIGHT_PAGES) {
+            } else if (this.displayAt == DISPLAY_RIGHT_PAGES) {
                 result.write(FOOTER_RIGHT);
             }
         }
@@ -326,7 +300,6 @@ public class RtfHeaderFooter extends HeaderFooter implements RtfBasicElement {
         }
         result.write(CLOSE_GROUP);
     }
-
 
     /**
      * Sets the display location of this RtfHeaderFooter
@@ -357,21 +330,20 @@ public class RtfHeaderFooter extends HeaderFooter implements RtfBasicElement {
 
     /**
      * Unused
+     *
      * @param inTable
      */
-    public void setInTable(boolean inTable) {
-    }
+    public void setInTable(boolean inTable) {}
 
     /**
      * Unused
+     *
      * @param inHeader
      */
-    public void setInHeader(boolean inHeader) {
-    }
+    public void setInHeader(boolean inHeader) {}
 
     /**
-     * Set the alignment of this RtfHeaderFooter. Passes the setting
-     * on to the contained element.
+     * Set the alignment of this RtfHeaderFooter. Passes the setting on to the contained element.
      */
     public void setAlignment(int alignment) {
         super.setAlignment(alignment);
@@ -379,7 +351,9 @@ public class RtfHeaderFooter extends HeaderFooter implements RtfBasicElement {
             if (o instanceof Paragraph) {
                 ((Paragraph) o).setAlignment(alignment);
             } else if (o instanceof Table) {
-                ((Table) o).setHorizontalAlignment(HorizontalAlignment.of(alignment).orElse(HorizontalAlignment.UNDEFINED));
+                ((Table) o)
+                        .setHorizontalAlignment(
+                                HorizontalAlignment.of(alignment).orElse(HorizontalAlignment.UNDEFINED));
             } else if (o instanceof Image) {
                 ((Image) o).setAlignment(alignment);
             }
