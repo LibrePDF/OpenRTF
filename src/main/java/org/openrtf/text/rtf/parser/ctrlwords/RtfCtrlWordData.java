@@ -48,100 +48,88 @@
 
 package org.openrtf.text.rtf.parser.ctrlwords;
 
-
 /**
- * The control word and parameter information as parsed by the parser.
- * Contains the control word,
- * Flag indicating if there is a parameter.
- * The parameter value as a string.
- * Flag indicating the parameter is positive or negative.
+ * The control word and parameter information as parsed by the parser. Contains the control word,
+ * Flag indicating if there is a parameter. The parameter value as a string. Flag indicating the
+ * parameter is positive or negative.
  *
  * @author Howard Shank (hgshank@yahoo.com)
  * @since 2.0.8
  */
 public class RtfCtrlWordData implements Cloneable {
-	public String prefix = "";
-	public String suffix = "";
-	/**
-	 * The control word found by the parser
-	 */
-	public String ctrlWord = "";
-	/**
-	 * Flag indicating if this keyword has a parameter.
-	 */
-	public boolean hasParam = false;
-	/**
-	 * The parameter for the control word.
-	 */
-	public String param = "";
-	/**
-	 * Flag indicating if parameter is positive or negative.
-	 */
-	public boolean isNeg = false;
-	/**
-	 * Flag indicating a new group
-	 */
-	public boolean newGroup = false;
-	/**
-	 * Flag indicating if this object has been modified.
-	 */
-	public boolean modified = false;
-	
-	public int ctrlWordType = RtfCtrlWordType.UNIDENTIFIED;
-	public String specialHandler = "";
-	
-	/**
-	 * Return the parameter value as an integer (int) value.
-	 *
-	 * @return
-	 * 		Returns the parameter value as an int vlaue.
-	 */
-	public int intValue() {
-		int value = Integer.parseInt(this.param);
-		return this.isNeg ? -value : value;
-	}
-	/**
-	 * Return the parameter value as an Integer object.
-	 *
-	 * @return
-	 * 		Returns the parameter value as an Integer object.
-	 */
-	public Integer toInteger() {
-		return intValue();
-	}
-	
+    public String prefix = "";
+    public String suffix = "";
 
-	/**
-	 *  Return the parameter value as a long value
-	 *
-	 * @return
-	 * 		Returns the parameter value as a long value
-	 */
-	public long longValue() {
-		long value = Long.parseLong(this.param);
-		return this.isNeg ? -value : value;
-	}
-	/**
-	 *  Return the parameter value as a Long object
-	 *
-	 * @return
-	 * 		Returns the parameter value as a Long object.
-	 */
-	public Long toLong() {
-		return longValue();
-	}
-	
-	public String toString() {
-		String out = this.prefix + this.ctrlWord;
-		if(this.hasParam) {
-			if(this.isNeg) out += "-";
-			out += this.param;
-		}
-		out += this.suffix;
-		return out;
-	}
-	
-	public Object clone() throws CloneNotSupportedException{
-		return super.clone();
-	}
+    /** The control word found by the parser */
+    public String ctrlWord = "";
+
+    /** Flag indicating if this keyword has a parameter. */
+    public boolean hasParam = false;
+
+    /** The parameter for the control word. */
+    public String param = "";
+
+    /** Flag indicating if parameter is positive or negative. */
+    public boolean isNeg = false;
+
+    /** Flag indicating a new group */
+    public boolean newGroup = false;
+
+    /** Flag indicating if this object has been modified. */
+    public boolean modified = false;
+
+    public int ctrlWordType = RtfCtrlWordType.UNIDENTIFIED;
+    public String specialHandler = "";
+
+    /**
+     * Return the parameter value as an integer (int) value.
+     *
+     * @return Returns the parameter value as an int vlaue.
+     */
+    public int intValue() {
+        int value = Integer.parseInt(this.param);
+        return this.isNeg ? -value : value;
+    }
+
+    /**
+     * Return the parameter value as an Integer object.
+     *
+     * @return Returns the parameter value as an Integer object.
+     */
+    public Integer toInteger() {
+        return intValue();
+    }
+
+    /**
+     * Return the parameter value as a long value
+     *
+     * @return Returns the parameter value as a long value
+     */
+    public long longValue() {
+        long value = Long.parseLong(this.param);
+        return this.isNeg ? -value : value;
+    }
+
+    /**
+     * Return the parameter value as a Long object
+     *
+     * @return Returns the parameter value as a Long object.
+     */
+    public Long toLong() {
+        return longValue();
+    }
+
+    public String toString() {
+        String out = this.prefix + this.ctrlWord;
+        if (this.hasParam) {
+            if (this.isNeg) out += "-";
+            out += this.param;
+        }
+        out += this.suffix;
+        return out;
+    }
+
+    public Object clone() throws CloneNotSupportedException {
+        return super.clone();
+    }
 }

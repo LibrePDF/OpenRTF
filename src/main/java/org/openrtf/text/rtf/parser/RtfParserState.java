@@ -49,84 +49,69 @@
 package org.openrtf.text.rtf.parser;
 
 import java.util.ArrayDeque;
-
 import org.openrtf.text.rtf.parser.destinations.RtfDestination;
 import org.openrtf.text.rtf.parser.destinations.RtfDestinationNull;
 import org.openrtf.text.rtf.parser.properties.RtfProperty;
 
 /**
- * The <code>RtfParserState</code> contains the state information
- * for the parser. The current state object is pushed/popped in a stack
- * when a group change is made.
+ * The <code>RtfParserState</code> contains the state information for the parser. The current state
+ * object is pushed/popped in a stack when a group change is made.
  *
- * When an open group is encountered, the current state is copied and
- * then pushed on the top of the stack
- * When a close group is encountered, the current state is overwritten with
- * the popped value from the top of the stack
+ * <p>When an open group is encountered, the current state is copied and then pushed on the top of
+ * the stack When a close group is encountered, the current state is overwritten with the popped
+ * value from the top of the stack
  *
  * @author Howard Shank (hgshank@yahoo.com)
  * @since 2.0.8
  */
 public class RtfParserState {
-	/**
-	 * The parser state.
-	 */
-	public int parserState = RtfParser.PARSER_IN_UNKNOWN;
-	/**
-	 * The tokeniser state.
-	 */
-	public int tokeniserState = RtfParser.TOKENISER_STATE_IN_UNKOWN;
-	/**
-	 * The control word set as the group handler.
-	 */
-	public Object groupHandler = null;
-	/**
-	 * The parsed value for the current group/control word.
-	 */
-	public final StringBuilder text = new StringBuilder();
-	/**
-	 * Stack containing control word handlers. There could be multiple
-	 * control words in a group.
-	 */
-	public final ArrayDeque<Object> ctrlWordHandlers = new ArrayDeque<>();
-	/**
-	 * The current control word handler.
-	 */
-	public Object ctrlWordHandler = null;
-	/**
-	 * The current destination.
-	 */
-	public RtfDestination destination;
-	/**
-	 * Flag indicating if this is an extended destination \* control word
-	 */
-	public boolean isExtendedDestination = false;
-	/**
-	 * Flag to indicate if last token was an open group token '{'
-	 */
-	public boolean newGroup;
-	
-	public final RtfProperty properties;
-	/**
-	 * Default constructor
-	 *
-	 */
-	public RtfParserState() {
-		this.properties = new RtfProperty();
-		this.destination = RtfDestinationNull.getInstance();
-		this.newGroup = false;
-	}
-	/**
-	 * Copy constructor
-	 * @param orig The object to copy
-	 */
-	public RtfParserState(RtfParserState orig) {
-		this.properties = orig.properties;
-		this.parserState = orig.parserState;
-		this.tokeniserState = orig.tokeniserState;
-		this.groupHandler = null;
-		this.destination = orig.destination;
-		this.newGroup = false;
-	}
-	
+    /** The parser state. */
+    public int parserState = RtfParser.PARSER_IN_UNKNOWN;
+
+    /** The tokeniser state. */
+    public int tokeniserState = RtfParser.TOKENISER_STATE_IN_UNKOWN;
+
+    /** The control word set as the group handler. */
+    public Object groupHandler = null;
+
+    /** The parsed value for the current group/control word. */
+    public final StringBuilder text = new StringBuilder();
+
+    /** Stack containing control word handlers. There could be multiple control words in a group. */
+    public final ArrayDeque<Object> ctrlWordHandlers = new ArrayDeque<>();
+
+    /** The current control word handler. */
+    public Object ctrlWordHandler = null;
+
+    /** The current destination. */
+    public RtfDestination destination;
+
+    /** Flag indicating if this is an extended destination \* control word */
+    public boolean isExtendedDestination = false;
+
+    /** Flag to indicate if last token was an open group token '{' */
+    public boolean newGroup;
+
+    public final RtfProperty properties;
+
+    /** Default constructor */
+    public RtfParserState() {
+        this.properties = new RtfProperty();
+        this.destination = RtfDestinationNull.getInstance();
+        this.newGroup = false;
+    }
+
+    /**
+     * Copy constructor
+     *
+     * @param orig The object to copy
+     */
+    public RtfParserState(RtfParserState orig) {
+        this.properties = orig.properties;
+        this.parserState = orig.parserState;
+        this.tokeniserState = orig.tokeniserState;
+        this.groupHandler = null;
+        this.destination = orig.destination;
+        this.newGroup = false;
+    }
 }

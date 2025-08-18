@@ -54,15 +54,12 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.openpdf.text.Rectangle;
 import org.openrtf.text.rtf.RtfElement;
 import org.openrtf.text.rtf.document.RtfDocument;
 
-
 /**
- * The RtfBorderGroup represents a collection of RtfBorders to use in a RtfCell
- * or RtfTable.
+ * The RtfBorderGroup represents a collection of RtfBorders to use in a RtfCell or RtfTable.
  *
  * @version $Id: RtfBorderGroup.java 3427 2008-05-24 18:32:31Z xlv $
  * @author Mark Hall (Mark.Hall@mail.room3b.eu)
@@ -70,18 +67,15 @@ import org.openrtf.text.rtf.document.RtfDocument;
  */
 public class RtfBorderGroup extends RtfElement {
     /**
-     * The type of borders this RtfBorderGroup contains.
-     * RtfBorder.ROW_BORDER or RtfBorder.CELL_BORDER
+     * The type of borders this RtfBorderGroup contains. RtfBorder.ROW_BORDER or
+     * RtfBorder.CELL_BORDER
      */
     private int borderType = RtfBorder.ROW_BORDER;
-    /**
-     * The borders in this RtfBorderGroup
-     */
+
+    /** The borders in this RtfBorderGroup */
     private final Map<Integer, RtfBorder> borders = new HashMap<>();
 
-    /**
-     * Constructs an empty RtfBorderGroup.
-     */
+    /** Constructs an empty RtfBorderGroup. */
     public RtfBorderGroup() {
         super(null);
     }
@@ -89,7 +83,8 @@ public class RtfBorderGroup extends RtfElement {
     /**
      * Constructs a RtfBorderGroup with on border style for multiple borders.
      *
-     * @param bordersToAdd The borders to add (Rectangle.LEFT, Rectangle.RIGHT, Rectangle.TOP, Rectangle.BOTTOM, Rectangle.BOX)
+     * @param bordersToAdd The borders to add (Rectangle.LEFT, Rectangle.RIGHT, Rectangle.TOP,
+     *     Rectangle.BOTTOM, Rectangle.BOX)
      * @param borderStyle The style of border to add (from RtfBorder)
      * @param borderWidth The border width to use
      * @param borderColor The border color to use
@@ -109,7 +104,7 @@ public class RtfBorderGroup extends RtfElement {
     protected RtfBorderGroup(RtfDocument doc, int borderType, RtfBorderGroup borderGroup) {
         super(doc);
         this.borderType = borderType;
-        if(borderGroup != null) {
+        if (borderGroup != null) {
             for (Map.Entry<Integer, RtfBorder> entry : borderGroup.getBorders().entrySet()) {
                 this.borders.put(entry.getKey(), new RtfBorder(this.document, this.borderType, entry.getValue()));
             }
@@ -121,7 +116,8 @@ public class RtfBorderGroup extends RtfElement {
      *
      * @param doc The RtfDocument this RtfBorderGroup belongs to
      * @param borderType The type of borders this RtfBorderGroup contains
-     * @param bordersToUse The borders to add (Rectangle.LEFT, Rectangle.RIGHT, Rectangle.TOP, Rectangle.BOTTOM, Rectangle.BOX)
+     * @param bordersToUse The borders to add (Rectangle.LEFT, Rectangle.RIGHT, Rectangle.TOP,
+     *     Rectangle.BOTTOM, Rectangle.BOX)
      * @param borderWidth The border width to use
      * @param borderColor The border color to use
      */
@@ -140,32 +136,34 @@ public class RtfBorderGroup extends RtfElement {
      * @param borderColor The border color to use
      */
     private void setBorder(int borderPosition, int borderStyle, float borderWidth, Color borderColor) {
-        RtfBorder border = new RtfBorder(this.document, this.borderType, borderPosition, borderStyle, borderWidth, borderColor);
+        RtfBorder border =
+                new RtfBorder(this.document, this.borderType, borderPosition, borderStyle, borderWidth, borderColor);
         this.borders.put(borderPosition, border);
     }
 
     /**
      * Adds borders to the RtfBorderGroup
      *
-     * @param bordersToAdd The borders to add (Rectangle.LEFT, Rectangle.RIGHT, Rectangle.TOP, Rectangle.BOTTOM, Rectangle.BOX)
+     * @param bordersToAdd The borders to add (Rectangle.LEFT, Rectangle.RIGHT, Rectangle.TOP,
+     *     Rectangle.BOTTOM, Rectangle.BOX)
      * @param borderStyle The style of border to add (from RtfBorder)
      * @param borderWidth The border width to use
      * @param borderColor The border color to use
      */
     public void addBorder(int bordersToAdd, int borderStyle, float borderWidth, Color borderColor) {
-        if((bordersToAdd & Rectangle.LEFT) == Rectangle.LEFT) {
+        if ((bordersToAdd & Rectangle.LEFT) == Rectangle.LEFT) {
             setBorder(RtfBorder.LEFT_BORDER, borderStyle, borderWidth, borderColor);
         }
-        if((bordersToAdd & Rectangle.TOP) == Rectangle.TOP) {
+        if ((bordersToAdd & Rectangle.TOP) == Rectangle.TOP) {
             setBorder(RtfBorder.TOP_BORDER, borderStyle, borderWidth, borderColor);
         }
-        if((bordersToAdd & Rectangle.RIGHT) == Rectangle.RIGHT) {
+        if ((bordersToAdd & Rectangle.RIGHT) == Rectangle.RIGHT) {
             setBorder(RtfBorder.RIGHT_BORDER, borderStyle, borderWidth, borderColor);
         }
-        if((bordersToAdd & Rectangle.BOTTOM) == Rectangle.BOTTOM) {
+        if ((bordersToAdd & Rectangle.BOTTOM) == Rectangle.BOTTOM) {
             setBorder(RtfBorder.BOTTOM_BORDER, borderStyle, borderWidth, borderColor);
         }
-        if((bordersToAdd & Rectangle.BOX) == Rectangle.BOX && this.borderType == RtfBorder.ROW_BORDER) {
+        if ((bordersToAdd & Rectangle.BOX) == Rectangle.BOX && this.borderType == RtfBorder.ROW_BORDER) {
             setBorder(RtfBorder.VERTICAL_BORDER, borderStyle, borderWidth, borderColor);
             setBorder(RtfBorder.HORIZONTAL_BORDER, borderStyle, borderWidth, borderColor);
         }
@@ -177,29 +175,26 @@ public class RtfBorderGroup extends RtfElement {
      * @param bordersToRemove The borders to remove (from Rectangle)
      */
     public void removeBorder(int bordersToRemove) {
-        if((bordersToRemove & Rectangle.LEFT) == Rectangle.LEFT) {
+        if ((bordersToRemove & Rectangle.LEFT) == Rectangle.LEFT) {
             this.borders.remove(RtfBorder.LEFT_BORDER);
         }
-        if((bordersToRemove & Rectangle.TOP) == Rectangle.TOP) {
+        if ((bordersToRemove & Rectangle.TOP) == Rectangle.TOP) {
             this.borders.remove(RtfBorder.TOP_BORDER);
         }
-        if((bordersToRemove & Rectangle.RIGHT) == Rectangle.RIGHT) {
+        if ((bordersToRemove & Rectangle.RIGHT) == Rectangle.RIGHT) {
             this.borders.remove(RtfBorder.RIGHT_BORDER);
         }
-        if((bordersToRemove & Rectangle.BOTTOM) == Rectangle.BOTTOM) {
+        if ((bordersToRemove & Rectangle.BOTTOM) == Rectangle.BOTTOM) {
             this.borders.remove(RtfBorder.BOTTOM_BORDER);
         }
-        if((bordersToRemove & Rectangle.BOX) == Rectangle.BOX && this.borderType == RtfBorder.ROW_BORDER) {
+        if ((bordersToRemove & Rectangle.BOX) == Rectangle.BOX && this.borderType == RtfBorder.ROW_BORDER) {
             this.borders.remove(RtfBorder.VERTICAL_BORDER);
             this.borders.remove(RtfBorder.HORIZONTAL_BORDER);
         }
     }
 
-    /**
-     * Writes the borders of this RtfBorderGroup
-     */
-    public void writeContent(OutputStream result) throws IOException
-    {
+    /** Writes the borders of this RtfBorderGroup */
+    public void writeContent(OutputStream result) throws IOException {
         for (RtfBorder rtfBorder : this.borders.values()) {
             rtfBorder.writeContent(result);
         }

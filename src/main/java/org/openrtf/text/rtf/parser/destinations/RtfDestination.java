@@ -50,199 +50,196 @@ package org.openrtf.text.rtf.parser.destinations;
 
 import java.util.ArrayList;
 import java.util.List;
-
 import org.openrtf.text.rtf.parser.RtfParser;
 import org.openrtf.text.rtf.parser.ctrlwords.RtfCtrlWordData;
 
- /**
-  * <code>RtfDestination</code> is the base class for destinations according
-  * to the RTF Specification. All destinations must extend from this class.
-  *
-  * @author Howard Shank (hgshank@yahoo.com
-  *
-  * @since 2.0.8
-  */
+/**
+ * <code>RtfDestination</code> is the base class for destinations according to the RTF
+ * Specification. All destinations must extend from this class.
+ *
+ * @author Howard Shank (hgshank@yahoo.com
+ * @since 2.0.8
+ */
 public abstract class RtfDestination {
-	/** Parser object */
-	protected RtfParser rtfParser;
-	
-	/** Is data in destination modified? */
-	protected boolean modified = false;
+    /** Parser object */
+    protected RtfParser rtfParser;
 
-	/** The last control word handled by this destination */
-	protected RtfCtrlWordData lastCtrlWord = null;
+    /** Is data in destination modified? */
+    protected boolean modified = false;
 
-     /** The <code>RtfDestinationListener</code>. */
+    /** The last control word handled by this destination */
+    protected RtfCtrlWordData lastCtrlWord = null;
+
+    /** The <code>RtfDestinationListener</code>. */
     private static final List<RtfDestinationListener> listeners = new ArrayList<>();
 
-	/**
-	 * Constructor.
-	 */
+    /** Constructor. */
     public RtfDestination() {
-		rtfParser = null;
-	}
-	/**
-	 * Constructor
-	 * @param parser <code>RtfParser</code> object.
-	 */
-	public RtfDestination(RtfParser parser) {
-		this.rtfParser = parser;
-	}
-	/**
-	 * Set the parser to use with the RtfDestination object.
-	 *
-	 * @param parser The RtfParser object.
-	 */
-	public void setParser(RtfParser parser) {
-		if(this.rtfParser != null && this.rtfParser.equals(parser)) return;
-		this.rtfParser = parser;
-	}
-	/**
-	 * Clean up when destination is closed.
-	 * @return true if handled, false if not handled
-	 */
-	public abstract boolean closeDestination();
-	/**
-	 * Handle a new subgroup contained within this group
-	 * @return true if handled, false if not handled
-	 */
-	public abstract boolean handleOpeningSubGroup();
-	/**
-	 * Clean up when group is closed.
-	 * @return true if handled, false if not handled
-	 */
-	public abstract boolean handleCloseGroup();
+        rtfParser = null;
+    }
 
-	/**
-	 * Setup when group is opened.
-	 * @return true if handled, false if not handled
-	 */
-	public abstract boolean handleOpenGroup();
-	/**
-	 * Handle text for this destination
-	 * @return true if handled, false if not handled
-	 */
-	public abstract boolean handleCharacter(int ch);
-	/**
-	 * Handle control word for this destination
-	 * @param ctrlWordData The control word and parameter information object
-	 * @return true if handled, false if not handled
-	 */
-	public abstract boolean handleControlWord(RtfCtrlWordData ctrlWordData);
-	/**
-	 * Method to set this object to the default values. Must be implemented in child class.
-	 */
-	public abstract void setToDefaults();
+    /**
+     * Constructor
+     *
+     * @param parser <code>RtfParser</code> object.
+     */
+    public RtfDestination(RtfParser parser) {
+        this.rtfParser = parser;
+    }
 
-	/**
-	 * Method to indicate if data in this destination has changed.
-	 * @return true if modified, false if not modified.
-	 */
-	public boolean isModified() {
-		return modified;
-	}
+    /**
+     * Set the parser to use with the RtfDestination object.
+     *
+     * @param parser The RtfParser object.
+     */
+    public void setParser(RtfParser parser) {
+        if (this.rtfParser != null && this.rtfParser.equals(parser)) return;
+        this.rtfParser = parser;
+    }
 
-	// listener methods
+    /**
+     * Clean up when destination is closed.
+     *
+     * @return true if handled, false if not handled
+     */
+    public abstract boolean closeDestination();
 
-	/**
-	 * Adds a <CODE>RtfDestinationListener</CODE> to the <CODE>RtfDestinationMgr</CODE>.
-	 *
-	 * @param listener
-	 *            the new RtfDestinationListener.
-	 */
-	public boolean addListener(RtfDestinationListener listener) {
-		return listeners.add(listener);
-	}
+    /**
+     * Handle a new subgroup contained within this group
+     *
+     * @return true if handled, false if not handled
+     */
+    public abstract boolean handleOpeningSubGroup();
 
-	/**
-	 * Removes a <CODE>RtfDestinationListener</CODE> from the <CODE>RtfDestinationMgr</CODE>.
-	 *
-	 * @param listener
-	 *            the RtfCtrlWordListener that has to be removed.
-	 */
-	public boolean removeListener(RtfDestinationListener listener) {
-		return listeners.remove(listener);
-	}
-	
-	protected RtfCtrlWordData beforeCtrlWord(RtfCtrlWordData ctrlWordData) {
-		for (RtfDestinationListener listener : listeners) {
-			listener.beforeCtrlWord(ctrlWordData);
-		}
-		return null;
-	}
-	/**
-	 *
-	 */
-	protected  RtfCtrlWordData onCtrlWord(RtfCtrlWordData ctrlWordData){
-		for (RtfDestinationListener listener : listeners) {
-			listener.onCtrlWord(ctrlWordData);
-		}
-		return null;
-	}
+    /**
+     * Clean up when group is closed.
+     *
+     * @return true if handled, false if not handled
+     */
+    public abstract boolean handleCloseGroup();
 
-	/**
-	 *
-	 */
-	protected  RtfCtrlWordData afterCtrlWord(RtfCtrlWordData ctrlWordData){
-		for (RtfDestinationListener listener : listeners) {
-			listener.afterCtrlWord(ctrlWordData);
-		}
-		return null;
-	}
+    /**
+     * Setup when group is opened.
+     *
+     * @return true if handled, false if not handled
+     */
+    public abstract boolean handleOpenGroup();
 
-	/**
-	 *
-	 */
-	protected  int beforeCharacter(int ch){
-		for (RtfDestinationListener listener : listeners) {
-			listener.beforeCharacter(ch);
-		}
-		return 0;
-	}
+    /**
+     * Handle text for this destination
+     *
+     * @return true if handled, false if not handled
+     */
+    public abstract boolean handleCharacter(int ch);
 
-	/**
-	 *
-	 */
-	protected  int onCharacter(int ch){
-		for (RtfDestinationListener listener : listeners) {
-			listener.onCharacter(ch);
-		}
-		return 0;
-	}
+    /**
+     * Handle control word for this destination
+     *
+     * @param ctrlWordData The control word and parameter information object
+     * @return true if handled, false if not handled
+     */
+    public abstract boolean handleControlWord(RtfCtrlWordData ctrlWordData);
 
-	/**
-	 *
-	 */
-	protected  int afterCharacter(int ch){
-		for (RtfDestinationListener listener : listeners) {
-			listener.afterCharacter(ch);
-		}
-		return 0;
-	}
+    /** Method to set this object to the default values. Must be implemented in child class. */
+    public abstract void setToDefaults();
 
-	/**
-	 *
-	 * @return true if all goes well
-	 */
-	protected  boolean onOpenGroup(){
-		for (RtfDestinationListener listener : listeners) {
-			listener.onOpenGroup();
-		}
-		return true;
-	}
+    /**
+     * Method to indicate if data in this destination has changed.
+     *
+     * @return true if modified, false if not modified.
+     */
+    public boolean isModified() {
+        return modified;
+    }
 
-	/**
-	 *
-	 * @return true if all goes well
-	 */
-	protected  boolean onCloseGroup(){
-		for (RtfDestinationListener listener : listeners) {
-			listener.onCloseGroup();
-		}
-		return true;
-	}
-	
-	public int getNewTokeniserState() {
-		return RtfParser.TOKENISER_IGNORE_RESULT;
-	}
+    // listener methods
+
+    /**
+     * Adds a <CODE>RtfDestinationListener</CODE> to the <CODE>RtfDestinationMgr</CODE>.
+     *
+     * @param listener the new RtfDestinationListener.
+     */
+    public boolean addListener(RtfDestinationListener listener) {
+        return listeners.add(listener);
+    }
+
+    /**
+     * Removes a <CODE>RtfDestinationListener</CODE> from the <CODE>RtfDestinationMgr</CODE>.
+     *
+     * @param listener the RtfCtrlWordListener that has to be removed.
+     */
+    public boolean removeListener(RtfDestinationListener listener) {
+        return listeners.remove(listener);
+    }
+
+    protected RtfCtrlWordData beforeCtrlWord(RtfCtrlWordData ctrlWordData) {
+        for (RtfDestinationListener listener : listeners) {
+            listener.beforeCtrlWord(ctrlWordData);
+        }
+        return null;
+    }
+
+    /** */
+    protected RtfCtrlWordData onCtrlWord(RtfCtrlWordData ctrlWordData) {
+        for (RtfDestinationListener listener : listeners) {
+            listener.onCtrlWord(ctrlWordData);
+        }
+        return null;
+    }
+
+    /** */
+    protected RtfCtrlWordData afterCtrlWord(RtfCtrlWordData ctrlWordData) {
+        for (RtfDestinationListener listener : listeners) {
+            listener.afterCtrlWord(ctrlWordData);
+        }
+        return null;
+    }
+
+    /** */
+    protected int beforeCharacter(int ch) {
+        for (RtfDestinationListener listener : listeners) {
+            listener.beforeCharacter(ch);
+        }
+        return 0;
+    }
+
+    /** */
+    protected int onCharacter(int ch) {
+        for (RtfDestinationListener listener : listeners) {
+            listener.onCharacter(ch);
+        }
+        return 0;
+    }
+
+    /** */
+    protected int afterCharacter(int ch) {
+        for (RtfDestinationListener listener : listeners) {
+            listener.afterCharacter(ch);
+        }
+        return 0;
+    }
+
+    /**
+     * @return true if all goes well
+     */
+    protected boolean onOpenGroup() {
+        for (RtfDestinationListener listener : listeners) {
+            listener.onOpenGroup();
+        }
+        return true;
+    }
+
+    /**
+     * @return true if all goes well
+     */
+    protected boolean onCloseGroup() {
+        for (RtfDestinationListener listener : listeners) {
+            listener.onCloseGroup();
+        }
+        return true;
+    }
+
+    public int getNewTokeniserState() {
+        return RtfParser.TOKENISER_IGNORE_RESULT;
+    }
 }

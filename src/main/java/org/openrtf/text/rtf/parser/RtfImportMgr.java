@@ -48,11 +48,9 @@
  */
 package org.openrtf.text.rtf.parser;
 
-
 import java.awt.Color;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.openpdf.text.Document;
 import org.openpdf.text.List;
 import org.openrtf.text.rtf.document.RtfDocument;
@@ -61,47 +59,35 @@ import org.openrtf.text.rtf.style.RtfColor;
 import org.openrtf.text.rtf.style.RtfFont;
 
 /**
- * The RtfImportHeader stores the document header information from
- * an RTF document that is being imported. Currently font and
- * color settings are stored. The RtfImportHeader maintains a mapping
- * from font and color numbers from the imported RTF document to
- * the RTF document that is the target of the import. This guarantees
- * that the merged document has the correct font and color settings.
- * It also handles other list based items that need mapping, for example
- * stylesheets and lists.
+ * The RtfImportHeader stores the document header information from an RTF document that is being
+ * imported. Currently font and color settings are stored. The RtfImportHeader maintains a mapping
+ * from font and color numbers from the imported RTF document to the RTF document that is the target
+ * of the import. This guarantees that the merged document has the correct font and color settings.
+ * It also handles other list based items that need mapping, for example stylesheets and lists.
  *
  * @author Mark Hall (Mark.Hall@mail.room3b.eu)
  * @author Howard Shank (hgshank@yahoo.com)
  * @since 2.1.0
  */
 public class RtfImportMgr {
-    //TODO: Add list, stylesheet, info, etc. mappings
-    /**
-     * The HashMap storing the font number mappings.
-     */
+    // TODO: Add list, stylesheet, info, etc. mappings
+    /** The HashMap storing the font number mappings. */
     private final Map<String, String> importFontMapping = new HashMap<>();
-    /**
-     * The HashMap storing the color number mappings.
-     */
-    private final Map<String, String> importColorMapping = new HashMap<>();
-    /**
-     * The HashMap storing the Stylesheet List number mappings.
-     */
-    private final Map<String, String> importStylesheetListMapping = new HashMap<>();
-    /**
-     * The HashMap storing the List number mappings.
-     */
-    private final Map<String, String> importListMapping = new HashMap<>();
-    /**
-     * The RtfDocument to get font and color numbers from.
-     */
-    private final RtfDocument rtfDoc;
-    /**
-     * The Document.
-     * Used for conversions, but not imports.
-     */
-    private final Document doc;
 
+    /** The HashMap storing the color number mappings. */
+    private final Map<String, String> importColorMapping = new HashMap<>();
+
+    /** The HashMap storing the Stylesheet List number mappings. */
+    private final Map<String, String> importStylesheetListMapping = new HashMap<>();
+
+    /** The HashMap storing the List number mappings. */
+    private final Map<String, String> importListMapping = new HashMap<>();
+
+    /** The RtfDocument to get font and color numbers from. */
+    private final RtfDocument rtfDoc;
+
+    /** The Document. Used for conversions, but not imports. */
+    private final Document doc;
 
     /**
      * Constructs a new RtfImportHeader.
@@ -114,8 +100,8 @@ public class RtfImportMgr {
     }
 
     /**
-     * Imports a font. The font name is looked up in the RtfDocumentHeader and
-     * then the mapping from original font number to actual font number is added.
+     * Imports a font. The font name is looked up in the RtfDocumentHeader and then the mapping from
+     * original font number to actual font number is added.
      *
      * @param fontNr The original font number.
      * @param fontName The font name to look up.
@@ -123,12 +109,14 @@ public class RtfImportMgr {
     public boolean importFont(String fontNr, String fontName) {
         RtfFont rtfFont = new RtfFont(fontName);
         rtfFont.setRtfDocument(this.rtfDoc);
-        this.importFontMapping.put(fontNr, Integer.toString(this.rtfDoc.getDocumentHeader().getFontNumber(rtfFont)));
+        this.importFontMapping.put(
+                fontNr, Integer.toString(this.rtfDoc.getDocumentHeader().getFontNumber(rtfFont)));
         return true;
     }
+
     /**
-     * Imports a font. The font name is looked up in the RtfDocumentHeader and
-     * then the mapping from original font number to actual font number is added.
+     * Imports a font. The font name is looked up in the RtfDocumentHeader and then the mapping from
+     * original font number to actual font number is added.
      *
      * @param fontNr The original font number.
      * @param fontName The font name to look up.
@@ -136,15 +124,16 @@ public class RtfImportMgr {
      */
     public boolean importFont(String fontNr, String fontName, int charset) {
         RtfFont rtfFont = new RtfFont(fontName);
-        if(charset>= 0)
-            rtfFont.setCharset(charset);
-            rtfFont.setRtfDocument(this.rtfDoc);
-            this.importFontMapping.put(fontNr, Integer.toString(this.rtfDoc.getDocumentHeader().getFontNumber(rtfFont)));
-            return true;
+        if (charset >= 0) rtfFont.setCharset(charset);
+        rtfFont.setRtfDocument(this.rtfDoc);
+        this.importFontMapping.put(
+                fontNr, Integer.toString(this.rtfDoc.getDocumentHeader().getFontNumber(rtfFont)));
+        return true;
     }
+
     /**
-     * Imports a font. The font name is looked up in the RtfDocumentHeader and
-     * then the mapping from original font number to actual font number is added.
+     * Imports a font. The font name is looked up in the RtfDocumentHeader and then the mapping from
+     * original font number to actual font number is added.
      *
      * @param fontNr The original font number.
      * @param fontName The font name to look up.
@@ -153,25 +142,24 @@ public class RtfImportMgr {
     public boolean importFont(String fontNr, String fontName, String fontFamily, int charset) {
         RtfFont rtfFont = new RtfFont(fontName);
 
-        if(charset>= 0)
-            rtfFont.setCharset(charset);
-        if(fontFamily != null && fontFamily.length() > 0)
-            rtfFont.setFamily(fontFamily);
+        if (charset >= 0) rtfFont.setCharset(charset);
+        if (fontFamily != null && fontFamily.length() > 0) rtfFont.setFamily(fontFamily);
         rtfFont.setRtfDocument(this.rtfDoc);
-        this.importFontMapping.put(fontNr, Integer.toString(this.rtfDoc.getDocumentHeader().getFontNumber(rtfFont)));
+        this.importFontMapping.put(
+                fontNr, Integer.toString(this.rtfDoc.getDocumentHeader().getFontNumber(rtfFont)));
         return true;
     }
+
     /**
-     * Performs the mapping from the original font number to the actual
-     * font number in the resulting RTF document. If the font number was not
-     * seen during import (thus no mapping) then 0 is returned, guaranteeing
-     * that the font number is always valid.
+     * Performs the mapping from the original font number to the actual font number in the resulting
+     * RTF document. If the font number was not seen during import (thus no mapping) then 0 is
+     * returned, guaranteeing that the font number is always valid.
      *
      * @param fontNr The font number to map.
      * @return The mapped font number.
      */
     public String mapFontNr(String fontNr) {
-        if(this.importFontMapping.containsKey(fontNr)) {
+        if (this.importFontMapping.containsKey(fontNr)) {
             return this.importFontMapping.get(fontNr);
         } else {
             return "0";
@@ -179,9 +167,8 @@ public class RtfImportMgr {
     }
 
     /**
-     * Imports a color value. The color number for the color defined
-     * by its red, green and blue values is determined and then the
-     * resulting mapping is added.
+     * Imports a color value. The color number for the color defined by its red, green and blue
+     * values is determined and then the resulting mapping is added.
      *
      * @param colorNr The original color number.
      * @param color The color to import.
@@ -192,16 +179,15 @@ public class RtfImportMgr {
     }
 
     /**
-     * Performs the mapping from the original font number to the actual font
-     * number used in the RTF document. If the color number was not
-     * seen during import (thus no mapping) then 0 is returned, guaranteeing
-     * that the color number is always valid.
+     * Performs the mapping from the original font number to the actual font number used in the RTF
+     * document. If the color number was not seen during import (thus no mapping) then 0 is
+     * returned, guaranteeing that the color number is always valid.
      *
      * @param colorNr The color number to map.
      * @return The mapped color number
      */
     public String mapColorNr(String colorNr) {
-        if(this.importColorMapping.containsKey(colorNr)) {
+        if (this.importColorMapping.containsKey(colorNr)) {
             return this.importColorMapping.get(colorNr);
         } else {
             return "0";
@@ -209,21 +195,20 @@ public class RtfImportMgr {
     }
 
     /**
-     * Imports a List value. The List number for the List defined
-     * is determined and then the resulting mapping is added.
+     * Imports a List value. The List number for the List defined is determined and then the
+     * resulting mapping is added.
      */
     public void importList(String origListNr, String newListNr) {
         this.importListMapping.put(origListNr, newListNr);
     }
 
     /**
-     * Performs the mapping from the original list number to the actual
-     * list number in the resulting RTF document. If the list number was not
-     * seen during import (thus no mapping) then null is returned. There is no
-     * guarantee of a valid list number.
+     * Performs the mapping from the original list number to the actual list number in the resulting
+     * RTF document. If the list number was not seen during import (thus no mapping) then null is
+     * returned. There is no guarantee of a valid list number.
      */
     public String mapListNr(String listNr) {
-        if(this.importListMapping.containsKey(listNr)) {
+        if (this.importListMapping.containsKey(listNr)) {
             return this.importListMapping.get(listNr);
         } else {
             return null;
@@ -231,28 +216,28 @@ public class RtfImportMgr {
     }
 
     /**
-     * Imports a stylesheet list value. The stylesheet number for the stylesheet defined
-     * is determined and then the resulting mapping is added.
+     * Imports a stylesheet list value. The stylesheet number for the stylesheet defined is
+     * determined and then the resulting mapping is added.
      */
     public boolean importStylesheetList(String listNr, List listIn) {
         RtfList rtfList = new RtfList(this.rtfDoc, listIn);
         rtfList.setRtfDocument(this.rtfDoc);
         // TODO HGS - Finish implementation of import
-        //this.importStylesheetListMapping.put(listNr, Integer.toString(this.rtfDoc.getDocumentHeader().getRtfParagraphStyle(styleName)(rtfList)));
+        // this.importStylesheetListMapping.put(listNr,
+        // Integer.toString(this.rtfDoc.getDocumentHeader().getRtfParagraphStyle(styleName)(rtfList)));
         return true;
     }
+
     /**
-     * Performs the mapping from the original stylesheet number to the actual
-     * stylesheet number in the resulting RTF document. If the stylesheet number was not
-     * seen during import (thus no mapping) then 0 is returned, guaranteeing
-     * that the stylesheet number is always valid.
+     * Performs the mapping from the original stylesheet number to the actual stylesheet number in
+     * the resulting RTF document. If the stylesheet number was not seen during import (thus no
+     * mapping) then 0 is returned, guaranteeing that the stylesheet number is always valid.
      */
     public String mapStylesheetListNr(String listNr) {
-        if(this.importStylesheetListMapping.containsKey(listNr)) {
+        if (this.importStylesheetListMapping.containsKey(listNr)) {
             return this.importStylesheetListMapping.get(listNr);
         } else {
             return "0";
         }
     }
-
 }

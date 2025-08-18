@@ -52,7 +52,6 @@ package org.openrtf.text.rtf.field;
 
 import java.io.IOException;
 import java.io.OutputStream;
-
 import org.openpdf.text.DocWriter;
 import org.openpdf.text.Font;
 import org.openrtf.text.rtf.document.RtfDocument;
@@ -67,21 +66,21 @@ import org.openrtf.text.rtf.document.RtfDocument;
  */
 public class RtfTotalPageNumber extends RtfField {
 
-    /**
-     * Constant for arabic total page numbers.
-     */
+    /** Constant for arabic total page numbers. */
     private static final byte[] ARABIC_TOTAL_PAGES = DocWriter.getISOBytes("NUMPAGES \\\\* Arabic");
 
     /**
-     * Constructs a RtfTotalPageNumber. This can be added anywhere to add a total number of pages field.
+     * Constructs a RtfTotalPageNumber. This can be added anywhere to add a total number of pages
+     * field.
      */
     public RtfTotalPageNumber() {
         super(null);
     }
 
     /**
-     * Constructs a RtfTotalPageNumber with a specified Font. This can be added anywhere
-     * to add a total number of pages field.
+     * Constructs a RtfTotalPageNumber with a specified Font. This can be added anywhere to add a
+     * total number of pages field.
+     *
      * @param font
      */
     public RtfTotalPageNumber(Font font) {
@@ -113,9 +112,8 @@ public class RtfTotalPageNumber extends RtfField {
      * @param result The <code>OutputStream</code> to write to.
      * @throws IOException on i/o errors.
      */
-    protected void writeFieldInstContent(OutputStream result) throws IOException
-    {
-    	result.write(ARABIC_TOTAL_PAGES);
+    protected void writeFieldInstContent(OutputStream result) throws IOException {
+        result.write(ARABIC_TOTAL_PAGES);
     }
 
     /**
@@ -124,8 +122,7 @@ public class RtfTotalPageNumber extends RtfField {
      * @param out The <code>OutputStream</code> to write to.
      * @throws IOException on i/o errors.
      */
-    protected void writeFieldResultContent(OutputStream out) throws IOException
-    {
-    	out.write(DocWriter.getISOBytes("1"));
+    protected void writeFieldResultContent(OutputStream out) throws IOException {
+        out.write(DocWriter.getISOBytes("1"));
     }
 }

@@ -53,12 +53,10 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.openpdf.text.DocWriter;
 import org.openrtf.text.rtf.RtfElement;
 import org.openrtf.text.rtf.RtfExtendedElement;
 import org.openrtf.text.rtf.document.RtfDocument;
-
 
 /**
  * The RtfListTable manages all RtfList objects and list override table in one RtfDocument.
@@ -68,32 +66,22 @@ import org.openrtf.text.rtf.document.RtfDocument;
  * @author Howard Shank (hgshank@yahoo.com)
  */
 public class RtfListTable extends RtfElement implements RtfExtendedElement {
-    /**
-     * Constant for the list table
-     */
+    /** Constant for the list table */
     private static final byte[] LIST_TABLE = DocWriter.getISOBytes("\\*\\listtable");
 
-    /**
-     * Constant for the list override table
-     */
+    /** Constant for the list override table */
     private static final byte[] LIST_OVERRIDE_TABLE = DocWriter.getISOBytes("\\*\\listoverridetable");
-    /**
-     * Constant for the list override
-     */
+
+    /** Constant for the list override */
     private static final byte[] LIST_OVERRIDE = DocWriter.getISOBytes("\\listoverride");
-    /**
-     * Constant for the list override count
-     */
+
+    /** Constant for the list override count */
     private static final byte[] LIST_OVERRIDE_COUNT = DocWriter.getISOBytes("\\listoverridecount");
 
-
-    /**
-     * The RtfList lists managed by this RtfListTable
-     */
+    /** The RtfList lists managed by this RtfListTable */
     private final List<RtfList> lists = new ArrayList<>();
-    /**
-     * The RtfPictureList lists managed by this RtfListTable
-     */
+
+    /** The RtfPictureList lists managed by this RtfListTable */
     private final List<RtfPictureList> picturelists = new ArrayList<>();
 
     /**
@@ -105,32 +93,25 @@ public class RtfListTable extends RtfElement implements RtfExtendedElement {
         super(doc);
     }
 
-    /**
-     * unused
-     */
-    public void writeContent(OutputStream out) throws IOException
-    {    	
-    }
+    /** unused */
+    public void writeContent(OutputStream out) throws IOException {}
 
-    /**
-     * Writes the list and list override tables.
-     */
-    public void writeDefinition(OutputStream result) throws IOException
-    {
+    /** Writes the list and list override tables. */
+    public void writeDefinition(OutputStream result) throws IOException {
         result.write(OPEN_GROUP);
         result.write(LIST_TABLE);
         this.document.outputDebugLinebreak(result);
 
         for (RtfPictureList l : picturelists) {
-//        	l.setID(document.getRandomInt());
-        	l.writeDefinition(result);
-        	this.document.outputDebugLinebreak(result);
+            //        	l.setID(document.getRandomInt());
+            l.writeDefinition(result);
+            this.document.outputDebugLinebreak(result);
         }
 
         for (RtfList l : lists) {
-        	l.setID(document.getRandomInt());
-        	l.writeDefinition(result);
-        	this.document.outputDebugLinebreak(result);
+            l.setID(document.getRandomInt());
+            l.writeDefinition(result);
+            this.document.outputDebugLinebreak(result);
         }
         result.write(CLOSE_GROUP);
         this.document.outputDebugLinebreak(result);
@@ -148,7 +129,7 @@ public class RtfListTable extends RtfElement implements RtfExtendedElement {
             result.write(RtfList.LIST_ID);
             result.write(intToByteArray(list.getID()));
             result.write(LIST_OVERRIDE_COUNT);
-            result.write(intToByteArray(0));	// is this correct? Spec says valid values are 1 or 9.
+            result.write(intToByteArray(0)); // is this correct? Spec says valid values are 1 or 9.
             result.write(RtfList.LIST_NUMBER);
             result.write(intToByteArray(list.getListNumber()));
             result.write(CLOSE_GROUP);
@@ -159,14 +140,14 @@ public class RtfListTable extends RtfElement implements RtfExtendedElement {
     }
 
     /**
-     * Gets the id of the specified RtfList. If the RtfList is not yet in the
-     * list of RtfList, then it is added.
+     * Gets the id of the specified RtfList. If the RtfList is not yet in the list of RtfList, then
+     * it is added.
      *
      * @param list The RtfList for which to get the id.
      * @return The id of the RtfList.
      */
     public int getListNumber(RtfList list) {
-        if(lists.contains(list)) {
+        if (lists.contains(list)) {
             return lists.indexOf(list);
         } else {
             lists.add(list);
@@ -181,7 +162,7 @@ public class RtfListTable extends RtfElement implements RtfExtendedElement {
      */
     public void freeListNumber(RtfList list) {
         int i = lists.indexOf(list);
-        if(i >= 0) {
+        if (i >= 0) {
             lists.remove(i);
         }
     }

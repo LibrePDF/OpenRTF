@@ -51,11 +51,9 @@ package org.openrtf.text.rtf.document;
 
 import java.io.IOException;
 import java.io.OutputStream;
-
 import org.openpdf.text.DocWriter;
 import org.openpdf.text.Document;
 import org.openrtf.text.rtf.RtfElement;
-
 
 /**
  * The RtfGenerator creates the (\*\generator ...} element.
@@ -65,9 +63,7 @@ import org.openrtf.text.rtf.RtfElement;
  * @since 2.0.8
  */
 public class RtfGenerator extends RtfElement {
-    /**
-     * Generator group starting tag
-     */
+    /** Generator group starting tag */
     private static final byte[] GENERATOR = DocWriter.getISOBytes("\\*\\generator");
 
     /**
@@ -79,18 +75,13 @@ public class RtfGenerator extends RtfElement {
         super(doc);
     }
 
-
-    /**
-     * Writes the RTF generator group.
-     */
-    public void writeContent(OutputStream result) throws IOException
-    {
-    	result.write(OPEN_GROUP);
-		result.write(GENERATOR);
-		result.write(DELIMITER);
-		result.write(DocWriter.getISOBytes(Document.getVersion()));
-		result.write(CLOSE_GROUP);
-		this.document.outputDebugLinebreak(result);
+    /** Writes the RTF generator group. */
+    public void writeContent(OutputStream result) throws IOException {
+        result.write(OPEN_GROUP);
+        result.write(GENERATOR);
+        result.write(DELIMITER);
+        result.write(DocWriter.getISOBytes(Document.getVersion()));
+        result.write(CLOSE_GROUP);
+        this.document.outputDebugLinebreak(result);
     }
-
 }

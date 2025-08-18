@@ -53,7 +53,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.Iterator;
-
 import org.openpdf.text.Element;
 import org.openpdf.text.Row;
 import org.openpdf.text.Table;
@@ -64,10 +63,8 @@ import org.openrtf.text.rtf.document.RtfDocument;
 import org.openrtf.text.rtf.style.RtfFont;
 import org.openrtf.text.rtf.text.RtfParagraph;
 
-
 /**
- * The RtfTable wraps a Table.
- * INTERNAL USE ONLY
+ * The RtfTable wraps a Table. INTERNAL USE ONLY
  *
  * @version $Id: RtfTable.java 3533 2008-07-07 21:27:13Z Howard_s $
  * @author Mark Hall (Mark.Hall@mail.room3b.eu)
@@ -77,50 +74,37 @@ import org.openrtf.text.rtf.text.RtfParagraph;
  */
 public class RtfTable extends RtfElement {
 
-    /**
-     * The rows of this RtfTable
-     */
+    /** The rows of this RtfTable */
     private ArrayList<RtfRow> rows = null;
-    /**
-     * The percentage of the page width that this RtfTable covers
-     */
+
+    /** The percentage of the page width that this RtfTable covers */
     private float tableWidthPercent = 80;
-    /**
-     * An array with the proportional widths of the cells in each row
-     */
+
+    /** An array with the proportional widths of the cells in each row */
     private float[] proportionalWidths = null;
-    /**
-     * The cell padding
-     */
+
+    /** The cell padding */
     private float cellPadding = 0;
-    /**
-     * The cell spacing
-     */
+
+    /** The cell spacing */
     private float cellSpacing = 0;
 
-    /**
-     * The border style of this RtfTable
-     */
+    /** The border style of this RtfTable */
     private RtfBorderGroup borders = null;
-    /**
-     * The alignment of this RtfTable
-     */
+
+    /** The alignment of this RtfTable */
     private int alignment = Element.ALIGN_CENTER;
-    /**
-     * Whether the cells in this RtfTable must fit in a page
-     */
+
+    /** Whether the cells in this RtfTable must fit in a page */
     private boolean cellsFitToPage = false;
-    /**
-     * Whether the whole RtfTable must fit in a page
-     */
+
+    /** Whether the whole RtfTable must fit in a page */
     private boolean tableFitToPage = false;
-    /**
-     * The number of header rows in this RtfTable
-     */
+
+    /** The number of header rows in this RtfTable */
     private int headerRows = 0;
-    /**
-     * The offset from the previous text
-     */
+
+    /** The offset from the previous text */
     private int offset = -1;
 
     /**
@@ -146,9 +130,9 @@ public class RtfTable extends RtfElement {
         super(doc);
         importTable(table);
     }
+
     /**
-     * Imports the rows and settings from the Table into this
-     * RtfTable.
+     * Imports the rows and settings from the Table into this RtfTable.
      *
      * @param table The source Table
      */
@@ -158,30 +142,30 @@ public class RtfTable extends RtfElement {
         this.proportionalWidths = table.getProportionalWidths();
         this.cellPadding = (float) (table.getPadding() * TWIPS_FACTOR);
         this.cellSpacing = (float) (table.getSpacing() * TWIPS_FACTOR);
-        this.borders = new RtfBorderGroup(this.document, RtfBorder.ROW_BORDER, table.getBorder(), table.getBorderWidth(), table.getBorderColor());
+        this.borders = new RtfBorderGroup(
+                this.document, RtfBorder.ROW_BORDER, table.getBorder(), table.getBorderWidth(), table.getBorderColor());
         this.alignment = table.getAlignment();
 
         int i = 0;
         Iterator rowIterator = table.iterator();
-        while(rowIterator.hasNext()) {
+        while (rowIterator.hasNext()) {
             this.rows.add(new RtfRow(this.document, this, (Row) rowIterator.next(), i));
             i++;
         }
-        for(i = 0; i < this.rows.size(); i++) {
+        for (i = 0; i < this.rows.size(); i++) {
             this.rows.get(i).handleCellSpanning();
             this.rows.get(i).cleanRow();
         }
         this.headerRows = table.getLastHeaderRow();
         this.cellsFitToPage = table.isCellsFitPage();
         this.tableFitToPage = table.isTableFitsPage();
-        if(!Float.isNaN(table.getOffset())) {
+        if (!Float.isNaN(table.getOffset())) {
             this.offset = (int) (table.getOffset() * 2);
         }
     }
 
     /**
-     * Imports the rows and settings from the Table into this
-     * RtfTable.
+     * Imports the rows and settings from the Table into this RtfTable.
      *
      * @param table The source PdfPTable
      * @since 2.1.3
@@ -189,50 +173,49 @@ public class RtfTable extends RtfElement {
     private void importTable(PdfPTable table) {
         this.rows = new ArrayList<>();
         this.tableWidthPercent = table.getWidthPercentage();
-//        this.tableWidthPercent = table.getWidth();
+        //        this.tableWidthPercent = table.getWidth();
         this.proportionalWidths = table.getAbsoluteWidths();
-//        this.proportionalWidths = table.getProportionalWidths();
+        //        this.proportionalWidths = table.getProportionalWidths();
         this.cellPadding = (float) (table.spacingAfter() * TWIPS_FACTOR);
-//        this.cellPadding = (float) (table.getPadding() * TWIPS_FACTOR);
+        //        this.cellPadding = (float) (table.getPadding() * TWIPS_FACTOR);
         this.cellSpacing = (float) (table.spacingAfter() * TWIPS_FACTOR);
-//        this.cellSpacing = (float) (table.getSpacing() * TWIPS_FACTOR);
-//        this.borders = new RtfBorderGroup(this.document, RtfBorder.ROW_BORDER, table.getBorder(), table.getBorderWidth(), table.getBorderColor());
-//        this.borders = new RtfBorderGroup(this.document, RtfBorder.ROW_BORDER, table.getBorder(), table.getBorderWidth(), table.getBorderColor());
+        //        this.cellSpacing = (float) (table.getSpacing() * TWIPS_FACTOR);
+        //        this.borders = new RtfBorderGroup(this.document, RtfBorder.ROW_BORDER,
+        // table.getBorder(), table.getBorderWidth(), table.getBorderColor());
+        //        this.borders = new RtfBorderGroup(this.document, RtfBorder.ROW_BORDER,
+        // table.getBorder(), table.getBorderWidth(), table.getBorderColor());
         this.alignment = table.getHorizontalAlignment();
-//        this.alignment = table.getAlignment();
+        //        this.alignment = table.getAlignment();
 
         int i = 0;
-//        Iterator rowIterator = table.iterator();
+        //        Iterator rowIterator = table.iterator();
         for (PdfPRow pdfPRow : table.getRows()) {
             this.rows.add(new RtfRow(this.document, this, pdfPRow, i));
             i++;
         }
-        for(i = 0; i < this.rows.size(); i++) {
+        for (i = 0; i < this.rows.size(); i++) {
             this.rows.get(i).handleCellSpanning();
             this.rows.get(i).cleanRow();
         }
 
         this.headerRows = table.getHeaderRows();
-//        this.headerRows = table.getLastHeaderRow();
+        //        this.headerRows = table.getLastHeaderRow();
         this.cellsFitToPage = table.getKeepTogether();
-//        this.cellsFitToPage = table.isCellsFitPage();
+        //        this.cellsFitToPage = table.isCellsFitPage();
         this.tableFitToPage = table.getKeepTogether();
-//        this.tableFitToPage = table.isTableFitsPage();
-//        if(!Float.isNaN(table.getOffset())) {
-//            this.offset = (int) (table.getOffset() * 2);
-//        }
-//        if(!Float.isNaN(table.getOffset())) {
-//            this.offset = (int) (table.getOffset() * 2);
-//        }
+        //        this.tableFitToPage = table.isTableFitsPage();
+        //        if(!Float.isNaN(table.getOffset())) {
+        //            this.offset = (int) (table.getOffset() * 2);
+        //        }
+        //        if(!Float.isNaN(table.getOffset())) {
+        //            this.offset = (int) (table.getOffset() * 2);
+        //        }
     }
 
-    /**
-     * Writes the content of this RtfTable
-     */
-    public void writeContent(OutputStream result) throws IOException
-    {
-        if(!inHeader) {
-            if(this.offset != -1) {
+    /** Writes the content of this RtfTable */
+    public void writeContent(OutputStream result) throws IOException {
+        if (!inHeader) {
+            if (this.offset != -1) {
                 result.write(RtfFont.FONT_SIZE);
                 result.write(intToByteArray(this.offset));
             }
@@ -240,8 +223,8 @@ public class RtfTable extends RtfElement {
         }
 
         for (RtfElement re : this.rows) {
-            //.result.write(re.write());
-        	re.writeContent(result);
+            // .result.write(re.write());
+            re.writeContent(result);
         }
 
         result.write(RtfParagraph.PARAGRAPH_DEFAULTS);

@@ -53,38 +53,32 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.openpdf.text.DocWriter;
 import org.openrtf.text.rtf.RtfElement;
 import org.openrtf.text.rtf.RtfExtendedElement;
 import org.openrtf.text.rtf.document.RtfDocument;
 
 /**
- * The RtfFontList stores the list of fonts used in the rtf document. It also
- * has methods for writing this list to the document
+ * The RtfFontList stores the list of fonts used in the rtf document. It also has methods for
+ * writing this list to the document
  *
- * Version: $Id: RtfFontList.java 3580 2008-08-06 15:52:00Z howard_s $
+ * <p>Version: $Id: RtfFontList.java 3580 2008-08-06 15:52:00Z howard_s $
+ *
  * @author Mark Hall (Mark.Hall@mail.room3b.eu)
  * @author Thomas Bickel (tmb99@inode.at)
  */
 public class RtfFontList extends RtfElement implements RtfExtendedElement {
 
-    /**
-     * Constant for the default font
-     */
+    /** Constant for the default font */
     private static final byte[] DEFAULT_FONT = DocWriter.getISOBytes("\\deff");
-    /**
-     * Constant for the font table
-     */
+
+    /** Constant for the font table */
     private static final byte[] FONT_TABLE = DocWriter.getISOBytes("\\fonttbl");
-    /**
-     * Constant for the font number
-     */
+
+    /** Constant for the font number */
     public static final byte[] FONT_NUMBER = DocWriter.getISOBytes("\\f");
 
-    /**
-     * The list of fonts
-     */
+    /** The list of fonts */
     private final List<RtfFont> fontList = new ArrayList<>();
 
     /**
@@ -97,47 +91,40 @@ public class RtfFontList extends RtfElement implements RtfExtendedElement {
         fontList.add(new RtfFont(document, 0));
     }
 
-    /**
-     * unused
-     */
-    public void writeContent(OutputStream out) throws IOException
-    {	
-    }
+    /** unused */
+    public void writeContent(OutputStream out) throws IOException {}
 
     /**
-     * Gets the index of the font in the list of fonts. If the font does not
-     * exist in the list, it is added.
+     * Gets the index of the font in the list of fonts. If the font does not exist in the list, it
+     * is added.
      *
      * @param font The font to get the id for
      * @return The index of the font
      */
     public int getFontNumber(RtfFont font) {
-        if(font instanceof RtfParagraphStyle) {
+        if (font instanceof RtfParagraphStyle) {
             font = new RtfFont(this.document, font);
         }
         int fontIndex = -1;
-        for(int i = 0; i < fontList.size(); i++) {
-            if(fontList.get(i).equals(font)) {
+        for (int i = 0; i < fontList.size(); i++) {
+            if (fontList.get(i).equals(font)) {
                 fontIndex = i;
             }
         }
-        if(fontIndex == -1) {
+        if (fontIndex == -1) {
             fontIndex = fontList.size();
             fontList.add(font);
         }
         return fontIndex;
     }
 
-    /**
-     * Writes the definition of the font list
-     */
-    public void writeDefinition(OutputStream result) throws IOException
-    {
+    /** Writes the definition of the font list */
+    public void writeDefinition(OutputStream result) throws IOException {
         result.write(DEFAULT_FONT);
         result.write(intToByteArray(0));
         result.write(OPEN_GROUP);
         result.write(FONT_TABLE);
-        for(int i = 0; i < fontList.size(); i++) {
+        for (int i = 0; i < fontList.size(); i++) {
             result.write(OPEN_GROUP);
             result.write(FONT_NUMBER);
             result.write(intToByteArray(i));
@@ -147,7 +134,6 @@ public class RtfFontList extends RtfElement implements RtfExtendedElement {
             result.write(CLOSE_GROUP);
         }
         result.write(CLOSE_GROUP);
-        this.document.outputDebugLinebreak(result);    	
+        this.document.outputDebugLinebreak(result);
     }
-
 }

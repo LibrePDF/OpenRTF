@@ -49,51 +49,40 @@
 package org.openrtf.text.rtf.parser.destinations;
 
 import java.util.EventListener;
-
 import org.openrtf.text.rtf.parser.ctrlwords.RtfCtrlWordData;
 
 /**
  * <code>RtfDestinationListener</code> interface for handling events.
  *
  * @author Howard Shank (hgshank@yahoo.com)
- *
- *  @since 2.0.8
+ * @since 2.0.8
  */
 public interface RtfDestinationListener extends EventListener {
-	/**
-	 *
-	 */
+    /** */
     RtfCtrlWordData beforeCtrlWord(RtfCtrlWordData ctrlWordData);
-	/**
-	 *
-	 */
-    RtfCtrlWordData onCtrlWord(RtfCtrlWordData ctrlWordData);
-	/**
-	 *
-	 */
-    RtfCtrlWordData afterCtrlWord(RtfCtrlWordData ctrlWordData);
-	/**
-	 *
-	 */
-    int beforeCharacter(int ch);
-	/**
-	 *
-	 */
-    int onCharacter(int ch);
-	/**
-	 *
-	 */
-    int afterCharacter(int ch);
-	/**
-	 *
-	 * @return true if all went well
-	 */
-    boolean onOpenGroup();
-	/**
-	 *
-	 * @return true if all went well
-	 */
-    boolean onCloseGroup();
-	
 
+    /** */
+    RtfCtrlWordData onCtrlWord(RtfCtrlWordData ctrlWordData);
+
+    /** */
+    RtfCtrlWordData afterCtrlWord(RtfCtrlWordData ctrlWordData);
+
+    /** */
+    int beforeCharacter(int ch);
+
+    /** */
+    int onCharacter(int ch);
+
+    /** */
+    int afterCharacter(int ch);
+
+    /**
+     * @return true if all went well
+     */
+    boolean onOpenGroup();
+
+    /**
+     * @return true if all went well
+     */
+    boolean onCloseGroup();
 }

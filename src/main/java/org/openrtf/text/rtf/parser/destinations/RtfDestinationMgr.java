@@ -51,7 +51,6 @@ package org.openrtf.text.rtf.parser.destinations;
 import java.lang.reflect.InvocationTargetException;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.openrtf.text.rtf.parser.RtfParser;
 
 /**
@@ -61,169 +60,164 @@ import org.openrtf.text.rtf.parser.RtfParser;
  * @since 2.0.8
  */
 public final class RtfDestinationMgr {
-	/*
-	 * Destinations
-	 */
-	private static RtfDestinationMgr instance = null;
-	private static final Object lock = new Object();
-	
-	/**
-	 * CtrlWord <-> Destination map object.
-	 *
-	 * Maps control words to their destinations objects.
-	 * Null destination is a special destination used for
-	 * discarding unwanted data. This is primarily used when
-	 * skipping groups, binary data or unwanted/unknown data.
-	 */
-	private static final Map<String, RtfDestination> destinations = new HashMap<>(300, 0.95f);
-	/**
-	 * Destination objects.
-	 * There is only one of each destination.
-	 */
-	private static final Map<String, RtfDestination> destinationObjects = new HashMap<>(10, 0.95f);
-	
-	private static boolean ignoreUnknownDestinations = false;
-	
-	private static RtfParser rtfParser = null;
+    /*
+     * Destinations
+     */
+    private static RtfDestinationMgr instance = null;
+    private static final Object lock = new Object();
 
-	/**
-	 * String representation of null destination.
-	 */
-	public static final String DESTINATION_NULL = "null";
-	/**
-	 * String representation of document destination.
-	 */
-	public static final String DESTINATION_DOCUMENT = "document";
-	
-	/**
-	 * Hidden default constructor becuase
-	 */
-	private RtfDestinationMgr() {
-	}
-	
-	public static void setParser(RtfParser parser) {
-		rtfParser = parser;
-	}
-	public static RtfDestinationMgr getInstance() {
-		synchronized(lock) {
-			if(instance == null) {
-				instance = new RtfDestinationMgr();
-				// 2 required destinations for all documents
-				addDestination(DESTINATION_DOCUMENT, new Object[] { "RtfDestinationDocument", "" } );
-				addDestination(DESTINATION_NULL, new Object[] { "RtfDestinationNull", "" } );
-			}
-			return instance;
-		}
-	}
-	public static RtfDestinationMgr getInstance(RtfParser parser) {
-		synchronized(lock) {
-			setParser(parser);
-			if(instance == null) {
-				instance = new RtfDestinationMgr();
-				// 2 required destinations for all documents
-				addDestination(DESTINATION_DOCUMENT, new Object[] { "RtfDestinationDocument", "" } );
-				addDestination(DESTINATION_NULL, new Object[] { "RtfDestinationNull", "" } );
-			}
-			return instance;
-		}
-	}
-	
-	public static RtfDestination getDestination(String destination) {
-		RtfDestination dest;
-		if(destinations.containsKey(destination)) {
-			dest = destinations.get(destination);
-		} else {
-			if(ignoreUnknownDestinations) {
-				dest = destinations.get(DESTINATION_NULL);
-			} else {
-				dest = destinations.get(DESTINATION_DOCUMENT);
-			}
-		}
-		dest.setParser(rtfParser);
-		return dest;
-	}
-	
-	public static boolean addDestination(String destination, Object[] args) {
-		if(destinations.containsKey(destination)) {
-			return true;
-		}
-		
-		String thisClass =  "org.openrtf.text.rtf.parser.destinations." + args[0];
+    /**
+     * CtrlWord <-> Destination map object.
+     *
+     * <p>Maps control words to their destinations objects. Null destination is a special
+     * destination used for discarding unwanted data. This is primarily used when skipping groups,
+     * binary data or unwanted/unknown data.
+     */
+    private static final Map<String, RtfDestination> destinations = new HashMap<>(300, 0.95f);
 
-		if(thisClass.contains("RtfDestinationNull")) {
-			destinations.put(destination, RtfDestinationNull.getInstance());
-			return true;
-		}
-		
-		Class<?> value;
-	
-		try {
-			value = Class.forName(thisClass);
-		} catch (ClassNotFoundException e1) {
-			// TODO Auto-generated catch block
-			e1.printStackTrace();
-			return false;
-		}
-		
-		RtfDestination c;
-		
-		if(destinationObjects.containsKey(value.getName())) {
-			c = destinationObjects.get(value.getName());
-		} else {
-			try {
-				c = (RtfDestination)value.getConstructor().newInstance();
-			} catch (InvocationTargetException | NoSuchMethodException | InstantiationException | IllegalAccessException e) {
-				// TODO Auto-generated catch block
-				e.printStackTrace();
-				return false;
-			}
-		}
-		
-		c.setParser(rtfParser);
-		
-		if(value.isInstance(RtfDestinationInfo.class)) {
-				((RtfDestinationInfo)c).setElementName(destination);
-		}
-		
-		if(value.isInstance(RtfDestinationStylesheetTable.class)) {
-				((RtfDestinationStylesheetTable)c).setElementName(destination);
-				((RtfDestinationStylesheetTable)c).setType((String)args[1]);
-		}
+    /** Destination objects. There is only one of each destination. */
+    private static final Map<String, RtfDestination> destinationObjects = new HashMap<>(10, 0.95f);
 
-		destinations.put(destination, c);
-		destinationObjects.put(value.getName(), c);
-		return true;
-	}
-	
-	// listener methods
+    private static boolean ignoreUnknownDestinations = false;
 
-	/**
-	 * Adds a <CODE>RtfDestinationListener</CODE> to the appropriate <CODE>RtfDestination</CODE>.
-	 *
-	 * @param destination the destination string for the listener
-	 * @param listener
-	 *            the new RtfDestinationListener.
-	 */
-	public static boolean addListener(String destination, RtfDestinationListener listener) {
-		RtfDestination dest = getDestination(destination);
-		if(dest != null) {
-			return dest.addListener(listener);
-		}
-		return false;
-	}
+    private static RtfParser rtfParser = null;
 
-	/**
-	 * Removes a <CODE>RtfDestinationListener</CODE> from the appropriate <CODE>RtfDestination</CODE>.
-	 *
-	 * @param destination the destination string for the listener
-	 * @param listener
-	 *            the RtfCtrlWordListener that has to be removed.
-	 */
-	public static boolean removeListener(String destination, RtfDestinationListener listener) {
-		RtfDestination dest = getDestination(destination);
-		if(dest != null) {
-			return dest.removeListener(listener);
-		}
-		return false;
-	}
+    /** String representation of null destination. */
+    public static final String DESTINATION_NULL = "null";
+
+    /** String representation of document destination. */
+    public static final String DESTINATION_DOCUMENT = "document";
+
+    /** Hidden default constructor becuase */
+    private RtfDestinationMgr() {}
+
+    public static void setParser(RtfParser parser) {
+        rtfParser = parser;
+    }
+
+    public static RtfDestinationMgr getInstance() {
+        synchronized (lock) {
+            if (instance == null) {
+                instance = new RtfDestinationMgr();
+                // 2 required destinations for all documents
+                addDestination(DESTINATION_DOCUMENT, new Object[] {"RtfDestinationDocument", ""});
+                addDestination(DESTINATION_NULL, new Object[] {"RtfDestinationNull", ""});
+            }
+            return instance;
+        }
+    }
+
+    public static RtfDestinationMgr getInstance(RtfParser parser) {
+        synchronized (lock) {
+            setParser(parser);
+            if (instance == null) {
+                instance = new RtfDestinationMgr();
+                // 2 required destinations for all documents
+                addDestination(DESTINATION_DOCUMENT, new Object[] {"RtfDestinationDocument", ""});
+                addDestination(DESTINATION_NULL, new Object[] {"RtfDestinationNull", ""});
+            }
+            return instance;
+        }
+    }
+
+    public static RtfDestination getDestination(String destination) {
+        RtfDestination dest;
+        if (destinations.containsKey(destination)) {
+            dest = destinations.get(destination);
+        } else {
+            if (ignoreUnknownDestinations) {
+                dest = destinations.get(DESTINATION_NULL);
+            } else {
+                dest = destinations.get(DESTINATION_DOCUMENT);
+            }
+        }
+        dest.setParser(rtfParser);
+        return dest;
+    }
+
+    public static boolean addDestination(String destination, Object[] args) {
+        if (destinations.containsKey(destination)) {
+            return true;
+        }
+
+        String thisClass = "org.openrtf.text.rtf.parser.destinations." + args[0];
+
+        if (thisClass.contains("RtfDestinationNull")) {
+            destinations.put(destination, RtfDestinationNull.getInstance());
+            return true;
+        }
+
+        Class<?> value;
+
+        try {
+            value = Class.forName(thisClass);
+        } catch (ClassNotFoundException e1) {
+            // TODO Auto-generated catch block
+            e1.printStackTrace();
+            return false;
+        }
+
+        RtfDestination c;
+
+        if (destinationObjects.containsKey(value.getName())) {
+            c = destinationObjects.get(value.getName());
+        } else {
+            try {
+                c = (RtfDestination) value.getConstructor().newInstance();
+            } catch (InvocationTargetException
+                    | NoSuchMethodException
+                    | InstantiationException
+                    | IllegalAccessException e) {
+                // TODO Auto-generated catch block
+                e.printStackTrace();
+                return false;
+            }
+        }
+
+        c.setParser(rtfParser);
+
+        if (value.isInstance(RtfDestinationInfo.class)) {
+            ((RtfDestinationInfo) c).setElementName(destination);
+        }
+
+        if (value.isInstance(RtfDestinationStylesheetTable.class)) {
+            ((RtfDestinationStylesheetTable) c).setElementName(destination);
+            ((RtfDestinationStylesheetTable) c).setType((String) args[1]);
+        }
+
+        destinations.put(destination, c);
+        destinationObjects.put(value.getName(), c);
+        return true;
+    }
+
+    // listener methods
+
+    /**
+     * Adds a <CODE>RtfDestinationListener</CODE> to the appropriate <CODE>RtfDestination</CODE>.
+     *
+     * @param destination the destination string for the listener
+     * @param listener the new RtfDestinationListener.
+     */
+    public static boolean addListener(String destination, RtfDestinationListener listener) {
+        RtfDestination dest = getDestination(destination);
+        if (dest != null) {
+            return dest.addListener(listener);
+        }
+        return false;
+    }
+
+    /**
+     * Removes a <CODE>RtfDestinationListener</CODE> from the appropriate <CODE>RtfDestination
+     * </CODE>.
+     *
+     * @param destination the destination string for the listener
+     * @param listener the RtfCtrlWordListener that has to be removed.
+     */
+    public static boolean removeListener(String destination, RtfDestinationListener listener) {
+        RtfDestination dest = getDestination(destination);
+        if (dest != null) {
+            return dest.removeListener(listener);
+        }
+        return false;
+    }
 }

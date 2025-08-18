@@ -53,7 +53,6 @@ import java.io.IOException;
 import java.io.OutputStream;
 import java.util.HashMap;
 import java.util.Map;
-
 import org.openpdf.text.DocWriter;
 import org.openrtf.text.rtf.RtfBasicElement;
 import org.openrtf.text.rtf.RtfElement;
@@ -69,13 +68,10 @@ import org.openrtf.text.rtf.document.RtfDocument;
  */
 public class RtfStylesheetList extends RtfElement implements RtfExtendedElement {
 
-    /**
-     * The HashMap containing the RtfParagraphStyles.
-     */
+    /** The HashMap containing the RtfParagraphStyles. */
     private final Map<String, RtfParagraphStyle> styleMap = new HashMap<>();
-    /**
-     * Whether the default settings have been loaded.
-     */
+
+    /** Whether the default settings have been loaded. */
     private boolean defaultsLoaded = false;
 
     /**
@@ -87,12 +83,8 @@ public class RtfStylesheetList extends RtfElement implements RtfExtendedElement 
         super(doc);
     }
 
-    /**
-     * unused
-     */
-    public void writeContent(OutputStream out) throws IOException
-    {	
-    }
+    /** unused */
+    public void writeContent(OutputStream out) throws IOException {}
 
     /**
      * Register a RtfParagraphStyle with this RtfStylesheetList.
@@ -112,51 +104,48 @@ public class RtfStylesheetList extends RtfElement implements RtfExtendedElement 
      */
     private void registerDefaultStyles() {
         defaultsLoaded = true;
-        if(!this.styleMap.containsKey(RtfParagraphStyle.STYLE_NORMAL.getStyleName())) {
+        if (!this.styleMap.containsKey(RtfParagraphStyle.STYLE_NORMAL.getStyleName())) {
             registerParagraphStyle(RtfParagraphStyle.STYLE_NORMAL);
         }
-        if(!this.styleMap.containsKey(RtfParagraphStyle.STYLE_HEADING_1.getStyleName())) {
+        if (!this.styleMap.containsKey(RtfParagraphStyle.STYLE_HEADING_1.getStyleName())) {
             registerParagraphStyle(RtfParagraphStyle.STYLE_HEADING_1);
         }
-        if(!this.styleMap.containsKey(RtfParagraphStyle.STYLE_HEADING_2.getStyleName())) {
+        if (!this.styleMap.containsKey(RtfParagraphStyle.STYLE_HEADING_2.getStyleName())) {
             registerParagraphStyle(RtfParagraphStyle.STYLE_HEADING_2);
         }
-        if(!this.styleMap.containsKey(RtfParagraphStyle.STYLE_HEADING_3.getStyleName())) {
+        if (!this.styleMap.containsKey(RtfParagraphStyle.STYLE_HEADING_3.getStyleName())) {
             registerParagraphStyle(RtfParagraphStyle.STYLE_HEADING_3);
         }
     }
 
     /**
-     * Gets the RtfParagraphStyle with the given name. Makes sure that the defaults
-     * have been loaded.
+     * Gets the RtfParagraphStyle with the given name. Makes sure that the defaults have been
+     * loaded.
      *
      * @param styleName The name of the RtfParagraphStyle to get.
      * @return The RtfParagraphStyle with the given name or null.
      */
     public RtfParagraphStyle getRtfParagraphStyle(String styleName) {
-        if(!defaultsLoaded) {
+        if (!defaultsLoaded) {
             registerDefaultStyles();
         }
-        if(this.styleMap.containsKey(styleName)) {
+        if (this.styleMap.containsKey(styleName)) {
             return this.styleMap.get(styleName);
         } else {
             return null;
         }
     }
 
-    /**
-     * Writes the definition of the stylesheet list.
-     */
-    public void writeDefinition(OutputStream result) throws IOException
-    {
+    /** Writes the definition of the stylesheet list. */
+    public void writeDefinition(OutputStream result) throws IOException {
         result.write(DocWriter.getISOBytes("{"));
         result.write(DocWriter.getISOBytes("\\stylesheet"));
         result.write(RtfBasicElement.DELIMITER);
         this.document.outputDebugLinebreak(result);
         for (RtfParagraphStyle rps : this.styleMap.values()) {
-        	rps.writeDefinition(result);
+            rps.writeDefinition(result);
         }
         result.write(DocWriter.getISOBytes("}"));
-        this.document.outputDebugLinebreak(result);  	
+        this.document.outputDebugLinebreak(result);
     }
 }

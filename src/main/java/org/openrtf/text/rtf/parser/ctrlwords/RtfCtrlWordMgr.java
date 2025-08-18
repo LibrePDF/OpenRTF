@@ -52,154 +52,162 @@ package org.openrtf.text.rtf.parser.ctrlwords;
 import java.io.PushbackInputStream;
 import java.util.ArrayList;
 import java.util.List;
-
 import org.openrtf.text.rtf.parser.RtfParser;
 
 /**
- * <code>RtfCtrlWordMgr</code> handles the dispatching of control words from
- * the table of known control words.
+ * <code>RtfCtrlWordMgr</code> handles the dispatching of control words from the table of known
+ * control words.
  *
  * @author Howard Shank (hgshank@yahoo.com)
  * @since 2.0.8
  */
 public final class RtfCtrlWordMgr {
-	public static final boolean debug = false;
-	public static final boolean debugFound = false;
-	public static final boolean debugNotFound = true;
-	private final PushbackInputStream reader;
-	private final RtfParser rtfParser;
-	private final RtfCtrlWordMap ctrlWordMap;
-	
-	/** The <code>RtfCtrlWordListener</code>. */
+    public static final boolean debug = false;
+    public static final boolean debugFound = false;
+    public static final boolean debugNotFound = true;
+    private final PushbackInputStream reader;
+    private final RtfParser rtfParser;
+    private final RtfCtrlWordMap ctrlWordMap;
+
+    /** The <code>RtfCtrlWordListener</code>. */
     private final List<RtfCtrlWordListener> listeners = new ArrayList<>();
 
-//	// TIMING DEBUG INFO
-//	private long endTime = 0;
-//	private Date endDate = null;		
-//	private long endFree = 0;
-//	private DecimalFormat df = new DecimalFormat("#,##0");
-//	private Date startDate = new Date();
-//	private long startTime = System.currentTimeMillis();
-//	private long startFree = Runtime.getRuntime().freeMemory();
-	
-	/**
-	 * Constructor
-	 * @param rtfParser The parser object this manager works with.
-	 * @param reader the PushbackReader from the tokeniser.
-	 */
-	public RtfCtrlWordMgr(RtfParser rtfParser, PushbackInputStream reader) {
-		this.rtfParser = rtfParser;	// set the parser
-		this.reader = reader;	// set the reader value
-		ctrlWordMap = new RtfCtrlWordMap(rtfParser);
-		
-//		// TIMING DEBUG INFO
-//		endFree = Runtime.getRuntime().freeMemory();
-//		endTime = System.currentTimeMillis();
-//		endDate = new Date();
-//		System.out.println("RtfCtrlWordMgr start date: " + startDate.toLocaleString());
-//		System.out.println("RtfCtrlWordMgr end date  : " + endDate.toLocaleString());
-//		System.out.println("  Elapsed time    : " + Long.toString(endTime - startTime) + " milliseconds.");
-//		System.out.println("Begin Constructor RtfCtrlWordMgr , free mem is " + df.format(startFree / 1024) + "k");
-//		System.out.println("End Constructor RtfCtrlWordMgr , free mem is " + df.format(endFree / 1024) + "k");
-//        System.out.println("RtfCtrlWordMgr used approximately " + df.format((startFree - endFree) / 1024) + "k");
-	}
-	
-	/**
-	 * Internal to control word manager class.
-	 *
-	 * @param ctrlWordData The <code>RtfCtrlWordData</code> object with control word and param
-	 * @param groupLevel The current document group parsing level
-	 * @return errOK if ok, otherwise an error code.
-	 */
-	public int handleKeyword(RtfCtrlWordData ctrlWordData, int groupLevel) {
-		//TODO: May be used for event handling.
-		int result;
-		
-		// Call before handler event here
-		beforeCtrlWord(ctrlWordData);
-		
-		result = dispatchKeyword(ctrlWordData, groupLevel);
-		
-		// call after handler event here
-		afterCtrlWord(ctrlWordData);
-		
-		return result;
-	}
-	
-	/**
-	 * Dispatch the token to the correct control word handling object.
-	 *
-	 * @param ctrlWordData The <code>RtfCtrlWordData</code> object with control word and param
-	 * @param groupLevel The current document group parsing level
-	 * @return errOK if ok, otherwise an error code.
-	 */
-	private int dispatchKeyword(RtfCtrlWordData ctrlWordData, int groupLevel) {
-		int result = RtfParser.errOK;
-		if(ctrlWordData != null) {
-			RtfCtrlWordHandler ctrlWord = ctrlWordMap.getCtrlWordHandler(ctrlWordData.ctrlWord);
-			if(ctrlWord != null) {
-				ctrlWord.handleControlword(ctrlWordData);
-				if(debug && debugFound) {
-					System.out.println("Keyword found:" +
-						" New:" + ctrlWordData.ctrlWord +
-						" Param:" + ctrlWordData.param +
-						" bParam=" + ctrlWordData.hasParam);
-				}
-			} else {
-				result = RtfParser.errCtrlWordNotFound;
-				//result = RtfParser2.errAssertion;
-				if(debug && debugNotFound) {
-					System.out.println("Keyword unknown:" +
-						" New:" + ctrlWordData.ctrlWord +
-						" Param:" + ctrlWordData.param +
-						" bParam=" + ctrlWordData.hasParam);
-				}
-			}	
-		}
-		return result;
-	}
-	
+    //	// TIMING DEBUG INFO
+    //	private long endTime = 0;
+    //	private Date endDate = null;
+    //	private long endFree = 0;
+    //	private DecimalFormat df = new DecimalFormat("#,##0");
+    //	private Date startDate = new Date();
+    //	private long startTime = System.currentTimeMillis();
+    //	private long startFree = Runtime.getRuntime().freeMemory();
+
+    /**
+     * Constructor
+     *
+     * @param rtfParser The parser object this manager works with.
+     * @param reader the PushbackReader from the tokeniser.
+     */
+    public RtfCtrlWordMgr(RtfParser rtfParser, PushbackInputStream reader) {
+        this.rtfParser = rtfParser; // set the parser
+        this.reader = reader; // set the reader value
+        ctrlWordMap = new RtfCtrlWordMap(rtfParser);
+
+        //		// TIMING DEBUG INFO
+        //		endFree = Runtime.getRuntime().freeMemory();
+        //		endTime = System.currentTimeMillis();
+        //		endDate = new Date();
+        //		System.out.println("RtfCtrlWordMgr start date: " + startDate.toLocaleString());
+        //		System.out.println("RtfCtrlWordMgr end date  : " + endDate.toLocaleString());
+        //		System.out.println("  Elapsed time    : " + Long.toString(endTime - startTime) + "
+        // milliseconds.");
+        //		System.out.println("Begin Constructor RtfCtrlWordMgr , free mem is " +
+        // df.format(startFree /
+        // 1024) + "k");
+        //		System.out.println("End Constructor RtfCtrlWordMgr , free mem is " + df.format(endFree /
+        // 1024) + "k");
+        //        System.out.println("RtfCtrlWordMgr used approximately " + df.format((startFree -
+        // endFree) / 1024) + "k");
+    }
+
+    /**
+     * Internal to control word manager class.
+     *
+     * @param ctrlWordData The <code>RtfCtrlWordData</code> object with control word and param
+     * @param groupLevel The current document group parsing level
+     * @return errOK if ok, otherwise an error code.
+     */
+    public int handleKeyword(RtfCtrlWordData ctrlWordData, int groupLevel) {
+        // TODO: May be used for event handling.
+        int result;
+
+        // Call before handler event here
+        beforeCtrlWord(ctrlWordData);
+
+        result = dispatchKeyword(ctrlWordData, groupLevel);
+
+        // call after handler event here
+        afterCtrlWord(ctrlWordData);
+
+        return result;
+    }
+
+    /**
+     * Dispatch the token to the correct control word handling object.
+     *
+     * @param ctrlWordData The <code>RtfCtrlWordData</code> object with control word and param
+     * @param groupLevel The current document group parsing level
+     * @return errOK if ok, otherwise an error code.
+     */
+    private int dispatchKeyword(RtfCtrlWordData ctrlWordData, int groupLevel) {
+        int result = RtfParser.errOK;
+        if (ctrlWordData != null) {
+            RtfCtrlWordHandler ctrlWord = ctrlWordMap.getCtrlWordHandler(ctrlWordData.ctrlWord);
+            if (ctrlWord != null) {
+                ctrlWord.handleControlword(ctrlWordData);
+                if (debug && debugFound) {
+                    System.out.println("Keyword found:"
+                            + " New:"
+                            + ctrlWordData.ctrlWord
+                            + " Param:"
+                            + ctrlWordData.param
+                            + " bParam="
+                            + ctrlWordData.hasParam);
+                }
+            } else {
+                result = RtfParser.errCtrlWordNotFound;
+                // result = RtfParser2.errAssertion;
+                if (debug && debugNotFound) {
+                    System.out.println("Keyword unknown:"
+                            + " New:"
+                            + ctrlWordData.ctrlWord
+                            + " Param:"
+                            + ctrlWordData.param
+                            + " bParam="
+                            + ctrlWordData.hasParam);
+                }
+            }
+        }
+        return result;
+    }
 
     // listener methods
 
-	/**
-	 * Adds a <CODE>RtfCtrlWordListener</CODE> to the <CODE>RtfCtrlWordMgr</CODE>.
-	 *
-	 * @param listener
-	 *            the new RtfCtrlWordListener.
-	 */
-	public void addRtfCtrlWordListener(RtfCtrlWordListener listener) {
-		listeners.add(listener);
-	}
+    /**
+     * Adds a <CODE>RtfCtrlWordListener</CODE> to the <CODE>RtfCtrlWordMgr</CODE>.
+     *
+     * @param listener the new RtfCtrlWordListener.
+     */
+    public void addRtfCtrlWordListener(RtfCtrlWordListener listener) {
+        listeners.add(listener);
+    }
 
-	/**
-	 * Removes a <CODE>RtfCtrlWordListener</CODE> from the <CODE>RtfCtrlWordMgr</CODE>.
-	 *
-	 * @param listener
-	 *            the RtfCtrlWordListener that has to be removed.
-	 */
-	public void removeRtfCtrlWordListener(RtfCtrlWordListener listener) {
-		listeners.remove(listener);
-	}
-	
-	private boolean beforeCtrlWord(RtfCtrlWordData ctrlWordData) {
-		for (RtfCtrlWordListener listener : listeners) {
-			listener.beforeCtrlWord(ctrlWordData);
-		}
-		return true;
-	}
-	
-	private boolean onCtrlWord(RtfCtrlWordData ctrlWordData) {
-		for (RtfCtrlWordListener listener : listeners) {
-			listener.onCtrlWord(ctrlWordData);
-		}
-		return true;
-	}
-	
-	private boolean afterCtrlWord(RtfCtrlWordData ctrlWordData) {
-		for (RtfCtrlWordListener listener : listeners) {
-			listener.afterCtrlWord(ctrlWordData);
-		}
-		return true;
-	}
+    /**
+     * Removes a <CODE>RtfCtrlWordListener</CODE> from the <CODE>RtfCtrlWordMgr</CODE>.
+     *
+     * @param listener the RtfCtrlWordListener that has to be removed.
+     */
+    public void removeRtfCtrlWordListener(RtfCtrlWordListener listener) {
+        listeners.remove(listener);
+    }
+
+    private boolean beforeCtrlWord(RtfCtrlWordData ctrlWordData) {
+        for (RtfCtrlWordListener listener : listeners) {
+            listener.beforeCtrlWord(ctrlWordData);
+        }
+        return true;
+    }
+
+    private boolean onCtrlWord(RtfCtrlWordData ctrlWordData) {
+        for (RtfCtrlWordListener listener : listeners) {
+            listener.onCtrlWord(ctrlWordData);
+        }
+        return true;
+    }
+
+    private boolean afterCtrlWord(RtfCtrlWordData ctrlWordData) {
+        for (RtfCtrlWordListener listener : listeners) {
+            listener.afterCtrlWord(ctrlWordData);
+        }
+        return true;
+    }
 }

@@ -51,11 +51,9 @@ package org.openrtf.text.rtf.field;
 
 import java.io.IOException;
 import java.io.OutputStream;
-
 import org.openpdf.text.DocWriter;
 import org.openpdf.text.Font;
 import org.openrtf.text.rtf.document.RtfDocument;
-
 
 /**
  * The RtfPageNumber provides the page number field in rtf documents.
@@ -67,21 +65,18 @@ import org.openrtf.text.rtf.document.RtfDocument;
  */
 public class RtfPageNumber extends RtfField {
 
-    /**
-     * Constant for the page number
-     */
+    /** Constant for the page number */
     private static final byte[] PAGE_NUMBER = DocWriter.getISOBytes("PAGE");
 
-    /**
-     * Constructs a RtfPageNumber. This can be added anywhere to add a page number field.
-     */
+    /** Constructs a RtfPageNumber. This can be added anywhere to add a page number field. */
     public RtfPageNumber() {
         super(null);
     }
 
     /**
-     * Constructs a RtfPageNumber with a specified Font. This can be added anywhere to
-     * add a page number field.
+     * Constructs a RtfPageNumber with a specified Font. This can be added anywhere to add a page
+     * number field.
+     *
      * @param font
      */
     public RtfPageNumber(Font font) {
@@ -113,9 +108,8 @@ public class RtfPageNumber extends RtfField {
      * @param result The <code>OutputStream</code> to write to.
      * @throws IOException on i/o errors.
      */
-    protected void writeFieldInstContent(OutputStream result) throws IOException
-    {
-    	result.write(PAGE_NUMBER);
+    protected void writeFieldInstContent(OutputStream result) throws IOException {
+        result.write(PAGE_NUMBER);
     }
 
     /**
@@ -124,6 +118,5 @@ public class RtfPageNumber extends RtfField {
      * @param result The <code>OutputStream</code> to write to.
      * @throws IOException on i/o errors.
      */
-    protected void writeFieldResultContent(OutputStream result) throws IOException {
-    }
+    protected void writeFieldResultContent(OutputStream result) throws IOException {}
 }

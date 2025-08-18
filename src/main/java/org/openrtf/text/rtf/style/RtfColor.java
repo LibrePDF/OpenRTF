@@ -52,12 +52,10 @@ package org.openrtf.text.rtf.style;
 import java.awt.Color;
 import java.io.IOException;
 import java.io.OutputStream;
-
 import org.openpdf.text.DocWriter;
 import org.openrtf.text.rtf.RtfElement;
 import org.openrtf.text.rtf.RtfExtendedElement;
 import org.openrtf.text.rtf.document.RtfDocument;
-
 
 /**
  * The RtfColor stores one rtf color value for a rtf document
@@ -68,42 +66,31 @@ import org.openrtf.text.rtf.document.RtfDocument;
  */
 public class RtfColor extends RtfElement implements RtfExtendedElement {
 
-    /**
-     * Constant for RED value
-     */
+    /** Constant for RED value */
     private static final byte[] COLOR_RED = DocWriter.getISOBytes("\\red");
-    /**
-     * Constant for GREEN value
-     */
+
+    /** Constant for GREEN value */
     private static final byte[] COLOR_GREEN = DocWriter.getISOBytes("\\green");
-    /**
-     * Constant for BLUE value
-     */
+
+    /** Constant for BLUE value */
     private static final byte[] COLOR_BLUE = DocWriter.getISOBytes("\\blue");
-    /**
-     * Constant for the end of one color entry
-     */
+
+    /** Constant for the end of one color entry */
     private static final byte COLON = (byte) ';';
-    /**
-     * Constant for the number of the color in the list of colors
-     */
+
+    /** Constant for the number of the color in the list of colors */
     private static final byte[] COLOR_NUMBER = DocWriter.getISOBytes("\\cf");
 
-    /**
-     * The number of the color in the list of colors
-     */
+    /** The number of the color in the list of colors */
     private int colorNumber = 0;
-    /**
-     * The red value
-     */
+
+    /** The red value */
     private int red = 0;
-    /**
-     * The green value
-     */
+
+    /** The green value */
     private int green = 0;
-    /**
-     * The blue value
-     */
+
+    /** The blue value */
     private int blue = 0;
 
     /**
@@ -131,12 +118,12 @@ public class RtfColor extends RtfElement implements RtfExtendedElement {
      */
     public RtfColor(RtfDocument doc, RtfColor col) {
         super(doc);
-        if(col != null) {
+        if (col != null) {
             this.red = col.getRed();
             this.green = col.getGreen();
             this.blue = col.getBlue();
         }
-        if(this.document != null) {
+        if (this.document != null) {
             this.colorNumber = this.document.getDocumentHeader().getColorNumber(this);
         }
     }
@@ -149,12 +136,12 @@ public class RtfColor extends RtfElement implements RtfExtendedElement {
      */
     public RtfColor(RtfDocument doc, Color col) {
         super(doc);
-        if(col != null) {
+        if (col != null) {
             this.red = col.getRed();
             this.blue = col.getBlue();
             this.green = col.getGreen();
         }
-        if(this.document != null) {
+        if (this.document != null) {
             this.colorNumber = this.document.getDocumentHeader().getColorNumber(this);
         }
     }
@@ -172,41 +159,31 @@ public class RtfColor extends RtfElement implements RtfExtendedElement {
         this.red = red;
         this.blue = blue;
         this.green = green;
-        if(this.document != null) {
+        if (this.document != null) {
             this.colorNumber = this.document.getDocumentHeader().getColorNumber(this);
         }
     }
 
-    /**
-     * unused
-     */
-    public void writeContent(OutputStream out) throws IOException
-    {    	
-    }
+    /** unused */
+    public void writeContent(OutputStream out) throws IOException {}
 
-    /**
-     * Write the definition part of this RtfColor.
-     */
-    public void writeDefinition(OutputStream result) throws IOException
-    {
+    /** Write the definition part of this RtfColor. */
+    public void writeDefinition(OutputStream result) throws IOException {
         result.write(COLOR_RED);
         result.write(intToByteArray(red));
         result.write(COLOR_GREEN);
         result.write(intToByteArray(green));
         result.write(COLOR_BLUE);
         result.write(intToByteArray(blue));
-        result.write(COLON);    	
+        result.write(COLON);
     }
 
-    /**
-     * Writes the beginning of this RtfColor
-     *
-     */
+    /** Writes the beginning of this RtfColor */
     public void writeBegin(OutputStream result) {
         try {
             result.write(COLOR_NUMBER);
             result.write(intToByteArray(colorNumber));
-        } catch(IOException ioe) {
+        } catch (IOException ioe) {
             ioe.printStackTrace();
         }
     }
@@ -216,18 +193,17 @@ public class RtfColor extends RtfElement implements RtfExtendedElement {
      *
      * @param result The <code>OutputStream</code> to which nothing will be written
      */
-    public void writeEnd(OutputStream result) {
-    }
+    public void writeEnd(OutputStream result) {}
 
     /**
      * Tests if this RtfColor is equal to another RtfColor.
      *
      * @param obj another RtfColor
-     * @return <code>True</code> if red, green and blue values of the two colors match,
-     *   <code>false</code> otherwise.
+     * @return <code>True</code> if red, green and blue values of the two colors match, <code>false
+     *     </code> otherwise.
      */
     public boolean equals(Object obj) {
-        if(!(obj instanceof RtfColor)) {
+        if (!(obj instanceof RtfColor)) {
             return false;
         }
         RtfColor color = (RtfColor) obj;
@@ -235,9 +211,8 @@ public class RtfColor extends RtfElement implements RtfExtendedElement {
     }
 
     /**
-     * Returns the hash code of this RtfColor. The hash code is
-     * an integer with the lowest three bytes containing the values
-     * of red, green and blue.
+     * Returns the hash code of this RtfColor. The hash code is an integer with the lowest three
+     * bytes containing the values of red, green and blue.
      *
      * @return The hash code of this RtfColor
      */
@@ -288,7 +263,7 @@ public class RtfColor extends RtfElement implements RtfExtendedElement {
      */
     public void setRtfDocument(RtfDocument doc) {
         super.setRtfDocument(doc);
-        if(document != null) {
+        if (document != null) {
             this.colorNumber = document.getDocumentHeader().getColorNumber(this);
         }
     }

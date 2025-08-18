@@ -53,14 +53,12 @@ package org.openrtf.text.rtf.document;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-
 import org.junit.Test;
-
 import org.openrtf.text.rtf.RtfTestBase;
 
 /**
- * The <code>RtfCodePageTest</code> is a very simple junit test, that checks
- * that the <code>RtfCodePage</code> is producing the correct result.
+ * The <code>RtfCodePageTest</code> is a very simple junit test, that checks that the <code>
+ * RtfCodePage</code> is producing the correct result.
  *
  * @version $Id: RtfCodePageTest.java 3664 2009-01-26 22:11:53Z xlv $
  * @author Mark Hall (Mark.Hall@mail.room3b.eu)
@@ -71,8 +69,7 @@ import org.openrtf.text.rtf.RtfTestBase;
 public class RtfCodePageTest extends RtfTestBase {
 
     /**
-     * Tests that the <code>RtfCodePage</code> generates the pattern
-     * "\\ansi\\ansicpg1252\n".
+     * Tests that the <code>RtfCodePage</code> generates the pattern "\\ansi\\ansicpg1252\n".
      *
      * @throws IOException On I/O errors
      */

@@ -55,15 +55,13 @@ package org.openrtf.text.rtf.document;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-
 import org.junit.Test;
-
 import org.openpdf.text.DocWriter;
 import org.openrtf.text.rtf.RtfTestBase;
 
 /**
- * The <code>RtfProtectionTest</code> is a very simple junit test, that checks
- * that the <code>RtfProtection</code> is producing the correct result.
+ * The <code>RtfProtectionTest</code> is a very simple junit test, that checks that the <code>
+ * RtfProtection</code> is producing the correct result.
  *
  * @version $Id: RtfProtectionTest.java 3664 2009-01-26 22:11:53Z xlv $
  * @author Howard Shank (hgshank@yahoo.com)
@@ -72,8 +70,9 @@ import org.openrtf.text.rtf.RtfTestBase;
  */
 public class RtfProtectionTest extends RtfTestBase {
     /**
-     * Tests that the <code>RtfProtection</code> generates the correct hash
-     * for a normal 1 to 15 character password
+     * Tests that the <code>RtfProtection</code> generates the correct hash for a normal 1 to 15
+     * character password
+     *
      * @throws IOException On I/O errors
      */
     @Test
@@ -84,8 +83,8 @@ public class RtfProtectionTest extends RtfTestBase {
     }
 
     /**
-     * Tests that the <code>RtfProtection</code> generates the correct hash
-     * for a null password
+     * Tests that the <code>RtfProtection</code> generates the correct hash for a null password
+     *
      * @throws IOException On I/O errors
      */
     @Test
@@ -96,8 +95,8 @@ public class RtfProtectionTest extends RtfTestBase {
     }
 
     /**
-     * Tests that the <code>RtfProtection</code> generates the correct hash
-     * for an empty password
+     * Tests that the <code>RtfProtection</code> generates the correct hash for an empty password
+     *
      * @throws IOException On I/O errors
      */
     @Test
@@ -108,8 +107,9 @@ public class RtfProtectionTest extends RtfTestBase {
     }
 
     /**
-     * Tests that the <code>RtfProtection</code> generates the correct hash
-     * for a long password (>15 characters)
+     * Tests that the <code>RtfProtection</code> generates the correct hash for a long password (>15
+     * characters)
+     *
      * @throws IOException On I/O errors
      */
     @Test

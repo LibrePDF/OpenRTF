@@ -50,56 +50,40 @@ package org.openrtf.text.rtf.document.output;
 import java.io.OutputStream;
 
 /**
- * The RtfNilOutputStream is a dummy output stream that sends all
- * bytes to the big byte bucket in the sky. It is used to improve
- * speed in those situations where processing is required, but
- * the results are not needed.
+ * The RtfNilOutputStream is a dummy output stream that sends all bytes to the big byte bucket in
+ * the sky. It is used to improve speed in those situations where processing is required, but the
+ * results are not needed.
  *
  * @version $Id: RtfNilOutputStream.java 3361 2008-05-11 12:28:57Z hallm $
  * @author Thomas Bickel (tmb99@inode.at)
  * @author Mark Hall (Mark.Hall@mail.room3b.eu)
  */
-public final class RtfNilOutputStream extends OutputStream
-{
-    /**
-     * The number of bytes theoretically written is stored.
-     */
+public final class RtfNilOutputStream extends OutputStream {
+    /** The number of bytes theoretically written is stored. */
     private long size = 0;
 
-    /**
-     * Constructs a new <code>RtfNilOutputStream</code>.
-     */
-    public RtfNilOutputStream()
-    {
-    }
+    /** Constructs a new <code>RtfNilOutputStream</code>. */
+    public RtfNilOutputStream() {}
 
     /**
      * Gets the number of bytes that were written.
      *
      * @return The number of bytes that were written.
      */
-    public long getSize()
-    {
+    public long getSize() {
         return size;
     }
 
-    /**
-     * Write an int. The size is incremented, but the actual data is thrown away.
-     */
-    public void write(int b)
-    {
+    /** Write an int. The size is incremented, but the actual data is thrown away. */
+    public void write(int b) {
         size++;
     }
 
-    /**
-     * Write a <code>byte[]</code>. The size is incremented, but the actual data is thrown away.
-     */
-    public void write(byte[] b, int off, int len)
-    {
+    /** Write a <code>byte[]</code>. The size is incremented, but the actual data is thrown away. */
+    public void write(byte[] b, int off, int len) {
         if (b == null) {
             throw new NullPointerException();
-        } else if ((off < 0) || (off > b.length) || (len < 0) ||
-               ((off + len) > b.length) || ((off + len) < 0)) {
+        } else if ((off < 0) || (off > b.length) || (len < 0) || ((off + len) > b.length) || ((off + len) < 0)) {
             throw new IndexOutOfBoundsException();
         }
         size += len;

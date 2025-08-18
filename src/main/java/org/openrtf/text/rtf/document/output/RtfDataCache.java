@@ -52,28 +52,22 @@ package org.openrtf.text.rtf.document.output;
 import java.io.IOException;
 import java.io.OutputStream;
 
-
 /**
- * The RtfDataCache interface must be implemented by classes wishing to
- * act as caches for the rtf document data.
+ * The RtfDataCache interface must be implemented by classes wishing to act as caches for the rtf
+ * document data.
  *
  * @version $Id: RtfDataCache.java 3373 2008-05-12 16:21:24Z xlv $
  * @author Mark Hall (Mark.Hall@mail.room3b.eu)
  * @author Thomas Bickel (tmb99@inode.at)
  */
-public interface RtfDataCache
-{
-    /**
-     * Constant for caching efficiently into memory.
-     */
+public interface RtfDataCache {
+    /** Constant for caching efficiently into memory. */
     int CACHE_MEMORY_EFFICIENT = 3;
-    /**
-     * Constant for caching into memory.
-     */
+
+    /** Constant for caching into memory. */
     int CACHE_MEMORY = 2;
-    /**
-     * Constant for caching to the disk.
-     */
+
+    /** Constant for caching to the disk. */
     int CACHE_DISK = 1;
 
     /**

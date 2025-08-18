@@ -49,7 +49,6 @@ package org.openrtf.text.rtf.document;
 
 import java.io.IOException;
 import java.io.OutputStream;
-
 import org.openpdf.text.DocWriter;
 import org.openrtf.text.rtf.RtfElement;
 import org.openrtf.text.rtf.RtfExtendedElement;
@@ -57,72 +56,52 @@ import org.openrtf.text.rtf.RtfExtendedElement;
 /**
  * @author Michael Joyce (ubermichael@gmail.com)
  */
-public class RtfFootnoteSetting extends RtfElement implements
-    RtfExtendedElement {
+public class RtfFootnoteSetting extends RtfElement implements RtfExtendedElement {
 
-  /**
-   * Constant for the page height
-   */
-  private static final byte[] FOOTNOTE_BOTTOM = DocWriter
-      .getISOBytes("\\ftnbj");
-  /**
-   * Constant for the page width
-   */
-  private static final byte[] FOOTNOTE_START = DocWriter
-      .getISOBytes("\\ftnstart");
-  /**
-   * Constant for the left margin
-   */
-  private static final byte[] FOOTNOTE_CONTINUOUS = DocWriter
-      .getISOBytes("\\ftnrscont");
-  /**
-   * Constant for the right margin
-   */
-  private static final byte[] FOOTNOTE_ARABIC = DocWriter
-      .getISOBytes("\\ftnnar");
+    /** Constant for the page height */
+    private static final byte[] FOOTNOTE_BOTTOM = DocWriter.getISOBytes("\\ftnbj");
 
-  private static final byte[] FOOTNOTE_SEP = DocWriter
-      .getISOBytes("\\*\\ftnsep");
+    /** Constant for the page width */
+    private static final byte[] FOOTNOTE_START = DocWriter.getISOBytes("\\ftnstart");
 
-  private static final byte[] FOOTNOTE_ANCHOR = DocWriter
-      .getISOBytes("\\chftnsep");
+    /** Constant for the left margin */
+    private static final byte[] FOOTNOTE_CONTINUOUS = DocWriter.getISOBytes("\\ftnrscont");
 
-  /**
-   * The page width to use
-   */
-  private final int footnoteStart = 1;
+    /** Constant for the right margin */
+    private static final byte[] FOOTNOTE_ARABIC = DocWriter.getISOBytes("\\ftnnar");
 
-  /**
-   * Constructs a new RtfPageSetting object belonging to a RtfDocument.
-   *
-   * @param doc
-   *          The RtfDocument this RtfPageSetting belongs to
-   */
-  public RtfFootnoteSetting(RtfDocument doc) {
-    super(doc);
-  }
+    private static final byte[] FOOTNOTE_SEP = DocWriter.getISOBytes("\\*\\ftnsep");
 
-  /**
-   * unused
-   */
-  @Override
-  public void writeContent(OutputStream out) throws IOException {
-  }
+    private static final byte[] FOOTNOTE_ANCHOR = DocWriter.getISOBytes("\\chftnsep");
 
-  /**
-   * Writes the page size / page margin definition
-   */
-  @Override
-  public void writeDefinition(OutputStream result) throws IOException {
-    result.write(FOOTNOTE_BOTTOM);
-    result.write(FOOTNOTE_START);
-    result.write(intToByteArray(footnoteStart));
-    result.write(FOOTNOTE_CONTINUOUS);
-    result.write(FOOTNOTE_ARABIC);
-    result.write(OPEN_GROUP);
-    result.write(FOOTNOTE_SEP);
-    result.write(FOOTNOTE_ANCHOR);
-    result.write(CLOSE_GROUP);
-    this.document.outputDebugLinebreak(result);
-  }
+    /** The page width to use */
+    private final int footnoteStart = 1;
+
+    /**
+     * Constructs a new RtfPageSetting object belonging to a RtfDocument.
+     *
+     * @param doc The RtfDocument this RtfPageSetting belongs to
+     */
+    public RtfFootnoteSetting(RtfDocument doc) {
+        super(doc);
+    }
+
+    /** unused */
+    @Override
+    public void writeContent(OutputStream out) throws IOException {}
+
+    /** Writes the page size / page margin definition */
+    @Override
+    public void writeDefinition(OutputStream result) throws IOException {
+        result.write(FOOTNOTE_BOTTOM);
+        result.write(FOOTNOTE_START);
+        result.write(intToByteArray(footnoteStart));
+        result.write(FOOTNOTE_CONTINUOUS);
+        result.write(FOOTNOTE_ARABIC);
+        result.write(OPEN_GROUP);
+        result.write(FOOTNOTE_SEP);
+        result.write(FOOTNOTE_ANCHOR);
+        result.write(CLOSE_GROUP);
+        this.document.outputDebugLinebreak(result);
+    }
 }

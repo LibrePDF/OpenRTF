@@ -53,16 +53,14 @@ package org.openrtf.text.rtf;
 
 import java.io.ByteArrayOutputStream;
 import java.io.IOException;
-
 import org.junit.Assert;
 import org.junit.Test;
-
 import org.openpdf.text.DocWriter;
 import org.openrtf.text.rtf.document.RtfDocument;
 
 /**
- * The <code>RtfTestBase</code> is a junit test case that provides
- * helper methods for the actual RTF test cases.
+ * The <code>RtfTestBase</code> is a junit test case that provides helper methods for the actual RTF
+ * test cases.
  *
  * @version $Id: RtfTestBase.java 3664 2009-01-26 22:11:53Z xlv $
  * @author Mark Hall (Mark.Hall@mail.room3b.eu)
@@ -70,26 +68,20 @@ import org.openrtf.text.rtf.document.RtfDocument;
  */
 public class RtfTestBase {
 
-    /**
-     * The <code>RtfDocument</code> to use for testing.
-     */
+    /** The <code>RtfDocument</code> to use for testing. */
     protected RtfDocument rtfDoc = null;
 
-    /**
-     * Constructs a new <code>RtfTestBase</code>, initializing
-     * the <code>RtfDocument</code>.
-     */
+    /** Constructs a new <code>RtfTestBase</code>, initializing the <code>RtfDocument</code>. */
     public RtfTestBase() {
         this.rtfDoc = new RtfDocument();
     }
 
     /**
-     * Asserts that the content of the <code>ByteArrayOutputStream</code> equals
-     * the pattern specified.
+     * Asserts that the content of the <code>ByteArrayOutputStream</code> equals the pattern
+     * specified.
      *
      * @param pattern The string pattern to check against
      * @param out The <code>ByteArrayOutputStream</code> containing the RTF code to check.
-     *
      * @throws IOException On I/O errors.
      */
     protected void assertEquals(String pattern, ByteArrayOutputStream out) throws IOException {
@@ -127,7 +119,7 @@ public class RtfTestBase {
     @Test
     public void testRandomText() throws IOException {
         StringBuilder text = new StringBuilder();
-        for(int i = 0; i < 100; i++) {
+        for (int i = 0; i < 100; i++) {
             text.append((char) (Math.random() * 52));
         }
         ByteArrayOutputStream out = new ByteArrayOutputStream();

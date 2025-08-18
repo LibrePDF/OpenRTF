@@ -55,21 +55,20 @@ import java.io.PrintWriter;
  * Signals that an error has occurred in a <CODE>RtfParser</CODE>.
  */
 /**
- * <code>RtfParserException</code> is the exception object thrown by
- * the parser
+ * <code>RtfParserException</code> is the exception object thrown by the parser
  *
  * @author Howard Shank (hgshank@yahoo.com)
  * @since 2.0.8
  */
 public class RtfParserException extends Exception {
-	private static final long serialVersionUID = 2857489935812968235L;
-	/**
-	 * Contained inner exception object.
-	 */
-	private Exception ex;
+    private static final long serialVersionUID = 2857489935812968235L;
+
+    /** Contained inner exception object. */
+    private Exception ex;
 
     /**
      * Creates a RtfParserException object.
+     *
      * @param ex an exception that has to be turned into a RtfParserException
      */
     public RtfParserException(Exception ex) {
@@ -78,16 +77,13 @@ public class RtfParserException extends Exception {
 
     // constructors
 
-    /**
-     * Constructs a <CODE>RtfParserException</CODE> whithout a message.
-     */
-    public RtfParserException() {
-    }
+    /** Constructs a <CODE>RtfParserException</CODE> whithout a message. */
+    public RtfParserException() {}
 
     /**
      * Constructs a <code>RtfParserException</code> with a message.
      *
-     * @param		message			a message describing the exception
+     * @param message a message describing the exception
      */
     public RtfParserException(String message) {
         super(message);
@@ -95,35 +91,32 @@ public class RtfParserException extends Exception {
 
     /**
      * We print the message of the checked exception
+     *
      * @return the error message
      */
     public String getMessage() {
-        if (ex == null)
-            return super.getMessage();
-        else
-            return ex.getMessage();
+        if (ex == null) return super.getMessage();
+        else return ex.getMessage();
     }
 
     /**
      * and make sure we also produce a localized version
+     *
      * @return a localized message
      */
     public String getLocalizedMessage() {
-        if (ex == null)
-            return super.getLocalizedMessage();
-        else
-            return ex.getLocalizedMessage();
+        if (ex == null) return super.getLocalizedMessage();
+        else return ex.getLocalizedMessage();
     }
 
     /**
      * The toString() is changed to be prefixed with ExceptionConverter
+     *
      * @return the String version of the exception
      */
     public String toString() {
-        if (ex == null)
-            return super.toString();
-        else
-            return split(getClass().getName()) + ": " + ex;
+        if (ex == null) return super.toString();
+        else return split(getClass().getName()) + ": " + ex;
     }
 
     /** we have to override this as well */
@@ -132,13 +125,12 @@ public class RtfParserException extends Exception {
     }
 
     /**
-     * here we prefix, with s.print(), not s.println(), the stack
-     * trace with "ExceptionConverter:"
+     * here we prefix, with s.print(), not s.println(), the stack trace with "ExceptionConverter:"
+     *
      * @param s a printstream object
      */
     public void printStackTrace(PrintStream s) {
-        if (ex == null)
-            super.printStackTrace(s);
+        if (ex == null) super.printStackTrace(s);
         else {
             synchronized (s) {
                 s.print(split(getClass().getName()) + ": ");
@@ -149,11 +141,11 @@ public class RtfParserException extends Exception {
 
     /**
      * Again, we prefix the stack trace with "ExceptionConverter:"
+     *
      * @param s A PrintWriter object
      */
     public void printStackTrace(PrintWriter s) {
-        if (ex == null)
-            super.printStackTrace(s);
+        if (ex == null) super.printStackTrace(s);
         else {
             synchronized (s) {
                 s.print(split(getClass().getName()) + ": ");
@@ -164,14 +156,13 @@ public class RtfParserException extends Exception {
 
     /**
      * Removes everything in a String that comes before a '.'
+     *
      * @param s the original string
      * @return the part that comes after the dot
      */
     private static String split(String s) {
         int i = s.lastIndexOf('.');
-        if (i < 0)
-            return s;
-        else
-            return s.substring(i + 1);
+        if (i < 0) return s;
+        else return s.substring(i + 1);
     }
 }

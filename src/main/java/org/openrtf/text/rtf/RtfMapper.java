@@ -50,7 +50,6 @@
 package org.openrtf.text.rtf;
 
 import java.util.ArrayList;
-
 import org.openpdf.text.Anchor;
 import org.openpdf.text.Annotation;
 import org.openpdf.text.Chapter;
@@ -85,19 +84,16 @@ import org.openrtf.text.rtf.text.RtfPhrase;
 import org.openrtf.text.rtf.text.RtfSection;
 import org.openrtf.text.rtf.text.RtfTab;
 
-
 /**
- * The RtfMapper provides mappings between org.openpdf.text.* classes
- * and the corresponding org.openrtf.text.rtf.** classes.
+ * The RtfMapper provides mappings between org.openpdf.text.* classes and the corresponding
+ * org.openrtf.text.rtf.** classes.
  *
  * @version $Revision: 3868 $
  * @author Mark Hall (Mark.Hall@mail.room3b.eu)
  */
 public class RtfMapper {
 
-    /**
-     * The RtfDocument this RtfMapper belongs to
-     */
+    /** The RtfDocument this RtfMapper belongs to */
     private final RtfDocument rtfDoc;
 
     /**
@@ -110,32 +106,32 @@ public class RtfMapper {
     }
 
     /**
-     * Takes an Element subclass and returns an array of RtfBasicElement
-     * subclasses, that contained the mapped RTF equivalent to the Element
-     * passed in.
+     * Takes an Element subclass and returns an array of RtfBasicElement subclasses, that contained
+     * the mapped RTF equivalent to the Element passed in.
      *
      * @param element The Element to wrap
      * @return An array of RtfBasicElement wrapping the Element
      * @throws DocumentException
      */
     public RtfBasicElement[] mapElement(Element element) throws DocumentException {
-        if(element instanceof RtfBasicElement) {
+        if (element instanceof RtfBasicElement) {
             RtfBasicElement rtfElement = (RtfBasicElement) element;
             rtfElement.setRtfDocument(this.rtfDoc);
-            return new RtfBasicElement[]{rtfElement};
+            return new RtfBasicElement[] {rtfElement};
         }
 
         java.util.List<RtfBasicElement> rtfElements = new ArrayList<>();
-        switch(element.type()) {
+        switch (element.type()) {
             case Element.CHUNK:
                 Chunk chunk = (Chunk) element;
-                if(chunk.hasAttributes()) {
-                    if(chunk.getChunkAttributes().containsKey(Chunk.IMAGE)) {
+                if (chunk.hasAttributes()) {
+                    if (chunk.getChunkAttributes().containsKey(Chunk.IMAGE)) {
                         rtfElements.add(new RtfImage(rtfDoc, chunk.getImage()));
-                    } else if(chunk.getChunkAttributes().containsKey(Chunk.NEWPAGE)) {
+                    } else if (chunk.getChunkAttributes().containsKey(Chunk.NEWPAGE)) {
                         rtfElements.add(new RtfNewPage(rtfDoc));
-                    } else if(chunk.getChunkAttributes().containsKey(Chunk.TAB)) {
-                        Float tabPos = (Float) ((Object[]) chunk.getChunkAttributes().get(Chunk.TAB))[1];
+                    } else if (chunk.getChunkAttributes().containsKey(Chunk.TAB)) {
+                        Float tabPos =
+                                (Float) ((Object[]) chunk.getChunkAttributes().get(Chunk.TAB))[1];
                         RtfTab tab = new RtfTab(tabPos.floatValue(), RtfTab.TAB_LEFT_ALIGN);
                         tab.setRtfDocument(rtfDoc);
                         rtfElements.add(tab);
@@ -176,10 +172,10 @@ public class RtfMapper {
                 rtfElements.add(new RtfInfoElement(rtfDoc, (Meta) element));
                 break;
             case Element.LIST:
-                rtfElements.add(new RtfList(rtfDoc, (List) element));    // TODO: Testing
+                rtfElements.add(new RtfList(rtfDoc, (List) element)); // TODO: Testing
                 break;
             case Element.LISTITEM:
-                rtfElements.add(new RtfListItem(rtfDoc, (ListItem) element));    // TODO: Testing
+                rtfElements.add(new RtfListItem(rtfDoc, (ListItem) element)); // TODO: Testing
                 break;
             case Element.SECTION:
                 rtfElements.add(new RtfSection(rtfDoc, (Section) element));
@@ -190,16 +186,14 @@ public class RtfMapper {
             case Element.TABLE:
                 try {
                     rtfElements.add(new RtfTable(rtfDoc, (Table) element));
-                }
-                catch(ClassCastException e) {
+                } catch (ClassCastException e) {
                     rtfElements.add(new RtfTable(rtfDoc, ((SimpleTable) element).createTable()));
                 }
                 break;
             case Element.PTABLE:
                 try {
                     rtfElements.add(new RtfTable(rtfDoc, (PdfPTable) element));
-                }
-                catch(ClassCastException e) {
+                } catch (ClassCastException e) {
                     rtfElements.add(new RtfTable(rtfDoc, ((SimpleTable) element).createTable()));
                 }
                 break;

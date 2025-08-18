@@ -51,7 +51,6 @@ package org.openrtf.text.rtf;
 
 import java.io.IOException;
 import java.io.OutputStream;
-
 import org.openpdf.text.DocWriter;
 import org.openrtf.text.rtf.document.RtfDocument;
 
@@ -63,17 +62,13 @@ import org.openrtf.text.rtf.document.RtfDocument;
  * @author Thomas Bickel (tmb99@inode.at)
  */
 public abstract class RtfElement implements RtfBasicElement {
-    /**
-     * The RtfDocument this RtfElement belongs to
-     */
+    /** The RtfDocument this RtfElement belongs to */
     protected RtfDocument document;
-    /**
-     * Whether this RtfElement is in a table
-     */
+
+    /** Whether this RtfElement is in a table */
     protected boolean inTable = false;
-    /**
-     * Whether this RtfElement is in a header
-     */
+
+    /** Whether this RtfElement is in a header */
     protected boolean inHeader = false;
 
     /**
@@ -86,20 +81,17 @@ public abstract class RtfElement implements RtfBasicElement {
     }
 
     /**
-     * Transforms an integer into its String representation and then returns the bytes
-     * of that string.
+     * Transforms an integer into its String representation and then returns the bytes of that
+     * string.
      *
      * @param i The integer to convert
      * @return A byte array representing the integer
      */
-    public byte[] intToByteArray(int i)
-    {
+    public byte[] intToByteArray(int i) {
         return DocWriter.getISOBytes(Integer.toString(i));
     }
 
-    /**
-     * Writes the element content to the given output stream.
-     */
+    /** Writes the element content to the given output stream. */
     public abstract void writeContent(OutputStream out) throws IOException;
 
     /**
@@ -123,7 +115,8 @@ public abstract class RtfElement implements RtfBasicElement {
     /**
      * Sets whether this RtfElement is in a table
      *
-     * @param inTable <code>True</code> if this RtfElement is in a table, <code>false</code> otherwise
+     * @param inTable <code>True</code> if this RtfElement is in a table, <code>false</code>
+     *     otherwise
      */
     public void setInTable(boolean inTable) {
         this.inTable = inTable;
@@ -132,11 +125,10 @@ public abstract class RtfElement implements RtfBasicElement {
     /**
      * Sets whether this RtfElement is in a header
      *
-     * @param inHeader <code>True</code> if this RtfElement is in a header, <code>false</code> otherwise
+     * @param inHeader <code>True</code> if this RtfElement is in a header, <code>false</code>
+     *     otherwise
      */
     public void setInHeader(boolean inHeader) {
         this.inHeader = inHeader;
     }
-
-
 }

@@ -52,7 +52,6 @@ package org.openrtf.text.rtf.text;
 import java.awt.Color;
 import java.io.IOException;
 import java.io.OutputStream;
-
 import org.openpdf.text.Chunk;
 import org.openpdf.text.DocWriter;
 import org.openrtf.text.rtf.RtfElement;
@@ -60,10 +59,8 @@ import org.openrtf.text.rtf.document.RtfDocument;
 import org.openrtf.text.rtf.style.RtfColor;
 import org.openrtf.text.rtf.style.RtfFont;
 
-
 /**
- * The RtfChunk contains one piece of text. The smallest text element available
- * in iText.
+ * The RtfChunk contains one piece of text. The smallest text element available in iText.
  *
  * @version $Id: RtfChunk.java 3580 2008-08-06 15:52:00Z howard_s $
  * @author Mark Hall (Mark.Hall@mail.room3b.eu)
@@ -71,42 +68,31 @@ import org.openrtf.text.rtf.style.RtfFont;
  */
 public class RtfChunk extends RtfElement {
 
-    /**
-     * Constant for the subscript flag
-     */
+    /** Constant for the subscript flag */
     private static final byte[] FONT_SUBSCRIPT = DocWriter.getISOBytes("\\sub");
-    /**
-     * Constant for the superscript flag
-     */
+
+    /** Constant for the superscript flag */
     private static final byte[] FONT_SUPERSCRIPT = DocWriter.getISOBytes("\\super");
-    /**
-     * Constant for the end of sub / superscript flag
-     */
+
+    /** Constant for the end of sub / superscript flag */
     private static final byte[] FONT_END_SUPER_SUBSCRIPT = DocWriter.getISOBytes("\\nosupersub");
-    /**
-     * Constant for background color.
-     */
+
+    /** Constant for background color. */
     private static final byte[] BACKGROUND_COLOR = DocWriter.getISOBytes("\\chcbpat");
 
-    /**
-     * The font of this RtfChunk
-     */
+    /** The font of this RtfChunk */
     private RtfFont font = null;
-    /**
-     * The actual content of this RtfChunk
-     */
+
+    /** The actual content of this RtfChunk */
     private String content = "";
-    /**
-     * Whether to use soft line breaks instead of hard ones.
-     */
+
+    /** Whether to use soft line breaks instead of hard ones. */
     private boolean softLineBreaks = false;
-    /**
-     * The super / subscript of this RtfChunk
-     */
+
+    /** The super / subscript of this RtfChunk */
     private float superSubScript = 0;
-    /**
-     * An optional background color.
-     */
+
+    /** An optional background color. */
     private RtfColor background = null;
 
     /**
@@ -118,51 +104,55 @@ public class RtfChunk extends RtfElement {
     public RtfChunk(RtfDocument doc, Chunk chunk) {
         super(doc);
 
-        if(chunk == null) {
+        if (chunk == null) {
             return;
         }
 
-        if(chunk.getChunkAttributes() != null && chunk.getChunkAttributes().get(Chunk.SUBSUPSCRIPT) != null) {
-            this.superSubScript = ((Float)chunk.getChunkAttributes().get(Chunk.SUBSUPSCRIPT)).floatValue();
+        if (chunk.getChunkAttributes() != null && chunk.getChunkAttributes().get(Chunk.SUBSUPSCRIPT) != null) {
+            this.superSubScript = ((Float) chunk.getChunkAttributes().get(Chunk.SUBSUPSCRIPT)).floatValue();
         }
-        if(chunk.getChunkAttributes() != null && chunk.getChunkAttributes().get(Chunk.BACKGROUND) != null) {
-            this.background = new RtfColor(this.document, (Color) ((Object[]) chunk.getChunkAttributes().get(Chunk.BACKGROUND))[0]);
+        if (chunk.getChunkAttributes() != null && chunk.getChunkAttributes().get(Chunk.BACKGROUND) != null) {
+            this.background = new RtfColor(this.document, (Color)
+                    ((Object[]) chunk.getChunkAttributes().get(Chunk.BACKGROUND))[0]);
         }
         font = new RtfFont(doc, chunk.getFont());
         content = chunk.getContent();
     }
 
     /**
-     * Writes the content of this RtfChunk. First the font information
-     * is written, then the content, and then more font information
+     * Writes the content of this RtfChunk. First the font information is written, then the content,
+     * and then more font information
      */
-    public void writeContent(OutputStream result) throws IOException
-    {
-        if(this.background != null) {
+    public void writeContent(OutputStream result) throws IOException {
+        if (this.background != null) {
             result.write(OPEN_GROUP);
         }
 
         this.font.writeBegin(result);
-        if(superSubScript < 0) {
+        if (superSubScript < 0) {
             result.write(FONT_SUBSCRIPT);
-        } else if(superSubScript > 0) {
+        } else if (superSubScript > 0) {
             result.write(FONT_SUPERSCRIPT);
         }
-        if(this.background != null) {
+        if (this.background != null) {
             result.write(BACKGROUND_COLOR);
             result.write(intToByteArray(this.background.getColorNumber()));
         }
         result.write(DELIMITER);
-        document.filterSpecialChar(result, content, false, softLineBreaks || this.document.getDocumentSettings().isAlwaysGenerateSoftLinebreaks());
+        document.filterSpecialChar(
+                result,
+                content,
+                false,
+                softLineBreaks || this.document.getDocumentSettings().isAlwaysGenerateSoftLinebreaks());
 
-        if(superSubScript != 0) {
+        if (superSubScript != 0) {
             result.write(FONT_END_SUPER_SUBSCRIPT);
         }
         this.font.writeEnd(result);
 
-        if(this.background != null) {
+        if (this.background != null) {
             result.write(CLOSE_GROUP);
-        }    	
+        }
     }
 
     /**

@@ -51,42 +51,28 @@ import java.io.IOException;
 import java.io.OutputStream;
 
 /**
- * The RtfEfficientMemoryCache is an RtfDataCache that keeps the whole rtf document
- * data in memory.
+ * The RtfEfficientMemoryCache is an RtfDataCache that keeps the whole rtf document data in memory.
  * More efficient than {@link RtfMemoryCache}.
  *
  * @version $Id: RtfEfficientMemoryCache.java 3255 2008-04-14 18:33:30Z xlv $
  * @author Thomas Bickel (tmb99@inode.at)
  */
-public class RtfEfficientMemoryCache implements RtfDataCache
-{
-    /**
-     * The buffer for the rtf document data.
-     */
+public class RtfEfficientMemoryCache implements RtfDataCache {
+    /** The buffer for the rtf document data. */
     private final RtfByteArrayBuffer bab;
 
-    /**
-     * Constructs a RtfMemoryCache.
-     */
-    public RtfEfficientMemoryCache()
-    {
+    /** Constructs a RtfMemoryCache. */
+    public RtfEfficientMemoryCache() {
         bab = new RtfByteArrayBuffer();
     }
 
-    /**
-     * Gets the OutputStream.
-     */
-    public OutputStream getOutputStream()
-    {
+    /** Gets the OutputStream. */
+    public OutputStream getOutputStream() {
         return bab;
     }
 
-    /**
-     * Writes the content of the buffer into the OutputStream.
-     */
-    public void writeTo(OutputStream target) throws IOException
-    {
+    /** Writes the content of the buffer into the OutputStream. */
+    public void writeTo(OutputStream target) throws IOException {
         bab.writeTo(target);
     }
-
 }

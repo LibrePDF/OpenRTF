@@ -57,24 +57,19 @@ import java.io.FileOutputStream;
 import java.io.IOException;
 import java.io.OutputStream;
 
-
 /**
- * The RtfFileCache is a RtfDataCache that uses a temporary file
- * to store the rtf document data. Not so fast, but doesn't use any
- * memory (just disk space).
+ * The RtfFileCache is a RtfDataCache that uses a temporary file to store the rtf document data. Not
+ * so fast, but doesn't use any memory (just disk space).
  *
  * @version $Revision: 3373 $
  * @author Mark Hall (Mark.Hall@mail.room3b.eu)
  */
 public class RtfDiskCache implements RtfDataCache {
 
-    /**
-     * The BufferedOutputStream that stores the cache data.
-     */
+    /** The BufferedOutputStream that stores the cache data. */
     private final BufferedOutputStream data;
-    /**
-     * The temporary file to store the data in.
-     */
+
+    /** The temporary file to store the data in. */
     private final File tempFile;
 
     /**
@@ -87,26 +82,21 @@ public class RtfDiskCache implements RtfDataCache {
         this.data = new BufferedOutputStream(new FileOutputStream(tempFile));
     }
 
-    /**
-     * Gets the BufferedOutputStream to write to.
-     */
+    /** Gets the BufferedOutputStream to write to. */
     public OutputStream getOutputStream() {
         return this.data;
     }
 
-    /**
-     * Writes the content of the temporary file into the OutputStream.
-     */
+    /** Writes the content of the temporary file into the OutputStream. */
     public void writeTo(OutputStream target) throws IOException {
         this.data.close();
         BufferedInputStream tempIn = new BufferedInputStream(new FileInputStream(this.tempFile));
         byte[] buffer = new byte[8192];
         int bytesRead;
-        while((bytesRead = tempIn.read(buffer)) >= 0) {
+        while ((bytesRead = tempIn.read(buffer)) >= 0) {
             target.write(buffer, 0, bytesRead);
         }
         tempIn.close();
         this.tempFile.delete();
     }
-
 }

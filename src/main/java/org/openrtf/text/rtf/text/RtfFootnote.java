@@ -51,7 +51,6 @@ package org.openrtf.text.rtf.text;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.Collections;
-
 import org.openpdf.text.Chunk;
 import org.openpdf.text.DocWriter;
 import org.openpdf.text.DocumentException;
@@ -63,8 +62,9 @@ import org.openrtf.text.rtf.style.RtfFont;
 import org.openrtf.text.rtf.style.RtfParagraphStyle;
 
 /**
- * The RtfFootnote provides support for adding Footnotes to the rtf document.
- * Only simple Footnotes with Title / Content are supported.
+ * The RtfFootnote provides support for adding Footnotes to the rtf document. Only simple Footnotes
+ * with Title / Content are supported.
+ *
  * <p>
  *
  * @version $Id: RtfFootnote.java 3580 2008-08-06 15:52:00Z howard_s $
@@ -73,83 +73,76 @@ import org.openrtf.text.rtf.style.RtfParagraphStyle;
  */
 public class RtfFootnote extends RtfPhrase {
 
-  /**
-   * Constant for the actual footnote
-   */
-  private static final byte[] FOOTNOTE = DocWriter.getISOBytes("\\*\\footnote");
+    /** Constant for the actual footnote */
+    private static final byte[] FOOTNOTE = DocWriter.getISOBytes("\\*\\footnote");
 
-  private static final byte[] SUPER = DocWriter.getISOBytes("\\super");
-  private static final byte[] CHFTN = DocWriter.getISOBytes("\\chftn");
+    private static final byte[] SUPER = DocWriter.getISOBytes("\\super");
+    private static final byte[] CHFTN = DocWriter.getISOBytes("\\chftn");
 
-  /**
-   * An optional RtfParagraphStyle to use for styling.
-   */
-  protected final RtfParagraphStyle paragraphStyle;
+    /** An optional RtfParagraphStyle to use for styling. */
+    protected final RtfParagraphStyle paragraphStyle;
 
-  /**
-   * Constructs a RtfFootnote based on an Footnote.
-   * <p>
-   *
-   * @param doc
-   *          The RtfDocument this RtfFootnote belongs to
-   * @param footnote
-   *          The Footnote this RtfFootnote is based off
-   */
-  public RtfFootnote(RtfDocument doc, Footnote footnote) {
-    super(doc);
-    RtfFont baseFont;
-    if (footnote.getFont() instanceof RtfParagraphStyle) {
-      this.paragraphStyle = this.document.getDocumentHeader()
-          .getRtfParagraphStyle(
-              ((RtfParagraphStyle) footnote.getFont()).getStyleName());
-      baseFont = this.paragraphStyle;
-    } else {
-      baseFont = new RtfFont(this.document, footnote.getFont());
-      this.paragraphStyle = new RtfParagraphStyle(this.document, this.document
-          .getDocumentHeader().getRtfParagraphStyle("Normal"));
-    }
-    for (Element chunk : footnote) {
-      if (chunk instanceof Chunk) {
-        ((Chunk) chunk).setFont(baseFont.difference(((Chunk) chunk).getFont()));
-      }
-      try {
-        RtfBasicElement[] rtfElements = doc.getMapper().mapElement(chunk);
-        Collections.addAll(chunks, rtfElements);
-      } catch (DocumentException de) {
-      }
-    }
-  }
-
-  /**
-   * Writes the content of the RtfFootnote
-   */
-  @Override
-  public void writeContent(OutputStream result) throws IOException {
-    result.write(OPEN_GROUP);
-    result.write(OPEN_GROUP);
-    result.write(SUPER);
-    result.write(CHFTN);
-
-    result.write(OPEN_GROUP);
-    result.write(FOOTNOTE);
-    result.write(CHFTN);
-    result.write(RtfParagraph.PARAGRAPH_DEFAULTS);
-    result.write(RtfParagraph.PLAIN);
-
-    if (this.paragraphStyle != null) {
-      this.paragraphStyle.writeBegin(result);
+    /**
+     * Constructs a RtfFootnote based on an Footnote.
+     *
+     * <p>
+     *
+     * @param doc The RtfDocument this RtfFootnote belongs to
+     * @param footnote The Footnote this RtfFootnote is based off
+     */
+    public RtfFootnote(RtfDocument doc, Footnote footnote) {
+        super(doc);
+        RtfFont baseFont;
+        if (footnote.getFont() instanceof RtfParagraphStyle) {
+            this.paragraphStyle = this.document
+                    .getDocumentHeader()
+                    .getRtfParagraphStyle(((RtfParagraphStyle) footnote.getFont()).getStyleName());
+            baseFont = this.paragraphStyle;
+        } else {
+            baseFont = new RtfFont(this.document, footnote.getFont());
+            this.paragraphStyle = new RtfParagraphStyle(
+                    this.document, this.document.getDocumentHeader().getRtfParagraphStyle("Normal"));
+        }
+        for (Element chunk : footnote) {
+            if (chunk instanceof Chunk) {
+                ((Chunk) chunk).setFont(baseFont.difference(((Chunk) chunk).getFont()));
+            }
+            try {
+                RtfBasicElement[] rtfElements = doc.getMapper().mapElement(chunk);
+                Collections.addAll(chunks, rtfElements);
+            } catch (DocumentException de) {
+            }
+        }
     }
 
-    for (RtfBasicElement rbe : chunks) {
-      rbe.writeContent(result);
-    }
+    /** Writes the content of the RtfFootnote */
+    @Override
+    public void writeContent(OutputStream result) throws IOException {
+        result.write(OPEN_GROUP);
+        result.write(OPEN_GROUP);
+        result.write(SUPER);
+        result.write(CHFTN);
 
-    if (this.paragraphStyle != null) {
-      this.paragraphStyle.writeEnd(result);
-    }
+        result.write(OPEN_GROUP);
+        result.write(FOOTNOTE);
+        result.write(CHFTN);
+        result.write(RtfParagraph.PARAGRAPH_DEFAULTS);
+        result.write(RtfParagraph.PLAIN);
 
-    result.write(CLOSE_GROUP);
-    result.write(CLOSE_GROUP);
-    result.write(CLOSE_GROUP);
-  }
+        if (this.paragraphStyle != null) {
+            this.paragraphStyle.writeBegin(result);
+        }
+
+        for (RtfBasicElement rbe : chunks) {
+            rbe.writeContent(result);
+        }
+
+        if (this.paragraphStyle != null) {
+            this.paragraphStyle.writeEnd(result);
+        }
+
+        result.write(CLOSE_GROUP);
+        result.write(CLOSE_GROUP);
+        result.write(CLOSE_GROUP);
+    }
 }

@@ -52,7 +52,6 @@ package org.openrtf.text.rtf.text;
 import java.io.IOException;
 import java.io.OutputStream;
 import java.util.ArrayList;
-
 import org.openpdf.text.Chunk;
 import org.openpdf.text.DocumentException;
 import org.openpdf.text.Element;
@@ -62,10 +61,8 @@ import org.openrtf.text.rtf.RtfElement;
 import org.openrtf.text.rtf.document.RtfDocument;
 import org.openrtf.text.rtf.field.RtfTOCEntry;
 
-
 /**
- * The RtfSection wraps a Section element.
- * INTERNAL CLASS
+ * The RtfSection wraps a Section element. INTERNAL CLASS
  *
  * @version $Id: RtfSection.java 3373 2008-05-12 16:21:24Z xlv $
  * @author Mark Hall (Mark.Hall@mail.room3b.eu)
@@ -73,19 +70,15 @@ import org.openrtf.text.rtf.field.RtfTOCEntry;
  */
 public class RtfSection extends RtfElement {
 
-    /**
-     * The title paragraph of this RtfSection
-     */
+    /** The title paragraph of this RtfSection */
     protected RtfParagraph title = null;
-    /**
-     * The sub-items of this RtfSection
-     */
+
+    /** The sub-items of this RtfSection */
     protected final ArrayList<RtfBasicElement> items = new ArrayList<>();
 
     /**
-     * Constructs a RtfSection for a given Section. If the autogenerateTOCEntries
-     * property of the RtfDocument is set and the title is not empty then a TOC entry
-     * is generated for the title.
+     * Constructs a RtfSection for a given Section. If the autogenerateTOCEntries property of the
+     * RtfDocument is set and the title is not empty then a TOC entry is generated for the title.
      *
      * @param doc The RtfDocument this RtfSection belongs to
      * @param section The Section this RtfSection is based on
@@ -93,17 +86,17 @@ public class RtfSection extends RtfElement {
     public RtfSection(RtfDocument doc, Section section) {
         super(doc);
         try {
-            if(section.getTitle() != null) {
+            if (section.getTitle() != null) {
                 this.title = (RtfParagraph) doc.getMapper().mapElement(section.getTitle())[0];
             }
-            if(document.getAutogenerateTOCEntries()) {
+            if (document.getAutogenerateTOCEntries()) {
                 StringBuilder titleText = new StringBuilder();
                 for (Element element : section.getTitle()) {
-                    if(element.type() == Element.CHUNK) {
+                    if (element.type() == Element.CHUNK) {
                         titleText.append(((Chunk) element).getContent());
                     }
                 }
-                if(titleText.toString().trim().length() > 0) {
+                if (titleText.toString().trim().length() > 0) {
                     RtfTOCEntry tocEntry = new RtfTOCEntry(titleText.toString());
                     tocEntry.setRtfDocument(this.document);
                     this.items.add(tocEntry);
@@ -119,18 +112,15 @@ public class RtfSection extends RtfElement {
             }
 
             updateIndentation(section.getIndentationLeft(), section.getIndentationRight(), section.getIndentation());
-        } catch(DocumentException de) {
+        } catch (DocumentException de) {
             de.printStackTrace();
         }
     }
 
-    /**
-     * Write this RtfSection and its contents
-     */
-    public void writeContent(OutputStream result) throws IOException
-    {
+    /** Write this RtfSection and its contents */
+    public void writeContent(OutputStream result) throws IOException {
         result.write(RtfParagraph.PARAGRAPH);
-        if(this.title != null) {
+        if (this.title != null) {
             this.title.writeContent(result);
         }
         for (RtfBasicElement rbe : items) {
@@ -138,12 +128,12 @@ public class RtfSection extends RtfElement {
         }
     }
 
-
     /**
-     * Sets whether this RtfSection is in a table. Sets the correct inTable setting for all
-     * child elements.
+     * Sets whether this RtfSection is in a table. Sets the correct inTable setting for all child
+     * elements.
      *
-     * @param inTable <code>True</code> if this RtfSection is in a table, <code>false</code> otherwise
+     * @param inTable <code>True</code> if this RtfSection is in a table, <code>false</code>
+     *     otherwise
      */
     public void setInTable(boolean inTable) {
         super.setInTable(inTable);
@@ -153,10 +143,11 @@ public class RtfSection extends RtfElement {
     }
 
     /**
-     * Sets whether this RtfSection is in a header. Sets the correct inTable setting for all
-     * child elements.
+     * Sets whether this RtfSection is in a header. Sets the correct inTable setting for all child
+     * elements.
      *
-     * @param inHeader <code>True</code> if this RtfSection is in a header, <code>false</code> otherwise
+     * @param inHeader <code>True</code> if this RtfSection is in a header, <code>false</code>
+     *     otherwise
      */
     public void setInHeader(boolean inHeader) {
         super.setInHeader(inHeader);
@@ -166,24 +157,26 @@ public class RtfSection extends RtfElement {
     }
 
     /**
-     * Updates the left, right and content indentation of all RtfParagraph and RtfSection
-     * elements that this RtfSection contains.
+     * Updates the left, right and content indentation of all RtfParagraph and RtfSection elements
+     * that this RtfSection contains.
      *
      * @param indentLeft The left indentation to add.
      * @param indentRight The right indentation to add.
      * @param indentContent The content indentation to add.
      */
     private void updateIndentation(float indentLeft, float indentRight, float indentContent) {
-        if(this.title != null) {
+        if (this.title != null) {
             this.title.setIndentLeft((int) (this.title.getIndentLeft() + indentLeft * RtfElement.TWIPS_FACTOR));
             this.title.setIndentRight((int) (this.title.getIndentRight() + indentRight * RtfElement.TWIPS_FACTOR));
         }
         for (RtfBasicElement rtfElement : this.items) {
-            if(rtfElement instanceof RtfSection) {
+            if (rtfElement instanceof RtfSection) {
                 ((RtfSection) rtfElement).updateIndentation(indentLeft + indentContent, indentRight, 0);
-            } else if(rtfElement instanceof RtfParagraph) {
-                ((RtfParagraph) rtfElement).setIndentLeft((int) (((RtfParagraph) rtfElement).getIndentLeft() + (indentLeft + indentContent) * RtfElement.TWIPS_FACTOR));
-                ((RtfParagraph) rtfElement).setIndentRight((int) (((RtfParagraph) rtfElement).getIndentRight() + indentRight * RtfElement.TWIPS_FACTOR));
+            } else if (rtfElement instanceof RtfParagraph) {
+                ((RtfParagraph) rtfElement).setIndentLeft((int) (((RtfParagraph) rtfElement).getIndentLeft()
+                        + (indentLeft + indentContent) * RtfElement.TWIPS_FACTOR));
+                ((RtfParagraph) rtfElement).setIndentRight((int)
+                        (((RtfParagraph) rtfElement).getIndentRight() + indentRight * RtfElement.TWIPS_FACTOR));
             }
         }
     }

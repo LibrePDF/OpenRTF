@@ -51,17 +51,15 @@ package org.openrtf.text.rtf.document;
 
 import java.io.IOException;
 import java.io.OutputStream;
-
 import org.openpdf.text.DocWriter;
 import org.openpdf.text.PageSize;
 import org.openpdf.text.Rectangle;
 import org.openrtf.text.rtf.RtfElement;
 import org.openrtf.text.rtf.RtfExtendedElement;
 
-
 /**
- * The RtfPageSetting stores the page size / page margins for a RtfDocument.
- * INTERNAL CLASS - NOT TO BE USED DIRECTLY
+ * The RtfPageSetting stores the page size / page margins for a RtfDocument. INTERNAL CLASS - NOT TO
+ * BE USED DIRECTLY
  *
  * @version $Id:RtfPageSetting.java 3126 2008-02-07 20:30:46Z hallm $
  * @author Mark Hall (Mark.Hall@mail.room3b.eu)
@@ -69,86 +67,64 @@ import org.openrtf.text.rtf.RtfExtendedElement;
  */
 public class RtfPageSetting extends RtfElement implements RtfExtendedElement {
 
-    /**
-     * Constant for the page height
-     */
+    /** Constant for the page height */
     private static final byte[] PAGE_WIDTH = DocWriter.getISOBytes("\\paperw");
-    /**
-     * Constant for the page width
-     */
+
+    /** Constant for the page width */
     private static final byte[] PAGE_HEIGHT = DocWriter.getISOBytes("\\paperh");
-    /**
-     * Constant for the left margin
-     */
+
+    /** Constant for the left margin */
     private static final byte[] MARGIN_LEFT = DocWriter.getISOBytes("\\margl");
-    /**
-     * Constant for the right margin
-     */
+
+    /** Constant for the right margin */
     private static final byte[] MARGIN_RIGHT = DocWriter.getISOBytes("\\margr");
-    /**
-     * Constant for the top margin
-     */
+
+    /** Constant for the top margin */
     private static final byte[] MARGIN_TOP = DocWriter.getISOBytes("\\margt");
-    /**
-     * Constant for the bottom margin
-     */
+
+    /** Constant for the bottom margin */
     private static final byte[] MARGIN_BOTTOM = DocWriter.getISOBytes("\\margb");
-    /**
-     * Constant for landscape
-     */
+
+    /** Constant for landscape */
     private static final byte[] LANDSCAPE = DocWriter.getISOBytes("\\lndscpsxn");
-    /**
-     * Constant for the section page width
-     */
+
+    /** Constant for the section page width */
     private static final byte[] SECTION_PAGE_WIDTH = DocWriter.getISOBytes("\\pgwsxn");
-    /**
-     * Constant for the section page height
-     */
+
+    /** Constant for the section page height */
     private static final byte[] SECTION_PAGE_HEIGHT = DocWriter.getISOBytes("\\pghsxn");
-    /**
-     * Constant for the section left margin
-     */
+
+    /** Constant for the section left margin */
     private static final byte[] SECTION_MARGIN_LEFT = DocWriter.getISOBytes("\\marglsxn");
-    /**
-     * Constant for the section right margin
-     */
+
+    /** Constant for the section right margin */
     private static final byte[] SECTION_MARGIN_RIGHT = DocWriter.getISOBytes("\\margrsxn");
-    /**
-     * Constant for the section top margin
-     */
+
+    /** Constant for the section top margin */
     private static final byte[] SECTION_MARGIN_TOP = DocWriter.getISOBytes("\\margtsxn");
-    /**
-     * Constant for the section bottom margin
-     */
+
+    /** Constant for the section bottom margin */
     private static final byte[] SECTION_MARGIN_BOTTOM = DocWriter.getISOBytes("\\margbsxn");
 
-    /**
-     * The page width to use
-     */
+    /** The page width to use */
     private int pageWidth = 11906;
-    /**
-     * The page height to use
-     */
+
+    /** The page height to use */
     private int pageHeight = 16840;
-    /**
-     * The left margin to use
-     */
+
+    /** The left margin to use */
     private int marginLeft = 1800;
-    /**
-     * The right margin to use
-     */
+
+    /** The right margin to use */
     private int marginRight = 1800;
-    /**
-     * The top margin to use
-     */
+
+    /** The top margin to use */
     private int marginTop = 1440;
-    /**
-     * The bottom margin to use
-     */
+
+    /** The bottom margin to use */
     private int marginBottom = 1440;
-    /**
-     * Whether the page is portrait or landscape
-     */
+
+    /** Whether the page is portrait or landscape */
     private boolean landscape = false;
 
     /**
@@ -160,18 +136,11 @@ public class RtfPageSetting extends RtfElement implements RtfExtendedElement {
         super(doc);
     }
 
-    /**
-     * unused
-     */
-    public void writeContent(OutputStream out) throws IOException
-    {    	
-    }
+    /** unused */
+    public void writeContent(OutputStream out) throws IOException {}
 
-    /**
-     * Writes the page size / page margin definition
-     */
-    public void writeDefinition(OutputStream result) throws IOException
-    {
+    /** Writes the page size / page margin definition */
+    public void writeDefinition(OutputStream result) throws IOException {
         result.write(PAGE_WIDTH);
         result.write(intToByteArray(pageWidth));
         result.write(PAGE_HEIGHT);
@@ -184,15 +153,12 @@ public class RtfPageSetting extends RtfElement implements RtfExtendedElement {
         result.write(intToByteArray(marginTop));
         result.write(MARGIN_BOTTOM);
         result.write(intToByteArray(marginBottom));
-        this.document.outputDebugLinebreak(result);    	
+        this.document.outputDebugLinebreak(result);
     }
 
-    /**
-     * Writes the definition part for a new section
-     */
-    public void writeSectionDefinition(OutputStream result) throws IOException
-    {
-        if(landscape) {
+    /** Writes the definition part for a new section */
+    public void writeSectionDefinition(OutputStream result) throws IOException {
+        if (landscape) {
             result.write(LANDSCAPE);
             result.write(SECTION_PAGE_WIDTH);
             result.write(intToByteArray(pageWidth));
@@ -213,7 +179,7 @@ public class RtfPageSetting extends RtfElement implements RtfExtendedElement {
         result.write(SECTION_MARGIN_TOP);
         result.write(intToByteArray(marginTop));
         result.write(SECTION_MARGIN_BOTTOM);
-        result.write(intToByteArray(marginBottom));    	
+        result.write(intToByteArray(marginBottom));
     }
 
     /**
@@ -325,14 +291,14 @@ public class RtfPageSetting extends RtfElement implements RtfExtendedElement {
     }
 
     /**
-     * Set the page size to use. This method will use guessFormat to try to guess the correct
-     * page format. If no format could be guessed, the sizes from the pageSize are used and
-     * the landscape setting is determined by comparing width and height;
+     * Set the page size to use. This method will use guessFormat to try to guess the correct page
+     * format. If no format could be guessed, the sizes from the pageSize are used and the landscape
+     * setting is determined by comparing width and height;
      *
      * @param pageSize The pageSize to use
      */
     public void setPageSize(Rectangle pageSize) {
-        if(!guessFormat(pageSize, false)) {
+        if (!guessFormat(pageSize, false)) {
             this.pageWidth = (int) (pageSize.getWidth() * RtfElement.TWIPS_FACTOR);
             this.pageHeight = (int) (pageSize.getHeight() * RtfElement.TWIPS_FACTOR);
             this.landscape = pageWidth > pageHeight;
@@ -417,7 +383,8 @@ public class RtfPageSetting extends RtfElement implements RtfExtendedElement {
     }
 
     /**
-     * This method compares to Rectangles. They are considered equal if width and height are the same
+     * This method compares to Rectangles. They are considered equal if width and height are the
+     * same
      *
      * @param rect1 The first Rectangle to compare
      * @param rect2 The second Rectangle to compare

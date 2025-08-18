@@ -53,17 +53,13 @@ package org.openrtf.text.rtf.field;
 
 import java.io.IOException;
 import java.io.OutputStream;
-
 import org.openpdf.text.DocWriter;
 import org.openpdf.text.Font;
 
-
-
 /**
- * The RtfTableOfContents together with multiple RtfTOCEntry objects generates a table
- * of contents. The table of contents will display no entries in the viewing program
- * and the user will have to update it first. A text to inform the user of this is
- * displayed instead.
+ * The RtfTableOfContents together with multiple RtfTOCEntry objects generates a table of contents.
+ * The table of contents will display no entries in the viewing program and the user will have to
+ * update it first. A text to inform the user of this is displayed instead.
  *
  * @version $Id: RtfTableOfContents.java 3580 2008-08-06 15:52:00Z howard_s $
  * @author Mark Hall (Mark.Hall@mail.room3b.eu)
@@ -72,18 +68,15 @@ import org.openpdf.text.Font;
  */
 public class RtfTableOfContents extends RtfField {
 
-	/**
-	 * field inst content
-	 */
+    /** field inst content */
     private static final String FIELD_INST = "TOC \\\\f \\\\h \\\\u \\\\o \"1-5\" ";
-    /**
-     * The default text to display
-     */
+
+    /** The default text to display */
     private final String defaultText;
 
     /**
-     * Constructs a RtfTableOfContents. The default text is the text that is displayed
-     * before the user updates the table of contents
+     * Constructs a RtfTableOfContents. The default text is the text that is displayed before the
+     * user updates the table of contents
      *
      * @param defaultText The default text to display
      */
@@ -98,9 +91,8 @@ public class RtfTableOfContents extends RtfField {
      * @param result The <code>OutputStream</code> to write to.
      * @throws IOException on i/o errors.
      */
-    protected void writeFieldInstContent(OutputStream result) throws IOException
-    {
-    	result.write(DocWriter.getISOBytes(FIELD_INST));
+    protected void writeFieldInstContent(OutputStream result) throws IOException {
+        result.write(DocWriter.getISOBytes(FIELD_INST));
     }
 
     /**
@@ -109,8 +101,7 @@ public class RtfTableOfContents extends RtfField {
      * @param out The <code>OutputStream</code> to write to.
      * @throws IOException on i/o errors.
      */
-    protected void writeFieldResultContent(OutputStream out) throws IOException
-    {
-    	document.filterSpecialChar(out, defaultText, true, true);
+    protected void writeFieldResultContent(OutputStream out) throws IOException {
+        document.filterSpecialChar(out, defaultText, true, true);
     }
 }

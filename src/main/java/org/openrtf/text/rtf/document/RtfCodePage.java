@@ -56,21 +56,18 @@ import org.openrtf.text.rtf.RtfElement;
 import org.openrtf.text.rtf.RtfExtendedElement;
 
 /**
- * The RtfCodePage class allows different code pages to be used in the rtf document.
- * Currently always ansi / ansicpg1252
+ * The RtfCodePage class allows different code pages to be used in the rtf document. Currently
+ * always ansi / ansicpg1252
  *
  * @version $Id:RtfCodePage.java 3126 2008-02-07 20:30:46Z hallm $
  * @author Mark Hall (Mark.Hall@mail.room3b.eu)
  * @author Thomas Bickel (tmb99@inode.at)
  */
 public class RtfCodePage extends RtfElement implements RtfExtendedElement {
-    /**
-     * Constant for ansi encoded rtf documents
-     */
+    /** Constant for ansi encoded rtf documents */
     private static final byte[] ANSI = DocWriter.getISOBytes("\\ansi");
-    /**
-     * Constant for the ansi codepage
-     */
+
+    /** Constant for the ansi codepage */
     private static final byte[] ANSI_CODEPAGE = DocWriter.getISOBytes("\\ansicpg");
 
     /**
@@ -82,22 +79,14 @@ public class RtfCodePage extends RtfElement implements RtfExtendedElement {
         super(doc);
     }
 
-    /**
-     * unused
-     */
-    public void writeContent(OutputStream out) throws IOException
-    {    	
-    }
+    /** unused */
+    public void writeContent(OutputStream out) throws IOException {}
 
-    /**
-     * Writes the selected codepage
-     */
-    public void writeDefinition(OutputStream result) throws IOException
-    {
+    /** Writes the selected codepage */
+    public void writeDefinition(OutputStream result) throws IOException {
         result.write(ANSI);
         result.write(ANSI_CODEPAGE);
         result.write(intToByteArray(1252));
-        this.document.outputDebugLinebreak(result);    	
+        this.document.outputDebugLinebreak(result);
     }
-
 }
