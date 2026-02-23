@@ -53,7 +53,7 @@
         <maven.repository.plugin.version>2.4</maven.repository.plugin.version>
         <maven.clean.plugin.version>3.5.0</maven.clean.plugin.version>
         <maven.javadoc.plugin.version>3.12.0</maven.javadoc.plugin.version>
-        <maven.source.plugin.version>3.3.1</maven.source.plugin.version>
+        <maven.source.plugin.version>3.4.0</maven.source.plugin.version>
         <spotless.maven.plugin.version>3.2.1</spotless.maven.plugin.version>
         <palantir.version>2.67.0</palantir.version>
     </properties>
