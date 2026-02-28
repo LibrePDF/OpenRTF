@@ -6,7 +6,7 @@
 
     <groupId>com.github.librepdf</groupId>
     <artifactId>openrtf</artifactId>
-    <version>3.0.0</version>
+    <version>3.0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>OpenRTF</name>
